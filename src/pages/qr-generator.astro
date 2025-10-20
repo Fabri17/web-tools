@@ -1,0 +1,1273 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout 
+	title="QR Generator - Generador de Códigos QR Gratuito | Personalizable"
+	description="Genera códigos QR personalizados gratis. URLs, texto, WiFi, vCard, SMS y más. Personaliza colores, tamaño y nivel de corrección de errores. Descarga en PNG o SVG."
+	url="https://brix.center.com"
+	image="/og-image.jpg"
+>
+	<main>
+		<div class="container">
+			<div class="header">
+				<div class="header-content">
+					<a href="/" class="back-button" title="Volver al inicio">
+						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
+						<span class="back-text">Inicio</span>
+					</a>
+					<div class="title-section">
+						<div class="logo-container">
+							<div class="logo-icon">
+								<svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<rect x="3" y="3" width="7" height="7" fill="url(#gradient1)" stroke="url(#gradient1)" stroke-width="1.5"/>
+									<rect x="14" y="3" width="7" height="7" fill="url(#gradient1)" stroke="url(#gradient1)" stroke-width="1.5"/>
+									<rect x="3" y="14" width="7" height="7" fill="url(#gradient1)" stroke="url(#gradient1)" stroke-width="1.5"/>
+									<rect x="14" y="14" width="3" height="3" fill="url(#gradient2)"/>
+									<rect x="18" y="18" width="3" height="3" fill="url(#gradient2)"/>
+									<defs>
+										<linearGradient id="gradient1" x1="3" y1="3" x2="21" y2="21" gradientUnits="userSpaceOnUse">
+											<stop stop-color="#8b5cf6"/>
+											<stop offset="1" stop-color="#c084fc"/>
+										</linearGradient>
+										<linearGradient id="gradient2" x1="14" y1="14" x2="21" y2="21" gradientUnits="userSpaceOnUse">
+											<stop stop-color="#c084fc"/>
+											<stop offset="1" stop-color="#8b5cf6"/>
+										</linearGradient>
+									</defs>
+								</svg>
+							</div>
+							<div class="title-text">
+								<h1>QR Generator</h1>
+								<p class="subtitle">Crea códigos QR personalizados al instante</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="generator-container">
+				<!-- Input Section -->
+				<div class="input-section">
+					<div class="section-header">
+						<h3>
+							<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M11 4H4C3.45 4 3 4.45 3 5V12C3 12.55 3.45 13 4 13H11C11.55 13 12 12.55 12 12V5C12 4.45 11.55 4 11 4Z" stroke="currentColor" stroke-width="2"/>
+								<path d="M20 4H13C12.45 4 12 4.45 12 5V12C12 12.55 12.45 13 13 13H20C20.55 13 21 12.55 21 12V5C21 4.45 20.55 4 20 4Z" stroke="currentColor" stroke-width="2"/>
+								<path d="M11 13H4C3.45 13 3 13.45 3 14V21C3 21.55 3.45 22 4 22H11C11.55 22 12 21.55 12 21V14C12 13.45 11.55 13 11 13Z" stroke="currentColor" stroke-width="2"/>
+							</svg>
+							Contenido del QR
+						</h3>
+					</div>
+					
+					<!-- Type Selector -->
+					<div class="type-selector">
+						<button class="type-btn active" data-type="url">
+							<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M10 13C10.43 13.58 11 14.03 11.66 14.33C12.31 14.63 13.03 14.79 13.76 14.79C14.5 14.79 15.21 14.63 15.86 14.33C16.52 14.03 17.09 13.58 17.52 13L20.49 10.03C21.59 8.93 21.59 7.12 20.49 6.03C19.39 4.93 17.58 4.93 16.49 6.03L15.76 6.76" stroke="currentColor" stroke-width="2"/>
+								<path d="M14 11C13.57 10.42 13 9.97 12.34 9.67C11.69 9.37 10.97 9.21 10.24 9.21C9.5 9.21 8.79 9.37 8.14 9.67C7.48 9.97 6.91 10.42 6.48 11L3.51 13.97C2.41 15.07 2.41 16.88 3.51 17.97C4.61 19.07 6.42 19.07 7.51 17.97L8.24 17.24" stroke="currentColor" stroke-width="2"/>
+							</svg>
+							URL
+						</button>
+						<button class="type-btn" data-type="text">
+							<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M4 7H20M10 3V7M14 3V7M6 12H10M6 16H14" stroke="currentColor" stroke-width="2"/>
+							</svg>
+							Texto
+						</button>
+						<button class="type-btn" data-type="email">
+							<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="currentColor" stroke-width="2"/>
+								<path d="M22 6L12 13L2 6" stroke="currentColor" stroke-width="2"/>
+							</svg>
+							Email
+						</button>
+						<button class="type-btn" data-type="phone">
+							<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M22 16.92V19.92C22 20.47 21.55 20.92 21 20.92C9.95 20.92 1 11.97 1 0.92C1 0.37 1.45 -0.08 2 -0.08H5C5.55 -0.08 6 0.37 6 0.92C6 2.42 6.24 3.87 6.68 5.23C6.79 5.58 6.68 5.96 6.41 6.21L4.21 8.41C6.38 12.68 9.24 15.54 13.51 17.71L15.71 15.51C15.96 15.24 16.34 15.13 16.69 15.24C18.05 15.68 19.5 15.92 21 15.92C21.55 15.92 22 16.37 22 16.92Z" stroke="currentColor" stroke-width="2"/>
+							</svg>
+							Teléfono
+						</button>
+						<button class="type-btn" data-type="sms">
+							<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M21 15C21 15.55 20.55 16 20 16H6L2 20V4C2 3.45 2.45 3 3 3H20C20.55 3 21 3.45 21 4V15Z" stroke="currentColor" stroke-width="2"/>
+							</svg>
+							SMS
+						</button>
+						<button class="type-btn" data-type="wifi">
+							<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M1 9L12 20L23 9C21.9 7.9 20.7 6.9 19.4 6.1C16.1 3.7 11.9 3.7 8.6 6.1C7.3 6.9 6.1 7.9 5 9H1Z" stroke="currentColor" stroke-width="2"/>
+								<circle cx="12" cy="18" r="1" fill="currentColor"/>
+							</svg>
+							WiFi
+						</button>
+						<button class="type-btn" data-type="vcard">
+							<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M20 21V19C20 17.9 19.1 17 18 17H6C4.9 17 4 17.9 4 19V21M16 7C16 9.2 14.2 11 12 11C9.8 11 8 9.2 8 7C8 4.8 9.8 3 12 3C14.2 3 16 4.8 16 7Z" stroke="currentColor" stroke-width="2"/>
+							</svg>
+							vCard
+						</button>
+					</div>
+
+					<!-- Dynamic Form -->
+					<div id="formContainer" class="form-container">
+						<!-- URL Form -->
+						<div class="form-content active" data-form="url">
+							<div class="input-group">
+								<label for="urlInput">URL o sitio web</label>
+								<input 
+									type="url" 
+									id="urlInput" 
+									placeholder="https://ejemplo.com" 
+									class="input-field"
+								/>
+							</div>
+						</div>
+
+						<!-- Text Form -->
+						<div class="form-content" data-form="text">
+							<div class="input-group">
+								<label for="textInput">Texto libre</label>
+								<textarea 
+									id="textInput" 
+									placeholder="Escribe tu texto aquí..." 
+									class="input-field textarea"
+									rows="4"
+								></textarea>
+							</div>
+						</div>
+
+						<!-- Email Form -->
+						<div class="form-content" data-form="email">
+							<div class="input-group">
+								<label for="emailAddress">Dirección de email</label>
+								<input 
+									type="email" 
+									id="emailAddress" 
+									placeholder="ejemplo@email.com" 
+									class="input-field"
+								/>
+							</div>
+							<div class="input-group">
+								<label for="emailSubject">Asunto (opcional)</label>
+								<input 
+									type="text" 
+									id="emailSubject" 
+									placeholder="Asunto del email" 
+									class="input-field"
+								/>
+							</div>
+							<div class="input-group">
+								<label for="emailBody">Mensaje (opcional)</label>
+								<textarea 
+									id="emailBody" 
+									placeholder="Cuerpo del mensaje..." 
+									class="input-field textarea"
+									rows="3"
+								></textarea>
+							</div>
+						</div>
+
+						<!-- Phone Form -->
+						<div class="form-content" data-form="phone">
+							<div class="input-group">
+								<label for="phoneNumber">Número de teléfono</label>
+								<input 
+									type="tel" 
+									id="phoneNumber" 
+									placeholder="+1234567890" 
+									class="input-field"
+								/>
+							</div>
+						</div>
+
+						<!-- SMS Form -->
+						<div class="form-content" data-form="sms">
+							<div class="input-group">
+								<label for="smsNumber">Número de teléfono</label>
+								<input 
+									type="tel" 
+									id="smsNumber" 
+									placeholder="+1234567890" 
+									class="input-field"
+								/>
+							</div>
+							<div class="input-group">
+								<label for="smsMessage">Mensaje (opcional)</label>
+								<textarea 
+									id="smsMessage" 
+									placeholder="Mensaje predefinido..." 
+									class="input-field textarea"
+									rows="3"
+								></textarea>
+							</div>
+						</div>
+
+						<!-- WiFi Form -->
+						<div class="form-content" data-form="wifi">
+							<div class="input-group">
+								<label for="wifiSSID">Nombre de red (SSID)</label>
+								<input 
+									type="text" 
+									id="wifiSSID" 
+									placeholder="Mi WiFi" 
+									class="input-field"
+								/>
+							</div>
+							<div class="input-group">
+								<label for="wifiPassword">Contraseña</label>
+								<input 
+									type="text" 
+									id="wifiPassword" 
+									placeholder="Contraseña de WiFi" 
+									class="input-field"
+								/>
+							</div>
+							<div class="input-group">
+								<label for="wifiEncryption">Tipo de seguridad</label>
+								<select id="wifiEncryption" class="select-field">
+									<option value="WPA">WPA/WPA2</option>
+									<option value="WEP">WEP</option>
+									<option value="nopass">Sin contraseña</option>
+								</select>
+							</div>
+							<div class="input-group checkbox-group">
+								<label class="checkbox-label">
+									<input type="checkbox" id="wifiHidden" />
+									<span>Red oculta (SSID oculto)</span>
+								</label>
+							</div>
+						</div>
+
+						<!-- vCard Form -->
+						<div class="form-content" data-form="vcard">
+							<div class="input-group">
+								<label for="vcardName">Nombre completo</label>
+								<input 
+									type="text" 
+									id="vcardName" 
+									placeholder="Juan Pérez" 
+									class="input-field"
+								/>
+							</div>
+							<div class="input-group">
+								<label for="vcardOrg">Organización (opcional)</label>
+								<input 
+									type="text" 
+									id="vcardOrg" 
+									placeholder="Empresa S.A." 
+									class="input-field"
+								/>
+							</div>
+							<div class="input-group">
+								<label for="vcardTitle">Cargo (opcional)</label>
+								<input 
+									type="text" 
+									id="vcardTitle" 
+									placeholder="Director de Marketing" 
+									class="input-field"
+								/>
+							</div>
+							<div class="input-group">
+								<label for="vcardPhone">Teléfono</label>
+								<input 
+									type="tel" 
+									id="vcardPhone" 
+									placeholder="+1234567890" 
+									class="input-field"
+								/>
+							</div>
+							<div class="input-group">
+								<label for="vcardEmail">Email</label>
+								<input 
+									type="email" 
+									id="vcardEmail" 
+									placeholder="email@ejemplo.com" 
+									class="input-field"
+								/>
+							</div>
+							<div class="input-group">
+								<label for="vcardWebsite">Sitio web (opcional)</label>
+								<input 
+									type="url" 
+									id="vcardWebsite" 
+									placeholder="https://ejemplo.com" 
+									class="input-field"
+								/>
+							</div>
+							<div class="input-group">
+								<label for="vcardAddress">Dirección (opcional)</label>
+								<textarea 
+									id="vcardAddress" 
+									placeholder="Calle Principal 123, Ciudad" 
+									class="input-field textarea"
+									rows="2"
+								></textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Settings Section -->
+				<div class="settings-section">
+					<div class="section-header">
+						<h3>
+							<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+								<path d="M12 1V3M12 21V23M4.22 4.22L5.64 5.64M18.36 18.36L19.78 19.78M1 12H3M21 12H23M4.22 19.78L5.64 18.36M18.36 5.64L19.78 4.22" stroke="currentColor" stroke-width="2"/>
+							</svg>
+							Personalización
+						</h3>
+					</div>
+					
+					<div class="settings-grid">
+						<div class="setting-item">
+							<label for="errorCorrection">
+								<span class="label-text">Corrección de errores</span>
+								<span class="info-tooltip" title="Mayor nivel permite leer el QR aunque esté dañado, pero aumenta el tamaño">ℹ️</span>
+							</label>
+							<select id="errorCorrection" class="select-field">
+								<option value="L">Bajo (~7%)</option>
+								<option value="M" selected>Medio (~15%)</option>
+								<option value="Q">Alto (~25%)</option>
+								<option value="H">Muy Alto (~30%)</option>
+							</select>
+						</div>
+
+						<div class="setting-item">
+							<label for="qrSize">
+								<span class="label-text">Tamaño</span>
+								<span class="label-value" id="qrSizeValue">300px</span>
+							</label>
+							<input 
+								type="range" 
+								id="qrSize" 
+								min="200" 
+								max="800" 
+								value="300"
+								step="50"
+								class="slider"
+							/>
+							<div class="slider-labels">
+								<span>200px</span>
+								<span>800px</span>
+							</div>
+						</div>
+
+						<div class="setting-item">
+							<label for="qrColor">
+								<span class="label-text">Color del código</span>
+							</label>
+							<div class="color-picker-wrapper">
+								<input 
+									type="color" 
+									id="qrColor" 
+									value="#000000"
+									class="color-input"
+								/>
+								<span class="color-value">#000000</span>
+							</div>
+						</div>
+
+						<div class="setting-item">
+							<label for="qrBackground">
+								<span class="label-text">Color de fondo</span>
+							</label>
+							<div class="color-picker-wrapper">
+								<input 
+									type="color" 
+									id="qrBackground" 
+									value="#FFFFFF"
+									class="color-input"
+								/>
+								<span class="color-value">#FFFFFF</span>
+							</div>
+						</div>
+
+						<div class="setting-item">
+							<label for="qrMargin">
+								<span class="label-text">Margen</span>
+								<span class="label-value" id="qrMarginValue">4</span>
+							</label>
+							<input 
+								type="range" 
+								id="qrMargin" 
+								min="0" 
+								max="10" 
+								value="4"
+								class="slider"
+							/>
+							<div class="slider-labels">
+								<span>Sin margen</span>
+								<span>Margen grande</span>
+							</div>
+						</div>
+					</div>
+
+					<button id="generateBtn" class="btn-primary btn-large">
+						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<rect x="3" y="3" width="7" height="7" fill="currentColor"/>
+							<rect x="14" y="3" width="7" height="7" fill="currentColor"/>
+							<rect x="3" y="14" width="7" height="7" fill="currentColor"/>
+						</svg>
+						Generar Código QR
+					</button>
+				</div>
+
+				<!-- Preview Section -->
+				<div class="preview-section">
+					<div class="section-header">
+						<h3>
+							<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z" stroke="currentColor" stroke-width="2"/>
+								<circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+							</svg>
+							Vista Previa
+						</h3>
+					</div>
+					
+					<div class="preview-container" id="previewContainer">
+						<div class="preview-placeholder">
+							<svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<rect x="3" y="3" width="7" height="7" stroke="currentColor" stroke-width="1.5"/>
+								<rect x="14" y="3" width="7" height="7" stroke="currentColor" stroke-width="1.5"/>
+								<rect x="3" y="14" width="7" height="7" stroke="currentColor" stroke-width="1.5"/>
+								<rect x="14" y="14" width="3" height="3" fill="currentColor"/>
+								<rect x="18" y="18" width="3" height="3" fill="currentColor"/>
+							</svg>
+							<p>Tu código QR aparecerá aquí</p>
+						</div>
+						<canvas id="qrCanvas" style="display: none;"></canvas>
+					</div>
+
+					<div class="download-section" id="downloadSection" style="display: none;">
+						<button id="downloadPNG" class="btn-download">
+							<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M12 16L7 11L8.4 9.6L11 12.2V4H13V12.2L15.6 9.6L17 11L12 16Z" fill="currentColor"/>
+								<path d="M5 20V18H19V20H5Z" fill="currentColor"/>
+							</svg>
+							Descargar PNG
+						</button>
+						<button id="downloadSVG" class="btn-download secondary">
+							<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M12 16L7 11L8.4 9.6L11 12.2V4H13V12.2L15.6 9.6L17 11L12 16Z" fill="currentColor"/>
+								<path d="M5 20V18H19V20H5Z" fill="currentColor"/>
+							</svg>
+							Descargar SVG
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<!-- Features Section -->
+			<div class="features-grid">
+				<div class="feature-card">
+					<div class="feature-icon">🎨</div>
+					<h4>Totalmente Personalizable</h4>
+					<p>Cambia colores, tamaño, márgenes y nivel de corrección de errores.</p>
+				</div>
+				<div class="feature-card">
+					<div class="feature-icon">📱</div>
+					<h4>Múltiples Tipos</h4>
+					<p>URLs, texto, WiFi, vCard, email, teléfono, SMS y más formatos.</p>
+				</div>
+				<div class="feature-card">
+					<div class="feature-icon">🔒</div>
+					<h4>100% Privado</h4>
+					<p>Todo se genera en tu navegador. Sin enviar datos a servidores.</p>
+				</div>
+				<div class="feature-card">
+					<div class="feature-icon">💾</div>
+					<h4>Múltiples Formatos</h4>
+					<p>Descarga en PNG de alta calidad o SVG vectorial escalable.</p>
+				</div>
+			</div>
+		</div>
+	</main>
+</Layout>
+
+<style>
+	:root {
+		--primary: #8b5cf6;
+		--primary-dark: #7c3aed;
+		--primary-light: #c084fc;
+		--success: #10b981;
+		--danger: #ef4444;
+		--warning: #f59e0b;
+		--text: #18181b;
+		--text-light: #71717a;
+		--border: #e4e4e7;
+		--bg-gray: #f4f4f5;
+	}
+
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+
+	body {
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+	}
+
+	main {
+		min-height: 100vh;
+		background: linear-gradient(135deg, #fafafa 0%, #f4f4f5 100%);
+		padding: 2rem 1rem;
+	}
+
+	.container {
+		max-width: 1400px;
+		margin: 0 auto;
+	}
+
+	/* Header */
+	.header {
+		background: white;
+		border-radius: 16px;
+		padding: 2rem;
+		margin-bottom: 2rem;
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+	}
+
+	.header-content {
+		display: flex;
+		align-items: center;
+		gap: 2rem;
+		flex-wrap: wrap;
+	}
+
+	.back-button {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.75rem 1.25rem;
+		background: white;
+		border: 1px solid var(--border);
+		border-radius: 12px;
+		color: var(--text);
+		text-decoration: none;
+		font-weight: 500;
+		transition: all 0.2s;
+	}
+
+	.back-button:hover {
+		background: var(--bg-gray);
+		border-color: var(--primary);
+		color: var(--primary);
+		transform: translateX(-4px);
+	}
+
+	.logo-container {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+	}
+
+	.logo-icon {
+		width: 48px;
+		height: 48px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.title-text h1 {
+		font-size: 1.75rem;
+		color: var(--text);
+		margin-bottom: 0.25rem;
+	}
+
+	.subtitle {
+		color: var(--text-light);
+		font-size: 0.95rem;
+	}
+
+	/* Generator Container */
+	.generator-container {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 2rem;
+		margin-bottom: 3rem;
+	}
+
+	/* Section Header */
+	.section-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: 1.5rem;
+		flex-wrap: wrap;
+		gap: 1rem;
+	}
+
+	.section-header h3 {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		color: var(--text);
+		font-size: 1.25rem;
+	}
+
+	.section-header h3 svg {
+		color: var(--primary);
+	}
+
+	/* Input Section */
+	.input-section {
+		background: white;
+		border-radius: 16px;
+		padding: 2rem;
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+		grid-column: 1 / -1;
+	}
+
+	.type-selector {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+		gap: 0.75rem;
+		margin-bottom: 2rem;
+	}
+
+	.type-btn {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 1rem;
+		background: white;
+		border: 2px solid var(--border);
+		border-radius: 12px;
+		color: var(--text);
+		font-size: 0.85rem;
+		font-weight: 500;
+		cursor: pointer;
+		transition: all 0.2s;
+	}
+
+	.type-btn:hover {
+		border-color: var(--primary);
+		background: linear-gradient(135deg, rgba(139, 92, 246, 0.05) 0%, rgba(192, 132, 252, 0.05) 100%);
+	}
+
+	.type-btn.active {
+		border-color: var(--primary);
+		background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(192, 132, 252, 0.1) 100%);
+		color: var(--primary);
+	}
+
+	.type-btn svg {
+		width: 24px;
+		height: 24px;
+	}
+
+	/* Form Container */
+	.form-container {
+		position: relative;
+		min-height: 200px;
+	}
+
+	.form-content {
+		display: none;
+		flex-direction: column;
+		gap: 1.5rem;
+	}
+
+	.form-content.active {
+		display: flex;
+	}
+
+	.input-group {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.input-group label {
+		color: var(--text);
+		font-weight: 500;
+		font-size: 0.9rem;
+	}
+
+	.input-field,
+	.select-field,
+	.textarea {
+		padding: 0.75rem 1rem;
+		border: 1px solid var(--border);
+		border-radius: 8px;
+		font-size: 1rem;
+		color: var(--text);
+		transition: all 0.2s;
+		font-family: inherit;
+	}
+
+	.input-field:focus,
+	.select-field:focus,
+	.textarea:focus {
+		outline: none;
+		border-color: var(--primary);
+		box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+	}
+
+	.textarea {
+		resize: vertical;
+	}
+
+	.checkbox-group {
+		margin-top: 0.5rem;
+	}
+
+	.checkbox-label {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		cursor: pointer;
+		user-select: none;
+		font-weight: 400 !important;
+	}
+
+	.checkbox-label input[type="checkbox"] {
+		width: 20px;
+		height: 20px;
+		cursor: pointer;
+		accent-color: var(--primary);
+	}
+
+	/* Settings Section */
+	.settings-section {
+		background: white;
+		border-radius: 16px;
+		padding: 2rem;
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+	}
+
+	.settings-grid {
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
+		margin-bottom: 2rem;
+	}
+
+	.setting-item label {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 0.75rem;
+		color: var(--text);
+		font-weight: 500;
+	}
+
+	.label-text {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.info-tooltip {
+		cursor: help;
+		font-size: 0.9rem;
+	}
+
+	.label-value {
+		color: var(--primary);
+		font-weight: 600;
+	}
+
+	.slider {
+		width: 100%;
+		height: 6px;
+		border-radius: 3px;
+		background: var(--bg-gray);
+		outline: none;
+		-webkit-appearance: none;
+	}
+
+	.slider::-webkit-slider-thumb {
+		-webkit-appearance: none;
+		appearance: none;
+		width: 20px;
+		height: 20px;
+		border-radius: 50%;
+		background: var(--primary);
+		cursor: pointer;
+		transition: all 0.2s;
+	}
+
+	.slider::-webkit-slider-thumb:hover {
+		transform: scale(1.2);
+		box-shadow: 0 0 0 8px rgba(139, 92, 246, 0.1);
+	}
+
+	.slider::-moz-range-thumb {
+		width: 20px;
+		height: 20px;
+		border-radius: 50%;
+		background: var(--primary);
+		cursor: pointer;
+		border: none;
+	}
+
+	.slider-labels {
+		display: flex;
+		justify-content: space-between;
+		margin-top: 0.5rem;
+		font-size: 0.8rem;
+		color: var(--text-light);
+	}
+
+	.color-picker-wrapper {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+	}
+
+	.color-input {
+		width: 60px;
+		height: 40px;
+		border: 1px solid var(--border);
+		border-radius: 8px;
+		cursor: pointer;
+	}
+
+	.color-value {
+		font-family: monospace;
+		font-size: 0.9rem;
+		color: var(--text-light);
+	}
+
+	/* Preview Section */
+	.preview-section {
+		background: white;
+		border-radius: 16px;
+		padding: 2rem;
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+	}
+
+	.preview-container {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 400px;
+		background: var(--bg-gray);
+		border-radius: 12px;
+		padding: 2rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.preview-placeholder {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1rem;
+		color: var(--text-light);
+	}
+
+	.preview-placeholder svg {
+		opacity: 0.3;
+	}
+
+	#qrCanvas {
+		max-width: 100%;
+		height: auto;
+		border-radius: 8px;
+	}
+
+	.download-section {
+		display: flex;
+		gap: 1rem;
+		flex-wrap: wrap;
+	}
+
+	/* Buttons */
+	.btn-primary {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.75rem;
+		padding: 1rem 2rem;
+		background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+		color: white;
+		border: none;
+		border-radius: 12px;
+		font-size: 1rem;
+		font-weight: 600;
+		cursor: pointer;
+		transition: all 0.3s;
+		box-shadow: 0 4px 12px rgba(139, 92, 246, 0.2);
+	}
+
+	.btn-primary:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 6px 20px rgba(139, 92, 246, 0.3);
+	}
+
+	.btn-primary:active {
+		transform: translateY(0);
+	}
+
+	.btn-primary:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+		transform: none;
+	}
+
+	.btn-large {
+		width: 100%;
+		padding: 1.25rem 2rem;
+		font-size: 1.1rem;
+	}
+
+	.btn-download {
+		flex: 1;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5rem;
+		padding: 1rem 1.5rem;
+		background: var(--primary);
+		color: white;
+		border: none;
+		border-radius: 8px;
+		font-size: 0.95rem;
+		font-weight: 600;
+		cursor: pointer;
+		transition: all 0.2s;
+	}
+
+	.btn-download:hover {
+		background: var(--primary-dark);
+		transform: translateY(-2px);
+		box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+	}
+
+	.btn-download.secondary {
+		background: white;
+		color: var(--primary);
+		border: 2px solid var(--primary);
+	}
+
+	.btn-download.secondary:hover {
+		background: var(--primary);
+		color: white;
+	}
+
+	/* Features Grid */
+	.features-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		gap: 1.5rem;
+		margin-top: 3rem;
+	}
+
+	.feature-card {
+		background: white;
+		border: 1px solid var(--border);
+		border-radius: 12px;
+		padding: 1.5rem;
+		text-align: center;
+	}
+
+	.feature-icon {
+		font-size: 2.5rem;
+		margin-bottom: 1rem;
+	}
+
+	.feature-card h4 {
+		color: var(--text);
+		margin-bottom: 0.75rem;
+		font-size: 1.1rem;
+	}
+
+	.feature-card p {
+		color: var(--text-light);
+		font-size: 0.9rem;
+		line-height: 1.5;
+	}
+
+	/* Loading States */
+	.processing {
+		opacity: 0.6;
+		pointer-events: none;
+	}
+
+	.spinner {
+		display: inline-block;
+		width: 16px;
+		height: 16px;
+		border: 2px solid rgba(255, 255, 255, 0.3);
+		border-top-color: white;
+		border-radius: 50%;
+		animation: spin 0.6s linear infinite;
+	}
+
+	@keyframes spin {
+		to { transform: rotate(360deg); }
+	}
+
+	/* Responsive */
+	@media (max-width: 1024px) {
+		.generator-container {
+			grid-template-columns: 1fr;
+		}
+
+		.type-selector {
+			grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+		}
+	}
+
+	@media (max-width: 768px) {
+		.header-content {
+			flex-direction: column;
+			align-items: stretch;
+		}
+
+		.type-selector {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		.download-section {
+			flex-direction: column;
+		}
+	}
+</style>
+
+<script>
+	import QRCode from 'qrcode';
+
+	// State
+	let currentType = 'url';
+	let qrDataURL = '';
+
+	// DOM Elements
+	const typeButtons = document.querySelectorAll('.type-btn');
+	const formContents = document.querySelectorAll('.form-content');
+	const generateBtn = document.getElementById('generateBtn') as HTMLButtonElement;
+	const qrSizeSlider = document.getElementById('qrSize') as HTMLInputElement;
+	const qrSizeValue = document.getElementById('qrSizeValue') as HTMLSpanElement;
+	const qrMarginSlider = document.getElementById('qrMargin') as HTMLInputElement;
+	const qrMarginValue = document.getElementById('qrMarginValue') as HTMLSpanElement;
+	const qrColorInput = document.getElementById('qrColor') as HTMLInputElement;
+	const qrBackgroundInput = document.getElementById('qrBackground') as HTMLInputElement;
+	const errorCorrectionSelect = document.getElementById('errorCorrection') as HTMLSelectElement;
+	const qrCanvas = document.getElementById('qrCanvas') as HTMLCanvasElement;
+	const previewContainer = document.getElementById('previewContainer') as HTMLDivElement;
+	const downloadSection = document.getElementById('downloadSection') as HTMLDivElement;
+	const downloadPNGBtn = document.getElementById('downloadPNG') as HTMLButtonElement;
+	const downloadSVGBtn = document.getElementById('downloadSVG') as HTMLButtonElement;
+
+	// Color inputs
+	const colorInputs = document.querySelectorAll('.color-input');
+	colorInputs.forEach(input => {
+		const colorValue = input.nextElementSibling as HTMLSpanElement;
+		input.addEventListener('input', (e) => {
+			const target = e.target as HTMLInputElement;
+			colorValue.textContent = target.value.toUpperCase();
+		});
+	});
+
+	// Type selector
+	typeButtons.forEach(btn => {
+		btn.addEventListener('click', () => {
+			const type = btn.getAttribute('data-type');
+			if (type) {
+				currentType = type;
+				
+				// Update active state
+				typeButtons.forEach(b => b.classList.remove('active'));
+				btn.classList.add('active');
+				
+				// Show corresponding form
+				formContents.forEach(form => {
+					if (form.getAttribute('data-form') === type) {
+						form.classList.add('active');
+					} else {
+						form.classList.remove('active');
+					}
+				});
+			}
+		});
+	});
+
+	// Slider updates
+	qrSizeSlider.addEventListener('input', () => {
+		qrSizeValue.textContent = `${qrSizeSlider.value}px`;
+	});
+
+	qrMarginSlider.addEventListener('input', () => {
+		qrMarginValue.textContent = qrMarginSlider.value;
+	});
+
+	// Generate QR Code
+	generateBtn.addEventListener('click', async () => {
+		const data = getDataFromForm();
+		
+		if (!data) {
+			alert('Por favor, completa los campos requeridos');
+			return;
+		}
+
+		try {
+			generateBtn.disabled = true;
+			generateBtn.innerHTML = `
+				<span class="spinner"></span>
+				Generando...
+			`;
+
+			const size = parseInt(qrSizeSlider.value);
+			const margin = parseInt(qrMarginSlider.value);
+			const color = qrColorInput.value;
+			const background = qrBackgroundInput.value;
+			const errorCorrectionLevel = errorCorrectionSelect.value as 'L' | 'M' | 'Q' | 'H';
+
+			// Generate QR Code
+			await QRCode.toCanvas(qrCanvas, data, {
+				width: size,
+				margin: margin,
+				color: {
+					dark: color,
+					light: background
+				},
+				errorCorrectionLevel: errorCorrectionLevel
+			});
+
+			// Show canvas and hide placeholder
+			const placeholder = previewContainer.querySelector('.preview-placeholder');
+			if (placeholder) {
+				(placeholder as HTMLElement).style.display = 'none';
+			}
+			qrCanvas.style.display = 'block';
+			downloadSection.style.display = 'flex';
+
+			// Store data URL for downloads
+			qrDataURL = qrCanvas.toDataURL('image/png');
+
+		} catch (error) {
+			console.error('Error generating QR code:', error);
+			alert('Error al generar el código QR. Por favor, verifica los datos.');
+		} finally {
+			generateBtn.disabled = false;
+			generateBtn.innerHTML = `
+				<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<rect x="3" y="3" width="7" height="7" fill="currentColor"/>
+					<rect x="14" y="3" width="7" height="7" fill="currentColor"/>
+					<rect x="3" y="14" width="7" height="7" fill="currentColor"/>
+				</svg>
+				Generar Código QR
+			`;
+		}
+	});
+
+	// Get data from current form
+	function getDataFromForm(): string | null {
+		switch (currentType) {
+			case 'url':
+				const url = (document.getElementById('urlInput') as HTMLInputElement).value.trim();
+				return url || null;
+
+			case 'text':
+				const text = (document.getElementById('textInput') as HTMLTextAreaElement).value.trim();
+				return text || null;
+
+			case 'email':
+				const emailAddress = (document.getElementById('emailAddress') as HTMLInputElement).value.trim();
+				if (!emailAddress) return null;
+				const emailSubject = (document.getElementById('emailSubject') as HTMLInputElement).value.trim();
+				const emailBody = (document.getElementById('emailBody') as HTMLTextAreaElement).value.trim();
+				let mailto = `mailto:${emailAddress}`;
+				const params = [];
+				if (emailSubject) params.push(`subject=${encodeURIComponent(emailSubject)}`);
+				if (emailBody) params.push(`body=${encodeURIComponent(emailBody)}`);
+				if (params.length > 0) mailto += `?${params.join('&')}`;
+				return mailto;
+
+			case 'phone':
+				const phone = (document.getElementById('phoneNumber') as HTMLInputElement).value.trim();
+				return phone ? `tel:${phone}` : null;
+
+			case 'sms':
+				const smsNumber = (document.getElementById('smsNumber') as HTMLInputElement).value.trim();
+				if (!smsNumber) return null;
+				const smsMessage = (document.getElementById('smsMessage') as HTMLTextAreaElement).value.trim();
+				return smsMessage ? `sms:${smsNumber}?body=${encodeURIComponent(smsMessage)}` : `sms:${smsNumber}`;
+
+			case 'wifi':
+				const ssid = (document.getElementById('wifiSSID') as HTMLInputElement).value.trim();
+				if (!ssid) return null;
+				const password = (document.getElementById('wifiPassword') as HTMLInputElement).value.trim();
+				const encryption = (document.getElementById('wifiEncryption') as HTMLSelectElement).value;
+				const hidden = (document.getElementById('wifiHidden') as HTMLInputElement).checked;
+				return `WIFI:T:${encryption};S:${ssid};P:${password};H:${hidden ? 'true' : 'false'};;`;
+
+			case 'vcard':
+				const name = (document.getElementById('vcardName') as HTMLInputElement).value.trim();
+				if (!name) return null;
+				const org = (document.getElementById('vcardOrg') as HTMLInputElement).value.trim();
+				const title = (document.getElementById('vcardTitle') as HTMLInputElement).value.trim();
+				const vcardPhone = (document.getElementById('vcardPhone') as HTMLInputElement).value.trim();
+				const vcardEmail = (document.getElementById('vcardEmail') as HTMLInputElement).value.trim();
+				const website = (document.getElementById('vcardWebsite') as HTMLInputElement).value.trim();
+				const address = (document.getElementById('vcardAddress') as HTMLTextAreaElement).value.trim();
+
+				let vcard = 'BEGIN:VCARD\nVERSION:3.0\n';
+				vcard += `FN:${name}\n`;
+				if (org) vcard += `ORG:${org}\n`;
+				if (title) vcard += `TITLE:${title}\n`;
+				if (vcardPhone) vcard += `TEL:${vcardPhone}\n`;
+				if (vcardEmail) vcard += `EMAIL:${vcardEmail}\n`;
+				if (website) vcard += `URL:${website}\n`;
+				if (address) vcard += `ADR:;;${address};;;;\n`;
+				vcard += 'END:VCARD';
+				return vcard;
+
+			default:
+				return null;
+		}
+	}
+
+	// Download PNG
+	downloadPNGBtn.addEventListener('click', () => {
+		const link = document.createElement('a');
+		link.download = `qr-code-${Date.now()}.png`;
+		link.href = qrDataURL;
+		link.click();
+	});
+
+	// Download SVG
+	downloadSVGBtn.addEventListener('click', async () => {
+		const data = getDataFromForm();
+		if (!data) return;
+
+		try {
+			const size = parseInt(qrSizeSlider.value);
+			const margin = parseInt(qrMarginSlider.value);
+			const color = qrColorInput.value;
+			const background = qrBackgroundInput.value;
+			const errorCorrectionLevel = errorCorrectionSelect.value as 'L' | 'M' | 'Q' | 'H';
+
+			const svgString = await QRCode.toString(data, {
+				type: 'svg',
+				width: size,
+				margin: margin,
+				color: {
+					dark: color,
+					light: background
+				},
+				errorCorrectionLevel: errorCorrectionLevel
+			});
+
+			const blob = new Blob([svgString], { type: 'image/svg+xml' });
+			const url = URL.createObjectURL(blob);
+			const link = document.createElement('a');
+			link.download = `qr-code-${Date.now()}.svg`;
+			link.href = url;
+			link.click();
+			URL.revokeObjectURL(url);
+		} catch (error) {
+			console.error('Error generating SVG:', error);
+			alert('Error al generar el SVG');
+		}
+	});
+</script>
+</Layout>
