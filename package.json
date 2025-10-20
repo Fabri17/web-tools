@@ -1,12 +1,17 @@
 {
-  "name": "red-remnant",
+  "name": "webtools-suite",
   "type": "module",
-  "version": "0.0.1",
+  "version": "1.0.0",
+  "description": "Suite de herramientas web gratuitas: Markdown to PDF, Image Optimizer, QR Generator y más",
+  "author": "Fabricio Hernández",
+  "license": "MIT",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "package": "powershell -ExecutionPolicy Bypass -File build-and-package.ps1",
+    "package:bash": "bash build-and-package.sh"
   },
   "dependencies": {
     "astro": "^5.14.5",
