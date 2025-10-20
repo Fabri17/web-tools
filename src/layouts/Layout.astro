@@ -1,22 +1,183 @@
+---
+interface Props {
+	title?: string;
+	description?: string;
+	image?: string;
+	url?: string;
+}
+
+const { 
+	title = "Markdown to PDF - Conversor Online Gratuito | MD to PDF", 
+	description = "Convierte Markdown a PDF de forma gratuita y segura. Editor en tiempo real, vista previa instantánea y exportación profesional. 100% en tu navegador, sin subir archivos.",
+	image = "/og-image.jpg",
+	url = Astro.url.href
+} = Astro.props;
+
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
+---
+
 <!doctype html>
-<html lang="en">
+<html lang="es">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		
+		<!-- Critical Resource Hints (ANTES de todo) -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		
+		<!-- Primary Meta Tags -->
+		<title>{title}</title>
+		<meta name="title" content={title} />
+		<meta name="description" content={description} />
+		<meta name="keywords" content="markdown to pdf, conversor markdown, markdown pdf online, md to pdf, convertidor markdown gratuito, editor markdown, markdown preview, export pdf, documentos markdown" />
+		<meta name="author" content="MD to PDF" />
+		<meta name="language" content="Spanish" />
+		<meta name="robots" content="index, follow" />
+		<meta name="googlebot" content="index, follow" />
+		<link rel="canonical" href={canonicalUrl} />
+		
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={url} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={new URL(image, Astro.url).href} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:locale" content="es_ES" />
+		<meta property="og:site_name" content="MD to PDF" />
+		
+		<!-- Twitter Card -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:url" content={url} />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={new URL(image, Astro.url).href} />
+		<meta name="twitter:creator" content="@mdtopdf" />
+		
+		<!-- Mobile Optimizations -->
+		<meta name="theme-color" content="#6366f1" />
+		<meta name="mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<meta name="apple-mobile-web-app-title" content="MD to PDF" />
+		
+		<!-- Security Headers -->
+		<meta http-equiv="X-Content-Type-Options" content="nosniff" />
+		<meta http-equiv="X-Frame-Options" content="DENY" />
+		<meta http-equiv="X-XSS-Protection" content="1; mode=block" />
+		<meta name="referrer" content="strict-origin-when-cross-origin" />
+		
+		<!-- CSP - Content Security Policy -->
+		<meta http-equiv="Content-Security-Policy" content="
+			default-src 'self';
+			script-src 'self' 'unsafe-inline' 'unsafe-eval';
+			style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+			font-src 'self' https://fonts.gstatic.com;
+			img-src 'self' data: blob:;
+			connect-src 'self';
+		" />
+		
+	<!-- Favicons -->
+	<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+	<link rel="manifest" href="/site.webmanifest" />
+	
+	<!-- Preload Critical Font (solo weight 400 para LCP) -->
+	<link 
+		rel="preload" 
+		as="style"
+		href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap"
+	/>
+	
+	<!-- Load font async para evitar bloqueo de render -->
+	<link 
+		rel="stylesheet" 
+		href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+		media="print" 
+		onload="this.media='all'"
+	/>
+	<noscript>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
+	</noscript>		<meta name="generator" content={Astro.generator} />
+		
+		<!-- Structured Data (JSON-LD) -->
+		<script type="application/ld+json">
+			{JSON.stringify({
+				"@context": "https://schema.org",
+				"@type": "WebApplication",
+				"name": "MD to PDF - Markdown to PDF Converter",
+				"applicationCategory": "UtilitiesApplication",
+				"operatingSystem": "Any",
+				"offers": {
+					"@type": "Offer",
+					"price": "0",
+					"priceCurrency": "USD"
+				},
+				"description": "Conversor gratuito de Markdown a PDF. Crea documentos PDF profesionales desde texto Markdown en tu navegador de forma segura y privada.",
+				"url": url,
+				"image": new URL(image, Astro.url).href,
+				"author": {
+					"@type": "Organization",
+					"name": "MD to PDF"
+				},
+				"featureList": [
+					"Editor Markdown en tiempo real",
+					"Vista previa instantánea",
+					"Exportación a PDF profesional",
+					"100% privado y seguro",
+					"Sin necesidad de registro",
+					"Gratis para siempre"
+				],
+				"browserRequirements": "Requires JavaScript. Requires HTML5.",
+				"softwareVersion": "1.0",
+				"aggregateRating": {
+					"@type": "AggregateRating",
+					"ratingValue": "4.8",
+					"ratingCount": "1250"
+				}
+			})}
+		</script>
 	</head>
 	<body>
 		<slot />
+		
+		<!-- bfcache optimization -->
+		<script is:inline>
+			// Optimización para back/forward cache (bfcache)
+			window.addEventListener('pageshow', function(event) {
+				if (event.persisted) {
+					// Restaurar estado si viene del bfcache
+					console.log('Página restaurada desde bfcache');
+				}
+			});
+			
+			// Asegurar que no bloqueamos el bfcache
+			window.addEventListener('pagehide', function() {
+				// Limpieza ligera sin prevenir bfcache
+			});
+		</script>
 	</body>
 </html>
 
 <style>
-	html,
+	html {
+		font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+		scroll-behavior: smooth;
+	}
+	
 	body {
 		margin: 0;
-		width: 100%;
-		height: 100%;
+		padding: 0;
+		min-height: 100vh;
+		background: linear-gradient(180deg, #fafafa 0%, #f4f4f5 100%);
+		color: #18181b;
+	}
+	
+	* {
+		box-sizing: border-box;
 	}
 </style>

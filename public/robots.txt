@@ -1,0 +1,13 @@
+# robots.txt para MD to PDF
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://tu-dominio.com/sitemap.xml
+
+# Crawl-delay para bots (opcional)
+Crawl-delay: 1
+
+# Prevenir indexación de archivos específicos
+Disallow: /api/
+Disallow: /*.json$

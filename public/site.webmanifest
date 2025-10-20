@@ -1,0 +1,58 @@
+{
+  "name": "MD to PDF - Markdown to PDF Converter",
+  "short_name": "MD to PDF",
+  "description": "Convierte Markdown a PDF de forma gratuita y segura directamente en tu navegador",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fafafa",
+  "theme_color": "#6366f1",
+  "orientation": "any",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["productivity", "utilities"],
+  "screenshots": [
+    {
+      "src": "/screenshot-desktop.png",
+      "sizes": "1920x1080",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/screenshot-mobile.png",
+      "sizes": "750x1334",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Nuevo Documento",
+      "short_name": "Nuevo",
+      "description": "Crear un nuevo documento Markdown",
+      "url": "/?action=new",
+      "icons": [{ "src": "/icon-new.png", "sizes": "192x192" }]
+    }
+  ]
+}

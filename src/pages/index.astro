@@ -1,11 +1,1816 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
-<Layout>
-	<Welcome />
+<Layout 
+	title="Markdown to PDF - Conversor Online Gratuito | MD to PDF"
+	description="Convierte Markdown a PDF de forma gratuita y segura. Editor en tiempo real, vista previa instantánea y exportación profesional. 100% en tu navegador, sin subir archivos."
+	url="https://tu-dominio.com"
+	image="/og-image.jpg"
+>
+	<main>
+		<div class="container">
+			<div class="header">
+				<div class="header-content">
+					<div class="title-section">
+						<div class="logo-container">
+							<div class="logo-icon">
+								<svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.89 22 5.99 22H18C19.1 22 20 21.1 20 20V8L14 2Z" fill="url(#gradient1)" stroke="url(#gradient1)" stroke-width="1.5"/>
+									<path d="M14 2V8H20" stroke="white" stroke-width="1.5"/>
+									<path d="M8 13H16M8 17H13" stroke="white" stroke-width="1.5"/>
+									<defs>
+										<linearGradient id="gradient1" x1="4" y1="2" x2="20" y2="22" gradientUnits="userSpaceOnUse">
+											<stop stop-color="#8b5cf6"/>
+											<stop offset="1" stop-color="#c084fc"/>
+										</linearGradient>
+									</defs>
+								</svg>
+							</div>
+							<div class="title-text">
+								<h1>MD to PDF</h1>
+								<p class="subtitle">Transforma Markdown en documentos PDF profesionales</p>
+							</div>
+						</div>
+					</div>
+					<button id="convertToPdf" class="btn-primary">
+						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M12 16L7 11L8.4 9.6L11 12.2V4H13V12.2L15.6 9.6L17 11L12 16Z" fill="currentColor"/>
+							<path d="M5 20V18H19V20H5Z" fill="currentColor"/>
+						</svg>
+						Generar PDF
+					</button>
+				</div>
+			</div>
+			
+			<div class="editor-container">
+				<div class="input-section">
+					<div class="section-header">
+						<h3>
+							<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.89 22 5.99 22H18C19.1 22 20 21.1 20 20V8L14 2Z" stroke="currentColor" stroke-width="2" fill="none"/>
+								<path d="M14 2V8H20" stroke="currentColor" stroke-width="2" fill="none"/>
+								<path d="M16 13H8M16 17H8M10 9H8" stroke="currentColor" stroke-width="2"/>
+							</svg>
+							Markdown Editor
+						</h3>
+						<div class="editor-tools">
+							<button id="clearBtn" class="tool-btn" title="Limpiar editor">
+								<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M3 6H5H21M8 6V4C8 3.45 8.45 3 9 3H15C15.55 3 16 3.45 16 4V6M19 6V20C19 20.55 18.55 21 18 21H6C5.45 21 5 20.55 5 20V6H19Z" stroke="currentColor" stroke-width="2"/>
+								</svg>
+							</button>
+							<div class="word-count" id="wordCount">0 palabras</div>
+						</div>
+					</div>
+					<div class="textarea-wrapper">
+						<textarea 
+							id="markdownInput" 
+							placeholder="✨ Comienza escribiendo tu Markdown aquí...
+
+# 🚀 Título Principal
+Este es un **texto en negrita** y este es *texto en cursiva*.
+
+## 📋 Lista de tareas
+- [x] Escribir contenido
+- [ ] Convertir a PDF
+- [ ] Compartir documento
+
+## 💻 Código de ejemplo
+```javascript
+function saludar(nombre) {
+    console.log(`¡Hola, ${nombre}!`);
+}
+```
+
+> 💡 **Tip**: Usa la vista previa en tiempo real para ver cómo se verá tu documento."
+							rows="20"
+							spellcheck="false"
+						></textarea>
+						<div class="resize-handle"></div>
+					</div>
+				</div>
+				
+				<div class="preview-section">
+					<div class="section-header">
+						<h3>
+							<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M1 12S5 4 12 4S23 12 23 12S19 20 12 20S1 12 1 12Z" stroke="currentColor" stroke-width="2" fill="none"/>
+								<circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" fill="none"/>
+							</svg>
+							Vista Previa en Vivo
+						</h3>
+						<div class="preview-tools">
+							<button id="fullscreenBtn" class="tool-btn" title="Pantalla completa">
+								<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M8 3H5C3.89 3 3 3.89 3 5V8M21 8V5C21 3.89 20.11 3 19 3H16M16 21H19C20.11 21 21 20.11 21 19V16M8 21H5C3.89 21 3 20.11 3 19V16" stroke="currentColor" stroke-width="2"/>
+								</svg>
+							</button>
+							<div class="status-indicator">
+								<div class="status-dot" id="statusDot"></div>
+								<span id="statusText">Listo</span>
+							</div>
+						</div>
+					</div>
+					<div id="markdownPreview" class="preview-content">
+						<div class="typing-indicator" id="typingIndicator">
+							<span>Actualizando vista previa</span>
+							<div class="typing-dots">
+								<span></span>
+								<span></span>
+								<span></span>
+							</div>
+						</div>
+						<div class="empty-state" id="emptyState">
+							<svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.89 22 5.99 22H18C19.1 22 20 21.1 20 20V8L14 2Z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+								<path d="M14 2V8H20" stroke="currentColor" stroke-width="1.5" fill="none"/>
+							</svg>
+							<h4>Vista previa en tiempo real</h4>
+							<p>Comienza escribiendo en el editor para ver la vista previa aquí</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- SEO Content - Visually hidden but accessible to search engines -->
+			<section class="seo-content" aria-hidden="true">
+				<h2>Conversor de Markdown a PDF - Herramienta Online Gratuita</h2>
+				<p>
+					<strong>MD to PDF</strong> es el conversor de Markdown a PDF más rápido y seguro del mercado. 
+					Convierte tus documentos Markdown a archivos PDF profesionales sin necesidad de instalación 
+					o registro. Todo el procesamiento se realiza directamente en tu navegador, garantizando la 
+					privacidad total de tus documentos.
+				</p>
+				
+				<h3>Características Principales</h3>
+				<ul>
+					<li><strong>Editor en tiempo real:</strong> Escribe Markdown y ve la vista previa instantáneamente</li>
+					<li><strong>Exportación profesional:</strong> PDFs con formato perfecto y tipografía de calidad</li>
+					<li><strong>100% Privado:</strong> Sin subir archivos a servidores, todo funciona en tu navegador</li>
+					<li><strong>Gratis para siempre:</strong> Sin límites, sin registro, sin costo alguno</li>
+					<li><strong>Soporte completo:</strong> Tablas, listas, código, enlaces, imágenes y más</li>
+					<li><strong>Seguro:</strong> Protección XSS y sanitización de contenido</li>
+				</ul>
+				
+				<h3>¿Cómo convertir Markdown a PDF?</h3>
+				<ol>
+					<li>Escribe o pega tu contenido Markdown en el editor</li>
+					<li>Visualiza la vista previa en tiempo real</li>
+					<li>Haz clic en "Exportar PDF" para descargar tu documento</li>
+				</ol>
+				
+				<h3>¿Por qué elegir MD to PDF?</h3>
+				<p>
+					Nuestro conversor utiliza la última tecnología de renderizado HTML y generación de PDFs 
+					para garantizar documentos de la más alta calidad. A diferencia de otros conversores que 
+					convierten el texto a imágenes, nosotros mantenemos el texto seleccionable y con formato 
+					vectorial, resultando en PDFs profesionales y de tamaño optimizado.
+				</p>
+				
+				<h3>Casos de Uso</h3>
+				<p>
+					Ideal para desarrolladores, escritores técnicos, estudiantes, bloggers y cualquier persona 
+					que necesite convertir documentación Markdown a PDF. Perfecto para crear: documentación 
+					técnica, reportes, artículos, notas de estudio, README profesionales y mucho más.
+				</p>
+			</section>
+		</div>
+	</main>
 </Layout>
+
+<style>
+	/* Fuentes locales con fallback inmediato */
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+
+	body {
+		font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+		background: linear-gradient(180deg, #fafafa 0%, #f4f4f5 100%);
+		min-height: 100vh;
+		color: #18181b;
+		line-height: 1.6;
+	}
+
+	.container {
+		max-width: 1400px;
+		margin: 0 auto;
+		padding: 0 2rem;
+		height: 100vh;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.header {
+		background: white;
+		border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+		margin: 0 -2rem;
+		padding: 1.25rem 2rem;
+		box-shadow: 0 4px 20px rgba(139, 92, 246, 0.08);
+		position: sticky;
+		top: 0;
+		z-index: 10;
+		backdrop-filter: blur(10px);
+		background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(250, 245, 255, 0.95));
+	}
+
+	.header-content {
+		max-width: 1400px;
+		margin: 0 auto;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 2rem;
+	}
+
+	.title-section {
+		flex: 1;
+		min-width: 0;
+	}
+
+	.logo-container {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+	}
+
+	.logo-icon {
+		width: 48px;
+		height: 48px;
+		border-radius: 14px;
+		background: linear-gradient(135deg, #8b5cf6, #a855f7, #c084fc);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3), 0 0 0 1px rgba(139, 92, 246, 0.1);
+		position: relative;
+		overflow: hidden;
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.logo-icon::before {
+		content: '';
+		position: absolute;
+		top: -50%;
+		left: -50%;
+		width: 200%;
+		height: 200%;
+		background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+		animation: shimmer 3s infinite;
+	}
+
+	@keyframes shimmer {
+		0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+		100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+	}
+
+	.logo-icon:hover {
+		transform: scale(1.05) rotate(-5deg);
+		box-shadow: 0 12px 30px rgba(139, 92, 246, 0.4), 0 0 0 2px rgba(139, 92, 246, 0.2);
+	}
+
+	.logo-icon svg {
+		position: relative;
+		z-index: 1;
+		filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+	}
+
+	.title-text {
+		flex: 1;
+		min-width: 0;
+	}
+
+	h1 {
+		font-size: 1.75rem;
+		font-weight: 700;
+		background: linear-gradient(135deg, #8b5cf6, #a855f7, #c084fc);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+		margin: 0 0 0.25rem 0;
+		letter-spacing: -0.02em;
+		line-height: 1.2;
+		font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+	}
+
+	.subtitle {
+		font-size: 0.95rem;
+		color: #64748b;
+		margin: 0;
+		font-weight: 400;
+		line-height: 1.4;
+	}
+
+	.editor-container {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 2rem;
+		flex: 1;
+		margin: 2rem 0;
+		min-height: 0;
+	}
+
+	.input-section, .preview-section {
+		background: white;
+		border-radius: 20px;
+		padding: 0;
+		box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(255, 255, 255, 0.05);
+		border: 1px solid rgba(139, 92, 246, 0.1);
+		display: flex;
+		flex-direction: column;
+		transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+		position: relative;
+		overflow: hidden;
+	}
+
+	.input-section::before, .preview-section::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 3px;
+		background: linear-gradient(90deg, #8b5cf6, #a855f7, #c084fc);
+		opacity: 0;
+		transition: opacity 0.3s ease;
+	}
+
+	.input-section:hover, .preview-section:hover {
+		box-shadow: 0 20px 40px rgba(139, 92, 246, 0.15), 0 0 0 1px rgba(139, 92, 246, 0.1);
+		transform: translateY(-4px);
+	}
+
+	.input-section:hover::before, .preview-section:hover::before {
+		opacity: 1;
+	}
+
+	.section-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 1.5rem 1.5rem 1rem 1.5rem;
+		border-bottom: 1px solid #f1f5f9;
+		background: linear-gradient(135deg, #fafafa, #f8fafc);
+	}
+
+	.section-header h3 {
+		font-size: 1rem;
+		font-weight: 600;
+		color: #374151;
+		margin: 0;
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.section-header svg {
+		color: #8b5cf6;
+		opacity: 0.8;
+	}
+
+	.editor-tools, .preview-tools {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+	}
+
+	.tool-btn {
+		background: transparent;
+		border: 1px solid #e2e8f0;
+		border-radius: 8px;
+		padding: 0.5rem;
+		cursor: pointer;
+		color: #64748b;
+		transition: all 0.2s ease;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.tool-btn:hover {
+		background: #f1f5f9;
+		border-color: #cbd5e1;
+		color: #475569;
+		transform: scale(1.05);
+	}
+
+	.word-count {
+		font-size: 0.75rem;
+		color: #64748b;
+		background: #f8fafc;
+		padding: 0.25rem 0.5rem;
+		border-radius: 6px;
+		border: 1px solid #e2e8f0;
+	}
+
+	.status-indicator {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-size: 0.75rem;
+		color: #64748b;
+	}
+
+	.status-dot {
+		width: 8px;
+		height: 8px;
+		border-radius: 50%;
+		background: #10b981;
+		animation: pulse 2s infinite;
+	}
+
+	@keyframes pulse {
+		0%, 100% { opacity: 1; }
+		50% { opacity: 0.5; }
+	}
+
+	.textarea-wrapper {
+		flex: 1;
+		position: relative;
+		padding: 1.5rem;
+		padding-bottom: 0;
+	}
+
+	#markdownInput {
+		width: 100%;
+		height: 100%;
+		border: none;
+		border-radius: 12px;
+		padding: 1.25rem;
+		font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+		font-size: 14px;
+		resize: none;
+		outline: none;
+		background: #fafafa;
+		line-height: 1.6;
+		transition: all 0.3s ease;
+		border: 2px solid transparent;
+		box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+		overflow-y: auto; /* Asegurar que tenga scroll vertical */
+		overflow-x: hidden; /* Evitar scroll horizontal */
+	}
+
+	#markdownInput:focus {
+		background: white;
+		border-color: rgba(139, 92, 246, 0.3);
+		box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06), 0 0 0 3px rgba(139, 92, 246, 0.1);
+	}
+
+	#markdownInput::placeholder {
+		color: #94a3b8;
+		font-style: italic;
+	}
+
+	.resize-handle {
+		position: absolute;
+		bottom: 8px;
+		right: 8px;
+		width: 20px;
+		height: 20px;
+		background: linear-gradient(135deg, transparent 40%, #cbd5e1 40%, #cbd5e1 60%, transparent 60%);
+		cursor: se-resize;
+		opacity: 0.5;
+		transition: opacity 0.2s ease;
+	}
+
+	.resize-handle:hover {
+		opacity: 0.8;
+	}
+
+	.preview-content {
+		flex: 1;
+		overflow-y: auto;
+		padding: 1.5rem;
+		background: white;
+		transition: all 0.3s ease;
+		position: relative;
+	}
+
+	.empty-state {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		height: 100%;
+		color: #64748b;
+		text-align: center;
+		opacity: 0.8;
+	}
+
+	.empty-state svg {
+		margin-bottom: 1rem;
+		opacity: 0.6;
+	}
+
+	.empty-state h4 {
+		font-size: 1.125rem;
+		font-weight: 600;
+		margin: 0 0 0.5rem 0;
+		color: #475569;
+	}
+
+	.empty-state p {
+		margin: 0;
+		font-size: 0.875rem;
+		max-width: 300px;
+		line-height: 1.5;
+	}
+
+	.btn-primary {
+		background: linear-gradient(135deg, #8b5cf6, #a855f7);
+		color: white;
+		border: none;
+		padding: 0.875rem 1.75rem;
+		font-size: 0.95rem;
+		font-weight: 600;
+		border-radius: 12px;
+		cursor: pointer;
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3), 0 0 0 0 rgba(139, 92, 246, 0.2);
+		position: relative;
+		overflow: hidden;
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		white-space: nowrap;
+		flex-shrink: 0;
+		backdrop-filter: blur(10px);
+	}
+
+	.btn-primary svg {
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.btn-primary::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: -100%;
+		width: 100%;
+		height: 100%;
+		background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+		transition: left 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.btn-primary::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		padding: 2px;
+		background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent, rgba(255, 255, 255, 0.2));
+		border-radius: 12px;
+		mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+		mask-composite: subtract;
+		opacity: 0;
+		transition: opacity 0.3s ease;
+	}
+
+	.btn-primary:hover::before {
+		left: 100%;
+	}
+
+	.btn-primary:hover::after {
+		opacity: 1;
+	}
+
+	.btn-primary:hover {
+		transform: translateY(-3px) scale(1.02);
+		box-shadow: 0 12px 30px rgba(139, 92, 246, 0.4), 0 0 0 4px rgba(139, 92, 246, 0.1);
+		background: linear-gradient(135deg, #7c3aed, #9333ea);
+	}
+
+	.btn-primary:hover svg {
+		transform: translateY(2px) scale(1.1);
+	}
+
+	.btn-primary:active {
+		transform: translateY(-1px) scale(1.01);
+		transition: all 0.1s ease;
+	}
+
+	.btn-primary:active {
+		transform: translateY(0);
+	}
+
+	.btn-primary:disabled {
+		background: linear-gradient(135deg, #cbd5e1, #94a3b8);
+		cursor: not-allowed;
+		transform: none;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+		opacity: 0.7;
+	}
+
+	.btn-primary:disabled::before,
+	.btn-primary:disabled::after {
+		display: none;
+	}
+
+	.btn-primary:disabled svg {
+		animation: spin 1s linear infinite;
+	}
+
+	@keyframes spin {
+		from { transform: rotate(0deg); }
+		to { transform: rotate(360deg); }
+	}
+
+	/* Animaciones de entrada */
+	.input-section, .preview-section {
+		animation: slideInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+	}
+
+	.preview-section {
+		animation-delay: 0.1s;
+	}
+
+	@keyframes slideInUp {
+		from {
+			opacity: 0;
+			transform: translateY(30px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	/* Animación de escritura */
+	.typing-indicator {
+		position: absolute;
+		top: 1rem;
+		right: 1rem;
+		background: rgba(139, 92, 246, 0.1);
+		border: 1px solid rgba(139, 92, 246, 0.2);
+		border-radius: 20px;
+		padding: 0.5rem 0.75rem;
+		font-size: 0.75rem;
+		color: #8b5cf6;
+		display: none;
+		align-items: center;
+		gap: 0.5rem;
+		backdrop-filter: blur(10px);
+	}
+
+	.typing-indicator.active {
+		display: flex;
+	}
+
+	.typing-dots {
+		display: flex;
+		gap: 2px;
+	}
+
+	.typing-dots span {
+		width: 4px;
+		height: 4px;
+		border-radius: 50%;
+		background: #8b5cf6;
+		animation: typingDots 1.4s infinite ease-in-out;
+	}
+
+	.typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+	.typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+	@keyframes typingDots {
+		0%, 60%, 100% { transform: scale(1); opacity: 0.5; }
+		30% { transform: scale(1.2); opacity: 1; }
+	}
+
+	/* Efecto de focus mejorado */
+	.textarea-wrapper.focused {
+		transform: scale(1.001);
+	}
+
+	.textarea-wrapper.focused #markdownInput {
+		box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06), 0 0 0 4px rgba(139, 92, 246, 0.15);
+		border-color: rgba(139, 92, 246, 0.4);
+	}
+
+	/* Estilos para contenido renderizado */
+	.rendered-content {
+		transition: all 0.3s ease;
+	}
+
+	/* Sistema de notificaciones */
+	.notification {
+		position: fixed;
+		top: 20px;
+		right: 20px;
+		z-index: 1000;
+		max-width: 400px;
+		padding: 1rem 1.5rem;
+		border-radius: 12px;
+		color: white;
+		font-weight: 500;
+		font-size: 0.95rem;
+		backdrop-filter: blur(10px);
+		border: 1px solid rgba(255, 255, 255, 0.2);
+		box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+		transform: translateX(100%);
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		opacity: 0;
+	}
+
+	.notification.show {
+		transform: translateX(0);
+		opacity: 1;
+	}
+
+	.notification.success {
+		background: linear-gradient(135deg, #10b981, #059669);
+	}
+
+	.notification.error {
+		background: linear-gradient(135deg, #ef4444, #dc2626);
+	}
+
+	.notification.warning {
+		background: linear-gradient(135deg, #f59e0b, #d97706);
+	}
+
+	.notification.info {
+		background: linear-gradient(135deg, #3b82f6, #2563eb);
+	}
+
+	.notification-content {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	/* Mejoras en contenido de preview */
+	.preview-content .rendered-content h1:first-child {
+		margin-top: 0;
+	}
+
+	.preview-content .rendered-content > *:last-child {
+		margin-bottom: 0;
+	}
+
+	/* Animación de scroll suave */
+	html {
+		scroll-behavior: smooth;
+	}
+
+	/* Mejora en la selección de texto */
+	::selection {
+		background: rgba(139, 92, 246, 0.3);
+		color: inherit;
+	}
+
+	/* Loading state mejorado para botones */
+	.btn-primary.loading {
+		pointer-events: none;
+	}
+
+	.btn-primary.loading svg {
+		animation: spin 1s linear infinite;
+	}
+
+	/* Mejoras responsive adicionales */
+	@media (max-width: 480px) {
+		.notification {
+			left: 10px;
+			right: 10px;
+			max-width: none;
+		}
+
+		h1 {
+			font-size: 1.75rem;
+		}
+
+		.header-content {
+			gap: 1rem;
+		}
+
+		.btn-primary {
+			padding: 0.75rem 1rem;
+			font-size: 0.875rem;
+		}
+	}
+
+	/* Estilos para el contenido renderizado - Diseño Markdown natural */
+	.preview-content .rendered-content h1 {
+		font-size: 2rem;
+		font-weight: 700;
+		color: #1a202c;
+		margin: 2rem 0 1rem 0;
+		padding-bottom: 0.5rem;
+		border-bottom: 1px solid #e2e8f0;
+		line-height: 1.25;
+		letter-spacing: -0.025em;
+	}
+
+	.preview-content .rendered-content h1:first-child {
+		margin-top: 0;
+	}
+
+	.preview-content .rendered-content h2 {
+		font-size: 1.5rem;
+		font-weight: 600;
+		color: #2d3748;
+		margin: 1.75rem 0 1rem 0;
+		line-height: 1.3;
+		letter-spacing: -0.025em;
+	}
+
+	.preview-content .rendered-content h3 {
+		font-size: 1.25rem;
+		font-weight: 600;
+		color: #4a5568;
+		margin: 1.5rem 0 0.75rem 0;
+		line-height: 1.3;
+	}
+
+	.preview-content .rendered-content h4 {
+		font-size: 1.125rem;
+		font-weight: 600;
+		color: #4a5568;
+		margin: 1.25rem 0 0.5rem 0;
+		line-height: 1.4;
+	}
+
+	.preview-content .rendered-content h5 {
+		font-size: 1rem;
+		font-weight: 600;
+		color: #718096;
+		margin: 1rem 0 0.5rem 0;
+		line-height: 1.4;
+	}
+
+	.preview-content .rendered-content h6 {
+		font-size: 0.875rem;
+		font-weight: 600;
+		color: #718096;
+		margin: 1rem 0 0.5rem 0;
+		line-height: 1.4;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+	}
+
+	.preview-content .rendered-content p {
+		margin-bottom: 1rem;
+		color: #2d3748;
+		line-height: 1.7;
+		font-size: 1rem;
+		text-align: left;
+	}
+
+	.preview-content .rendered-content p:last-child {
+		margin-bottom: 0;
+	}
+
+	/* Énfasis natural */
+	.preview-content .rendered-content strong,
+	.preview-content .rendered-content b {
+		font-weight: 600;
+		color: #1a202c;
+	}
+
+	.preview-content .rendered-content em,
+	.preview-content .rendered-content i {
+		font-style: italic;
+		color: #4a5568;
+	}
+
+	/* Bloques de código con estilo natural */
+	.preview-content .rendered-content pre {
+		background: #f7fafc;
+		border: 1px solid #e2e8f0;
+		border-radius: 6px;
+		padding: 1rem;
+		overflow-x: auto;
+		font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+		font-size: 0.875rem;
+		line-height: 1.5;
+		margin: 1.5rem 0;
+		color: #2d3748;
+	}
+
+	.preview-content .rendered-content code {
+		background: #edf2f7;
+		color: #d53f8c;
+		padding: 0.125rem 0.375rem;
+		border-radius: 3px;
+		font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+		font-size: 0.875rem;
+		font-weight: 500;
+		border: 1px solid #e2e8f0;
+	}
+
+	.preview-content .rendered-content pre code {
+		background: none;
+		color: #2d3748;
+		padding: 0;
+		border: none;
+		font-weight: normal;
+	}
+
+	/* Blockquotes minimalistas */
+	.preview-content .rendered-content blockquote {
+		border-left: 4px solid #cbd5e0;
+		background: #f7fafc;
+		margin: 1.5rem 0;
+		padding: 1rem 1.5rem;
+		color: #4a5568;
+		font-style: italic;
+		border-radius: 0 4px 4px 0;
+	}
+
+	.preview-content .rendered-content blockquote p {
+		margin: 0;
+		color: #4a5568;
+	}
+
+	.preview-content .rendered-content blockquote p:last-child {
+		margin-bottom: 0;
+	}
+
+	/* Listas naturales */
+	.preview-content .rendered-content ul,
+	.preview-content .rendered-content ol {
+		margin: 1rem 0;
+		padding-left: 1.5rem;
+	}
+
+	.preview-content .rendered-content li {
+		margin: 0.5rem 0;
+		color: #2d3748;
+		line-height: 1.7;
+	}
+
+	.preview-content .rendered-content ul li {
+		list-style-type: disc;
+	}
+
+	.preview-content .rendered-content ol li {
+		list-style-type: decimal;
+	}
+
+	.preview-content .rendered-content ul ul li,
+	.preview-content .rendered-content ol ul li {
+		list-style-type: circle;
+	}
+
+	.preview-content .rendered-content ul ol li,
+	.preview-content .rendered-content ol ol li {
+		list-style-type: lower-alpha;
+	}
+
+	/* Listas de tareas */
+	.preview-content .rendered-content input[type="checkbox"] {
+		margin-right: 0.5rem;
+		transform: scale(1.1);
+		accent-color: #667eea;
+	}
+
+	/* Enlaces naturales */
+	.preview-content .rendered-content a {
+		color: #667eea;
+		text-decoration: underline;
+		font-weight: 500;
+		transition: color 0.2s ease;
+	}
+
+	.preview-content .rendered-content a:hover {
+		color: #5a67d8;
+	}
+
+	/* Tablas limpias */
+	.preview-content .rendered-content table {
+		width: 100%;
+		border-collapse: collapse;
+		margin: 1.5rem 0;
+		font-size: 0.95rem;
+		border: 1px solid #e2e8f0;
+		border-radius: 6px;
+		overflow: hidden;
+	}
+
+	.preview-content .rendered-content th {
+		background: #f7fafc;
+		padding: 0.75rem;
+		text-align: left;
+		font-weight: 600;
+		color: #2d3748;
+		border-bottom: 2px solid #e2e8f0;
+	}
+
+	.preview-content .rendered-content td {
+		padding: 0.75rem;
+		border-bottom: 1px solid #e2e8f0;
+		color: #4a5568;
+	}
+
+	.preview-content .rendered-content tbody tr:nth-child(even) {
+		background: #f7fafc;
+	}
+
+	.preview-content .rendered-content tbody tr:last-child td {
+		border-bottom: none;
+	}
+
+	/* Líneas horizontales */
+	.preview-content .rendered-content hr {
+		border: none;
+		border-top: 1px solid #e2e8f0;
+		margin: 2rem 0;
+	}
+
+	/* Imágenes */
+	.preview-content .rendered-content img {
+		max-width: 100%;
+		height: auto;
+		margin: 1.5rem 0;
+		border-radius: 4px;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	}
+
+	/* Títulos con anclas */
+	.preview-content .rendered-content h1:hover,
+	.preview-content .rendered-content h2:hover,
+	.preview-content .rendered-content h3:hover,
+	.preview-content .rendered-content h4:hover,
+	.preview-content .rendered-content h5:hover,
+	.preview-content .rendered-content h6:hover {
+		color: #667eea;
+		transition: color 0.2s ease;
+	}
+
+	/* Mejoras para elementos anidados */
+	.preview-content .rendered-content blockquote blockquote {
+		border-left-color: #a0aec0;
+		background: #edf2f7;
+		margin-left: 1rem;
+	}
+
+	.preview-content .rendered-content pre + p,
+	.preview-content .rendered-content blockquote + p,
+	.preview-content .rendered-content table + p {
+		margin-top: 1.5rem;
+	}
+
+	/* Código de diferentes lenguajes */
+	.preview-content .rendered-content pre[class*="language-"] {
+		position: relative;
+	}
+
+	.preview-content .rendered-content pre[class*="language-"]:before {
+		content: attr(class);
+		position: absolute;
+		top: 0.5rem;
+		right: 0.75rem;
+		font-size: 0.75rem;
+		color: #a0aec0;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+	}
+
+	/* Mejoras de tipografía */
+	.preview-content .rendered-content {
+		font-variant-ligatures: common-ligatures;
+		font-feature-settings: "liga" 1, "calt" 1;
+		text-rendering: optimizeLegibility;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+
+	/* Espaciado entre elementos */
+	.preview-content .rendered-content > * + h1 {
+		margin-top: 3rem;
+	}
+
+	.preview-content .rendered-content > * + h2 {
+		margin-top: 2.5rem;
+	}
+
+	.preview-content .rendered-content > * + h3 {
+		margin-top: 2rem;
+	}
+
+	/* Scrollbar personalizado */
+	.preview-content::-webkit-scrollbar {
+		width: 8px;
+	}
+
+	.preview-content::-webkit-scrollbar-track {
+		background: #f1f5f9;
+		border-radius: 4px;
+	}
+
+	.preview-content::-webkit-scrollbar-thumb {
+		background: #cbd5e1;
+		border-radius: 4px;
+		transition: background 0.3s ease;
+	}
+
+	.preview-content::-webkit-scrollbar-thumb:hover {
+		background: #94a3b8;
+	}
+
+	@media (max-width: 1024px) {
+		.container {
+			padding: 0 1.5rem;
+		}
+
+		.header {
+			margin: 0 -1.5rem;
+			padding: 1rem 1.5rem;
+		}
+
+		.header-content {
+			flex-direction: row;
+			flex-wrap: wrap;
+			gap: 1rem;
+		}
+
+		.title-section {
+			flex: 1;
+			min-width: 200px;
+		}
+
+		.logo-icon {
+			width: 44px;
+			height: 44px;
+		}
+
+		.logo-icon svg {
+			width: 28px;
+			height: 28px;
+		}
+
+		h1 {
+			font-size: 1.5rem;
+		}
+
+		.subtitle {
+			font-size: 0.875rem;
+		}
+
+		.editor-container {
+			grid-template-columns: 1fr;
+			gap: 1.5rem;
+		}
+
+		.input-section, .preview-section {
+			min-height: 400px;
+		}
+
+		.btn-primary {
+			align-self: flex-end;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.container {
+			padding: 0 1rem;
+		}
+
+		.header {
+			margin: 0 -1rem;
+			padding: 1rem;
+		}
+
+		.header-content {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 1rem;
+		}
+
+		.logo-container {
+			gap: 0.75rem;
+		}
+
+		.logo-icon {
+			width: 40px;
+			height: 40px;
+			border-radius: 12px;
+		}
+
+		.logo-icon svg {
+			width: 24px;
+			height: 24px;
+		}
+
+		h1 {
+			font-size: 1.375rem;
+		}
+
+		.subtitle {
+			font-size: 0.8125rem;
+		}
+
+		.input-section, .preview-section {
+			padding: 0;
+			border-radius: 12px;
+			min-height: 350px;
+		}
+
+		.btn-primary {
+			width: 100%;
+			justify-content: center;
+			font-size: 0.875rem;
+			padding: 0.75rem 1.25rem;
+		}
+	}
+
+	/* Mejoras responsive adicionales */
+	@media (max-width: 480px) {
+		.notification {
+			left: 10px;
+			right: 10px;
+			max-width: none;
+		}
+
+		h1 {
+			font-size: 1.25rem;
+		}
+
+		.subtitle {
+			font-size: 0.75rem;
+		}
+
+		.header-content {
+			gap: 0.875rem;
+		}
+
+		.btn-primary {
+			padding: 0.625rem 1rem;
+			font-size: 0.8125rem;
+		}
+	}
+
+	/* SEO Content - Hidden from visual display */
+	.seo-content {
+		position: absolute;
+		left: -10000px;
+		top: auto;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		opacity: 0;
+		pointer-events: none;
+	}
+</style>
+
+<script>
+	import { marked } from 'marked';
+	import DOMPurify from 'dompurify';
+
+	const markdownInput = document.getElementById('markdownInput') as HTMLTextAreaElement;
+	const markdownPreview = document.getElementById('markdownPreview') as HTMLDivElement;
+	const convertToPdfBtn = document.getElementById('convertToPdf') as HTMLButtonElement;
+	const clearBtn = document.getElementById('clearBtn') as HTMLButtonElement;
+	const fullscreenBtn = document.getElementById('fullscreenBtn') as HTMLButtonElement;
+	const wordCount = document.getElementById('wordCount') as HTMLElement;
+	const statusDot = document.getElementById('statusDot') as HTMLElement;
+	const statusText = document.getElementById('statusText') as HTMLElement;
+	const typingIndicator = document.getElementById('typingIndicator') as HTMLElement;
+	const emptyState = document.getElementById('emptyState') as HTMLElement;
+
+	let updateTimeout: number | undefined;
+	let html2pdfModule: any = null; // Lazy load
+
+	// Configurar marked para un renderizado más limpio y seguro
+	marked.setOptions({
+		breaks: true,
+		gfm: true
+	});
+
+	// Configurar DOMPurify para permitir elementos de Markdown pero prevenir XSS
+	const purifyConfig = {
+		ALLOWED_TAGS: [
+			'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+			'p', 'br', 'strong', 'em', 'b', 'i', 'u', 'del', 'strike',
+			'code', 'pre', 'blockquote',
+			'ul', 'ol', 'li',
+			'a', 'img',
+			'table', 'thead', 'tbody', 'tr', 'th', 'td',
+			'hr', 'div', 'span'
+		],
+		ALLOWED_ATTR: [
+			'href', 'title', 'alt', 'src',
+			'class', 'id',
+			'target', 'rel',
+			'type', 'checked', 'disabled'
+		],
+		ALLOW_DATA_ATTR: false,
+		ADD_ATTR: ['target'],
+		FORBID_TAGS: ['script', 'style', 'iframe', 'object', 'embed', 'form', 'input'],
+		FORBID_ATTR: ['onerror', 'onclick', 'onload', 'onmouseover'],
+	};
+
+	// Función para contar palabras
+	function updateWordCount(text: string) {
+		const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+		const chars = text.length;
+		wordCount.textContent = `${words} palabras • ${chars} caracteres`;
+	}
+
+	// Función para actualizar el estado
+	function updateStatus(status: 'ready' | 'updating' | 'error') {
+		switch (status) {
+			case 'ready':
+				statusDot.style.background = '#10b981';
+				statusText.textContent = 'Listo';
+				break;
+			case 'updating':
+				statusDot.style.background = '#f59e0b';
+				statusText.textContent = 'Actualizando...';
+				break;
+			case 'error':
+				statusDot.style.background = '#ef4444';
+				statusText.textContent = 'Error';
+				break;
+		}
+	}
+
+	// Función para mostrar indicador de escritura
+	function showTypingIndicator() {
+		typingIndicator.classList.add('active');
+		updateStatus('updating');
+	}
+
+	// Función para ocultar indicador de escritura
+	function hideTypingIndicator() {
+		typingIndicator.classList.remove('active');
+	}
+
+	// Función para actualizar la vista previa con debounce y sanitización
+	async function updatePreview() {
+		const markdownText = markdownInput.value;
+		
+		// Limitar el tamaño del input para prevenir DoS
+		const MAX_INPUT_LENGTH = 50000; // 50KB de texto
+		if (markdownText.length > MAX_INPUT_LENGTH) {
+			showNotification('⚠️ El contenido es demasiado largo. Máximo 50,000 caracteres.', 'warning');
+			markdownInput.value = markdownText.substring(0, MAX_INPUT_LENGTH);
+			return;
+		}
+		
+		updateWordCount(markdownText);
+		
+		if (!markdownText.trim()) {
+			emptyState.style.display = 'flex';
+			markdownPreview.querySelector('.rendered-content')?.remove();
+			hideTypingIndicator();
+			updateStatus('ready');
+			return;
+		}
+
+		emptyState.style.display = 'none';
+		showTypingIndicator();
+
+		try {
+			// Parsear Markdown a HTML
+			const rawHtml = await marked.parse(markdownText);
+			
+			// Sanitizar el HTML para prevenir XSS
+			const sanitizedHtml = DOMPurify.sanitize(rawHtml, purifyConfig);
+			
+			// Crear o actualizar contenido renderizado
+			let renderedContent = markdownPreview.querySelector('.rendered-content') as HTMLElement;
+			if (!renderedContent) {
+				renderedContent = document.createElement('div');
+				renderedContent.className = 'rendered-content';
+				markdownPreview.appendChild(renderedContent);
+			}
+			
+			// Usar innerHTML con contenido sanitizado
+			renderedContent.innerHTML = sanitizedHtml;
+			
+			// Animación de entrada suave
+			renderedContent.style.opacity = '0';
+			renderedContent.style.transform = 'translateY(10px)';
+			
+			setTimeout(() => {
+				renderedContent.style.transition = 'all 0.3s ease';
+				renderedContent.style.opacity = '1';
+				renderedContent.style.transform = 'translateY(0)';
+				hideTypingIndicator();
+				updateStatus('ready');
+			}, 200);
+			
+		} catch (error) {
+			console.error('Error al procesar Markdown:', error);
+			hideTypingIndicator();
+			updateStatus('error');
+			
+			let renderedContent = markdownPreview.querySelector('.rendered-content') as HTMLElement;
+			if (!renderedContent) {
+				renderedContent = document.createElement('div');
+				renderedContent.className = 'rendered-content';
+				markdownPreview.appendChild(renderedContent);
+			}
+			
+			renderedContent.innerHTML = `
+				<div style="color: #ef4444; text-align: center; padding: 2rem;">
+					<svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom: 1rem;">
+						<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+						<line x1="15" y1="9" x2="9" y2="15" stroke="currentColor" stroke-width="2"/>
+						<line x1="9" y1="9" x2="15" y2="15" stroke="currentColor" stroke-width="2"/>
+					</svg>
+					<h4>Error al procesar el Markdown</h4>
+					<p>Revisa la sintaxis e intenta nuevamente</p>
+				</div>
+			`;
+		}
+	}
+
+	// Función con debounce para mejor rendimiento
+	function debouncedUpdatePreview() {
+		if (updateTimeout) clearTimeout(updateTimeout);
+		updateTimeout = window.setTimeout(updatePreview, 300);
+	}
+
+	// Función para limpiar el editor
+	function clearEditor() {
+		if (markdownInput.value.trim() && !confirm('¿Estás seguro de que quieres limpiar todo el contenido?')) {
+			return;
+		}
+		
+		markdownInput.value = '';
+		markdownInput.focus();
+		updatePreview();
+		
+		// Animación de limpieza
+		markdownInput.style.background = '#fef3cd';
+		setTimeout(() => {
+			markdownInput.style.background = '#fafafa';
+		}, 300);
+	}
+
+	// Función para pantalla completa de preview
+	function toggleFullscreen() {
+		const previewSection = document.querySelector('.preview-section') as HTMLElement;
+		
+		if (!document.fullscreenElement) {
+			previewSection.requestFullscreen().catch(err => {
+				console.log('Error al entrar en pantalla completa:', err);
+			});
+		} else {
+			document.exitFullscreen();
+		}
+	}
+
+	// Función mejorada para convertir a PDF con seguridad y lazy loading
+	async function convertToPdf() {
+		const renderedContent = markdownPreview.querySelector('.rendered-content') as HTMLElement;
+		
+		if (!markdownInput.value.trim() || !renderedContent) {
+			showNotification('Por favor, ingresa algún contenido en Markdown', 'warning');
+			return;
+		}
+
+		// Limitar el tamaño del contenido para PDF
+		const contentLength = renderedContent.innerText.length;
+		if (contentLength > 100000) {
+			showNotification('⚠️ El documento es demasiado grande para convertir a PDF (máx 100,000 caracteres)', 'warning');
+			return;
+		}
+
+		// Estado de carga
+		convertToPdfBtn.disabled = true;
+		const originalContent = convertToPdfBtn.innerHTML;
+		
+		// Lazy load html2pdf solo cuando se necesita
+		if (!html2pdfModule) {
+			convertToPdfBtn.innerHTML = `
+				<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="spin">
+					<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" stroke-dasharray="60" stroke-dashoffset="30"/>
+				</svg>
+				Cargando módulo PDF...
+			`;
+			try {
+				const module = await import('html2pdf.js');
+				html2pdfModule = module.default;
+			} catch (error) {
+				showNotification('❌ Error al cargar el módulo PDF', 'error');
+				convertToPdfBtn.disabled = false;
+				convertToPdfBtn.innerHTML = originalContent;
+				return;
+			}
+		}
+		convertToPdfBtn.innerHTML = `
+			<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M12 2V6L16 2H12ZM6 2C4.9 2 4 2.9 4 4V20C4 21.1 4.89 22 5.99 22H18C19.1 22 20 21.1 20 20V8L14 2H6Z" fill="currentColor"/>
+			</svg>
+			Generando PDF...
+		`;
+
+		try {
+			showNotification('Preparando documento para exportación...', 'info');
+			
+			// Sanitizar el contenido HTML antes de generar el PDF
+			const sanitizedContent = DOMPurify.sanitize(renderedContent.innerHTML, purifyConfig);
+			
+			// Crear un wrapper con el contenido HTML completo que incluya los estilos
+			const htmlContent = `
+				<!DOCTYPE html>
+				<html>
+				<head>
+					<meta charset="UTF-8">
+					<meta name="viewport" content="width=device-width, initial-scale=1.0">
+					<style>
+						@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+						
+						body {
+							font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+							color: #2d3748;
+							line-height: 1.6;
+							font-size: 11pt;
+							margin: 0;
+							padding: 20px;
+							background: white;
+						}
+						
+						h1 {
+							font-size: 24pt;
+							font-weight: 700;
+							color: #1a202c;
+							margin: 24px 0 12px 0;
+							padding-bottom: 8px;
+							border-bottom: 2px solid #e2e8f0;
+							line-height: 1.25;
+							page-break-after: avoid;
+						}
+						
+						h1:first-child {
+							margin-top: 0;
+						}
+						
+						h2 {
+							font-size: 18pt;
+							font-weight: 600;
+							color: #2d3748;
+							margin: 20px 0 10px 0;
+							line-height: 1.3;
+							page-break-after: avoid;
+						}
+						
+						h3 {
+							font-size: 14pt;
+							font-weight: 600;
+							color: #4a5568;
+							margin: 16px 0 8px 0;
+							line-height: 1.3;
+							page-break-after: avoid;
+						}
+						
+						h4, h5, h6 {
+							font-size: 12pt;
+							font-weight: 600;
+							color: #4a5568;
+							margin: 14px 0 7px 0;
+							line-height: 1.3;
+							page-break-after: avoid;
+						}
+						
+						p {
+							margin: 0 0 12px 0;
+							color: #2d3748;
+							line-height: 1.7;
+							font-size: 11pt;
+						}
+						
+						strong, b {
+							font-weight: 600;
+							color: #1a202c;
+						}
+						
+						em, i {
+							font-style: italic;
+							color: #4a5568;
+						}
+						
+						code {
+							background: #edf2f7;
+							color: #d53f8c;
+							padding: 2px 6px;
+							border-radius: 3px;
+							font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+							font-size: 10pt;
+							border: 1px solid #e2e8f0;
+						}
+						
+						pre {
+							background: #f7fafc;
+							border: 1px solid #e2e8f0;
+							border-radius: 6px;
+							padding: 12px;
+							overflow-x: auto;
+							font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+							font-size: 9pt;
+							line-height: 1.5;
+							margin: 16px 0;
+							color: #2d3748;
+							page-break-inside: avoid;
+						}
+						
+						pre code {
+							background: none;
+							color: #2d3748;
+							padding: 0;
+							border: none;
+							font-weight: normal;
+						}
+						
+						blockquote {
+							border-left: 4px solid #cbd5e0;
+							background: #f7fafc;
+							margin: 16px 0;
+							padding: 12px 20px;
+							color: #4a5568;
+							font-style: italic;
+							border-radius: 0 4px 4px 0;
+							page-break-inside: avoid;
+						}
+						
+						blockquote p {
+							margin: 0;
+						}
+						
+						ul, ol {
+							margin: 12px 0;
+							padding-left: 24px;
+						}
+						
+						li {
+							margin: 6px 0;
+							color: #2d3748;
+							line-height: 1.7;
+						}
+						
+						table {
+							width: 100%;
+							border-collapse: collapse;
+							margin: 16px 0;
+							font-size: 10pt;
+							border: 1px solid #e2e8f0;
+							page-break-inside: avoid;
+						}
+						
+						th {
+							background: #f7fafc;
+							padding: 10px;
+							text-align: left;
+							font-weight: 600;
+							color: #2d3748;
+							border-bottom: 2px solid #e2e8f0;
+						}
+						
+						td {
+							padding: 10px;
+							border-bottom: 1px solid #e2e8f0;
+							color: #4a5568;
+						}
+						
+						tr:nth-child(even) {
+							background: #f7fafc;
+						}
+						
+						a {
+							color: #667eea;
+							text-decoration: underline;
+							font-weight: 500;
+						}
+						
+						hr {
+							border: none;
+							border-top: 1px solid #e2e8f0;
+							margin: 24px 0;
+						}
+						
+						img {
+							max-width: 100%;
+							height: auto;
+							margin: 16px 0;
+							border-radius: 4px;
+						}
+					</style>
+				</head>
+				<body>
+					${sanitizedContent}
+				</body>
+				</html>
+			`;
+			
+			showNotification('Generando PDF de alta calidad...', 'info');
+			
+			// Obtener el título para el nombre del archivo con sanitización
+			const firstH1 = renderedContent.querySelector('h1')?.textContent || 'Documento';
+			const now = new Date();
+			const timestamp = now.toISOString().slice(0, 10);
+			
+			// Sanitizar el nombre del archivo para prevenir directory traversal
+			const sanitizedTitle = firstH1
+				.toLowerCase()
+				.replace(/[^a-z0-9\s-]/g, '') // Solo letras, números, espacios y guiones
+				.replace(/\s+/g, '-') // Reemplazar espacios con guiones
+				.replace(/-+/g, '-') // Remover guiones múltiples
+				.replace(/^-+|-+$/g, '') // Remover guiones al inicio y final
+				.slice(0, 50); // Limitar longitud
+			
+			const fileName = `${sanitizedTitle || 'documento'}-${timestamp}.pdf`;
+			
+			// Configurar opciones de html2pdf
+			const options = {
+				margin: 15,
+				filename: fileName,
+				image: { type: 'jpeg', quality: 0.95 },
+				html2canvas: { 
+					scale: 2,
+					useCORS: true,
+					logging: false
+				},
+				jsPDF: { 
+					unit: 'mm', 
+					format: 'a4', 
+					orientation: 'portrait'
+				},
+				pagebreak: { 
+				mode: 'avoid-all'
+			}
+		};
+		
+		// Generar y descargar el PDF usando el HTML completo con estilos
+		await html2pdfModule().from(htmlContent).set(options).save();
+		
+		showNotification(`✅ PDF generado exitosamente: ${fileName}`, 'success');		} catch (error) {
+			console.error('Error al generar PDF:', error);
+			showNotification('❌ Error al generar el PDF. Inténtalo de nuevo.', 'error');
+		} finally {
+			convertToPdfBtn.disabled = false;
+			convertToPdfBtn.innerHTML = originalContent;
+		}
+	}
+
+	// Sistema de notificaciones elegante
+	function showNotification(message: string, type: 'success' | 'error' | 'warning' | 'info') {
+		const notification = document.createElement('div');
+		notification.className = `notification ${type}`;
+		notification.innerHTML = `
+			<div class="notification-content">
+				${message}
+			</div>
+		`;
+		
+		document.body.appendChild(notification);
+		
+		// Animación de entrada
+		setTimeout(() => notification.classList.add('show'), 10);
+		
+		// Remover después de 4 segundos
+		setTimeout(() => {
+			notification.classList.remove('show');
+			setTimeout(() => document.body.removeChild(notification), 300);
+		}, 4000);
+	}
+
+	// Event listeners mejorados
+	markdownInput.addEventListener('input', debouncedUpdatePreview);
+	markdownInput.addEventListener('keydown', (e) => {
+		// Shortcuts útiles
+		if (e.ctrlKey || e.metaKey) {
+			switch (e.key) {
+				case 'k':
+					e.preventDefault();
+					clearEditor();
+					break;
+				case 's':
+					e.preventDefault();
+					convertToPdf();
+					break;
+			}
+		}
+		
+		// Tab para indentación
+		if (e.key === 'Tab') {
+			e.preventDefault();
+			const start = markdownInput.selectionStart;
+			const end = markdownInput.selectionEnd;
+			markdownInput.value = markdownInput.value.substring(0, start) + '  ' + markdownInput.value.substring(end);
+			markdownInput.selectionStart = markdownInput.selectionEnd = start + 2;
+		}
+	});
+	
+	convertToPdfBtn.addEventListener('click', convertToPdf);
+	clearBtn.addEventListener('click', clearEditor);
+	fullscreenBtn.addEventListener('click', toggleFullscreen);
+
+	// Inicialización
+	updatePreview();
+	updateWordCount('');
+	
+	// Efecto de focus mejorado
+	markdownInput.addEventListener('focus', () => {
+		markdownInput.parentElement?.classList.add('focused');
+	});
+	
+	markdownInput.addEventListener('blur', () => {
+		markdownInput.parentElement?.classList.remove('focused');
+	});
+</script>
