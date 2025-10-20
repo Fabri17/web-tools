@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Sitemaps
-Sitemap: https://tu-dominio.com/sitemap.xml
+Sitemap: https://brix.center.com/sitemap.xml
 
 # Crawl-delay para bots (opcional)
 Crawl-delay: 1

@@ -3,7 +3,7 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://tu-dominio.com', // Cambiar por tu dominio real
+  site: 'https://brix.center.com', // Cambiar por tu dominio real
   base: '/',
   trailingSlash: 'never',
   
