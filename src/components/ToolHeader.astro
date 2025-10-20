@@ -1,0 +1,155 @@
+---
+interface Props {
+	title: string;
+	subtitle: string;
+	icon: string;
+	primaryButtonText?: string;
+	primaryButtonId?: string;
+	showPrimaryButton?: boolean;
+}
+
+const { 
+	title, 
+	subtitle, 
+	icon, 
+	primaryButtonText = "Generar",
+	primaryButtonId = "primaryBtn",
+	showPrimaryButton = true 
+} = Astro.props;
+---
+
+<div class="header">
+	<div class="header-content">
+		<a href="/" class="back-button" title="Volver al inicio">
+			<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+			</svg>
+			<span class="back-text">Inicio</span>
+		</a>
+		<div class="title-section">
+			<div class="logo-container">
+				<div class="logo-icon" set:html={icon}></div>
+				<div class="title-text">
+					<h1>{title}</h1>
+					<p class="subtitle">{subtitle}</p>
+				</div>
+			</div>
+		</div>
+		{showPrimaryButton && (
+			<button id={primaryButtonId} class="btn-primary">
+				<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M12 16L7 11L8.4 9.6L11 12.2V4H13V12.2L15.6 9.6L17 11L12 16Z" fill="currentColor"/>
+					<path d="M5 20V18H19V20H5Z" fill="currentColor"/>
+				</svg>
+				{primaryButtonText}
+			</button>
+		)}
+	</div>
+</div>
+
+<style>
+	.header {
+		background: white;
+		border-radius: 16px;
+		padding: 2rem;
+		margin-bottom: 2rem;
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+	}
+
+	.header-content {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 2rem;
+		flex-wrap: wrap;
+	}
+
+	.back-button {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.75rem 1.25rem;
+		background: white;
+		border: 1px solid #e4e4e7;
+		border-radius: 12px;
+		color: #18181b;
+		text-decoration: none;
+		font-weight: 500;
+		transition: all 0.2s;
+	}
+
+	.back-button:hover {
+		background: #f4f4f5;
+		border-color: #8b5cf6;
+		color: #8b5cf6;
+		transform: translateX(-4px);
+	}
+
+	.logo-container {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+	}
+
+	.logo-icon {
+		width: 48px;
+		height: 48px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.title-text h1 {
+		font-size: 1.75rem;
+		color: #18181b;
+		margin-bottom: 0.25rem;
+	}
+
+	.subtitle {
+		color: #71717a;
+		font-size: 0.95rem;
+	}
+
+	.btn-primary {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.75rem;
+		padding: 1rem 2rem;
+		background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+		color: white;
+		border: none;
+		border-radius: 12px;
+		font-size: 1rem;
+		font-weight: 600;
+		cursor: pointer;
+		transition: all 0.3s;
+		box-shadow: 0 4px 12px rgba(139, 92, 246, 0.2);
+	}
+
+	.btn-primary:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 6px 20px rgba(139, 92, 246, 0.3);
+	}
+
+	.btn-primary:active {
+		transform: translateY(0);
+	}
+
+	.btn-primary:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+		transform: none;
+	}
+
+	@media (max-width: 768px) {
+		.header-content {
+			flex-direction: column;
+			align-items: stretch;
+		}
+
+		.btn-primary {
+			width: 100%;
+		}
+	}
+</style>

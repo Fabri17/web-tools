@@ -1,5 +1,22 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import ToolHeader from '../components/ToolHeader.astro';
+
+const icon = `
+	<svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<rect x="3" y="3" width="7" height="7" fill="url(#gradient1)" stroke="url(#gradient1)" stroke-width="1.5"/>
+		<rect x="14" y="3" width="7" height="7" fill="url(#gradient1)" stroke="url(#gradient1)" stroke-width="1.5"/>
+		<rect x="3" y="14" width="7" height="7" fill="url(#gradient1)" stroke="url(#gradient1)" stroke-width="1.5"/>
+		<rect x="14" y="14" width="3" height="3" fill="url(#gradient1)"/>
+		<rect x="18" y="18" width="3" height="3" fill="url(#gradient1)"/>
+		<defs>
+			<linearGradient id="gradient1" x1="3" y1="3" x2="21" y2="21" gradientUnits="userSpaceOnUse">
+				<stop stop-color="#8b5cf6"/>
+				<stop offset="1" stop-color="#c084fc"/>
+			</linearGradient>
+		</defs>
+	</svg>
+`;
 ---
 
 <Layout 
@@ -10,43 +27,12 @@ import Layout from '../layouts/Layout.astro';
 >
 	<main>
 		<div class="container">
-			<div class="header">
-				<div class="header-content">
-					<a href="/" class="back-button" title="Volver al inicio">
-						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-						</svg>
-						<span class="back-text">Inicio</span>
-					</a>
-					<div class="title-section">
-						<div class="logo-container">
-							<div class="logo-icon">
-								<svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<rect x="3" y="3" width="7" height="7" fill="url(#gradient1)" stroke="url(#gradient1)" stroke-width="1.5"/>
-									<rect x="14" y="3" width="7" height="7" fill="url(#gradient1)" stroke="url(#gradient1)" stroke-width="1.5"/>
-									<rect x="3" y="14" width="7" height="7" fill="url(#gradient1)" stroke="url(#gradient1)" stroke-width="1.5"/>
-									<rect x="14" y="14" width="3" height="3" fill="url(#gradient2)"/>
-									<rect x="18" y="18" width="3" height="3" fill="url(#gradient2)"/>
-									<defs>
-										<linearGradient id="gradient1" x1="3" y1="3" x2="21" y2="21" gradientUnits="userSpaceOnUse">
-											<stop stop-color="#8b5cf6"/>
-											<stop offset="1" stop-color="#c084fc"/>
-										</linearGradient>
-										<linearGradient id="gradient2" x1="14" y1="14" x2="21" y2="21" gradientUnits="userSpaceOnUse">
-											<stop stop-color="#c084fc"/>
-											<stop offset="1" stop-color="#8b5cf6"/>
-										</linearGradient>
-									</defs>
-								</svg>
-							</div>
-							<div class="title-text">
-								<h1>QR Generator</h1>
-								<p class="subtitle">Crea códigos QR personalizados al instante</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+			<ToolHeader 
+				title="QR Generator"
+				subtitle="Crea códigos QR personalizados al instante"
+				icon={icon}
+				showPrimaryButton={false}
+			/>
 			
 			<div class="generator-container">
 				<!-- Input Section -->
@@ -521,68 +507,6 @@ import Layout from '../layouts/Layout.astro';
 	.container {
 		max-width: 1400px;
 		margin: 0 auto;
-	}
-
-	/* Header */
-	.header {
-		background: white;
-		border-radius: 16px;
-		padding: 2rem;
-		margin-bottom: 2rem;
-		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-	}
-
-	.header-content {
-		display: flex;
-		align-items: center;
-		gap: 2rem;
-		flex-wrap: wrap;
-	}
-
-	.back-button {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-		padding: 0.75rem 1.25rem;
-		background: white;
-		border: 1px solid var(--border);
-		border-radius: 12px;
-		color: var(--text);
-		text-decoration: none;
-		font-weight: 500;
-		transition: all 0.2s;
-	}
-
-	.back-button:hover {
-		background: var(--bg-gray);
-		border-color: var(--primary);
-		color: var(--primary);
-		transform: translateX(-4px);
-	}
-
-	.logo-container {
-		display: flex;
-		align-items: center;
-		gap: 1rem;
-	}
-
-	.logo-icon {
-		width: 48px;
-		height: 48px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.title-text h1 {
-		font-size: 1.75rem;
-		color: var(--text);
-		margin-bottom: 0.25rem;
-	}
-
-	.subtitle {
-		color: var(--text-light);
-		font-size: 0.95rem;
 	}
 
 	/* Generator Container */
