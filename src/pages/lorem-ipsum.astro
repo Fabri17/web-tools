@@ -1,0 +1,739 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ToolHeader from '../components/ToolHeader.astro';
+
+const icon = `
+	<svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<path d="M4 7h16M4 12h16M4 17h10" stroke="url(#gradient1)" stroke-width="1.5" stroke-linecap="round"/>
+		<defs>
+			<linearGradient id="gradient1" x1="4" y1="7" x2="16" y2="17" gradientUnits="userSpaceOnUse">
+				<stop stop-color="#8b5cf6"/>
+				<stop offset="1" stop-color="#c084fc"/>
+			</linearGradient>
+		</defs>
+	</svg>
+`;
+---
+
+<Layout 
+	title="Lorem Ipsum Generator - Generador de Texto de Relleno | WebTools Suite"
+	description="Genera texto Lorem Ipsum personalizable en múltiples idiomas. Controla párrafos, palabras, listas y formato. 100% gratis y en tu navegador."
+	url="https://webtools-suite.com/lorem-ipsum"
+	image="/og-image.jpg"
+>
+	<main>
+		<div class="container">
+			<ToolHeader 
+				title="Lorem Ipsum Generator"
+				subtitle="Genera texto de relleno personalizable para tus diseños"
+				icon={icon}
+				showPrimaryButton={false}
+			/>
+			
+			<div class="tool-container">
+				<!-- Settings Panel -->
+				<div class="settings-panel">
+					<h3>
+						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+							<path d="M12 1v6m0 6v6M23 12h-6m-6 0H1" stroke="currentColor" stroke-width="2"/>
+						</svg>
+						Configuración
+					</h3>
+					
+					<div class="setting-group">
+						<label for="textType">Tipo de Texto</label>
+						<select id="textType" class="setting-input">
+							<option value="paragraphs">Párrafos</option>
+							<option value="words">Palabras</option>
+							<option value="sentences">Oraciones</option>
+							<option value="lists">Lista (HTML)</option>
+						</select>
+					</div>
+
+					<div class="setting-group">
+						<label for="amount">Cantidad</label>
+						<input type="number" id="amount" class="setting-input" value="3" min="1" max="100">
+						<small id="amountLabel">3 párrafos</small>
+					</div>
+
+					<div class="setting-group">
+						<label for="language">Idioma</label>
+						<select id="language" class="setting-input">
+							<option value="latin">Latín (Clásico)</option>
+							<option value="spanish">Español</option>
+							<option value="english">Inglés</option>
+							<option value="french">Francés</option>
+							<option value="german">Alemán</option>
+						</select>
+					</div>
+
+					<div class="setting-group checkbox-group">
+						<label class="checkbox-label">
+							<input type="checkbox" id="startWithLorem" checked>
+							<span>Comenzar con "Lorem ipsum dolor sit amet..."</span>
+						</label>
+					</div>
+
+					<div class="setting-group checkbox-group">
+						<label class="checkbox-label">
+							<input type="checkbox" id="htmlTags">
+							<span>Envolver en etiquetas HTML &lt;p&gt;</span>
+						</label>
+					</div>
+
+					<button id="generateBtn" class="btn-primary">
+						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="currentColor"/>
+						</svg>
+						Generar Texto
+					</button>
+				</div>
+
+				<!-- Result Panel -->
+				<div class="result-panel">
+					<div class="result-header">
+						<h3>
+							<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" stroke="currentColor" stroke-width="2"/>
+							</svg>
+							Texto Generado
+						</h3>
+						<div class="result-actions">
+							<button id="copyBtn" class="action-btn" title="Copiar al portapapeles">
+								<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" stroke-width="2"/>
+									<path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke="currentColor" stroke-width="2"/>
+								</svg>
+								Copiar
+							</button>
+							<button id="downloadBtn" class="action-btn" title="Descargar como TXT">
+								<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" stroke="currentColor" stroke-width="2"/>
+								</svg>
+								Descargar
+							</button>
+						</div>
+					</div>
+					
+					<div class="result-stats">
+						<div class="stat-item">
+							<span class="stat-label">Palabras:</span>
+							<span class="stat-value" id="wordCount">0</span>
+						</div>
+						<div class="stat-item">
+							<span class="stat-label">Caracteres:</span>
+							<span class="stat-value" id="charCount">0</span>
+						</div>
+						<div class="stat-item">
+							<span class="stat-label">Párrafos:</span>
+							<span class="stat-value" id="paraCount">0</span>
+						</div>
+					</div>
+
+					<div id="resultText" class="result-text">
+						<p class="placeholder">El texto generado aparecerá aquí...</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+</Layout>
+
+<style>
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+
+	main {
+		min-height: 100vh;
+		background: linear-gradient(180deg, #fafafa 0%, #f4f4f5 100%);
+		padding-bottom: 4rem;
+	}
+
+	.container {
+		max-width: 1400px;
+		margin: 0 auto;
+		padding: 0 2rem;
+	}
+
+	.tool-container {
+		display: grid;
+		grid-template-columns: 350px 1fr;
+		gap: 2rem;
+		margin-top: 2rem;
+	}
+
+	/* Settings Panel */
+	.settings-panel {
+		background: white;
+		border-radius: 16px;
+		padding: 2rem;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+		border: 1px solid #e4e4e7;
+		height: fit-content;
+		position: sticky;
+		top: 2rem;
+	}
+
+	.settings-panel h3 {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		font-size: 1.25rem;
+		color: #18181b;
+		margin-bottom: 1.5rem;
+		padding-bottom: 1rem;
+		border-bottom: 2px solid #f4f4f5;
+	}
+
+	.settings-panel h3 svg {
+		color: #8b5cf6;
+	}
+
+	.setting-group {
+		margin-bottom: 1.5rem;
+	}
+
+	.setting-group label {
+		display: block;
+		font-size: 0.875rem;
+		font-weight: 600;
+		color: #3f3f46;
+		margin-bottom: 0.5rem;
+	}
+
+	.setting-input {
+		width: 100%;
+		padding: 0.75rem;
+		border: 2px solid #e4e4e7;
+		border-radius: 10px;
+		font-size: 0.9375rem;
+		color: #18181b;
+		background: white;
+		transition: all 0.3s ease;
+	}
+
+	.setting-input:focus {
+		outline: none;
+		border-color: #8b5cf6;
+		box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+	}
+
+	.setting-group small {
+		display: block;
+		margin-top: 0.5rem;
+		font-size: 0.8125rem;
+		color: #71717a;
+	}
+
+	.checkbox-group {
+		margin-top: 1.5rem;
+		padding-top: 1.5rem;
+		border-top: 1px solid #f4f4f5;
+	}
+
+	.checkbox-label {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		cursor: pointer;
+		font-weight: 500;
+		color: #3f3f46;
+	}
+
+	.checkbox-label input[type="checkbox"] {
+		width: 18px;
+		height: 18px;
+		cursor: pointer;
+		accent-color: #8b5cf6;
+	}
+
+	.btn-primary {
+		width: 100%;
+		padding: 1rem;
+		background: linear-gradient(135deg, #8b5cf6, #a855f7);
+		color: white;
+		border: none;
+		border-radius: 12px;
+		font-size: 1rem;
+		font-weight: 600;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.75rem;
+		margin-top: 2rem;
+		transition: all 0.3s ease;
+		box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+	}
+
+	.btn-primary:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 8px 20px rgba(139, 92, 246, 0.4);
+	}
+
+	.btn-primary:active {
+		transform: translateY(0);
+	}
+
+	/* Result Panel */
+	.result-panel {
+		background: white;
+		border-radius: 16px;
+		padding: 2rem;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+		border: 1px solid #e4e4e7;
+	}
+
+	.result-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 1.5rem;
+		padding-bottom: 1rem;
+		border-bottom: 2px solid #f4f4f5;
+	}
+
+	.result-header h3 {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		font-size: 1.25rem;
+		color: #18181b;
+	}
+
+	.result-header h3 svg {
+		color: #8b5cf6;
+	}
+
+	.result-actions {
+		display: flex;
+		gap: 0.75rem;
+	}
+
+	.action-btn {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.625rem 1rem;
+		background: white;
+		color: #8b5cf6;
+		border: 2px solid #8b5cf6;
+		border-radius: 10px;
+		font-size: 0.875rem;
+		font-weight: 600;
+		cursor: pointer;
+		transition: all 0.3s ease;
+	}
+
+	.action-btn:hover {
+		background: #8b5cf6;
+		color: white;
+		transform: translateY(-2px);
+		box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+	}
+
+	.action-btn svg {
+		stroke: currentColor;
+	}
+
+	/* Stats */
+	.result-stats {
+		display: flex;
+		gap: 2rem;
+		padding: 1rem;
+		background: linear-gradient(135deg, rgba(139, 92, 246, 0.05), rgba(192, 132, 252, 0.05));
+		border-radius: 12px;
+		border: 1px solid rgba(139, 92, 246, 0.1);
+		margin-bottom: 1.5rem;
+	}
+
+	.stat-item {
+		display: flex;
+		gap: 0.5rem;
+		align-items: center;
+	}
+
+	.stat-label {
+		font-size: 0.875rem;
+		color: #71717a;
+		font-weight: 500;
+	}
+
+	.stat-value {
+		font-size: 1.125rem;
+		font-weight: 700;
+		color: #8b5cf6;
+	}
+
+	/* Result Text */
+	.result-text {
+		min-height: 400px;
+		max-height: 600px;
+		overflow-y: auto;
+		padding: 1.5rem;
+		background: #fafafa;
+		border-radius: 12px;
+		border: 2px solid #e4e4e7;
+		font-size: 1rem;
+		line-height: 1.8;
+		color: #18181b;
+		font-family: 'Georgia', 'Times New Roman', serif;
+	}
+
+	.result-text p {
+		margin-bottom: 1rem;
+	}
+
+	.result-text p:last-child {
+		margin-bottom: 0;
+	}
+
+	.result-text ul,
+	.result-text ol {
+		margin-left: 2rem;
+		margin-bottom: 1rem;
+	}
+
+	.result-text li {
+		margin-bottom: 0.5rem;
+	}
+
+	.result-text .placeholder {
+		text-align: center;
+		color: #a1a1aa;
+		font-style: italic;
+		padding: 4rem 0;
+	}
+
+	/* Scrollbar */
+	.result-text::-webkit-scrollbar {
+		width: 8px;
+	}
+
+	.result-text::-webkit-scrollbar-track {
+		background: #f4f4f5;
+		border-radius: 4px;
+	}
+
+	.result-text::-webkit-scrollbar-thumb {
+		background: #d4d4d8;
+		border-radius: 4px;
+	}
+
+	.result-text::-webkit-scrollbar-thumb:hover {
+		background: #a1a1aa;
+	}
+
+	/* Responsive */
+	@media (max-width: 1024px) {
+		.tool-container {
+			grid-template-columns: 1fr;
+		}
+
+		.settings-panel {
+			position: static;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.container {
+			padding: 0 1rem;
+		}
+
+		.result-header {
+			flex-direction: column;
+			gap: 1rem;
+			align-items: flex-start;
+		}
+
+		.result-actions {
+			width: 100%;
+		}
+
+		.action-btn {
+			flex: 1;
+			justify-content: center;
+		}
+
+		.result-stats {
+			flex-direction: column;
+			gap: 0.75rem;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.settings-panel,
+		.result-panel {
+			padding: 1.5rem;
+		}
+
+		.result-text {
+			min-height: 300px;
+			font-size: 0.9375rem;
+		}
+	}
+</style>
+
+<script>
+	// Lorem Ipsum text banks
+	const loremData = {
+		latin: {
+			start: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+			words: [
+				"sed", "do", "eiusmod", "tempor", "incididunt", "ut", "labore", "et", "dolore", "magna",
+				"aliqua", "enim", "ad", "minim", "veniam", "quis", "nostrud", "exercitation", "ullamco",
+				"laboris", "nisi", "aliquip", "ex", "ea", "commodo", "consequat", "duis", "aute", "irure",
+				"dolor", "in", "reprehenderit", "voluptate", "velit", "esse", "cillum", "fugiat", "nulla",
+				"pariatur", "excepteur", "sint", "occaecat", "cupidatat", "non", "proident", "sunt", "culpa",
+				"qui", "officia", "deserunt", "mollit", "anim", "id", "est", "laborum", "suscipit", "lobortis",
+				"nisl", "aliquam", "varius", "morbi", "quis", "risus", "eget", "viverra", "mauris", "vitae"
+			]
+		},
+		spanish: {
+			start: "El rápido zorro marrón salta sobre el perro perezoso.",
+			words: [
+				"aunque", "cada", "cuando", "donde", "durante", "entonces", "hasta", "mientras", "nunca",
+				"para", "porque", "pero", "puede", "quien", "siempre", "sino", "sobre", "también", "todos",
+				"un", "uno", "ya", "ahora", "aquí", "bien", "como", "con", "de", "desde", "el", "en", "es",
+				"ese", "eso", "está", "este", "fue", "gran", "ha", "hacer", "hay", "he", "la", "lo", "los",
+				"más", "me", "mi", "muy", "no", "nos", "otra", "otro", "país", "parte", "por", "que", "se",
+				"ser", "si", "sin", "sobre", "su", "tal", "tan", "tanto", "tiene", "tiempo", "todo", "tras"
+			]
+		},
+		english: {
+			start: "The quick brown fox jumps over the lazy dog.",
+			words: [
+				"about", "after", "all", "also", "and", "any", "are", "as", "at", "be", "because", "been",
+				"before", "being", "between", "both", "but", "by", "came", "can", "come", "could", "did",
+				"do", "does", "each", "even", "for", "from", "get", "got", "had", "has", "have", "he",
+				"her", "here", "him", "himself", "his", "how", "if", "in", "into", "is", "it", "its",
+				"just", "like", "make", "many", "me", "more", "most", "much", "must", "my", "never",
+				"now", "of", "on", "only", "or", "other", "our", "out", "over", "said", "same", "see",
+				"should", "since", "so", "some", "still", "such", "take", "than", "that", "the", "their",
+				"them", "then", "there", "these", "they", "this", "those", "through", "to", "too", "under"
+			]
+		},
+		french: {
+			start: "Le renard brun rapide saute par-dessus le chien paresseux.",
+			words: [
+				"alors", "au", "aucuns", "aussi", "autre", "avant", "avec", "avoir", "bon", "car", "ce",
+				"cela", "ces", "ceux", "chaque", "ci", "comme", "comment", "dans", "de", "dedans", "dehors",
+				"depuis", "des", "deux", "devrait", "doit", "donc", "dos", "début", "elle", "elles", "en",
+				"encore", "essai", "est", "et", "eu", "fait", "faites", "fois", "font", "force", "haut",
+				"hors", "ici", "il", "ils", "je", "juste", "la", "le", "les", "leur", "là", "ma", "maintenant",
+				"mais", "mes", "mine", "moins", "mon", "mot", "même", "ni", "nommés", "notre", "nous", "nouveaux",
+				"ou", "où", "par", "parce", "parole", "pas", "personnes", "peut", "peu", "pièce", "plupart"
+			]
+		},
+		german: {
+			start: "Der schnelle braune Fuchs springt über den faulen Hund.",
+			words: [
+				"aber", "alle", "als", "also", "am", "an", "auch", "auf", "aus", "bei", "bis", "das",
+				"dass", "dem", "den", "der", "des", "die", "dies", "diese", "diesem", "diesen", "dieser",
+				"dieses", "doch", "durch", "ein", "eine", "einem", "einen", "einer", "eines", "er", "es",
+				"für", "hatte", "haben", "hat", "hier", "ihm", "ihn", "ihr", "ihre", "im", "in", "ist",
+				"jetzt", "kann", "machen", "man", "mich", "mir", "mit", "nach", "nicht", "noch", "nur",
+				"oder", "ohne", "sehr", "sein", "seine", "sich", "sie", "sind", "so", "über", "um", "und",
+				"uns", "von", "vor", "war", "was", "werden", "wie", "wird", "wo", "zu", "zum", "zur"
+			]
+		}
+	};
+
+	// Elements
+	const textTypeSelect = document.getElementById('textType') as HTMLSelectElement;
+	const amountInput = document.getElementById('amount') as HTMLInputElement;
+	const amountLabel = document.getElementById('amountLabel') as HTMLElement;
+	const languageSelect = document.getElementById('language') as HTMLSelectElement;
+	const startWithLoremCheckbox = document.getElementById('startWithLorem') as HTMLInputElement;
+	const htmlTagsCheckbox = document.getElementById('htmlTags') as HTMLInputElement;
+	const generateBtn = document.getElementById('generateBtn') as HTMLButtonElement;
+	const copyBtn = document.getElementById('copyBtn') as HTMLButtonElement;
+	const downloadBtn = document.getElementById('downloadBtn') as HTMLButtonElement;
+	const resultText = document.getElementById('resultText') as HTMLElement;
+	const wordCount = document.getElementById('wordCount') as HTMLElement;
+	const charCount = document.getElementById('charCount') as HTMLElement;
+	const paraCount = document.getElementById('paraCount') as HTMLElement;
+
+	// Update amount label
+	function updateAmountLabel() {
+		const type = textTypeSelect.value;
+		const amount = amountInput.value;
+		const labels: Record<string, string> = {
+			paragraphs: 'párrafos',
+			words: 'palabras',
+			sentences: 'oraciones',
+			lists: 'elementos de lista'
+		};
+		amountLabel.textContent = `${amount} ${labels[type]}`;
+	}
+
+	textTypeSelect.addEventListener('change', updateAmountLabel);
+	amountInput.addEventListener('input', updateAmountLabel);
+
+	// Random word generator
+	function getRandomWord(lang: keyof typeof loremData): string {
+		const words = loremData[lang].words;
+		return words[Math.floor(Math.random() * words.length)];
+	}
+
+	// Generate sentence
+	function generateSentence(lang: keyof typeof loremData, minWords = 8, maxWords = 16): string {
+		const wordCount = Math.floor(Math.random() * (maxWords - minWords + 1)) + minWords;
+		const words: string[] = [];
+		
+		for (let i = 0; i < wordCount; i++) {
+			words.push(getRandomWord(lang));
+		}
+		
+		const sentence = words.join(' ');
+		return sentence.charAt(0).toUpperCase() + sentence.slice(1) + '.';
+	}
+
+	// Generate paragraph
+	function generateParagraph(lang: keyof typeof loremData, sentenceCount = 5): string {
+		const sentences: string[] = [];
+		for (let i = 0; i < sentenceCount; i++) {
+			sentences.push(generateSentence(lang));
+		}
+		return sentences.join(' ');
+	}
+
+	// Generate text
+	function generateText() {
+		const type = textTypeSelect.value;
+		const amount = parseInt(amountInput.value);
+		const lang = languageSelect.value as keyof typeof loremData;
+		const startWithLorem = startWithLoremCheckbox.checked;
+		const useHtmlTags = htmlTagsCheckbox.checked;
+
+		let generatedText = '';
+		const parts: string[] = [];
+
+		switch (type) {
+			case 'paragraphs':
+				for (let i = 0; i < amount; i++) {
+					let para = '';
+					if (i === 0 && startWithLorem) {
+						para = loremData[lang].start + ' ' + generateParagraph(lang, 4);
+					} else {
+						para = generateParagraph(lang, Math.floor(Math.random() * 3) + 4);
+					}
+					if (useHtmlTags) {
+						parts.push(`<p>${para}</p>`);
+					} else {
+						parts.push(para);
+					}
+				}
+				generatedText = parts.join(useHtmlTags ? '\n' : '\n\n');
+				break;
+
+			case 'words':
+				const words: string[] = [];
+				if (startWithLorem) {
+					words.push(...loremData[lang].start.split(' ').slice(0, Math.min(6, amount)));
+				}
+				while (words.length < amount) {
+					words.push(getRandomWord(lang));
+				}
+				generatedText = words.slice(0, amount).join(' ') + '.';
+				break;
+
+			case 'sentences':
+				for (let i = 0; i < amount; i++) {
+					if (i === 0 && startWithLorem) {
+						parts.push(loremData[lang].start);
+					} else {
+						parts.push(generateSentence(lang));
+					}
+				}
+				generatedText = parts.join(' ');
+				break;
+
+			case 'lists':
+				const listItems: string[] = [];
+				for (let i = 0; i < amount; i++) {
+					const item = generateSentence(lang, 3, 8).slice(0, -1);
+					listItems.push(useHtmlTags ? `  <li>${item}</li>` : `• ${item}`);
+				}
+				generatedText = useHtmlTags 
+					? `<ul>\n${listItems.join('\n')}\n</ul>` 
+					: listItems.join('\n');
+				break;
+		}
+
+		// Display result
+		if (useHtmlTags && type !== 'lists') {
+			resultText.innerHTML = generatedText;
+		} else if (type === 'lists' && useHtmlTags) {
+			resultText.innerHTML = generatedText;
+		} else {
+			resultText.innerHTML = generatedText.split('\n').map(p => 
+				p.trim() ? (p.startsWith('•') ? p : `<p>${p}</p>`) : ''
+			).join('');
+		}
+
+		// Update stats
+		const text = resultText.textContent || '';
+		const words = text.trim().split(/\s+/).filter(w => w.length > 0);
+		wordCount.textContent = words.length.toString();
+		charCount.textContent = text.length.toString();
+		paraCount.textContent = (resultText.querySelectorAll('p').length || 
+								(type === 'paragraphs' ? amount : 0)).toString();
+	}
+
+	// Copy to clipboard
+	async function copyToClipboard() {
+		const text = resultText.textContent || '';
+		if (!text || text.includes('aparecerá aquí')) {
+			alert('No hay texto para copiar');
+			return;
+		}
+
+		try {
+			await navigator.clipboard.writeText(text);
+			const originalText = copyBtn.innerHTML;
+			copyBtn.innerHTML = `
+				<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+				</svg>
+				¡Copiado!
+			`;
+			setTimeout(() => {
+				copyBtn.innerHTML = originalText;
+			}, 2000);
+		} catch (err) {
+			alert('Error al copiar al portapapeles');
+		}
+	}
+
+	// Download as TXT
+	function downloadText() {
+		const text = resultText.textContent || '';
+		if (!text || text.includes('aparecerá aquí')) {
+			alert('No hay texto para descargar');
+			return;
+		}
+
+		const blob = new Blob([text], { type: 'text/plain' });
+		const url = URL.createObjectURL(blob);
+		const a = document.createElement('a');
+		a.href = url;
+		a.download = `lorem-ipsum-${Date.now()}.txt`;
+		document.body.appendChild(a);
+		a.click();
+		document.body.removeChild(a);
+		URL.revokeObjectURL(url);
+	}
+
+	// Event listeners
+	generateBtn.addEventListener('click', generateText);
+	copyBtn.addEventListener('click', copyToClipboard);
+	downloadBtn.addEventListener('click', downloadText);
+
+	// Generate initial text
+	generateText();
+</script>
