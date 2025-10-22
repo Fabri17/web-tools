@@ -1,0 +1,1328 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ToolHeader from '../components/ToolHeader.astro';
+
+const icon = `
+	<svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<circle cx="12" cy="12" r="9" stroke="url(#gradient1)" stroke-width="1.5"/>
+		<path d="M12 6v6l4 2" stroke="url(#gradient2)" stroke-width="1.5" stroke-linecap="round"/>
+		<circle cx="12" cy="12" r="2" fill="url(#gradient3)"/>
+		<defs>
+			<linearGradient id="gradient1" x1="3" y1="3" x2="21" y2="21" gradientUnits="userSpaceOnUse">
+				<stop stop-color="#8b5cf6"/>
+				<stop offset="1" stop-color="#c084fc"/>
+			</linearGradient>
+			<linearGradient id="gradient2" x1="12" y1="6" x2="16" y2="14" gradientUnits="userSpaceOnUse">
+				<stop stop-color="#a855f7"/>
+				<stop offset="1" stop-color="#c084fc"/>
+			</linearGradient>
+			<linearGradient id="gradient3" x1="10" y1="10" x2="14" y2="14" gradientUnits="userSpaceOnUse">
+				<stop stop-color="#8b5cf6"/>
+				<stop offset="1" stop-color="#a855f7"/>
+			</linearGradient>
+		</defs>
+	</svg>
+`;
+---
+
+<Layout 
+	title="Service Status Monitor - Monitor de Estado de Servicios | DevTools"
+	description="Monitorea el estado de servicios populares para desarrolladores como AWS, GitHub, OpenAI, Vercel y más. Verifica disponibilidad en tiempo real."
+	url="https://brix.center.com"
+	image="/og-image.jpg"
+>
+	<main>
+		<div class="container">
+			<ToolHeader 
+				title="Service Status Monitor"
+				subtitle="Verifica el estado de servicios populares en tiempo real"
+				icon={icon}
+				primaryButtonText="Actualizar Todo"
+				primaryButtonId="refreshAllBtn"
+				showPrimaryButton={true}
+			/>
+			
+			<div class="status-container">
+				<!-- Filter Section -->
+				<div class="filter-section">
+					<div class="filter-group">
+						<button class="filter-btn active" data-category="all">
+							<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+							</svg>
+							Todos
+						</button>
+						<button class="filter-btn" data-category="cloud">
+							<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" stroke="currentColor" stroke-width="2"/>
+							</svg>
+							Cloud
+						</button>
+						<button class="filter-btn" data-category="ai">
+							<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z" stroke="currentColor" stroke-width="2"/>
+							</svg>
+							IA
+						</button>
+						<button class="filter-btn" data-category="devtools">
+							<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 3l4 4-4 4M16 3l-4 4 4 4M3 15h18M3 21h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+							</svg>
+							DevTools
+						</button>
+						<button class="filter-btn" data-category="hosting">
+							<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" stroke-width="2"/>
+								<path d="M7 8h.01M11 8h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+							</svg>
+							Hosting
+						</button>
+					</div>
+					
+					<div class="search-box">
+						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
+							<path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+						</svg>
+						<input type="text" id="searchInput" placeholder="Buscar servicio..." />
+					</div>
+				</div>
+
+				<!-- Stats Summary -->
+				<div class="stats-summary">
+					<div class="stat-card operational">
+						<div class="stat-icon">✓</div>
+						<div class="stat-info">
+							<div class="stat-value" id="operationalCount">0</div>
+							<div class="stat-label">Operacional</div>
+						</div>
+					</div>
+					<div class="stat-card degraded">
+						<div class="stat-icon">⚠</div>
+						<div class="stat-info">
+							<div class="stat-value" id="degradedCount">0</div>
+							<div class="stat-label">Degradado</div>
+						</div>
+					</div>
+					<div class="stat-card down">
+						<div class="stat-icon">✕</div>
+						<div class="stat-info">
+							<div class="stat-value" id="downCount">0</div>
+							<div class="stat-label">Caído</div>
+						</div>
+					</div>
+					<div class="stat-card checking">
+						<div class="stat-icon">⟳</div>
+						<div class="stat-info">
+							<div class="stat-value" id="checkingCount">0</div>
+							<div class="stat-label">Verificando</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Services Grid -->
+				<div class="services-grid" id="servicesGrid">
+					<!-- Services will be dynamically inserted here -->
+				</div>
+
+				<!-- Last Update Info -->
+				<div class="update-info">
+					<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M12 8v4l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+						<circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
+					</svg>
+					<span>Última actualización: <span id="lastUpdate">Nunca</span></span>
+				</div>
+			</div>
+
+			<!-- Features Section -->
+			<div class="features-section">
+				<h3>Características</h3>
+				<div class="features-grid">
+					<div class="feature-card">
+						<div class="feature-icon">🚀</div>
+						<h4>Verificación en Tiempo Real</h4>
+						<p>Comprueba el estado actual de los servicios directamente desde tu navegador.</p>
+					</div>
+					<div class="feature-card">
+						<div class="feature-icon">🔒</div>
+						<h4>100% Cliente</h4>
+						<p>Todo el procesamiento se realiza en tu navegador. Privacidad garantizada.</p>
+					</div>
+					<div class="feature-card">
+						<div class="feature-icon">⚡</div>
+						<h4>Respuesta Rápida</h4>
+						<p>Obtén información instantánea sobre el tiempo de respuesta de cada servicio.</p>
+					</div>
+					<div class="feature-card">
+						<div class="feature-icon">📊</div>
+						<h4>Vista Consolidada</h4>
+						<p>Monitorea múltiples servicios desde un solo lugar con estadísticas en tiempo real.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+</Layout>
+
+<style is:global>
+	:root {
+		--primary: #8b5cf6;
+		--primary-dark: #7c3aed;
+		--primary-light: #c084fc;
+		--success: #10b981;
+		--warning: #f59e0b;
+		--danger: #ef4444;
+		--info: #3b82f6;
+		--bg: #fafafa;
+		--card: white;
+		--text: #18181b;
+		--text-light: #71717a;
+		--border: #e4e4e7;
+	}
+
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+
+	main {
+		min-height: 100vh;
+		background: var(--bg);
+		padding: 2rem 0 4rem;
+	}
+
+	.container {
+		max-width: 1400px;
+		margin: 0 auto;
+		padding: 0 2rem;
+	}
+
+	.status-container {
+		margin-top: 2rem;
+	}
+
+	/* Filter Section */
+	.filter-section {
+		display: flex;
+		gap: 1.5rem;
+		margin-bottom: 2rem;
+		flex-wrap: wrap;
+		align-items: center;
+	}
+
+	.filter-group {
+		display: flex;
+		gap: 0.5rem;
+		flex-wrap: wrap;
+		flex: 1;
+	}
+
+	.filter-btn {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.625rem 1rem;
+		background: white;
+		border: 1.5px solid var(--border);
+		border-radius: 10px;
+		color: var(--text-light);
+		font-size: 0.9375rem;
+		font-weight: 500;
+		cursor: pointer;
+		transition: all 0.2s ease;
+	}
+
+	.filter-btn:hover {
+		border-color: var(--primary-light);
+		color: var(--primary);
+		background: rgba(139, 92, 246, 0.05);
+	}
+
+	.filter-btn.active {
+		background: var(--primary);
+		border-color: var(--primary);
+		color: white;
+	}
+
+	.filter-btn svg {
+		flex-shrink: 0;
+	}
+
+	.search-box {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		padding: 0.625rem 1rem;
+		background: white;
+		border: 1.5px solid var(--border);
+		border-radius: 10px;
+		min-width: 280px;
+		transition: border-color 0.2s ease;
+	}
+
+	.search-box:focus-within {
+		border-color: var(--primary);
+		box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+	}
+
+	.search-box svg {
+		color: var(--text-light);
+		flex-shrink: 0;
+	}
+
+	.search-box input {
+		flex: 1;
+		border: none;
+		outline: none;
+		font-size: 0.9375rem;
+		color: var(--text);
+		background: transparent;
+	}
+
+	.search-box input::placeholder {
+		color: var(--text-light);
+	}
+
+	/* Stats Summary */
+	.stats-summary {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		gap: 1.25rem;
+		margin-bottom: 2rem;
+	}
+
+	.stat-card {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		padding: 1.25rem;
+		background: white;
+		border-radius: 12px;
+		border: 1.5px solid var(--border);
+		transition: all 0.3s ease;
+	}
+
+	.stat-card:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+	}
+
+	.stat-icon {
+		width: 48px;
+		height: 48px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 10px;
+		font-size: 1.5rem;
+		font-weight: 600;
+	}
+
+	.stat-card.operational .stat-icon {
+		background: rgba(16, 185, 129, 0.1);
+		color: var(--success);
+	}
+
+	.stat-card.degraded .stat-icon {
+		background: rgba(245, 158, 11, 0.1);
+		color: var(--warning);
+	}
+
+	.stat-card.down .stat-icon {
+		background: rgba(239, 68, 68, 0.1);
+		color: var(--danger);
+	}
+
+	.stat-card.checking .stat-icon {
+		background: rgba(59, 130, 246, 0.1);
+		color: var(--info);
+	}
+
+	.stat-info {
+		flex: 1;
+	}
+
+	.stat-value {
+		font-size: 1.75rem;
+		font-weight: 700;
+		color: var(--text);
+		line-height: 1;
+		margin-bottom: 0.25rem;
+	}
+
+	.stat-label {
+		font-size: 0.875rem;
+		color: var(--text-light);
+		font-weight: 500;
+	}
+
+	/* Services Grid */
+	.services-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+		gap: 1.5rem;
+		margin-bottom: 2rem;
+	}
+
+	.service-card {
+		background: white;
+		border: 1.5px solid var(--border);
+		border-radius: 12px;
+		padding: 1.5rem;
+		transition: all 0.3s ease;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.service-card::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 3px;
+		background: var(--border);
+		transition: background 0.3s ease;
+	}
+
+	.service-card.operational::before {
+		background: var(--success);
+	}
+
+	.service-card.degraded::before {
+		background: var(--warning);
+	}
+
+	.service-card.down::before {
+		background: var(--danger);
+	}
+
+	.service-card.checking::before {
+		background: var(--info);
+		animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+	}
+
+	@keyframes pulse {
+		0%, 100% {
+			opacity: 1;
+		}
+		50% {
+			opacity: 0.5;
+		}
+	}
+
+	.service-card:hover {
+		transform: translateY(-3px);
+		box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+		border-color: var(--primary-light);
+	}
+
+	.service-header {
+		display: flex;
+		align-items: flex-start;
+		gap: 1rem;
+		margin-bottom: 1rem;
+	}
+
+	.service-logo {
+		width: 48px;
+		height: 48px;
+		border-radius: 10px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 1.5rem;
+		font-weight: 600;
+		background: linear-gradient(135deg, var(--primary-light), var(--primary));
+		color: white;
+		flex-shrink: 0;
+	}
+
+	.service-info {
+		flex: 1;
+		min-width: 0;
+	}
+
+	.service-name {
+		font-size: 1.125rem;
+		font-weight: 600;
+		color: var(--text);
+		margin-bottom: 0.25rem;
+	}
+
+	.service-category {
+		font-size: 0.8125rem;
+		color: var(--text-light);
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		font-weight: 500;
+	}
+
+	.service-status-badge {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.375rem;
+		padding: 0.375rem 0.75rem;
+		border-radius: 20px;
+		font-size: 0.8125rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.03em;
+		flex-shrink: 0;
+	}
+
+	.status-indicator {
+		width: 8px;
+		height: 8px;
+		border-radius: 50%;
+	}
+
+	.service-card.operational .service-status-badge {
+		background: rgba(16, 185, 129, 0.1);
+		color: var(--success);
+	}
+
+	.service-card.operational .status-indicator {
+		background: var(--success);
+		box-shadow: 0 0 8px var(--success);
+	}
+
+	.service-card.degraded .service-status-badge {
+		background: rgba(245, 158, 11, 0.1);
+		color: var(--warning);
+	}
+
+	.service-card.degraded .status-indicator {
+		background: var(--warning);
+		box-shadow: 0 0 8px var(--warning);
+	}
+
+	.service-card.down .service-status-badge {
+		background: rgba(239, 68, 68, 0.1);
+		color: var(--danger);
+	}
+
+	.service-card.down .status-indicator {
+		background: var(--danger);
+		box-shadow: 0 0 8px var(--danger);
+	}
+
+	.service-card.checking .service-status-badge {
+		background: rgba(59, 130, 246, 0.1);
+		color: var(--info);
+	}
+
+	.service-card.checking .status-indicator {
+		background: var(--info);
+		animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+	}
+
+	/* Manual check cards */
+	.service-card.manual-check::before {
+		background: #a0a0a0;
+	}
+
+	.service-card.manual-check .service-status-badge.manual {
+		background: rgba(160, 160, 160, 0.1);
+		color: #6b7280;
+	}
+
+	.service-card.manual-check .status-indicator {
+		background: #9ca3af;
+	}
+
+	.action-btn.full-width {
+		flex: unset;
+		width: 100%;
+	}
+
+	.service-details {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+		margin-top: 1rem;
+		padding-top: 1rem;
+		border-top: 1px solid var(--border);
+	}
+
+	.service-detail {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		font-size: 0.875rem;
+	}
+
+	.detail-label {
+		color: var(--text-light);
+		font-weight: 500;
+	}
+
+	.detail-value {
+		color: var(--text);
+		font-weight: 600;
+	}
+
+	.detail-value.response-time {
+		display: flex;
+		align-items: center;
+		gap: 0.375rem;
+	}
+
+	.response-fast {
+		color: var(--success);
+	}
+
+	.response-medium {
+		color: var(--warning);
+	}
+
+	.response-slow {
+		color: var(--danger);
+	}
+
+	.service-actions {
+		display: flex;
+		gap: 0.5rem;
+		margin-top: 1rem;
+	}
+
+	.action-btn {
+		flex: 1;
+		padding: 0.625rem;
+		background: rgba(139, 92, 246, 0.05);
+		border: 1px solid rgba(139, 92, 246, 0.2);
+		border-radius: 8px;
+		color: var(--primary);
+		font-size: 0.875rem;
+		font-weight: 500;
+		cursor: pointer;
+		transition: all 0.2s ease;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.375rem;
+	}
+
+	.action-btn:hover {
+		background: var(--primary);
+		color: white;
+		border-color: var(--primary);
+	}
+
+	.action-btn:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+
+	/* Update Info */
+	.update-info {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5rem;
+		padding: 1rem;
+		background: white;
+		border-radius: 10px;
+		border: 1.5px solid var(--border);
+		color: var(--text-light);
+		font-size: 0.875rem;
+	}
+
+	.update-info svg {
+		color: var(--primary);
+	}
+
+	.update-info span span {
+		color: var(--text);
+		font-weight: 600;
+	}
+
+	/* Features Section */
+	.features-section {
+		margin-top: 4rem;
+		padding: 3rem 0;
+		text-align: center;
+	}
+
+	.features-section h3 {
+		font-size: 2rem;
+		font-weight: 700;
+		color: var(--text);
+		margin-bottom: 2rem;
+	}
+
+	.features-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		gap: 2rem;
+	}
+
+	.feature-card {
+		padding: 2rem;
+		background: white;
+		border-radius: 12px;
+		border: 1.5px solid var(--border);
+		transition: all 0.3s ease;
+	}
+
+	.feature-card:hover {
+		transform: translateY(-4px);
+		box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+		border-color: var(--primary-light);
+	}
+
+	.feature-icon {
+		font-size: 2.5rem;
+		margin-bottom: 1rem;
+	}
+
+	.feature-card h4 {
+		font-size: 1.125rem;
+		font-weight: 600;
+		color: var(--text);
+		margin-bottom: 0.75rem;
+	}
+
+	.feature-card p {
+		font-size: 0.9375rem;
+		color: var(--text-light);
+		line-height: 1.6;
+	}
+
+	/* Empty State */
+	.empty-state {
+		text-align: center;
+		padding: 4rem 2rem;
+		color: var(--text-light);
+	}
+
+	.empty-state svg {
+		margin-bottom: 1rem;
+		opacity: 0.5;
+	}
+
+	/* Loading Animation */
+	@keyframes spin {
+		to {
+			transform: rotate(360deg);
+		}
+	}
+
+	.spin {
+		animation: spin 1s linear infinite;
+	}
+
+	/* Responsive Design */
+	@media (max-width: 768px) {
+		.container {
+			padding: 0 1rem;
+		}
+
+		.filter-section {
+			flex-direction: column;
+			align-items: stretch;
+		}
+
+		.search-box {
+			min-width: 100%;
+		}
+
+		.services-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.stats-summary {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		.features-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.filter-group {
+			flex-direction: column;
+		}
+
+		.filter-btn {
+			width: 100%;
+			justify-content: center;
+		}
+
+		.stats-summary {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
+
+<script>
+	// Service definitions with check endpoints
+	interface Service {
+		name: string;
+		category: string;
+		logo: string;
+		checkUrl: string;
+		statusUrl?: string;
+		description: string;
+	}
+
+	const services: Service[] = [
+		// Servicios con API pública de estado
+		{
+			name: 'GitHub',
+			category: 'devtools',
+			logo: '🐙',
+			checkUrl: 'https://www.githubstatus.com/api/v2/status.json',
+			statusUrl: 'https://www.githubstatus.com',
+			description: 'GitHub Platform'
+		},
+		{
+			name: 'OpenAI',
+			category: 'ai',
+			logo: '🤖',
+			checkUrl: 'https://status.openai.com/api/v2/status.json',
+			statusUrl: 'https://status.openai.com',
+			description: 'OpenAI API'
+		},
+		{
+			name: 'Vercel',
+			category: 'hosting',
+			logo: '▲',
+			checkUrl: 'https://www.vercel-status.com/api/v2/status.json',
+			statusUrl: 'https://www.vercel-status.com',
+			description: 'Vercel Platform'
+		},
+		{
+			name: 'Netlify',
+			category: 'hosting',
+			logo: '🦋',
+			checkUrl: 'https://www.netlifystatus.com/api/v2/status.json',
+			statusUrl: 'https://www.netlifystatus.com',
+			description: 'Netlify Platform'
+		},
+		{
+			name: 'Cloudflare',
+			category: 'cloud',
+			logo: '☁',
+			checkUrl: 'https://www.cloudflarestatus.com/api/v2/status.json',
+			statusUrl: 'https://www.cloudflarestatus.com',
+			description: 'Cloudflare CDN'
+		},
+		{
+			name: 'Discord',
+			category: 'devtools',
+			logo: '🎮',
+			checkUrl: 'https://discordstatus.com/api/v2/status.json',
+			statusUrl: 'https://discordstatus.com',
+			description: 'Discord Platform'
+		},
+		{
+			name: 'DigitalOcean',
+			category: 'cloud',
+			logo: '🌊',
+			checkUrl: 'https://status.digitalocean.com/api/v2/status.json',
+			statusUrl: 'https://status.digitalocean.com',
+			description: 'DigitalOcean Cloud'
+		},
+		// Servicios sin API pública o con CORS bloqueado - solo verificación manual
+		{
+			name: 'AWS',
+			category: 'cloud',
+			logo: '☁️',
+			checkUrl: '', // Sin API pública
+			statusUrl: 'https://health.aws.amazon.com/health/status',
+			description: 'Amazon Web Services'
+		},
+		{
+			name: 'Google Cloud',
+			category: 'cloud',
+			logo: '☁️',
+			checkUrl: '', // Sin API pública
+			statusUrl: 'https://status.cloud.google.com',
+			description: 'Google Cloud Platform'
+		},
+		{
+			name: 'Azure',
+			category: 'cloud',
+			logo: '⚡',
+			checkUrl: '', // Sin API pública
+			statusUrl: 'https://status.azure.com',
+			description: 'Microsoft Azure'
+		},
+		{
+			name: 'Slack',
+			category: 'devtools',
+			logo: '💬',
+			checkUrl: '', // CORS bloqueado
+			statusUrl: 'https://status.slack.com',
+			description: 'Slack Platform'
+		},
+		{
+			name: 'Heroku',
+			category: 'hosting',
+			logo: '🟣',
+			checkUrl: '', // CORS bloqueado
+			statusUrl: 'https://status.heroku.com',
+			description: 'Heroku Platform'
+		},
+		{
+			name: 'MongoDB',
+			category: 'devtools',
+			logo: '🍃',
+			checkUrl: '', // CORS bloqueado
+			statusUrl: 'https://status.cloud.mongodb.com',
+			description: 'MongoDB Atlas'
+		},
+		{
+			name: 'Redis',
+			category: 'devtools',
+			logo: '🔴',
+			checkUrl: '', // CORS bloqueado
+			statusUrl: 'https://status.redis.com',
+			description: 'Redis Cloud'
+		},
+		{
+			name: 'Stripe',
+			category: 'devtools',
+			logo: '💳',
+			checkUrl: '', // CORS bloqueado
+			statusUrl: 'https://status.stripe.com',
+			description: 'Stripe Payments'
+		},
+		{
+			name: 'Anthropic',
+			category: 'ai',
+			logo: '🧠',
+			checkUrl: '', // CORS bloqueado
+			statusUrl: 'https://status.anthropic.com',
+			description: 'Anthropic Claude API'
+		}
+	];
+
+	interface ServiceStatus {
+		status: 'operational' | 'degraded' | 'down' | 'checking';
+		responseTime: number;
+		lastChecked: Date;
+		message?: string;
+	}
+
+	const serviceStatuses = new Map<string, ServiceStatus>();
+	let currentFilter = 'all';
+	let searchQuery = '';
+
+	// DOM Elements
+	const servicesGrid = document.getElementById('servicesGrid') as HTMLDivElement;
+	const searchInput = document.getElementById('searchInput') as HTMLInputElement;
+	const refreshAllBtn = document.getElementById('refreshAllBtn') as HTMLButtonElement;
+	const filterBtns = document.querySelectorAll('.filter-btn');
+	const lastUpdateSpan = document.getElementById('lastUpdate') as HTMLSpanElement;
+
+	// Stats elements
+	const operationalCount = document.getElementById('operationalCount') as HTMLDivElement;
+	const degradedCount = document.getElementById('degradedCount') as HTMLDivElement;
+	const downCount = document.getElementById('downCount') as HTMLDivElement;
+	const checkingCount = document.getElementById('checkingCount') as HTMLDivElement;
+
+	// Initialize
+	function init() {
+		renderServices();
+		setupEventListeners();
+		checkAllServices();
+	}
+
+	// Setup event listeners
+	function setupEventListeners() {
+		searchInput.addEventListener('input', handleSearch);
+		refreshAllBtn.addEventListener('click', checkAllServices);
+		
+		filterBtns.forEach(btn => {
+			btn.addEventListener('click', handleFilter);
+		});
+	}
+
+	// Handle search
+	function handleSearch() {
+		searchQuery = searchInput.value.toLowerCase();
+		renderServices();
+	}
+
+	// Handle filter
+	function handleFilter(e: Event) {
+		const btn = e.currentTarget as HTMLButtonElement;
+		const category = btn.dataset.category || 'all';
+		
+		filterBtns.forEach(b => b.classList.remove('active'));
+		btn.classList.add('active');
+		
+		currentFilter = category;
+		renderServices();
+	}
+
+	// Filter services
+	function getFilteredServices(): Service[] {
+		return services.filter(service => {
+			const matchesCategory = currentFilter === 'all' || service.category === currentFilter;
+			const matchesSearch = service.name.toLowerCase().includes(searchQuery) ||
+													  service.description.toLowerCase().includes(searchQuery);
+			return matchesCategory && matchesSearch;
+		});
+	}
+
+	// Render services
+	function renderServices() {
+		const filtered = getFilteredServices();
+		
+		if (filtered.length === 0) {
+			servicesGrid.innerHTML = `
+				<div class="empty-state" style="grid-column: 1 / -1;">
+					<svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
+						<path d="M8 12h8M12 8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+					</svg>
+					<p>No se encontraron servicios</p>
+				</div>
+			`;
+			return;
+		}
+
+		servicesGrid.innerHTML = filtered.map(service => {
+			const status = serviceStatuses.get(service.name) || { 
+				status: 'checking', 
+				responseTime: 0, 
+				lastChecked: new Date() 
+			};
+			
+			return createServiceCard(service, status);
+		}).join('');
+
+		// Add event listeners to action buttons
+		filtered.forEach(service => {
+			const checkBtn = document.getElementById(`check-${service.name}`) as HTMLButtonElement;
+			const visitBtn = document.getElementById(`visit-${service.name}`) as HTMLButtonElement;
+			
+			if (checkBtn) {
+				checkBtn.addEventListener('click', () => checkService(service));
+			}
+			
+			if (visitBtn && service.statusUrl) {
+				visitBtn.addEventListener('click', () => window.open(service.statusUrl, '_blank'));
+			}
+		});
+
+		updateStats();
+	}
+
+	// Create service card HTML
+	function createServiceCard(service: Service, status: ServiceStatus): string {
+		const hasPublicAPI = service.checkUrl !== '';
+		
+		// Para servicios sin API, mostrar estado neutro
+		if (!hasPublicAPI) {
+			return `
+				<div class="service-card manual-check" data-service="${service.name}">
+					<div class="service-header">
+						<div class="service-logo">${service.logo}</div>
+						<div class="service-info">
+							<div class="service-name">${service.name}</div>
+							<div class="service-category">${getCategoryName(service.category)}</div>
+						</div>
+						<div class="service-status-badge manual">
+							<span class="status-indicator"></span>
+							Manual
+						</div>
+					</div>
+					<div class="service-details">
+						<div class="service-detail">
+							<span class="detail-label">Estado</span>
+							<span class="detail-value">Verificación manual requerida</span>
+						</div>
+					</div>
+					<div class="service-actions">
+						<button class="action-btn full-width" id="visit-${service.name}">
+							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+							</svg>
+							Ver Estado
+						</button>
+					</div>
+				</div>
+			`;
+		}
+		
+		// Para servicios con API, mostrar estado completo
+		const statusText = getStatusText(status.status);
+		const responseTimeClass = getResponseTimeClass(status.responseTime);
+		const responseTimeText = status.responseTime > 0 ? `${status.responseTime}ms` : '---';
+		
+		return `
+			<div class="service-card ${status.status}" data-service="${service.name}">
+				<div class="service-header">
+					<div class="service-logo">${service.logo}</div>
+					<div class="service-info">
+						<div class="service-name">${service.name}</div>
+						<div class="service-category">${getCategoryName(service.category)}</div>
+					</div>
+					<div class="service-status-badge">
+						<span class="status-indicator"></span>
+						${statusText}
+					</div>
+				</div>
+				<div class="service-details">
+					<div class="service-detail">
+						<span class="detail-label">Tiempo de respuesta</span>
+						<span class="detail-value response-time ${responseTimeClass}">${responseTimeText}</span>
+					</div>
+					<div class="service-detail">
+						<span class="detail-label">Última verificación</span>
+						<span class="detail-value">${formatTime(status.lastChecked)}</span>
+					</div>
+				</div>
+				<div class="service-actions">
+					<button class="action-btn" id="check-${service.name}">
+						<svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2"/>
+							<path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+						</svg>
+						Verificar
+					</button>
+					${service.statusUrl ? `
+						<button class="action-btn" id="visit-${service.name}">
+							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+							</svg>
+							Estado
+						</button>
+					` : ''}
+				</div>
+			</div>
+		`;
+	}
+
+	// Check service status
+	async function checkService(service: Service) {
+		const serviceName = service.name;
+		
+		// Set checking state
+		serviceStatuses.set(serviceName, {
+			status: 'checking',
+			responseTime: 0,
+			lastChecked: new Date()
+		});
+		renderServices();
+
+		const startTime = performance.now();
+
+		try {
+			const controller = new AbortController();
+			const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout
+
+			const response = await fetch(service.checkUrl, {
+				method: 'GET',
+				signal: controller.signal,
+				cache: 'no-cache',
+				headers: {
+					'Accept': 'application/json'
+				}
+			});
+
+			clearTimeout(timeoutId);
+			const endTime = performance.now();
+			const responseTime = Math.round(endTime - startTime);
+
+			// Try to parse JSON response (for status page APIs)
+			let parsedStatus: 'operational' | 'degraded' | 'down' = 'operational';
+			
+			if (response.ok) {
+				try {
+					const data = await response.json();
+					
+					// Parse common status page API formats (Atlassian Statuspage)
+					if (data.status?.indicator) {
+						const indicator = data.status.indicator.toLowerCase();
+						if (indicator === 'none' || indicator === 'operational') {
+							parsedStatus = 'operational';
+						} else if (indicator === 'minor' || indicator === 'degraded') {
+							parsedStatus = 'degraded';
+						} else {
+							parsedStatus = 'down';
+						}
+					}
+					// Alternative format
+					else if (data.indicator) {
+						const indicator = data.indicator.toLowerCase();
+						if (indicator === 'none' || indicator === 'operational') {
+							parsedStatus = 'operational';
+						} else if (indicator === 'minor' || indicator === 'degraded') {
+							parsedStatus = 'degraded';
+						} else {
+							parsedStatus = 'down';
+						}
+					}
+					// Heroku format
+					else if (data.status && Array.isArray(data.status)) {
+						const hasIssues = data.status.some((s: any) => s.status !== 'green');
+						parsedStatus = hasIssues ? 'degraded' : 'operational';
+					}
+					// Check for overall status field
+					else if (data.page?.indicator) {
+						const indicator = data.page.indicator.toLowerCase();
+						if (indicator === 'none' || indicator === 'operational') {
+							parsedStatus = 'operational';
+						} else if (indicator === 'minor' || indicator === 'degraded') {
+							parsedStatus = 'degraded';
+						} else {
+							parsedStatus = 'down';
+						}
+					}
+					// If response time is too high, mark as degraded
+					if (parsedStatus === 'operational' && responseTime > 3000) {
+						parsedStatus = 'degraded';
+					}
+				} catch (jsonError) {
+					// If JSON parsing fails but response was OK, consider it operational
+					console.log(`JSON parse error for ${serviceName}:`, jsonError);
+					parsedStatus = 'operational';
+				}
+
+				serviceStatuses.set(serviceName, {
+					status: parsedStatus,
+					responseTime: responseTime,
+					lastChecked: new Date()
+				});
+			} else {
+				// Non-OK status codes
+				if (response.status >= 500) {
+					parsedStatus = 'down';
+				} else if (response.status >= 400) {
+					parsedStatus = 'degraded';
+				}
+				
+				serviceStatuses.set(serviceName, {
+					status: parsedStatus,
+					responseTime: responseTime,
+					lastChecked: new Date(),
+					message: `HTTP ${response.status}: ${response.statusText}`
+				});
+			}
+
+		} catch (error: unknown) {
+			const endTime = performance.now();
+			const responseTime = Math.round(endTime - startTime);
+
+			// Handle errors - timeout, network, or CORS issues
+			const status: 'degraded' | 'down' = responseTime > 8000 ? 'down' : 'degraded';
+			
+			serviceStatuses.set(serviceName, {
+				status: status,
+				responseTime: responseTime,
+				lastChecked: new Date(),
+				message: error instanceof Error ? error.message : 'Error desconocido'
+			});
+		}
+
+		renderServices();
+		updateLastUpdate();
+	}
+
+	// Check all services
+	async function checkAllServices() {
+		refreshAllBtn.disabled = true;
+		refreshAllBtn.innerHTML = `
+			<svg class="spin" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2"/>
+			</svg>
+			Actualizando...
+		`;
+
+		// Solo verificar servicios con API pública
+		const servicesWithAPI = services.filter(s => s.checkUrl !== '');
+		
+		// Check all services in parallel (with a limit)
+		const batchSize = 4;
+		for (let i = 0; i < servicesWithAPI.length; i += batchSize) {
+			const batch = servicesWithAPI.slice(i, i + batchSize);
+			await Promise.all(batch.map(service => checkService(service)));
+		}
+
+		refreshAllBtn.disabled = false;
+		refreshAllBtn.innerHTML = `
+			<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2"/>
+				<path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+			</svg>
+			Actualizar Todo
+		`;
+	}
+
+	// Update statistics
+	function updateStats() {
+		let operational = 0;
+		let degraded = 0;
+		let down = 0;
+		let checking = 0;
+
+		serviceStatuses.forEach(status => {
+			switch (status.status) {
+				case 'operational': operational++; break;
+				case 'degraded': degraded++; break;
+				case 'down': down++; break;
+				case 'checking': checking++; break;
+			}
+		});
+
+		operationalCount.textContent = operational.toString();
+		degradedCount.textContent = degraded.toString();
+		downCount.textContent = down.toString();
+		checkingCount.textContent = checking.toString();
+	}
+
+	// Update last update time
+	function updateLastUpdate() {
+		const now = new Date();
+		lastUpdateSpan.textContent = now.toLocaleTimeString('es-ES');
+	}
+
+	// Helper functions
+	function getStatusText(status: string): string {
+		const statusTexts: Record<string, string> = {
+			operational: 'Operacional',
+			degraded: 'Degradado',
+			down: 'Caído',
+			checking: 'Verificando...'
+		};
+		return statusTexts[status] || 'Desconocido';
+	}
+
+	function getResponseTimeClass(time: number): string {
+		if (time === 0) return '';
+		if (time < 500) return 'response-fast';
+		if (time < 2000) return 'response-medium';
+		return 'response-slow';
+	}
+
+	function getCategoryName(category: string): string {
+		const categories: Record<string, string> = {
+			cloud: 'Cloud',
+			ai: 'Inteligencia Artificial',
+			devtools: 'Herramientas Dev',
+			hosting: 'Hosting'
+		};
+		return categories[category] || category;
+	}
+
+	function formatTime(date: Date): string {
+		const now = new Date();
+		const diff = now.getTime() - date.getTime();
+		const seconds = Math.floor(diff / 1000);
+		
+		if (seconds < 60) return 'Justo ahora';
+		if (seconds < 3600) return `Hace ${Math.floor(seconds / 60)}m`;
+		return date.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+	}
+
+	// Initialize on load
+	init();
+</script>

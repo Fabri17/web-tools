@@ -76,7 +76,14 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
 			style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
 			font-src 'self' https://fonts.gstatic.com;
 			img-src 'self' data: blob:;
-			connect-src 'self';
+			connect-src 'self' 
+				https://www.githubstatus.com 
+				https://status.openai.com 
+				https://www.vercel-status.com 
+				https://www.netlifystatus.com 
+				https://www.cloudflarestatus.com 
+				https://discordstatus.com 
+				https://status.digitalocean.com;
 		" />
 		
 	<!-- Favicons -->
