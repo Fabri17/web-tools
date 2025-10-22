@@ -1,0 +1,110 @@
+---
+// Theme Toggle Component - Dark Mode
+---
+
+<button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+	<svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<circle cx="12" cy="12" r="5" fill="currentColor"/>
+		<path d="M12 1v6m0 6v6M23 12h-6m-6 0H1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+	</svg>
+	<svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="currentColor"/>
+	</svg>
+</button>
+
+<style>
+	.theme-toggle {
+		position: fixed;
+		top: 2rem;
+		right: 2rem;
+		z-index: 1000;
+		width: 48px;
+		height: 48px;
+		border-radius: 50%;
+		background: rgba(255, 255, 255, 0.15);
+		backdrop-filter: blur(10px);
+		border: 1px solid rgba(255, 255, 255, 0.2);
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: all 0.3s ease;
+		color: white;
+	}
+	
+	.theme-toggle:hover {
+		background: rgba(255, 255, 255, 0.25);
+		transform: scale(1.05);
+	}
+	
+	.sun-icon,
+	.moon-icon {
+		position: absolute;
+		transition: all 0.3s ease;
+	}
+	
+	.sun-icon {
+		opacity: 1;
+		transform: rotate(0deg) scale(1);
+	}
+	
+	.moon-icon {
+		opacity: 0;
+		transform: rotate(90deg) scale(0);
+	}
+	
+	:global(.dark-mode) .sun-icon {
+		opacity: 0;
+		transform: rotate(-90deg) scale(0);
+	}
+	
+	:global(.dark-mode) .moon-icon {
+		opacity: 1;
+		transform: rotate(0deg) scale(1);
+	}
+	
+	:global(.dark-mode) .theme-toggle {
+		background: rgba(30, 30, 30, 0.8);
+		border-color: rgba(255, 255, 255, 0.1);
+	}
+	
+	@media (max-width: 768px) {
+		.theme-toggle {
+			top: 1rem;
+			right: 1rem;
+			width: 44px;
+			height: 44px;
+		}
+	}
+</style>
+
+<script>
+	// Initialize theme on page load
+	function initTheme() {
+		const savedTheme = localStorage.getItem('theme');
+		const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+		
+		if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+			document.documentElement.classList.add('dark-mode');
+		}
+	}
+	
+	// Toggle theme
+	function toggleTheme() {
+		const isDark = document.documentElement.classList.toggle('dark-mode');
+		localStorage.setItem('theme', isDark ? 'dark' : 'light');
+	}
+	
+	// Initialize on load
+	initTheme();
+	
+	// Add click listener
+	document.getElementById('theme-toggle')?.addEventListener('click', toggleTheme);
+	
+	// Listen for system preference changes
+	window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+		if (!localStorage.getItem('theme')) {
+			document.documentElement.classList.toggle('dark-mode', e.matches);
+		}
+	});
+</script>

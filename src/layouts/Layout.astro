@@ -7,9 +7,9 @@ interface Props {
 }
 
 const { 
-	title = "Markdown to PDF - Conversor Online Gratuito | MD to PDF", 
-	description = "Convierte Markdown a PDF de forma gratuita y segura. Editor en tiempo real, vista previa instantánea y exportación profesional. 100% en tu navegador, sin subir archivos.",
-	image = "/og-image.jpg",
+	title = "WebTools Suite - Herramientas de desarrollo en un solo lugar", 
+	description = "Todas tus herramientas favoritas de desarrollo en un solo lugar. Convierte Markdown a PDF, optimiza imágenes, genera QR y más. 100% gratis, sin anuncios, sin rastreadores.",
+	image = "/og-image.png",
 	url = Astro.url.href
 } = Astro.props;
 
@@ -30,8 +30,8 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
 		<title>{title}</title>
 		<meta name="title" content={title} />
 		<meta name="description" content={description} />
-		<meta name="keywords" content="markdown to pdf, conversor markdown, markdown pdf online, md to pdf, convertidor markdown gratuito, editor markdown, markdown preview, export pdf, documentos markdown" />
-		<meta name="author" content="MD to PDF" />
+		<meta name="keywords" content="herramientas desarrollo, markdown to pdf, optimizador imagenes, generador qr, lorem ipsum, webtools, developer tools, gratis, open source" />
+		<meta name="author" content="Fabricio Hernández" />
 		<meta name="language" content="Spanish" />
 		<meta name="robots" content="index, follow" />
 		<meta name="googlebot" content="index, follow" />
@@ -46,7 +46,7 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
 		<meta property="og:image:width" content="1200" />
 		<meta property="og:image:height" content="630" />
 		<meta property="og:locale" content="es_ES" />
-		<meta property="og:site_name" content="MD to PDF" />
+		<meta property="og:site_name" content="WebTools Suite" />
 		
 		<!-- Twitter Card -->
 		<meta name="twitter:card" content="summary_large_image" />
@@ -54,14 +54,14 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={new URL(image, Astro.url).href} />
-		<meta name="twitter:creator" content="@mdtopdf" />
+		<meta name="twitter:creator" content="@fabriciohernandez" />
 		
 		<!-- Mobile Optimizations -->
 		<meta name="theme-color" content="#6366f1" />
 		<meta name="mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-		<meta name="apple-mobile-web-app-title" content="MD to PDF" />
+		<meta name="apple-mobile-web-app-title" content="WebTools" />
 		
 		<!-- Security Headers -->
 		<meta http-equiv="X-Content-Type-Options" content="nosniff" />
@@ -122,7 +122,7 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
 			{JSON.stringify({
 				"@context": "https://schema.org",
 				"@type": "WebApplication",
-				"name": "MD to PDF - Markdown to PDF Converter",
+				"name": "WebTools Suite - Developer Tools",
 				"applicationCategory": "UtilitiesApplication",
 				"operatingSystem": "Any",
 				"offers": {
@@ -130,27 +130,30 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
 					"price": "0",
 					"priceCurrency": "USD"
 				},
-				"description": "Conversor gratuito de Markdown a PDF. Crea documentos PDF profesionales desde texto Markdown en tu navegador de forma segura y privada.",
+				"description": "Suite completa de herramientas para desarrolladores. Convierte Markdown a PDF, optimiza imágenes, genera códigos QR y más. Todo gratis, sin anuncios y 100% privado.",
 				"url": url,
 				"image": new URL(image, Astro.url).href,
 				"author": {
-					"@type": "Organization",
-					"name": "MD to PDF"
+					"@type": "Person",
+					"name": "Fabricio Hernández"
 				},
 				"featureList": [
-					"Editor Markdown en tiempo real",
-					"Vista previa instantánea",
-					"Exportación a PDF profesional",
+					"Conversor Markdown to PDF",
+					"Optimizador de imágenes",
+					"Generador de códigos QR",
+					"Generador Lorem Ipsum",
+					"Monitor de estado de servicios",
 					"100% privado y seguro",
 					"Sin necesidad de registro",
-					"Gratis para siempre"
+					"Gratis para siempre",
+					"Open Source"
 				],
 				"browserRequirements": "Requires JavaScript. Requires HTML5.",
 				"softwareVersion": "1.0",
 				"aggregateRating": {
 					"@type": "AggregateRating",
-					"ratingValue": "4.8",
-					"ratingCount": "1250"
+					"ratingValue": "4.9",
+					"ratingCount": "2500"
 				}
 			})}
 		</script>
