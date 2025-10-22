@@ -16,6 +16,7 @@
   "dependencies": {
     "astro": "^5.14.5",
     "dompurify": "^3.3.0",
+    "firebase": "^12.4.0",
     "html2pdf.js": "^0.10.2",
     "marked": "^16.4.0",
     "qrcode": "^1.5.4"

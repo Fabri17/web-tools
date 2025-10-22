@@ -72,10 +72,10 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
 		<!-- CSP - Content Security Policy -->
 		<meta http-equiv="Content-Security-Policy" content="
 			default-src 'self';
-			script-src 'self' 'unsafe-inline' 'unsafe-eval';
+			script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.googleapis.com https://*.googletagmanager.com;
 			style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
 			font-src 'self' https://fonts.gstatic.com;
-			img-src 'self' data: blob:;
+			img-src 'self' data: blob: https://*.google-analytics.com https://*.googletagmanager.com;
 			connect-src 'self' 
 				https://www.githubstatus.com 
 				https://status.openai.com 
@@ -83,7 +83,13 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
 				https://www.netlifystatus.com 
 				https://www.cloudflarestatus.com 
 				https://discordstatus.com 
-				https://status.digitalocean.com;
+				https://status.digitalocean.com
+				https://*.googleapis.com
+				https://*.google-analytics.com
+				https://*.analytics.google.com
+				https://*.googletagmanager.com
+				https://firebase.googleapis.com
+				https://firebaseinstallations.googleapis.com;
 		" />
 		
 	<!-- Favicons -->
@@ -151,6 +157,61 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
 	</head>
 	<body>
 		<slot />
+		
+		<!-- Firebase Initialization and Analytics -->
+		<script>
+			import { 
+				initializeFirebase, 
+				trackPageView, 
+				isMaintenanceMode, 
+				getMaintenanceMessage 
+			} from '../lib/firebase';
+			
+			// Initialize Firebase on page load
+			window.addEventListener('DOMContentLoaded', async () => {
+				try {
+					await initializeFirebase();
+					
+					// Check maintenance mode
+					const maintenanceMode = isMaintenanceMode();
+					if (maintenanceMode) {
+						const message = getMaintenanceMessage();
+						// Show maintenance page
+						const maintenanceHTML = `
+							<div style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 2rem;">
+								<div style="text-align: center; max-width: 600px; background: white; padding: 3rem 2rem; border-radius: 20px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);">
+									<div style="color: #667eea; margin-bottom: 2rem;">
+										<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block;">
+											<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+										</svg>
+									</div>
+									<h1 style="font-size: 2.5rem; font-weight: 700; color: #1a202c; margin: 0 0 1rem 0;">Sitio en Mantenimiento</h1>
+									<p style="font-size: 1.25rem; color: #4a5568; line-height: 1.6; margin: 0 0 2rem 0;">${message}</p>
+									<div style="margin: 2rem 0;">
+										<div style="width: 50px; height: 50px; margin: 0 auto; border: 4px solid #e2e8f0; border-top-color: #667eea; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+									</div>
+									<p style="font-size: 1rem; color: #718096; margin: 0;">Gracias por tu paciencia</p>
+								</div>
+							</div>
+							<style>
+								@keyframes spin {
+									to { transform: rotate(360deg); }
+								}
+							</style>
+						`;
+						document.body.innerHTML = maintenanceHTML;
+						return;
+					}
+					
+					// Track page view
+					const pageName = document.title;
+					trackPageView(pageName);
+					
+				} catch (error) {
+					console.error('Error initializing Firebase:', error);
+				}
+			});
+		</script>
 		
 		<!-- bfcache optimization -->
 		<script is:inline>

@@ -2161,9 +2161,21 @@ function saludar(nombre) {
 		// Generar y descargar el PDF usando el HTML completo con estilos
 		await html2pdfModule().from(htmlContent).set(options).save();
 		
-		showNotification(`✅ PDF generado exitosamente: ${fileName}`, 'success');		} catch (error) {
+		showNotification(`✅ PDF generado exitosamente: ${fileName}`, 'success');
+		
+		// Track successful conversion
+		import('../lib/firebase').then(({ trackToolUsage, trackConversion }) => {
+			trackToolUsage('md-to-pdf', 'convert_to_pdf');
+			trackConversion('pdf_generated');
+		});
+		} catch (error) {
 			console.error('Error al generar PDF:', error);
 			showNotification('❌ Error al generar el PDF. Inténtalo de nuevo.', 'error');
+			
+			// Track error
+			import('../lib/firebase').then(({ trackError }) => {
+				trackError('pdf_generation', error instanceof Error ? error.message : 'Unknown error');
+			});
 		} finally {
 			convertToPdfBtn.disabled = false;
 			convertToPdfBtn.innerHTML = originalContent;
@@ -2220,8 +2232,20 @@ function saludar(nombre) {
 	});
 	
 	convertToPdfBtn.addEventListener('click', convertToPdf);
-	clearBtn.addEventListener('click', clearEditor);
-	fullscreenBtn.addEventListener('click', toggleFullscreen);
+	clearBtn.addEventListener('click', () => {
+		clearEditor();
+		// Track clear action
+		import('../lib/firebase').then(({ trackToolUsage }) => {
+			trackToolUsage('md-to-pdf', 'clear_editor');
+		});
+	});
+	fullscreenBtn.addEventListener('click', () => {
+		toggleFullscreen();
+		// Track fullscreen toggle
+		import('../lib/firebase').then(({ trackToolUsage }) => {
+			trackToolUsage('md-to-pdf', 'toggle_fullscreen');
+		});
+	});
 
 	// Inicialización
 	updatePreview();
