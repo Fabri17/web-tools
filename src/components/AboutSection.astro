@@ -1,4 +1,6 @@
 ---
+import BuyMeACoffee from './BuyMeACoffee.astro';
+
 // About Section - Trust and credibility
 interface Props {
 	toolCount?: number;
@@ -92,6 +94,10 @@ const features = [
 					LinkedIn
 				</a>
 			</div>
+		</div>
+		
+		<div class="support-section">
+			<BuyMeACoffee bmcUsername="tuusuario" className="integrated-style" />
 		</div>
 	</div>
 </section>
@@ -402,6 +408,77 @@ const features = [
 		color: white;
 		border-color: #667eea;
 		transform: translateY(-2px);
+	}
+	
+	.support-section {
+		margin-top: 3rem;
+	}
+	
+	/* Estilos integrados para BuyMeACoffee */
+	:global(.integrated-style .coffee-card) {
+		background: #f8fafc;
+		border: 2px solid #e2e8f0;
+		border-radius: 16px;
+		padding: 2rem;
+		max-width: 100%;
+		box-shadow: none;
+		transition: all 0.3s ease;
+	}
+	
+	:global(.dark-mode .integrated-style .coffee-card) {
+		background: #0f172a;
+		border-color: #334155;
+	}
+	
+	:global(.integrated-style .coffee-card:hover) {
+		transform: translateY(-5px);
+		box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+		border-color: #667eea;
+	}
+	
+	:global(.integrated-style .coffee-icon) {
+		width: 48px;
+		height: 48px;
+		color: #667eea;
+	}
+	
+	:global(.integrated-style .main-text) {
+		font-size: 1.25rem;
+		font-weight: 700;
+		color: #1a202c;
+	}
+	
+	:global(.dark-mode .integrated-style .main-text) {
+		color: #f8fafc;
+	}
+	
+	:global(.integrated-style .sub-text) {
+		font-size: 0.9375rem;
+		color: #64748b;
+	}
+	
+	:global(.dark-mode .integrated-style .sub-text) {
+		color: #94a3b8;
+	}
+	
+	:global(.integrated-style .donate-button) {
+		background: linear-gradient(135deg, #667eea, #764ba2);
+		color: white;
+		padding: 0.75rem 2rem;
+		border-radius: 12px;
+		font-size: 1rem;
+		font-weight: 600;
+		box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+	}
+	
+	:global(.integrated-style .donate-button:hover) {
+		background: linear-gradient(135deg, #764ba2, #667eea);
+		transform: translateY(-2px);
+		box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+	}
+	
+	:global(.integrated-style .coffee-content) {
+		gap: 2rem;
 	}
 	
 	@media (max-width: 768px) {
