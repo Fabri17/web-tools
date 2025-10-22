@@ -1,0 +1,151 @@
+---
+import Layout from '../layouts/Layout.astro';
+import BuyMeACoffee from '../components/BuyMeACoffee.astro';
+---
+
+<Layout 
+  title="Apoyo al Proyecto - Donaciones"
+  description="Apoya el desarrollo de estas herramientas gratuitas"
+>
+  <div class="support-page">
+    <header class="page-header">
+      <h1>Apoya el Proyecto</h1>
+      <p class="subtitle">
+        Estas herramientas son gratuitas y de código abierto. 
+        Si te resultan útiles, considera hacer una donación para apoyar su desarrollo y mantenimiento.
+      </p>
+    </header>
+
+    <div class="content-wrapper">
+      <!-- Componente de donación -->
+      <BuyMeACoffee bmcUsername="tuusuario" />
+
+      <section class="benefits">
+        <h2>¿Por qué donar?</h2>
+        <div class="benefits-grid">
+          <div class="benefit-card">
+            <div class="benefit-icon">🚀</div>
+            <h3>Nuevas Funciones</h3>
+            <p>Tu apoyo ayuda a desarrollar nuevas herramientas y características</p>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon">🔧</div>
+            <h3>Mantenimiento</h3>
+            <p>Garantiza que las herramientas sigan funcionando sin interrupciones</p>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon">💡</div>
+            <h3>Mejoras</h3>
+            <p>Permite optimizar y mejorar la experiencia de usuario</p>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon">🆓</div>
+            <h3>Siempre Gratis</h3>
+            <p>Mantiene el proyecto accesible para todos sin costo</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .support-page {
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #f9fafb, #ffffff);
+    padding: 2rem 1rem;
+  }
+
+  .page-header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 3rem;
+  }
+
+  .page-header h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+  }
+
+  .subtitle {
+    font-size: 1.25rem;
+    color: #6b7280;
+    line-height: 1.8;
+  }
+
+  .content-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .benefits {
+    margin-top: 4rem;
+    padding: 0 1rem;
+  }
+
+  .benefits h2 {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 2rem;
+  }
+
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .benefit-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .benefit-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .benefit-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .benefit-card h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+  }
+
+  .benefit-card p {
+    color: #6b7280;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 768px) {
+    .page-header h1 {
+      font-size: 2rem;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+    }
+
+    .benefits-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+</style>
