@@ -215,6 +215,17 @@ const upcomingTools = tools.filter(t => t.comingSoon);
 		justify-content: center;
 		margin-bottom: 1.5rem;
 		transition: all 0.4s ease;
+		/* Ensure SVG icons inside use the element color for fill/stroke */
+		color: #ffffff;
+	}
+
+	/* Make inline SVGs use currentColor (overrides many presentation attributes) */
+	.tool-icon svg,
+	.tool-icon svg * {
+		width: 36px;
+		height: 36px;
+		fill: currentColor !important;
+		stroke: currentColor !important;
 	}
 	
 	.tool-card:hover .tool-icon {
@@ -222,12 +233,15 @@ const upcomingTools = tools.filter(t => t.comingSoon);
 	}
 	
 	.tool-icon.disabled {
+		/* Disabled / upcoming icons should remain visible in light mode */
 		background: #e2e8f0;
-		opacity: 0.5;
+		opacity: 1; /* keep fully opaque so the icon is visible */
+		color: #475569; /* dark gray icon color on light background */
 	}
 	
 	:global(.dark-mode) .tool-icon.disabled {
 		background: #334155;
+		color: #cbd5e1; /* lighter icon color in dark mode */
 	}
 	
 	.tool-content {
