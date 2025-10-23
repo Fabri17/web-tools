@@ -360,32 +360,3 @@ const activeToolsCount = tools.filter(t => !t.comingSoon).length;
 	<AboutSection toolCount={activeToolsCount} />
 	<Footer />
 </Layout>
-
-<style is:global>
-	* {
-		margin: 0;
-		padding: 0;
-		box-sizing: border-box;
-	}
-	
-	html {
-		scroll-behavior: smooth;
-	}
-	
-	body {
-		font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
-		overflow-x: hidden;
-	}
-	
-	/* Dark mode base styles */
-	:global(.dark-mode) {
-		color-scheme: dark;
-	}
-	
-	:global(.dark-mode) body {
-		background: #0f172a;
-		color: #f8fafc;
-	}
-</style>

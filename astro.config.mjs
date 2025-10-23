@@ -9,7 +9,7 @@ export default defineConfig({
   
   vite: {
     build: {
-      cssCodeSplit: false, // Inline CSS crítico para FCP
+      cssCodeSplit: true, // Cambiar a true para evitar problemas de estilos
       minify: 'terser',
       terserOptions: {
         compress: {
