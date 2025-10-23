@@ -1,0 +1,965 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ToolHeader from '../components/ToolHeader.astro';
+
+const canonicalUrl = 'https://brix.center.com/sql-formatter';
+const ogImage = 'https://brix.center.com/og-sql-formatter.jpg';
+
+const icon = `
+	<svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<path d="M12 3L4 7v5c0 5.55 3.84 10.74 8 12 4.16-1.26 8-6.45 8-12V7l-8-4z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+		<path d="M9 12l2 2 4-4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+	</svg>
+`;
+---
+
+<Layout 
+	title="SQL Formatter - Formatea y Embellece SQL | WebTools"
+	description="Formatea y embellece consultas SQL con indentación automática, capitalización de keywords y resaltado de sintaxis. 100% gratis y privado."
+>
+	<!-- Open Graph Meta Tags -->
+	<meta slot="head" property="og:type" content="website" />
+	<meta slot="head" property="og:url" content={canonicalUrl} />
+	<meta slot="head" property="og:title" content="SQL Formatter - Formatea y Embellece SQL | WebTools" />
+	<meta slot="head" property="og:description" content="Formatea y embellece consultas SQL con indentación automática, capitalización de keywords y resaltado de sintaxis. 100% gratis y privado." />
+	<meta slot="head" property="og:image" content={ogImage} />
+
+	<!-- Twitter Card Meta Tags -->
+	<meta slot="head" name="twitter:card" content="summary_large_image" />
+	<meta slot="head" name="twitter:url" content={canonicalUrl} />
+	<meta slot="head" name="twitter:title" content="SQL Formatter - Formatea y Embellece SQL" />
+	<meta slot="head" name="twitter:description" content="Formatea y embellece consultas SQL con indentación automática, capitalización de keywords y resaltado de sintaxis." />
+	<meta slot="head" name="twitter:image" content={ogImage} />
+
+	<!-- Canonical URL -->
+	<link slot="head" rel="canonical" href={canonicalUrl} />
+
+	<!-- Structured Data (JSON-LD) -->
+	<script slot="head" type="application/ld+json">
+		{
+			"@context": "https://schema.org",
+			"@type": "WebApplication",
+			"name": "SQL Formatter",
+			"applicationCategory": "DeveloperApplication",
+			"operatingSystem": "Any",
+			"offers": {
+				"@type": "Offer",
+				"price": "0",
+				"priceCurrency": "USD"
+			},
+			"description": "Formatea y embellece consultas SQL con indentación automática, capitalización de keywords y resaltado de sintaxis.",
+			"featureList": [
+				"Indentación inteligente de subconsultas",
+				"Capitalización automática de keywords SQL",
+				"Resaltado de sintaxis con colores",
+				"Formateo de JOINs, WHERE, ORDER BY, GROUP BY",
+				"Soporte para CTEs (WITH clauses)",
+				"Minificador de SQL",
+				"100% procesamiento local"
+			]
+		}
+	</script>
+	<ToolHeader 
+		title="SQL Formatter"
+		subtitle="Formatea, embellece y organiza tus consultas SQL con indentación automática, capitalización de keywords y resaltado de sintaxis"
+		icon={icon}
+		showPrimaryButton={false}
+	/>
+
+	<section class="tool-section">
+		<div class="container">
+			<!-- Configuration Options -->
+			<div class="options-panel">
+				<h3>Opciones de Formato</h3>
+				<div class="options-grid">
+					<div class="option-group">
+						<label for="indent-size">Indentación</label>
+						<select id="indent-size">
+							<option value="2">2 espacios</option>
+							<option value="4" selected>4 espacios</option>
+							<option value="tab">Tab</option>
+						</select>
+					</div>
+
+					<div class="option-group">
+						<label for="keyword-case">Keywords</label>
+						<select id="keyword-case">
+							<option value="upper" selected>MAYÚSCULAS</option>
+							<option value="lower">minúsculas</option>
+							<option value="capitalize">Capitalize</option>
+						</select>
+					</div>
+
+					<div class="option-group">
+						<label for="line-between">Líneas entre queries</label>
+						<input type="number" id="line-between" min="0" max="3" value="1">
+					</div>
+
+					<div class="option-group checkbox-group">
+						<label>
+							<input type="checkbox" id="comma-start" checked>
+							<span>Comas al inicio</span>
+						</label>
+					</div>
+				</div>
+			</div>
+
+			<!-- Input Section -->
+			<div class="editor-container">
+				<div class="editor-header">
+					<h3>SQL de Entrada</h3>
+					<div class="header-actions">
+						<button id="clear-btn" class="action-btn" aria-label="Limpiar editor de SQL" title="Limpiar">
+							<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+								<path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2" stroke-width="2"/>
+							</svg>
+							Limpiar
+						</button>
+						<button id="sample-btn" class="action-btn" aria-label="Cargar ejemplo de SQL" title="Cargar ejemplo">
+							<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+								<path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-width="2"/>
+							</svg>
+							Ejemplo
+						</button>
+					</div>
+				</div>
+				<textarea 
+					id="sql-input" 
+					class="sql-editor"
+					placeholder="Pega o escribe tu consulta SQL aquí..."
+					spellcheck="false"
+				></textarea>
+				<div class="editor-footer">
+					<span id="input-chars">0 caracteres</span>
+					<span id="input-lines">0 líneas</span>
+				</div>
+			</div>
+
+			<!-- Format Button -->
+			<div class="action-center">
+				<button id="format-btn" class="primary-btn" aria-label="Formatear consulta SQL">
+					<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+						<path d="M4 7h16M4 12h16M4 17h16" stroke-width="2" stroke-linecap="round"/>
+					</svg>
+					Formatear SQL
+				</button>
+				<button id="minify-btn" class="secondary-btn" aria-label="Minificar consulta SQL">
+					<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+						<path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" stroke-width="2"/>
+					</svg>
+					Minificar
+				</button>
+			</div>
+
+			<!-- Output Section -->
+			<div class="editor-container">
+				<div class="editor-header">
+					<h3>SQL Formateado</h3>
+					<div class="header-actions">
+						<button id="copy-btn" class="action-btn" aria-label="Copiar SQL formateado al portapapeles" title="Copiar">
+							<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+								<path d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" stroke-width="2"/>
+							</svg>
+							Copiar
+						</button>
+						<button id="download-btn" class="action-btn" aria-label="Descargar SQL formateado como archivo" title="Descargar">
+							<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+								<path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-width="2" stroke-linecap="round"/>
+							</svg>
+							Descargar
+						</button>
+					</div>
+				</div>
+				<div id="sql-output" class="sql-output"></div>
+				<div class="editor-footer">
+					<span id="output-chars">0 caracteres</span>
+					<span id="output-lines">0 líneas</span>
+				</div>
+			</div>
+
+			<!-- Info Panel -->
+			<div class="info-panel">
+				<div class="info-card">
+					<h4>✨ Características</h4>
+					<ul>
+						<li>Indentación inteligente de subconsultas</li>
+						<li>Capitalización automática de keywords SQL</li>
+						<li>Resaltado de sintaxis con colores</li>
+						<li>Formateo de JOINs, WHERE, ORDER BY, GROUP BY</li>
+						<li>Soporte para CTEs (WITH clauses)</li>
+						<li>Formato de múltiples queries</li>
+					</ul>
+				</div>
+
+				<div class="info-card">
+					<h4>🔒 Privacidad Total</h4>
+					<p>Tu SQL nunca sale de tu navegador. Todo el procesamiento se realiza localmente en tu dispositivo.</p>
+				</div>
+
+				<div class="info-card">
+					<h4>💡 Tips</h4>
+					<ul>
+						<li>Separa múltiples queries con punto y coma (;)</li>
+						<li>El formateo preserva comentarios SQL (-- y /* */)</li>
+						<li>Usa "Minificar" para generar SQL compacto</li>
+						<li>Personaliza el estilo con las opciones de formato</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+</Layout>
+
+<style>
+	.tool-section {
+		padding: 4rem 0;
+		min-height: calc(100vh - 200px);
+	}
+
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 1.5rem;
+	}
+
+	/* Options Panel */
+	.options-panel {
+		background: white;
+		border-radius: 12px;
+		padding: 1.5rem;
+		margin-bottom: 2rem;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+	}
+
+	.options-panel h3 {
+		margin: 0 0 1.25rem 0;
+		font-size: 1.125rem;
+		color: #1a202c;
+	}
+
+	.options-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		gap: 1.25rem;
+	}
+
+	.option-group label {
+		display: block;
+		font-size: 0.875rem;
+		font-weight: 500;
+		color: #4a5568;
+		margin-bottom: 0.5rem;
+	}
+
+	.option-group select,
+	.option-group input[type="number"] {
+		width: 100%;
+		padding: 0.625rem;
+		border: 1.5px solid #e2e8f0;
+		border-radius: 8px;
+		font-size: 0.875rem;
+		background: white;
+		transition: all 0.2s;
+	}
+
+	.option-group select:focus,
+	.option-group input[type="number"]:focus {
+		outline: none;
+		border-color: #667eea;
+		box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+	}
+
+	.checkbox-group {
+		display: flex;
+		align-items: center;
+	}
+
+	.checkbox-group label {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		cursor: pointer;
+		margin: 0;
+	}
+
+	.checkbox-group input[type="checkbox"] {
+		width: 18px;
+		height: 18px;
+		cursor: pointer;
+		accent-color: #667eea;
+	}
+
+	/* Editor Container */
+	.editor-container {
+		background: white;
+		border-radius: 12px;
+		overflow: hidden;
+		margin-bottom: 1.5rem;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+	}
+
+	.editor-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 1rem 1.5rem;
+		background: #f7fafc;
+		border-bottom: 1px solid #e2e8f0;
+	}
+
+	.editor-header h3 {
+		margin: 0;
+		font-size: 1rem;
+		color: #2d3748;
+	}
+
+	.header-actions {
+		display: flex;
+		gap: 0.75rem;
+	}
+
+	.action-btn {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.5rem 1rem;
+		background: white;
+		border: 1px solid #e2e8f0;
+		border-radius: 8px;
+		font-size: 0.875rem;
+		font-weight: 500;
+		color: #4a5568;
+		cursor: pointer;
+		transition: all 0.2s;
+	}
+
+	.action-btn:hover {
+		background: #f7fafc;
+		border-color: #cbd5e0;
+	}
+
+	.action-btn svg {
+		flex-shrink: 0;
+	}
+
+	/* SQL Editor */
+	.sql-editor {
+		width: 100%;
+		min-height: 300px;
+		padding: 1.5rem;
+		font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+		font-size: 0.875rem;
+		line-height: 1.6;
+		border: none;
+		resize: vertical;
+		background: #fafafa;
+		color: #1a202c;
+	}
+
+	.sql-editor::placeholder {
+		color: #a0aec0;
+	}
+
+	.sql-editor:focus {
+		outline: none;
+		background: white;
+	}
+
+	.sql-output {
+		width: 100%;
+		min-height: 300px;
+		padding: 1.5rem;
+		font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+		font-size: 0.875rem;
+		line-height: 1.6;
+		background: #1e1e1e;
+		color: #d4d4d4;
+		overflow-x: auto;
+		white-space: pre;
+	}
+
+	.sql-output:empty::before {
+		content: 'El SQL formateado aparecerá aquí...';
+		color: #6b7280;
+		font-style: italic;
+	}
+
+	.editor-footer {
+		display: flex;
+		justify-content: space-between;
+		padding: 0.75rem 1.5rem;
+		background: #f7fafc;
+		border-top: 1px solid #e2e8f0;
+		font-size: 0.75rem;
+		color: #718096;
+	}
+
+	/* Action Center */
+	.action-center {
+		display: flex;
+		justify-content: center;
+		gap: 1rem;
+		margin: 2rem 0;
+	}
+
+	.primary-btn,
+	.secondary-btn {
+		display: flex;
+		align-items: center;
+		gap: 0.625rem;
+		padding: 0.875rem 2rem;
+		border: none;
+		border-radius: 10px;
+		font-size: 1rem;
+		font-weight: 600;
+		cursor: pointer;
+		transition: all 0.3s;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	}
+
+	.primary-btn {
+		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		color: white;
+	}
+
+	.primary-btn:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+	}
+
+	.primary-btn:focus-visible {
+		outline: 2px solid #8b5cf6;
+		outline-offset: 2px;
+	}
+
+	.secondary-btn {
+		background: white;
+		color: #4a5568;
+		border: 2px solid #e2e8f0;
+	}
+
+	.secondary-btn:hover {
+		background: #f7fafc;
+		border-color: #cbd5e0;
+	}
+
+	.secondary-btn:focus-visible {
+		outline: 2px solid #8b5cf6;
+		outline-offset: 2px;
+	}
+
+	.action-btn:focus-visible {
+		outline: 2px solid #8b5cf6;
+		outline-offset: 2px;
+	}
+
+	/* Info Panel */
+	.info-panel {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 1.5rem;
+		margin-top: 3rem;
+	}
+
+	.info-card {
+		background: white;
+		border-radius: 12px;
+		padding: 1.5rem;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+	}
+
+	.info-card h4 {
+		margin: 0 0 1rem 0;
+		font-size: 1.125rem;
+		color: #2d3748;
+	}
+
+	.info-card p {
+		margin: 0;
+		color: #4a5568;
+		line-height: 1.6;
+	}
+
+	.info-card ul {
+		margin: 0;
+		padding-left: 1.25rem;
+		color: #4a5568;
+		line-height: 1.8;
+	}
+
+	.info-card li {
+		margin-bottom: 0.5rem;
+	}
+
+	/* Syntax Highlighting */
+	:global(.sql-keyword) { color: #569cd6; font-weight: 600; }
+	:global(.sql-function) { color: #dcdcaa; }
+	:global(.sql-string) { color: #ce9178; }
+	:global(.sql-number) { color: #b5cea8; }
+	:global(.sql-operator) { color: #d4d4d4; }
+	:global(.sql-comment) { color: #6a9955; font-style: italic; }
+	:global(.sql-table) { color: #4ec9b0; }
+
+	/* Toast Notification */
+	:global(.toast) {
+		position: fixed;
+		bottom: 2rem;
+		right: 2rem;
+		padding: 1rem 1.5rem;
+		background: #10b981;
+		color: white;
+		border-radius: 10px;
+		box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+		font-weight: 500;
+		animation: slideIn 0.3s ease-out;
+		z-index: 1000;
+	}
+
+	@keyframes slideIn {
+		from {
+			transform: translateX(400px);
+			opacity: 0;
+		}
+		to {
+			transform: translateX(0);
+			opacity: 1;
+		}
+	}
+
+	/* Dark Mode */
+	.dark-mode .options-panel,
+	.dark-mode .editor-container,
+	.dark-mode .info-card {
+		background: #1a202c;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+	}
+
+	.dark-mode .options-panel h3,
+	.dark-mode .editor-header h3,
+	.dark-mode .info-card h4 {
+		color: #e2e8f0;
+	}
+
+	.dark-mode .editor-header {
+		background: #2d3748;
+		border-bottom-color: #4a5568;
+	}
+
+	.dark-mode .editor-footer {
+		background: #2d3748;
+		border-top-color: #4a5568;
+		color: #a0aec0;
+	}
+
+	.dark-mode .option-group label {
+		color: #cbd5e0;
+	}
+
+	.dark-mode .option-group select,
+	.dark-mode .option-group input[type="number"] {
+		background: #2d3748;
+		border-color: #4a5568;
+		color: #e2e8f0;
+	}
+
+	.dark-mode .action-btn {
+		background: #2d3748;
+		border-color: #4a5568;
+		color: #cbd5e0;
+	}
+
+	.dark-mode .action-btn:hover {
+		background: #374151;
+	}
+
+	.dark-mode .secondary-btn {
+		background: #2d3748;
+		border-color: #4a5568;
+		color: #cbd5e0;
+	}
+
+	.dark-mode .secondary-btn:hover {
+		background: #374151;
+	}
+
+	.dark-mode .sql-editor {
+		background: #2d3748;
+		color: #e2e8f0;
+	}
+
+	.dark-mode .sql-editor::placeholder {
+		color: #718096;
+	}
+
+	.dark-mode .info-card p,
+	.dark-mode .info-card ul {
+		color: #cbd5e0;
+	}
+
+	/* Responsive */
+	@media (max-width: 768px) {
+		.options-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.action-center {
+			flex-direction: column;
+		}
+
+		.primary-btn,
+		.secondary-btn {
+			width: 100%;
+			justify-content: center;
+		}
+
+		.header-actions {
+			flex-wrap: wrap;
+		}
+
+		.action-btn span {
+			display: none;
+		}
+
+		:global(.toast) {
+			left: 1rem;
+			right: 1rem;
+		}
+
+		.info-panel {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
+
+<script>
+	// Wrap all code in DOMContentLoaded for proper initialization
+	document.addEventListener('DOMContentLoaded', () => {
+		// SQL Keywords and Functions
+		const SQL_KEYWORDS = [
+			'SELECT', 'FROM', 'WHERE', 'INSERT', 'UPDATE', 'DELETE', 'CREATE', 'DROP', 'ALTER',
+			'TABLE', 'DATABASE', 'INDEX', 'VIEW', 'PROCEDURE', 'FUNCTION', 'TRIGGER',
+			'JOIN', 'INNER', 'LEFT', 'RIGHT', 'FULL', 'OUTER', 'CROSS', 'ON', 'USING',
+			'GROUP', 'BY', 'ORDER', 'HAVING', 'LIMIT', 'OFFSET',
+			'UNION', 'INTERSECT', 'EXCEPT', 'ALL', 'DISTINCT', 'AS',
+			'AND', 'OR', 'NOT', 'IN', 'BETWEEN', 'LIKE', 'IS', 'NULL',
+			'EXISTS', 'CASE', 'WHEN', 'THEN', 'ELSE', 'END',
+			'WITH', 'RECURSIVE', 'VALUES', 'SET', 'INTO',
+			'PRIMARY', 'KEY', 'FOREIGN', 'REFERENCES', 'CONSTRAINT',
+			'DEFAULT', 'CHECK', 'UNIQUE', 'AUTO_INCREMENT',
+			'BEGIN', 'COMMIT', 'ROLLBACK', 'TRANSACTION',
+			'GRANT', 'REVOKE', 'CASCADE'
+		];
+
+		const SQL_FUNCTIONS = [
+			'COUNT', 'SUM', 'AVG', 'MIN', 'MAX', 'ROUND', 'FLOOR', 'CEIL',
+			'CONCAT', 'SUBSTRING', 'TRIM', 'UPPER', 'LOWER', 'LENGTH',
+			'NOW', 'CURRENT_DATE', 'CURRENT_TIME', 'CURRENT_TIMESTAMP',
+			'DATE', 'TIME', 'DATETIME', 'YEAR', 'MONTH', 'DAY',
+			'CAST', 'CONVERT', 'COALESCE', 'NULLIF', 'IFNULL', 'IF'
+		];
+
+		// Get elements
+		const sqlInput = document.getElementById('sql-input') as HTMLTextAreaElement;
+		const sqlOutput = document.getElementById('sql-output') as HTMLDivElement;
+		const formatBtn = document.getElementById('format-btn') as HTMLButtonElement;
+		const minifyBtn = document.getElementById('minify-btn') as HTMLButtonElement;
+		const copyBtn = document.getElementById('copy-btn') as HTMLButtonElement;
+		const downloadBtn = document.getElementById('download-btn') as HTMLButtonElement;
+		const clearBtn = document.getElementById('clear-btn') as HTMLButtonElement;
+		const sampleBtn = document.getElementById('sample-btn') as HTMLButtonElement;
+		const inputChars = document.getElementById('input-chars') as HTMLSpanElement;
+		const inputLines = document.getElementById('input-lines') as HTMLSpanElement;
+		const outputChars = document.getElementById('output-chars') as HTMLSpanElement;
+		const outputLines = document.getElementById('output-lines') as HTMLSpanElement;
+
+		// Options
+		const indentSize = document.getElementById('indent-size') as HTMLSelectElement;
+		const keywordCase = document.getElementById('keyword-case') as HTMLSelectElement;
+		const lineBetween = document.getElementById('line-between') as HTMLInputElement;
+		const commaStart = document.getElementById('comma-start') as HTMLInputElement;
+
+		// Sample SQL
+		const SAMPLE_SQL = `select u.id, u.name, u.email, count(o.id) as total_orders, sum(o.total) as total_spent from users u left join orders o on u.id = o.user_id where u.status = 'active' and o.created_at >= '2024-01-01' group by u.id, u.name, u.email having count(o.id) > 0 order by total_spent desc limit 10;`;
+
+		// Max SQL size validation (100KB)
+		const MAX_SQL_SIZE = 100 * 1024; // 100KB
+
+		// Update character and line counts
+		function updateCounts() {
+			const inputValue = sqlInput.value;
+			const outputValue = sqlOutput.textContent || '';
+
+			inputChars.textContent = `${inputValue.length} caracteres`;
+			inputLines.textContent = `${inputValue.split('\n').length} líneas`;
+			outputChars.textContent = `${outputValue.length} caracteres`;
+			outputLines.textContent = `${outputValue.split('\n').length} líneas`;
+		}
+
+		// Get indent string based on settings
+		function getIndent(level: number = 1): string {
+			const size = indentSize.value;
+			if (size === 'tab') {
+				return '\t'.repeat(level);
+			}
+			return ' '.repeat(parseInt(size) * level);
+		}
+
+		// Apply keyword case
+		function applyCase(keyword: string): string {
+			const caseType = keywordCase.value;
+			switch (caseType) {
+				case 'upper':
+					return keyword.toUpperCase();
+				case 'lower':
+					return keyword.toLowerCase();
+				case 'capitalize':
+					return keyword.charAt(0).toUpperCase() + keyword.slice(1).toLowerCase();
+				default:
+					return keyword;
+			}
+		}
+
+		// Format SQL
+		function formatSQL(sql: string): string {
+			if (!sql.trim()) return '';
+
+			// Split by semicolons for multiple queries
+			const queries = sql.split(';').filter(q => q.trim());
+			const formatted = queries.map(query => formatSingleQuery(query.trim()));
+			
+			const linesBetween = '\n'.repeat(parseInt(lineBetween.value) + 1);
+			return formatted.join(';' + linesBetween) + (sql.trim().endsWith(';') ? ';' : '');
+		}
+
+		function formatSingleQuery(sql: string): string {
+		let formatted = sql;
+		let indentLevel = 0;
+
+		// Preserve comments
+		const comments: string[] = [];
+		formatted = formatted.replace(/(--[^\n]*|\/\*[\s\S]*?\*\/)/g, (match) => {
+			comments.push(match);
+			return `__COMMENT_${comments.length - 1}__`;
+		});
+
+		// Preserve strings
+		const strings: string[] = [];
+		formatted = formatted.replace(/('([^'\\]|\\.)*'|"([^"\\]|\\.)*")/g, (match) => {
+			strings.push(match);
+			return `__STRING_${strings.length - 1}__`;
+		});
+
+		// Add newlines before major keywords
+		const majorKeywords = ['SELECT', 'FROM', 'WHERE', 'GROUP BY', 'HAVING', 'ORDER BY', 
+		                       'LIMIT', 'OFFSET', 'JOIN', 'LEFT JOIN', 'RIGHT JOIN', 
+		                       'INNER JOIN', 'FULL JOIN', 'CROSS JOIN'];
+		
+		majorKeywords.forEach(keyword => {
+			const regex = new RegExp(`\\b${keyword}\\b`, 'gi');
+			formatted = formatted.replace(regex, `\n${applyCase(keyword)}`);
+		});
+
+		// Format specific patterns
+		formatted = formatted
+			.replace(/\bAND\b/gi, `\n${getIndent()}${applyCase('AND')}`)
+			.replace(/\bOR\b/gi, `\n${getIndent()}${applyCase('OR')}`)
+			.replace(/\bON\b/gi, `\n${getIndent()}${applyCase('ON')}`);
+
+		// Handle SELECT columns
+		if (commaStart.checked) {
+			formatted = formatted.replace(/,\s*/g, `\n${getIndent()}, `);
+		} else {
+			formatted = formatted.replace(/,\s*/g, `,\n${getIndent()}`);
+		}
+
+		// Clean up whitespace
+		formatted = formatted
+			.split('\n')
+			.map(line => line.trim())
+			.filter(line => line.length > 0)
+			.join('\n');
+
+		// Apply indentation
+		const lines = formatted.split('\n');
+		const indented = lines.map((line, index) => {
+			if (index === 0) return line;
+			if (line.match(/^(AND|OR|,)/i)) return getIndent() + line;
+			if (line.match(/^(JOIN|LEFT|RIGHT|INNER|FULL|CROSS)/i)) return getIndent() + line;
+			if (line.match(/^(ON|WHERE|GROUP|HAVING|ORDER|LIMIT)/i)) return line;
+			return getIndent() + line;
+		});
+
+		formatted = indented.join('\n');
+
+		// Restore strings
+		strings.forEach((str, i) => {
+			formatted = formatted.replace(`__STRING_${i}__`, str);
+		});
+
+		// Restore comments
+		comments.forEach((comment, i) => {
+			formatted = formatted.replace(`__COMMENT_${i}__`, comment);
+		});
+
+		// Apply case to remaining keywords
+		SQL_KEYWORDS.forEach(keyword => {
+			const regex = new RegExp(`\\b${keyword}\\b`, 'gi');
+			formatted = formatted.replace(regex, applyCase(keyword));
+		});
+
+		SQL_FUNCTIONS.forEach(func => {
+			const regex = new RegExp(`\\b${func}\\b(?=\\s*\\()`, 'gi');
+			formatted = formatted.replace(regex, applyCase(func));
+		});
+
+			return formatted;
+		}
+
+		// Minify SQL
+		function minifySQL(sql: string): string {
+			if (!sql.trim()) return '';
+
+			return sql
+				.replace(/--[^\n]*/g, '') // Remove line comments
+				.replace(/\/\*[\s\S]*?\*\//g, '') // Remove block comments
+				.replace(/\s+/g, ' ') // Replace multiple spaces with single space
+				.replace(/\s*([(),;])\s*/g, '$1') // Remove spaces around punctuation
+				.trim();
+		}
+
+		// Syntax highlighting
+		function highlightSQL(sql: string): string {
+		let highlighted = sql;
+
+		// Escape HTML
+		highlighted = highlighted
+			.replace(/&/g, '&amp;')
+			.replace(/</g, '&lt;')
+			.replace(/>/g, '&gt;');
+
+		// Highlight comments
+		highlighted = highlighted.replace(/(--[^\n]*)/g, '<span class="sql-comment">$1</span>');
+		highlighted = highlighted.replace(/(\/\*[\s\S]*?\*\/)/g, '<span class="sql-comment">$1</span>');
+
+		// Highlight strings
+		highlighted = highlighted.replace(/('([^'\\]|\\.)*'|"([^"\\]|\\.)*")/g, '<span class="sql-string">$1</span>');
+
+		// Highlight numbers
+		highlighted = highlighted.replace(/\b(\d+\.?\d*)\b/g, '<span class="sql-number">$1</span>');
+
+		// Highlight functions
+		SQL_FUNCTIONS.forEach(func => {
+			const regex = new RegExp(`\\b(${func})\\b(?=\\s*\\()`, 'gi');
+			highlighted = highlighted.replace(regex, '<span class="sql-function">$1</span>');
+		});
+
+		// Highlight keywords
+		SQL_KEYWORDS.forEach(keyword => {
+			const regex = new RegExp(`\\b(${keyword})\\b`, 'gi');
+			highlighted = highlighted.replace(regex, '<span class="sql-keyword">$1</span>');
+		});
+
+			return highlighted;
+		}
+
+		// Show toast notification
+		function showToast(message: string) {
+			const toast = document.createElement('div');
+			toast.className = 'toast';
+			toast.textContent = message;
+			document.body.appendChild(toast);
+
+			setTimeout(() => {
+				toast.style.animation = 'slideIn 0.3s ease-out reverse';
+				setTimeout(() => toast.remove(), 300);
+			}, 2000);
+		}		// Event listeners
+		formatBtn.addEventListener('click', () => {
+			const sql = sqlInput.value;
+			if (!sql.trim()) {
+				showToast('⚠️ Ingresa SQL para formatear');
+				return;
+			}
+
+			// Validate size
+			if (sql.length > MAX_SQL_SIZE) {
+				showToast('❌ SQL demasiado grande (máximo 100KB)');
+				return;
+			}
+
+			const formatted = formatSQL(sql);
+			const highlighted = highlightSQL(formatted);
+			sqlOutput.innerHTML = highlighted;
+			updateCounts();
+			showToast('✓ SQL formateado correctamente');
+		});
+
+		minifyBtn.addEventListener('click', () => {
+			const sql = sqlInput.value;
+			if (!sql.trim()) {
+				showToast('⚠️ Ingresa SQL para minificar');
+				return;
+			}
+
+			// Validate size
+			if (sql.length > MAX_SQL_SIZE) {
+				showToast('❌ SQL demasiado grande (máximo 100KB)');
+				return;
+			}
+
+			const minified = minifySQL(sql);
+			sqlOutput.textContent = minified;
+			updateCounts();
+			showToast('✓ SQL minificado correctamente');
+		});
+
+		copyBtn.addEventListener('click', async () => {
+			const text = sqlOutput.textContent;
+			if (!text) {
+				showToast('⚠️ No hay contenido para copiar');
+				return;
+			}
+
+			try {
+				await navigator.clipboard.writeText(text);
+				showToast('✓ SQL copiado al portapapeles');
+			} catch (err) {
+				showToast('❌ Error al copiar');
+			}
+		});
+
+		downloadBtn.addEventListener('click', () => {
+			const text = sqlOutput.textContent;
+			if (!text) {
+				showToast('⚠️ No hay contenido para descargar');
+				return;
+			}
+
+			const blob = new Blob([text], { type: 'text/plain' });
+			const url = URL.createObjectURL(blob);
+			const a = document.createElement('a');
+			a.href = url;
+			a.download = `formatted-sql-${Date.now()}.sql`;
+			a.click();
+			URL.revokeObjectURL(url);
+			showToast('✓ SQL descargado');
+		});
+
+		clearBtn.addEventListener('click', () => {
+			sqlInput.value = '';
+			updateCounts();
+			sqlInput.focus();
+		});
+
+		sampleBtn.addEventListener('click', () => {
+			sqlInput.value = SAMPLE_SQL;
+			updateCounts();
+			showToast('✓ Ejemplo cargado');
+		});
+
+		sqlInput.addEventListener('input', updateCounts);
+
+		// Initialize
+		updateCounts();
+	}); // End DOMContentLoaded
+</script>

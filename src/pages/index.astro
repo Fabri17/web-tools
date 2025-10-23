@@ -120,17 +120,17 @@ const tools = [
 		comingSoon: true
 	},
 	{
-		title: "URL Shortener",
-		description: "Acorta URLs largas y crea enlaces personalizados. Genera códigos QR automáticamente para cada enlace corto.",
+		title: "SQL Formatter",
+		description: "Formatea y embellece consultas SQL. Indentación automática, resaltado de sintaxis y capitalización de keywords.",
 		icon: `
 			<svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-				<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-				<path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+				<path d="M12 3L4 7v5c0 5.55 3.84 10.74 8 12 4.16-1.26 8-6.45 8-12V7l-8-4z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+				<path d="M9 12l2 2 4-4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 			</svg>
 		`,
-		href: "/url-shortener",
-		tags: ["URL", "Enlaces", "Acortador"],
-		comingSoon: true
+		href: "/sql-formatter",
+		tags: ["SQL", "Formato", "Base de datos", "Query"],
+		comingSoon: false
 	},
 	{
 		title: "CSV to JSON",
@@ -267,21 +267,6 @@ const tools = [
 		comingSoon: true
 	},
 	{
-		title: "SQL Formatter",
-		description: "Formatea y embellece consultas SQL. Detecta errores de sintaxis y mejora la legibilidad del código.",
-		icon: `
-			<svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-				<rect x="3" y="3" width="7" height="7" rx="1" stroke="white" stroke-width="1.5"/>
-				<rect x="14" y="3" width="7" height="7" rx="1" stroke="white" stroke-width="1.5"/>
-				<rect x="3" y="14" width="7" height="7" rx="1" stroke="white" stroke-width="1.5"/>
-				<rect x="14" y="14" width="7" height="7" rx="1" stroke="white" stroke-width="1.5"/>
-			</svg>
-		`,
-		href: "/sql-formatter",
-		tags: ["SQL", "Formatter", "Database"],
-		comingSoon: true
-	},
-	{
 		title: "Minify JS/CSS",
 		description: "Minifica archivos JavaScript y CSS para reducir su tamaño. Optimiza el rendimiento de tu sitio web.",
 		icon: `
@@ -307,45 +292,6 @@ const tools = [
 		tags: ["SVG", "Optimización", "Vectorial"],
 		comingSoon: true
 	},
-	{
-		title: "Cron Expression",
-		description: "Genera y valida expresiones Cron. Visualiza horarios de ejecución con descripción en lenguaje natural.",
-		icon: `
-			<svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-				<circle cx="12" cy="12" r="9" stroke="white" stroke-width="1.5"/>
-				<path d="M12 6v6l4 2" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-			</svg>
-		`,
-		href: "/cron-expression",
-		tags: ["Cron", "Scheduler", "Automatización"],
-		comingSoon: true
-	},
-	{
-		title: "Markdown Table",
-		description: "Genera tablas Markdown fácilmente. Editor visual con exportación en diferentes formatos.",
-		icon: `
-			<svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-				<rect x="3" y="6" width="18" height="12" rx="2" stroke="white" stroke-width="1.5"/>
-				<path d="M3 10h18M9 6v12" stroke="white" stroke-width="1.5"/>
-			</svg>
-		`,
-		href: "/markdown-table",
-		tags: ["Markdown", "Tabla", "Editor"],
-		comingSoon: true
-	},
-	{
-		title: "JWT Decoder",
-		description: "Decodifica y valida tokens JWT. Visualiza header, payload y verifica firma de seguridad.",
-		icon: `
-			<svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-				<path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z" stroke="white" stroke-width="1.5"/>
-				<circle cx="12" cy="12" r="3" fill="white"/>
-			</svg>
-		`,
-		href: "/jwt-decoder",
-		tags: ["JWT", "Token", "Seguridad"],
-		comingSoon: true
-	},
 ];
 
 const activeToolsCount = tools.filter(t => !t.comingSoon).length;
@@ -355,7 +301,6 @@ const activeToolsCount = tools.filter(t => !t.comingSoon).length;
 	title="WebTools Suite - Herramientas de desarrollo en un solo lugar"
 	description="Todas tus herramientas favoritas de desarrollo. Convierte Markdown a PDF, optimiza imágenes, genera QR y más. 100% gratis."
 >
-	<ThemeToggle />
 	<Hero />
 	<FeaturesSection tools={tools} />
 	<AboutSection toolCount={activeToolsCount} />
