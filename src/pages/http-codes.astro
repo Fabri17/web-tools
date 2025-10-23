@@ -1,0 +1,694 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ToolHeader from '../components/ToolHeader.astro';
+
+const icon = `
+	<svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<rect x="2" y="3" width="20" height="18" rx="2" stroke="url(#gradient1)" stroke-width="1.5"/>
+		<path d="M2 8h20M7 3v5M17 3v5" stroke="url(#gradient1)" stroke-width="1.5"/>
+		<path d="M6 12h2v5H6zM10 12h2l2 5h-2l-2-5zM14 12h2l2 5h-2l-2-5z" fill="url(#gradient1)"/>
+		<defs>
+			<linearGradient id="gradient1" x1="2" y1="3" x2="22" y2="21" gradientUnits="userSpaceOnUse">
+				<stop stop-color="#8b5cf6"/>
+				<stop offset="1" stop-color="#c084fc"/>
+			</linearGradient>
+		</defs>
+	</svg>
+`;
+---
+
+<Layout 
+	title="HTTP Status Codes - Referencia Completa de Códigos HTTP | 1xx, 2xx, 3xx, 4xx, 5xx"
+	description="Referencia completa de códigos de estado HTTP. Consulta todos los códigos de respuesta HTTP con descripciones detalladas y ejemplos de uso. Búsqueda y filtrado rápido."
+	url="https://brix.center.com/http-codes"
+	image="/og-image.jpg"
+>
+	<main>
+		<div class="container">
+			<ToolHeader 
+				title="HTTP Status Codes"
+				subtitle="Referencia completa de códigos de estado HTTP"
+				icon={icon}
+				showPrimaryButton={false}
+			/>
+			
+			<div class="codes-container">
+				<!-- Search and Filter Section -->
+				<div class="search-section">
+					<div class="search-group">
+						<div class="search-input-wrapper">
+							<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="search-icon">
+								<circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
+								<path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+							</svg>
+							<input 
+								type="text" 
+								id="searchInput" 
+								placeholder="Buscar por código o nombre (ej: 404, Not Found)..."
+								aria-label="Buscar código HTTP"
+							/>
+						</div>
+					</div>
+					
+					<div class="filter-group">
+						<button class="filter-btn active" data-category="all">
+							<span class="filter-badge">Todos</span>
+							<span class="filter-count" id="countAll">63</span>
+						</button>
+						<button class="filter-btn" data-category="1xx">
+							<span class="filter-badge badge-1xx">1xx</span>
+							<span class="filter-count" id="count1xx">3</span>
+						</button>
+						<button class="filter-btn" data-category="2xx">
+							<span class="filter-badge badge-2xx">2xx</span>
+							<span class="filter-count" id="count2xx">10</span>
+						</button>
+						<button class="filter-btn" data-category="3xx">
+							<span class="filter-badge badge-3xx">3xx</span>
+							<span class="filter-count" id="count3xx">8</span>
+						</button>
+						<button class="filter-btn" data-category="4xx">
+							<span class="filter-badge badge-4xx">4xx</span>
+							<span class="filter-count" id="count4xx">29</span>
+						</button>
+						<button class="filter-btn" data-category="5xx">
+							<span class="filter-badge badge-5xx">5xx</span>
+							<span class="filter-count" id="count5xx">13</span>
+						</button>
+					</div>
+				</div>
+
+				<!-- Status Codes List -->
+				<div class="codes-list" id="codesList">
+					<!-- Codes will be inserted here by JavaScript -->
+				</div>
+
+				<!-- Empty State -->
+				<div class="empty-state" id="emptyState" style="display: none;">
+					<svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
+						<path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+						<path d="M11 8v3M11 14h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+					</svg>
+					<h3>No se encontraron resultados</h3>
+					<p>Intenta con otro término de búsqueda o categoría</p>
+				</div>
+
+				<!-- Info Section -->
+				<div class="info-section">
+					<div class="info-card">
+						<div class="info-header">
+							<div class="info-icon badge-1xx">1xx</div>
+							<h4>Informativos</h4>
+						</div>
+						<p>Respuestas informativas. Indican que la solicitud fue recibida y el proceso continúa.</p>
+					</div>
+					
+					<div class="info-card">
+						<div class="info-header">
+							<div class="info-icon badge-2xx">2xx</div>
+							<h4>Éxito</h4>
+						</div>
+						<p>La solicitud fue recibida, entendida y aceptada exitosamente por el servidor.</p>
+					</div>
+					
+					<div class="info-card">
+						<div class="info-header">
+							<div class="info-icon badge-3xx">3xx</div>
+							<h4>Redirección</h4>
+						</div>
+						<p>Se requiere acción adicional para completar la solicitud, típicamente redirecciones.</p>
+					</div>
+					
+					<div class="info-card">
+						<div class="info-header">
+							<div class="info-icon badge-4xx">4xx</div>
+							<h4>Error del Cliente</h4>
+						</div>
+						<p>La solicitud contiene sintaxis incorrecta o no puede ser procesada por el servidor.</p>
+					</div>
+					
+					<div class="info-card">
+						<div class="info-header">
+							<div class="info-icon badge-5xx">5xx</div>
+							<h4>Error del Servidor</h4>
+						</div>
+						<p>El servidor falló al procesar una solicitud aparentemente válida del cliente.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<style>
+		.container {
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 2rem 1rem;
+		}
+
+		.codes-container {
+			display: flex;
+			flex-direction: column;
+			gap: 2rem;
+			margin-top: 2rem;
+		}
+
+		/* Search Section */
+		.search-section {
+			background: white;
+			border: 1px solid var(--border-color, #e4e4e7);
+			border-radius: 16px;
+			padding: 2rem;
+			display: flex;
+			flex-direction: column;
+			gap: 1.5rem;
+		}
+
+		.search-group {
+			display: flex;
+			flex-direction: column;
+			gap: 0.75rem;
+		}
+
+		.search-input-wrapper {
+			position: relative;
+			display: flex;
+			align-items: center;
+		}
+
+		.search-icon {
+			position: absolute;
+			left: 1rem;
+			color: var(--text-secondary, #71717a);
+			pointer-events: none;
+		}
+
+		#searchInput {
+			width: 100%;
+			padding: 1rem 1rem 1rem 3rem;
+			font-size: 1rem;
+			color: var(--text-primary, #18181b);
+			background: var(--surface, #fafafa);
+			border: 2px solid var(--border-color, #e4e4e7);
+			border-radius: 12px;
+			transition: all 0.3s ease;
+		}
+
+		#searchInput:focus {
+			outline: none;
+			border-color: var(--accent-primary, #8b5cf6);
+			box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+			background: white;
+		}
+
+		/* Filter Buttons */
+		.filter-group {
+			display: flex;
+			gap: 0.75rem;
+			flex-wrap: wrap;
+		}
+
+		.filter-btn {
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+			padding: 0.75rem 1rem;
+			font-size: 0.875rem;
+			font-weight: 500;
+			color: var(--text-secondary, #71717a);
+			background: var(--surface, #fafafa);
+			border: 2px solid var(--border-color, #e4e4e7);
+			border-radius: 12px;
+			cursor: pointer;
+			transition: all 0.3s ease;
+		}
+
+		.filter-btn:hover {
+			border-color: var(--accent-secondary, #c084fc);
+			background: white;
+		}
+
+		.filter-btn.active {
+			background: var(--accent-primary, #8b5cf6);
+			border-color: var(--accent-primary, #8b5cf6);
+			color: white;
+		}
+
+		.filter-badge {
+			font-weight: 600;
+		}
+
+		.filter-count {
+			padding: 0.25rem 0.5rem;
+			background: rgba(0, 0, 0, 0.1);
+			border-radius: 6px;
+			font-size: 0.75rem;
+		}
+
+		.filter-btn.active .filter-count {
+			background: rgba(255, 255, 255, 0.2);
+		}
+
+		/* Badge Colors */
+		.badge-1xx { color: #3b82f6; }
+		.badge-2xx { color: #10b981; }
+		.badge-3xx { color: #f59e0b; }
+		.badge-4xx { color: #ef4444; }
+		.badge-5xx { color: #8b5cf6; }
+
+		/* Codes List */
+		.codes-list {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+			gap: 1rem;
+		}
+
+		:global(.code-card) {
+			background: white;
+			border: 1px solid var(--border-color, #e4e4e7);
+			border-radius: 12px;
+			padding: 1.5rem;
+			transition: all 0.3s ease;
+			animation: fadeIn 0.3s ease;
+		}
+
+		:global(.code-card:hover) {
+			transform: translateY(-2px);
+			box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+		}
+
+		:global(.code-header) {
+			display: flex;
+			align-items: center;
+			gap: 1rem;
+			margin-bottom: 0.75rem;
+		}
+
+		:global(.code-number) {
+			font-size: 1.5rem;
+			font-weight: 700;
+			font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+		}
+
+		:global(.code-number.code-1xx) { color: #3b82f6; }
+		:global(.code-number.code-2xx) { color: #10b981; }
+		:global(.code-number.code-3xx) { color: #f59e0b; }
+		:global(.code-number.code-4xx) { color: #ef4444; }
+		:global(.code-number.code-5xx) { color: #8b5cf6; }
+
+		:global(.code-name) {
+			font-size: 1rem;
+			font-weight: 600;
+			color: var(--text-primary, #18181b);
+			flex: 1;
+		}
+
+		:global(.code-description) {
+			font-size: 0.875rem;
+			color: var(--text-secondary, #71717a);
+			line-height: 1.6;
+			margin-bottom: 0.75rem;
+		}
+
+		:global(.code-usage) {
+			display: flex;
+			align-items: flex-start;
+			gap: 0.5rem;
+			padding: 0.75rem;
+			background: var(--surface, #fafafa);
+			border-radius: 8px;
+			font-size: 0.813rem;
+			color: var(--text-secondary, #71717a);
+			line-height: 1.5;
+		}
+
+		:global(.code-usage svg) {
+			flex-shrink: 0;
+			margin-top: 0.125rem;
+			color: var(--accent-primary, #8b5cf6);
+		}
+
+		/* Empty State */
+		.empty-state {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			gap: 1rem;
+			padding: 4rem 2rem;
+			text-align: center;
+			color: var(--text-secondary, #71717a);
+		}
+
+		.empty-state svg {
+			opacity: 0.3;
+		}
+
+		.empty-state h3 {
+			font-size: 1.25rem;
+			font-weight: 600;
+			color: var(--text-primary, #18181b);
+			margin: 0;
+		}
+
+		.empty-state p {
+			font-size: 0.875rem;
+			margin: 0;
+		}
+
+		/* Info Section */
+		.info-section {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+			gap: 1rem;
+			margin-top: 1rem;
+		}
+
+		.info-card {
+			padding: 1.5rem;
+			background: white;
+			border: 1px solid var(--border-color, #e4e4e7);
+			border-radius: 12px;
+		}
+
+		.info-header {
+			display: flex;
+			align-items: center;
+			gap: 0.75rem;
+			margin-bottom: 0.75rem;
+		}
+
+		.info-icon {
+			width: 40px;
+			height: 40px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-weight: 700;
+			font-size: 0.875rem;
+			border-radius: 8px;
+			background: currentColor;
+			color: white;
+			opacity: 0.9;
+		}
+
+		.info-card h4 {
+			font-size: 1rem;
+			font-weight: 600;
+			color: var(--text-primary, #18181b);
+			margin: 0;
+		}
+
+		.info-card p {
+			font-size: 0.875rem;
+			color: var(--text-secondary, #71717a);
+			line-height: 1.5;
+			margin: 0;
+		}
+
+		/* Dark Mode */
+		:global(.dark-mode) .search-section,
+		:global(.dark-mode) .info-card,
+		:global(.dark-mode) :global(.code-card) {
+			background: var(--surface, #1e293b);
+			border-color: var(--border-color, #334155);
+		}
+
+		:global(.dark-mode) #searchInput {
+			background: #0f172a;
+			color: var(--text-primary, #f8fafc);
+			border-color: var(--border-color, #334155);
+		}
+
+		:global(.dark-mode) #searchInput:focus {
+			background: var(--surface, #1e293b);
+		}
+
+		:global(.dark-mode) .filter-btn {
+			background: #0f172a;
+			color: var(--text-secondary, #cbd5e1);
+			border-color: var(--border-color, #334155);
+		}
+
+		:global(.dark-mode) .filter-btn:hover {
+			background: var(--surface, #1e293b);
+		}
+
+		:global(.dark-mode) :global(.code-name),
+		:global(.dark-mode) .info-card h4,
+		:global(.dark-mode) .empty-state h3 {
+			color: var(--text-primary, #f8fafc);
+		}
+
+		:global(.dark-mode) :global(.code-description),
+		:global(.dark-mode) :global(.code-usage),
+		:global(.dark-mode) .info-card p,
+		:global(.dark-mode) .empty-state p {
+			color: var(--text-secondary, #cbd5e1);
+		}
+
+		:global(.dark-mode) :global(.code-usage) {
+			background: #0f172a;
+		}
+
+		/* Animations */
+		@keyframes fadeIn {
+			from {
+				opacity: 0;
+				transform: translateY(10px);
+			}
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		/* Responsive */
+		@media (max-width: 768px) {
+			.container {
+				padding: 1rem;
+			}
+
+			.search-section {
+				padding: 1.5rem;
+			}
+
+			.codes-list {
+				grid-template-columns: 1fr;
+			}
+
+			.filter-group {
+				justify-content: space-between;
+			}
+
+			.filter-btn {
+				flex: 1;
+				min-width: 0;
+				justify-content: center;
+			}
+
+			.info-section {
+				grid-template-columns: 1fr;
+			}
+		}
+	</style>
+
+	<script>
+		// HTTP Status Codes Database
+		const httpCodes = [
+			// 1xx Informational
+			{ code: 100, name: "Continue", description: "El servidor ha recibido los headers de la solicitud y el cliente debe proceder a enviar el cuerpo.", usage: "Usado en solicitudes grandes donde el cliente quiere saber si el servidor aceptará la solicitud antes de enviar el cuerpo." },
+			{ code: 101, name: "Switching Protocols", description: "El servidor acepta cambiar el protocolo de aplicación según lo solicitado por el cliente.", usage: "Usado en WebSockets para actualizar de HTTP a WS protocol." },
+			{ code: 103, name: "Early Hints", description: "Permite al servidor enviar headers preliminares antes de la respuesta final.", usage: "Usado para precargar recursos mientras el servidor prepara la respuesta completa." },
+			
+			// 2xx Success
+			{ code: 200, name: "OK", description: "La solicitud fue exitosa. El significado depende del método HTTP usado.", usage: "Respuesta estándar para solicitudes HTTP exitosas. Usado en GET, POST, PUT, etc." },
+			{ code: 201, name: "Created", description: "La solicitud fue exitosa y se creó un nuevo recurso como resultado.", usage: "Típicamente usado en respuestas POST cuando se crea un nuevo recurso en el servidor." },
+			{ code: 202, name: "Accepted", description: "La solicitud fue aceptada para procesamiento, pero no se ha completado.", usage: "Usado en procesamiento asíncrono donde la operación tomará tiempo." },
+			{ code: 203, name: "Non-Authoritative Information", description: "La información retornada es de una copia local o de terceros, no del servidor origen.", usage: "Usado por proxies o caches cuando modifican los headers de respuesta." },
+			{ code: 204, name: "No Content", description: "El servidor procesó exitosamente la solicitud pero no retorna contenido.", usage: "Usado en operaciones DELETE o PUT cuando no hay contenido que retornar." },
+			{ code: 205, name: "Reset Content", description: "El servidor procesó la solicitud y el cliente debe resetear la vista del documento.", usage: "Usado en formularios para indicar que deben limpiarse después de enviar." },
+			{ code: 206, name: "Partial Content", description: "El servidor está entregando solo parte del recurso debido a un header Range.", usage: "Usado en descargas resumibles o streaming de video." },
+			{ code: 207, name: "Multi-Status", description: "Proporciona estado sobre múltiples operaciones independientes (WebDAV).", usage: "Usado en operaciones batch de WebDAV." },
+			{ code: 208, name: "Already Reported", description: "Los miembros ya fueron enumerados en una respuesta anterior (WebDAV).", usage: "Evita enumerar repetidamente los mismos recursos en WebDAV." },
+			{ code: 226, name: "IM Used", description: "El servidor cumplió con una solicitud GET con manipulaciones de instancia aplicadas.", usage: "Usado en HTTP Delta encoding." },
+			
+			// 3xx Redirection
+			{ code: 300, name: "Multiple Choices", description: "Indica múltiples opciones para el recurso que el cliente puede seguir.", usage: "Raramente usado. Ofrece una lista de ubicaciones de recursos." },
+			{ code: 301, name: "Moved Permanently", description: "Este y todos los requests futuros deben dirigirse a la nueva URI proporcionada.", usage: "Usado cuando una página se mueve permanentemente. Crucial para SEO." },
+			{ code: 302, name: "Found", description: "El recurso reside temporalmente en una URI diferente.", usage: "Redirección temporal. El cliente debe seguir usando la URI original." },
+			{ code: 303, name: "See Other", description: "La respuesta a la solicitud puede encontrarse en otra URI usando GET.", usage: "Usado después de POST para redirigir a una página de confirmación." },
+			{ code: 304, name: "Not Modified", description: "El recurso no ha sido modificado desde la última solicitud.", usage: "Usado con headers de caché (If-Modified-Since, ETag) para ahorrar ancho de banda." },
+			{ code: 307, name: "Temporary Redirect", description: "La solicitud debe repetirse con otra URI pero requests futuros usan la URI original.", usage: "Similar a 302 pero garantiza que el método HTTP no cambiará." },
+			{ code: 308, name: "Permanent Redirect", description: "El recurso está permanentemente en otra URI y el método HTTP no debe cambiar.", usage: "Similar a 301 pero preserva el método HTTP original." },
+			
+			// 4xx Client Errors
+			{ code: 400, name: "Bad Request", description: "El servidor no puede procesar la solicitud debido a un error del cliente.", usage: "Sintaxis inválida, solicitud malformada, o parámetros incorrectos." },
+			{ code: 401, name: "Unauthorized", description: "Se requiere autenticación para acceder al recurso.", usage: "Usuario no autenticado. Debe proporcionar credenciales válidas." },
+			{ code: 402, name: "Payment Required", description: "Reservado para uso futuro en sistemas de pago digital.", usage: "Raramente usado. Originalmente previsto para pagos digitales." },
+			{ code: 403, name: "Forbidden", description: "El servidor entiende la solicitud pero se niega a autorizarla.", usage: "Usuario autenticado pero sin permisos. Acceso denegado." },
+			{ code: 404, name: "Not Found", description: "El recurso solicitado no pudo ser encontrado.", usage: "El código más común. URL no existe o fue eliminada." },
+			{ code: 405, name: "Method Not Allowed", description: "El método HTTP usado no está permitido para este recurso.", usage: "Ejemplo: usar POST cuando solo GET está permitido." },
+			{ code: 406, name: "Not Acceptable", description: "El recurso no está disponible en un formato aceptable según los headers Accept.", usage: "El servidor no puede generar contenido que coincida con Accept headers." },
+			{ code: 407, name: "Proxy Authentication Required", description: "El cliente debe autenticarse con el proxy.", usage: "Similar a 401 pero para autenticación de proxy." },
+			{ code: 408, name: "Request Timeout", description: "El servidor agotó el tiempo de espera por la solicitud del cliente.", usage: "El cliente tardó demasiado en enviar la solicitud completa." },
+			{ code: 409, name: "Conflict", description: "La solicitud no pudo completarse debido a un conflicto con el estado actual.", usage: "Usado cuando hay conflictos de versión o de datos." },
+			{ code: 410, name: "Gone", description: "El recurso ya no está disponible y no se conoce dirección de reenvío.", usage: "Similar a 404 pero indica que fue eliminado intencionalmente." },
+			{ code: 411, name: "Length Required", description: "El servidor requiere que la solicitud tenga un header Content-Length.", usage: "La solicitud debe especificar la longitud del contenido." },
+			{ code: 412, name: "Precondition Failed", description: "Una o más precondiciones en los headers fueron evaluadas como falsas.", usage: "Usado con headers condicionales como If-Match." },
+			{ code: 413, name: "Payload Too Large", description: "La solicitud es más grande de lo que el servidor está dispuesto a procesar.", usage: "El cuerpo de la solicitud excede el límite del servidor." },
+			{ code: 414, name: "URI Too Long", description: "La URI solicitada es más larga de lo que el servidor puede interpretar.", usage: "URL con demasiados parámetros o datos en query string." },
+			{ code: 415, name: "Unsupported Media Type", description: "El formato del contenido no es soportado por el servidor.", usage: "Content-Type no soportado (ej: enviar XML cuando solo acepta JSON)." },
+			{ code: 416, name: "Range Not Satisfiable", description: "El rango especificado en el header Range no puede ser satisfecho.", usage: "Rango solicitado está fuera de los límites del recurso." },
+			{ code: 417, name: "Expectation Failed", description: "El servidor no puede cumplir con los requisitos del header Expect.", usage: "El header Expect contiene expectativas que el servidor no puede cumplir." },
+			{ code: 418, name: "I'm a teapot", description: "El servidor se niega a preparar café porque es permanentemente una tetera.", usage: "RFC de April Fools' joke. No se usa en producción (HTCPCP)." },
+			{ code: 421, name: "Misdirected Request", description: "La solicitud fue dirigida a un servidor que no puede producir respuesta.", usage: "Usado en HTTP/2 cuando el servidor no puede responder." },
+			{ code: 422, name: "Unprocessable Entity", description: "La solicitud está bien formada pero contiene errores semánticos.", usage: "Validación falló. Datos correctos sintácticamente pero inválidos lógicamente." },
+			{ code: 423, name: "Locked", description: "El recurso al que se intenta acceder está bloqueado (WebDAV).", usage: "Usado en WebDAV cuando un recurso está bloqueado." },
+			{ code: 424, name: "Failed Dependency", description: "La solicitud falló debido a fallas en solicitudes previas (WebDAV).", usage: "Operación depende de otra que falló en WebDAV." },
+			{ code: 425, name: "Too Early", description: "El servidor no está dispuesto a arriesgarse a procesar una solicitud que podría ser repetida.", usage: "Previene ataques de replay en TLS early data." },
+			{ code: 426, name: "Upgrade Required", description: "El cliente debe cambiar a un protocolo diferente.", usage: "El servidor requiere que el cliente use un protocolo diferente (ej: TLS)." },
+			{ code: 428, name: "Precondition Required", description: "El servidor requiere que la solicitud sea condicional.", usage: "Previene el problema de 'lost update' requiriendo precondiciones." },
+			{ code: 429, name: "Too Many Requests", description: "El usuario ha enviado demasiadas solicitudes en un tiempo dado (rate limiting).", usage: "Límite de tasa excedido. El cliente debe esperar antes de reintentar." },
+			{ code: 431, name: "Request Header Fields Too Large", description: "Los headers de la solicitud son demasiado grandes.", usage: "Headers individuales o colectivamente muy grandes para procesar." },
+			{ code: 451, name: "Unavailable For Legal Reasons", description: "El recurso no está disponible por razones legales.", usage: "Contenido bloqueado por censura, órdenes judiciales, etc." },
+			
+			// 5xx Server Errors
+			{ code: 500, name: "Internal Server Error", description: "Error genérico del servidor cuando no se puede dar un mensaje más específico.", usage: "Error inesperado en el servidor. Excepción no manejada." },
+			{ code: 501, name: "Not Implemented", description: "El servidor no soporta la funcionalidad requerida para cumplir la solicitud.", usage: "Método HTTP no reconocido o no implementado por el servidor." },
+			{ code: 502, name: "Bad Gateway", description: "El servidor actuando como gateway recibió una respuesta inválida del servidor upstream.", usage: "Proxy/gateway recibe respuesta inválida del servidor backend." },
+			{ code: 503, name: "Service Unavailable", description: "El servidor no está disponible temporalmente, generalmente por mantenimiento.", usage: "Servidor sobrecargado o en mantenimiento. Reintenta más tarde." },
+			{ code: 504, name: "Gateway Timeout", description: "El servidor actuando como gateway no recibió respuesta a tiempo del servidor upstream.", usage: "Timeout en proxy/gateway esperando respuesta del backend." },
+			{ code: 505, name: "HTTP Version Not Supported", description: "El servidor no soporta la versión del protocolo HTTP usada en la solicitud.", usage: "Versión de HTTP no soportada por el servidor." },
+			{ code: 506, name: "Variant Also Negotiates", description: "El servidor tiene un error de configuración interno de negociación de contenido.", usage: "Configuración incorrecta en content negotiation transparente." },
+			{ code: 507, name: "Insufficient Storage", description: "El servidor no puede almacenar la representación necesaria (WebDAV).", usage: "Servidor sin espacio de almacenamiento para completar la solicitud." },
+			{ code: 508, name: "Loop Detected", description: "El servidor detectó un bucle infinito procesando la solicitud (WebDAV).", usage: "Bucle infinito detectado en operaciones WebDAV." },
+			{ code: 510, name: "Not Extended", description: "Se requieren extensiones adicionales a la solicitud para que el servidor la cumpla.", usage: "Cliente debe usar extensiones específicas para la solicitud." },
+			{ code: 511, name: "Network Authentication Required", description: "El cliente necesita autenticarse para obtener acceso a la red.", usage: "Usado en captive portals de WiFi público." },
+		];
+
+		// State
+		let currentCategory = 'all';
+		let searchTerm = '';
+
+		// Get category from code
+		function getCategory(code: number): string {
+			if (code >= 100 && code < 200) return '1xx';
+			if (code >= 200 && code < 300) return '2xx';
+			if (code >= 300 && code < 400) return '3xx';
+			if (code >= 400 && code < 500) return '4xx';
+			if (code >= 500 && code < 600) return '5xx';
+			return '';
+		}
+
+		// Filter codes
+		function filterCodes(): typeof httpCodes {
+			return httpCodes.filter(item => {
+				const matchesCategory = currentCategory === 'all' || getCategory(item.code) === currentCategory;
+				const matchesSearch = searchTerm === '' || 
+					item.code.toString().includes(searchTerm) ||
+					item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+					item.description.toLowerCase().includes(searchTerm.toLowerCase());
+				
+				return matchesCategory && matchesSearch;
+			});
+		}
+
+		// Render codes
+		function renderCodes() {
+			const codesList = document.getElementById('codesList');
+			const emptyState = document.getElementById('emptyState');
+			
+			if (!codesList || !emptyState) return;
+			
+			const filtered = filterCodes();
+			
+			if (filtered.length === 0) {
+				codesList.style.display = 'none';
+				emptyState.style.display = 'flex';
+				return;
+			}
+			
+			codesList.style.display = 'grid';
+			emptyState.style.display = 'none';
+			
+			codesList.innerHTML = filtered.map(item => {
+				const category = getCategory(item.code);
+				return `
+					<div class="code-card">
+						<div class="code-header">
+							<div class="code-number code-${category}">${item.code}</div>
+							<div class="code-name">${item.name}</div>
+						</div>
+						<div class="code-description">${item.description}</div>
+						<div class="code-usage">
+							<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+								<path d="M12 16v-4M12 8h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+							</svg>
+							<span>${item.usage}</span>
+						</div>
+					</div>
+				`;
+			}).join('');
+		}
+
+		// Update counts
+		function updateCounts() {
+			const counts = {
+				all: httpCodes.length,
+				'1xx': httpCodes.filter(c => getCategory(c.code) === '1xx').length,
+				'2xx': httpCodes.filter(c => getCategory(c.code) === '2xx').length,
+				'3xx': httpCodes.filter(c => getCategory(c.code) === '3xx').length,
+				'4xx': httpCodes.filter(c => getCategory(c.code) === '4xx').length,
+				'5xx': httpCodes.filter(c => getCategory(c.code) === '5xx').length,
+			};
+
+			Object.entries(counts).forEach(([category, count]) => {
+				const element = document.getElementById(`count${category === 'all' ? 'All' : category}`);
+				if (element) element.textContent = count.toString();
+			});
+		}
+
+		// Initialize
+		document.addEventListener('DOMContentLoaded', () => {
+			const searchInput = document.getElementById('searchInput') as HTMLInputElement;
+			const filterButtons = document.querySelectorAll('.filter-btn');
+
+			// Initial render
+			updateCounts();
+			renderCodes();
+
+			// Search
+			searchInput?.addEventListener('input', (e) => {
+				searchTerm = (e.target as HTMLInputElement).value;
+				renderCodes();
+			});
+
+			// Filter
+			filterButtons.forEach(button => {
+				button.addEventListener('click', () => {
+					const category = button.getAttribute('data-category') || 'all';
+					
+					// Update active state
+					filterButtons.forEach(btn => btn.classList.remove('active'));
+					button.classList.add('active');
+					
+					// Update filter and render
+					currentCategory = category;
+					renderCodes();
+				});
+			});
+
+			// Keyboard shortcuts
+			document.addEventListener('keydown', (e) => {
+				// Focus search with Ctrl/Cmd + K
+				if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+					e.preventDefault();
+					searchInput?.focus();
+				}
+			});
+		});
+	</script>
+</Layout>

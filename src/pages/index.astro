@@ -188,16 +188,16 @@ const tools = [
 	},
 	{
 		title: "Hash Generator",
-		description: "Genera hashes MD5, SHA-1, SHA-256 y más. Verifica integridad de archivos y cadenas de texto.",
+		description: "Genera hashes criptográficos MD5, SHA-1, SHA-256, SHA-384, SHA-512. Procesa tus datos de forma segura y local.",
 		icon: `
 			<svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-				<path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z" stroke="white" stroke-width="1.5"/>
-				<path d="M9 12l2 2 4-4" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+				<rect x="4" y="4" width="16" height="16" rx="2" stroke="white" stroke-width="1.5"/>
+				<path d="M9 4v16M15 4v16M4 9h16M4 15h16" stroke="white" stroke-width="1.5"/>
 			</svg>
 		`,
 		href: "/hash-generator",
-		tags: ["Hash", "Criptografía", "Seguridad"],
-		comingSoon: true
+		tags: ["Hash", "Criptografía", "MD5", "SHA-256"],
+		comingSoon: false
 	},
 	{
 		title: "UUID Generator",
@@ -224,6 +224,20 @@ const tools = [
 		href: "/regex-tester",
 		tags: ["Regex", "Validador", "Testing"],
 		comingSoon: true
+	},
+	{
+		title: "HTTP Status Codes",
+		description: "Referencia completa de códigos de estado HTTP. Consulta y busca todos los códigos 1xx, 2xx, 3xx, 4xx, 5xx con descripciones detalladas.",
+		icon: `
+			<svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<rect x="2" y="3" width="20" height="18" rx="2" stroke="white" stroke-width="1.5"/>
+				<path d="M2 8h20M7 3v5M17 3v5" stroke="white" stroke-width="1.5"/>
+				<path d="M6 12h2v5H6zM10 12h2l2 5h-2l-2-5zM14 12h2l2 5h-2l-2-5z" fill="white"/>
+			</svg>
+		`,
+		href: "/http-codes",
+		tags: ["HTTP", "Códigos", "API", "Referencia"],
+		comingSoon: false
 	},
 	{
 		title: "Timestamp Converter",
@@ -332,19 +346,6 @@ const tools = [
 		tags: ["JWT", "Token", "Seguridad"],
 		comingSoon: true
 	},
-	{
-		title: "HTTP Status Codes",
-		description: "Referencia completa de códigos de estado HTTP. Busca y aprende sobre códigos de respuesta del servidor.",
-		icon: `
-			<svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-				<rect x="2" y="6" width="20" height="12" rx="2" stroke="white" stroke-width="1.5"/>
-				<path d="M6 10h4M6 14h2M14 10v4M18 10v4" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-			</svg>
-		`,
-		href: "/http-status",
-		tags: ["HTTP", "Códigos", "Referencia"],
-		comingSoon: true
-	}
 ];
 
 const activeToolsCount = tools.filter(t => !t.comingSoon).length;
