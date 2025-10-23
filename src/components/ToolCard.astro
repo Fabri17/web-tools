@@ -200,4 +200,38 @@ const { title, description, icon, href, tags = [], comingSoon = false } = Astro.
 			font-size: 0.9375rem;
 		}
 	}
+
+	/* Dark Mode */
+	:global(.dark-mode) .tool-card {
+		background: #1e293b;
+		border-color: #334155;
+		color: #f8fafc;
+	}
+
+	:global(.dark-mode) .tool-card:hover {
+		border-color: #8b5cf6;
+		box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+	}
+
+	:global(.dark-mode) .tool-card.coming-soon:hover {
+		border-color: #334155;
+		box-shadow: none;
+	}
+
+	:global(.dark-mode) .tool-content h3 {
+		color: #f8fafc;
+	}
+
+	:global(.dark-mode) .tool-content p {
+		color: #cbd5e1;
+	}
+
+	:global(.dark-mode) .tag {
+		background: #334155;
+		color: #cbd5e1;
+	}
+
+	:global(.dark-mode) .tool-arrow {
+		color: #c084fc;
+	}
 </style>
