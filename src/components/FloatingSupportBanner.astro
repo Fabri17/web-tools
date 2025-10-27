@@ -1,0 +1,381 @@
+---
+// Floating Support Banner - Aparece después de cierto tiempo de uso
+interface Props {
+  delaySeconds?: number;
+  showOnMobile?: boolean;
+  position?: "bottom-right" | "bottom-left" | "top-right" | "top-left";
+}
+
+const {
+  delaySeconds = 30,
+  showOnMobile = true,
+  position = "bottom-right",
+} = Astro.props;
+---
+
+<div
+  id="floatingSupport"
+  class={`floating-support position-${position} ${!showOnMobile ? "hide-mobile" : ""}`}
+  data-delay={delaySeconds}
+>
+  <button class="close-btn" id="closeSupportBtn" aria-label="Cerrar">
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M6 6l12 12M6 18L18 6"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"></path>
+    </svg>
+  </button>
+
+  <div class="support-content">
+    <div class="support-header">
+      <div class="support-icon">
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+            fill="currentColor"></path>
+        </svg>
+      </div>
+      <h4>¿Te gusta esta herramienta?</h4>
+    </div>
+
+    <p class="support-message">
+      Las herramientas seguirán siendo <strong>100% gratuitas</strong> gracias a
+      tu apoyo con los anuncios 💜
+    </p>
+
+    <div class="support-actions">
+      <button class="support-button primary" id="maybeLaterBtn">
+        ¡Entendido!
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  class FloatingSupportBanner {
+    private banner: HTMLElement | null;
+    private closeBtn: HTMLElement | null;
+    private maybeLaterBtn: HTMLElement | null;
+    private delaySeconds: number = 30000; // Default 30 seconds
+    private storageKey = "floating-support-dismissed";
+
+    constructor() {
+      this.banner = document.getElementById("floatingSupport");
+      this.closeBtn = document.getElementById("closeSupportBtn");
+      this.maybeLaterBtn = document.getElementById("maybeLaterBtn");
+
+      if (!this.banner) return;
+
+      this.delaySeconds = parseInt(this.banner.dataset.delay || "30") * 1000;
+      this.init();
+    }
+
+    private init() {
+      // Check if user already dismissed banner recently
+      const dismissed = localStorage.getItem(this.storageKey);
+      const now = Date.now();
+
+      // Don't show again for 24 hours if dismissed
+      if (dismissed && now - parseInt(dismissed) < 24 * 60 * 60 * 1000) {
+        return;
+      }
+
+      // Show banner after delay
+      setTimeout(() => {
+        this.showBanner();
+      }, this.delaySeconds);
+
+      // Bind events
+      this.closeBtn?.addEventListener("click", () => this.dismissBanner(true));
+      this.maybeLaterBtn?.addEventListener("click", () =>
+        this.dismissBanner(true)
+      );
+
+      // Hide on escape key
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && this.banner?.classList.contains("visible")) {
+          this.dismissBanner(false);
+        }
+      });
+    }
+
+    private showBanner() {
+      if (!this.banner) return;
+
+      this.banner.classList.add("visible");
+
+      // Track banner show
+      if (typeof (window as any).gtag !== "undefined") {
+        (window as any).gtag("event", "floating_support_shown", {
+          event_category: "support",
+          event_label: "floating_banner",
+        });
+      }
+    }
+
+    private dismissBanner(permanent: boolean) {
+      if (!this.banner) return;
+
+      this.banner.classList.remove("visible");
+
+      // Store dismissal timestamp
+      if (permanent) {
+        localStorage.setItem(this.storageKey, Date.now().toString());
+      }
+
+      // Track banner dismissal
+      if (typeof (window as any).gtag !== "undefined") {
+        (window as any).gtag("event", "floating_support_dismissed", {
+          event_category: "support",
+          event_label: permanent ? "permanent" : "temporary",
+        });
+      }
+    }
+  }
+
+  // Initialize when DOM is ready
+  if (document.readyState === "loading") {
+    document.addEventListener(
+      "DOMContentLoaded",
+      () => new FloatingSupportBanner()
+    );
+  } else {
+    new FloatingSupportBanner();
+  }
+</script>
+
+<style>
+  .floating-support {
+    position: fixed;
+    width: 320px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 16px;
+    padding: 1.25rem;
+    color: white;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    transform: translateY(100px);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+  }
+
+  .floating-support.visible {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* Positioning variants */
+  .position-bottom-right {
+    bottom: 2rem;
+    right: 2rem;
+  }
+
+  .position-bottom-left {
+    bottom: 2rem;
+    left: 2rem;
+  }
+
+  .position-top-right {
+    top: 2rem;
+    right: 2rem;
+  }
+
+  .position-top-left {
+    top: 2rem;
+    left: 2rem;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 8px;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .close-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+  }
+
+  .support-content {
+    padding-right: 2rem;
+  }
+
+  .support-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .support-icon {
+    width: 36px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+  }
+
+  .support-header h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0;
+    color: #fff;
+  }
+
+  .support-message {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    margin: 0 0 1.25rem 0;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .support-message strong {
+    color: #fff;
+    font-weight: 600;
+  }
+
+  .support-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .support-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    font-weight: 500;
+    font-size: 0.875rem;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+  }
+
+  .support-button.primary {
+    background: rgba(255, 255, 255, 0.9);
+    color: #667eea;
+  }
+
+  .support-button.primary:hover {
+    background: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  }
+
+  .support-button.secondary {
+    background: transparent;
+    color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .support-button.secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+
+  /* Mobile responsive */
+  @media (max-width: 768px) {
+    .floating-support {
+      width: calc(100vw - 2rem);
+      left: 1rem !important;
+      right: 1rem !important;
+      bottom: 1rem;
+    }
+
+    .position-top-right,
+    .position-top-left {
+      top: 1rem;
+    }
+
+    .hide-mobile {
+      display: none;
+    }
+
+    .support-content {
+      padding-right: 1.5rem;
+    }
+
+    .support-actions {
+      flex-direction: row;
+    }
+
+    .support-button {
+      flex: 1;
+      font-size: 0.8125rem;
+      padding: 0.625rem 0.75rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .floating-support {
+      width: calc(100vw - 1rem);
+      left: 0.5rem !important;
+      right: 0.5rem !important;
+      padding: 1rem;
+    }
+
+    .support-header h4 {
+      font-size: 0.9375rem;
+    }
+
+    .support-message {
+      font-size: 0.8125rem;
+    }
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .floating-support {
+      transition: opacity 0.2s ease;
+    }
+  }
+
+  /* High contrast mode */
+  @media (prefers-contrast: high) {
+    .floating-support {
+      border: 2px solid #fff;
+    }
+
+    .support-button.primary {
+      border: 2px solid #667eea;
+    }
+  }
+</style>

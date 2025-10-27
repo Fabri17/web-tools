@@ -1,0 +1,8 @@
+# ads.txt file for WebTools Suite
+# Google AdSense
+google.com, pub-8126867540323247, DIRECT, f08c47fec0942fa0
+
+# Instructions:
+# 1. Replace "YOUR_PUBLISHER_ID" with your actual AdSense publisher ID
+# 2. This file must be accessible at https://yourdomain.com/ads.txt
+# 3. Additional ad networks can be added here following the same format

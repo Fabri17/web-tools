@@ -1,0 +1,606 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ToolHeader from "../components/ToolHeader.astro";
+import SupportBanner from "../components/SupportBanner.astro";
+
+const icon = `
+	<svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="url(#gradient)"/>
+		<defs>
+			<linearGradient id="gradient" x1="4" y1="4" x2="20" y2="20" gradientUnits="userSpaceOnUse">
+				<stop stop-color="#8b5cf6"/>
+				<stop offset="1" stop-color="#c084fc"/>
+			</linearGradient>
+		</defs>
+	</svg>
+`;
+---
+
+<Layout
+  title="Apoyar el Proyecto - WebTools Suite"
+  description="Conoce cómo tu apoyo mantiene WebTools Suite gratuito para todos. Información sobre anuncios, donaciones y desarrollo del proyecto."
+>
+  <main>
+    <div class="container">
+      <ToolHeader
+        title="Apoyar el Proyecto"
+        subtitle="Mantén estas herramientas gratuitas para toda la comunidad"
+        icon={icon}
+        showPrimaryButton={false}
+      />
+
+      <div class="content-sections">
+        <section class="transparency-section">
+          <div class="section-header">
+            <h2>🎯 Nuestra Misión</h2>
+          </div>
+          <div class="section-content">
+            <p>
+              WebTools Suite fue creado con una misión clara: <strong
+                >proporcionar herramientas de desarrollo gratuitas, accesibles y
+                de alta calidad</strong
+              > para toda la comunidad. Creemos que las herramientas esenciales para
+              desarrollo no deberían tener barreras económicas.
+            </p>
+          </div>
+        </section>
+
+        <section class="support-section">
+          <div class="section-header">
+            <h2>💜 ¿Cómo Nos Apoyas?</h2>
+          </div>
+          <div class="support-grid">
+            <div class="support-card">
+              <div class="support-icon">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <rect
+                    x="4"
+                    y="4"
+                    width="16"
+                    height="16"
+                    rx="2"
+                    stroke="currentColor"
+                    stroke-width="2"></rect>
+                  <path
+                    d="M9 12l2 2 4-4"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"></path>
+                </svg>
+              </div>
+              <h3>Usando las Herramientas</h3>
+              <p>
+                Cada vez que usas nuestras herramientas, nos ayudas a entender
+                qué es más valioso para la comunidad.
+              </p>
+            </div>
+
+            <div class="support-card">
+              <div class="support-icon">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <rect
+                    x="2"
+                    y="3"
+                    width="20"
+                    height="14"
+                    rx="2"
+                    stroke="currentColor"
+                    stroke-width="2"></rect>
+                  <path d="M8 21l4-7 4 7" stroke="currentColor" stroke-width="2"
+                  ></path>
+                </svg>
+              </div>
+              <h3>Publicidad Respetuosa</h3>
+              <p>
+                Los anuncios que ves son cuidadosamente seleccionados para no
+                interrumpir tu flujo de trabajo.
+              </p>
+              <div class="support-card">
+                <div class="support-icon">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"
+                      stroke="currentColor"
+                      stroke-width="2"></path>
+                    <path
+                      d="M9 18c-4.51 2-5-2-7-2"
+                      stroke="currentColor"
+                      stroke-width="2"></path>
+                  </svg>
+                </div>
+                <h3>Compartir y Recomendar</h3>
+                <p>
+                  Comparte estas herramientas con otros desarrolladores que
+                  puedan beneficiarse de ellas.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <section class="ads-section">
+            <div class="section-header">
+              <h2>📢 Sobre los Anuncios</h2>
+            </div>
+            <div class="section-content">
+              <div class="ads-info">
+                <div class="ads-card">
+                  <h3>🎯 Anuncios Relevantes</h3>
+                  <p>
+                    Mostramos únicamente anuncios relacionados con desarrollo,
+                    tecnología y herramientas que realmente pueden interesarte.
+                  </p>
+                </div>
+
+                <div class="ads-card">
+                  <h3>🚫 Sin Seguimiento Invasivo</h3>
+                  <p>
+                    Respetamos tu privacidad. No recopilamos datos personales
+                    más allá de lo necesario para mostrar anuncios relevantes.
+                  </p>
+                </div>
+
+                <div class="ads-card">
+                  <h3>⚡ Rendimiento Optimizado</h3>
+                  <p>
+                    Los anuncios se cargan de forma asíncrona para no afectar la
+                    velocidad de las herramientas que usas.
+                  </p>
+                </div>
+
+                <div class="ads-card">
+                  <h3>📱 Experiencia Consistente</h3>
+                  <p>
+                    Diseñados para integrarse perfectamente con la interfaz, sin
+                    interrumpir tu flujo de trabajo.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="transparency-section">
+            <div class="section-header">
+              <h2>📊 Transparencia Total</h2>
+            </div>
+            <div class="section-content">
+              <div class="stats-grid">
+                <div class="stat-card">
+                  <div class="stat-number">100%</div>
+                  <div class="stat-label">Gratuito Siempre</div>
+                </div>
+
+                <div class="stat-card">
+                  <div class="stat-number">0</div>
+                  <div class="stat-label">Datos Vendidos</div>
+                </div>
+
+                <div class="stat-card">
+                  <div class="stat-number">15+</div>
+                  <div class="stat-label">Herramientas Disponibles</div>
+                </div>
+
+                <div class="stat-card">
+                  <div class="stat-number">24/7</div>
+                  <div class="stat-label">Disponibilidad</div>
+                </div>
+              </div>
+
+              <div class="promise-box">
+                <h3>Nuestro Compromiso</h3>
+                <ul>
+                  <li>
+                    ✅ Las herramientas seguirán siendo completamente gratuitas
+                  </li>
+                  <li>✅ No vendemos ni compartimos tus datos personales</li>
+                  <li>✅ Los anuncios nunca interrumpirán la funcionalidad</li>
+                  <li>✅ Desarrollo continuo de nuevas herramientas</li>
+                  <li>✅ Código abierto cuando sea posible</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section class="contact-section">
+            <div class="section-header">
+              <h2>📮 Contacto y Feedback</h2>
+            </div>
+            <div class="section-content">
+              <p>
+                ¿Tienes ideas para nuevas herramientas? ¿Encontraste un bug?
+                ¿Quieres sugerir mejoras? Me encanta escuchar feedback de la
+                comunidad.
+              </p>
+
+              <div class="contact-links">
+                <a
+                  href="https://github.com/Fabri17"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="contact-link"
+                >
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"
+                    ></path>
+                  </svg>
+                  GitHub
+                </a>
+
+                <a
+                  href="https://x.com/fabrihernandez"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="contact-link"
+                >
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+                    ></path>
+                  </svg>
+                  Twitter / X
+                </a>
+
+                <a
+                  href="https://www.linkedin.com/in/fabricio-hernandez17/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="contact-link"
+                >
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+                    ></path>
+                  </svg>
+                  LinkedIn
+                </a>
+              </div>
+            </div>
+          </section>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <style>
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .content-sections {
+      margin-top: 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 4rem;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .section-header h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin: 0;
+    }
+
+    :global(.dark-mode) .section-header h2 {
+      color: #f8fafc;
+    }
+
+    .section-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .section-content p {
+      font-size: 1.125rem;
+      line-height: 1.7;
+      color: #475569;
+      text-align: center;
+      margin: 0;
+    }
+
+    :global(.dark-mode) .section-content p {
+      color: #cbd5e1;
+    }
+
+    .support-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .support-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .support-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      border-color: #cbd5e1;
+    }
+
+    :global(.dark-mode) .support-card {
+      background: #1e293b;
+      border-color: #334155;
+    }
+
+    :global(.dark-mode) .support-card:hover {
+      border-color: #475569;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .support-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      margin: 0 auto 1.5rem;
+    }
+
+    .support-card h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #1e293b;
+      margin: 0 0 1rem 0;
+    }
+
+    :global(.dark-mode) .support-card h3 {
+      color: #f8fafc;
+    }
+
+    .support-card p {
+      font-size: 0.9375rem;
+      line-height: 1.6;
+      color: #64748b;
+      margin: 0;
+      text-align: center;
+    }
+
+    :global(.dark-mode) .support-card p {
+      color: #94a3b8;
+    }
+
+    .ads-info {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .ads-card {
+      background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+      border: 1px solid #bae6fd;
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+
+    :global(.dark-mode) .ads-card {
+      background: linear-gradient(135deg, #0c4a6e, #075985);
+      border-color: #0369a1;
+    }
+
+    .ads-card h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #0c4a6e;
+      margin: 0 0 0.75rem 0;
+    }
+
+    :global(.dark-mode) .ads-card h3 {
+      color: #bae6fd;
+    }
+
+    .ads-card p {
+      font-size: 0.9375rem;
+      line-height: 1.6;
+      color: #0369a1;
+      margin: 0;
+      text-align: left;
+    }
+
+    :global(.dark-mode) .ads-card p {
+      color: #7dd3fc;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .stat-card {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+    }
+
+    :global(.dark-mode) .stat-card {
+      background: #1e293b;
+      border-color: #334155;
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 800;
+      color: #8b5cf6;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    :global(.dark-mode) .stat-label {
+      color: #94a3b8;
+    }
+
+    .promise-box {
+      background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+      border: 1px solid #bbf7d0;
+      border-radius: 16px;
+      padding: 2rem;
+    }
+
+    :global(.dark-mode) .promise-box {
+      background: linear-gradient(135deg, #14532d, #166534);
+      border-color: #16a34a;
+    }
+
+    .promise-box h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #15803d;
+      margin: 0 0 1.5rem 0;
+      text-align: center;
+    }
+
+    :global(.dark-mode) .promise-box h3 {
+      color: #bbf7d0;
+    }
+
+    .promise-box ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .promise-box li {
+      font-size: 1rem;
+      color: #166534;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    :global(.dark-mode) .promise-box li {
+      color: #86efac;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background: #667eea;
+      color: white;
+      text-decoration: none;
+      border-radius: 12px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .contact-link:hover {
+      background: #5a67d8;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 1.5rem;
+      }
+
+      .content-sections {
+        gap: 3rem;
+        margin-top: 2rem;
+      }
+
+      .section-header h2 {
+        font-size: 1.75rem;
+      }
+
+      .support-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .support-card {
+        padding: 1.5rem;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .stat-number {
+        font-size: 2.5rem;
+      }
+
+      .contact-links {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .contact-link {
+        width: 100%;
+        max-width: 200px;
+        justify-content: center;
+      }
+    }
+  </style>
+</Layout>

@@ -1,511 +1,494 @@
 ---
-import BuyMeACoffee from './BuyMeACoffee.astro';
+import profileImage from "../assets/profile.png";
 
 // About Section - Trust and credibility
 interface Props {
-	toolCount?: number;
+  toolCount?: number;
 }
 
 const { toolCount = 5 } = Astro.props;
 
 const features = [
-	{
-		icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  {
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 		</svg>`,
-		title: 'Sin rastreadores',
-		description: 'Tus datos se procesan en tu navegador. Cero tracking, cero cookies.'
-	},
-	{
-		icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    title: "Sin rastreadores",
+    description:
+      "Tus datos se procesan en tu navegador. Cero tracking, cero cookies.",
+  },
+  {
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
 		</svg>`,
-		title: 'Gratis para siempre',
-		description: 'Sin planes premium, sin límites artificiales. Solo productividad.'
-	},
-	{
-		icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    title: "Gratis para siempre",
+    description:
+      "Sin planes premium, sin límites artificiales. Solo productividad.",
+  },
+  {
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="currentColor"/>
 		</svg>`,
-		title: 'Súper rápido',
-		description: 'Optimizado para velocidad. Sin servidores, directo en tu navegador.'
-	},
-	{
-		icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    title: "Súper rápido",
+    description:
+      "Optimizado para velocidad. Sin servidores, directo en tu navegador.",
+  },
+  {
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path d="M12 20h9M12 4h9M4 12h16M4 6h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
 		</svg>`,
-		title: 'Fácil de usar',
-		description: 'Interfaz intuitiva. Herramientas listas para usar sin configuración.'
-	},
+    title: "Fácil de usar",
+    description:
+      "Interfaz intuitiva. Herramientas listas para usar sin configuración.",
+  },
 ];
 ---
 
 <section class="about-section">
-	<div class="about-container">
-		<div class="about-header">
-			<span class="about-badge">Sobre el proyecto</span>
-			<h2 class="about-title">
-				Creado por desarrolladores, 
-				<span class="gradient-text">para desarrolladores</span>
-			</h2>
-			<p class="about-description">
-				Herramientas útiles que mejoran tu flujo de trabajo diario, 
-				sin rastreadores ni complicaciones.
-			</p>
-		</div>
-		
-		<div class="features-grid">
-			{features.map(feature => (
-				<div class="feature-card">
-					<div class="feature-icon" set:html={feature.icon} />
-					<h3 class="feature-title">{feature.title}</h3>
-					<p class="feature-description">{feature.description}</p>
-				</div>
-			))}
-		</div>
-		
-		<div class="creator-card">
-			<div class="creator-content">
-				<div class="creator-avatar">
-					<svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-						<circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-					</svg>
-				</div>
-				<div class="creator-info">
-					<p class="creator-label">Creado y mantenido por</p>
-					<p class="creator-name">Fabricio Hernández</p>
-					<p class="creator-role">Full Stack Developer</p>
-				</div>
-			</div>
-			<div class="creator-links">
-				<a href="https://github.com/Fabri17" target="_blank" rel="noopener noreferrer" class="creator-link">
-					<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-					</svg>
-					GitHub
-				</a>
-				<a href="https://www.linkedin.com/in/fabricio-hernandez17/" target="_blank" rel="noopener noreferrer" class="creator-link">
-					<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z" fill="currentColor"/>
-						<circle cx="4" cy="4" r="2" fill="currentColor"/>
-					</svg>
-					LinkedIn
-				</a>
-			</div>
-		</div>
-	</div>
+  <div class="about-container">
+    <div class="about-header">
+      <span class="about-badge">Sobre el proyecto</span>
+      <h2 class="about-title">
+        Creado por desarrolladores,
+        <span class="gradient-text">para desarrolladores</span>
+      </h2>
+      <p class="about-description">
+        Herramientas útiles que mejoran tu flujo de trabajo diario, sin
+        rastreadores ni complicaciones.
+      </p>
+    </div>
+
+    <div class="features-grid">
+      {
+        features.map((feature) => (
+          <div class="feature-card">
+            <div class="feature-icon" set:html={feature.icon} />
+            <h3 class="feature-title">{feature.title}</h3>
+            <p class="feature-description">{feature.description}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="creator-card">
+      <div class="creator-content">
+        <div class="creator-avatar">
+          <img
+            src={profileImage.src}
+            alt="Fabricio Hernández"
+            class="avatar-image"
+          />
+        </div>
+        <div class="creator-info">
+          <p class="creator-label">Creado y mantenido por</p>
+          <p class="creator-name">Fabricio Hernández</p>
+          <p class="creator-role">Full Stack Developer</p>
+        </div>
+      </div>
+      <div class="creator-links">
+        <a
+          href="https://github.com/Fabri17"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="creator-link"
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
+          </svg>
+          GitHub
+        </a>
+        <a
+          href="https://www.linkedin.com/in/fabricio-hernandez17/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="creator-link"
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"
+              fill="currentColor"></path>
+            <circle cx="4" cy="4" r="2" fill="currentColor"></circle>
+          </svg>
+          LinkedIn
+        </a>
+      </div>
+    </div>
+  </div>
 </section>
 
 <style>
-	.about-section {
-		padding: 6rem 2rem;
-		background: white;
-		position: relative;
-		overflow: hidden;
-	}
-	
-	:global(.dark-mode) .about-section {
-		background: #1e293b;
-	}
-	
-	.about-section::before {
-		content: '';
-		position: absolute;
-		top: -50%;
-		left: -10%;
-		width: 80%;
-		height: 80%;
-		background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
-		pointer-events: none;
-	}
-	
-	.about-container {
-		max-width: 1200px;
-		margin: 0 auto;
-		position: relative;
-		z-index: 1;
-	}
-	
-	.about-header {
-		text-align: center;
-		margin-bottom: 4rem;
-	}
-	
-	.about-badge {
-		display: inline-block;
-		padding: 0.5rem 1.5rem;
-		background: linear-gradient(135deg, #667eea, #764ba2);
-		color: white;
-		border-radius: 50px;
-		font-size: 0.875rem;
-		font-weight: 600;
-		margin-bottom: 1.5rem;
-	}
-	
-	.about-title {
-		font-size: clamp(2rem, 4vw, 3rem);
-		font-weight: 800;
-		margin: 0 0 1.5rem 0;
-		color: #1a202c;
-		line-height: 1.2;
-	}
-	
-	:global(.dark-mode) .about-title {
-		color: #f8fafc;
-	}
-	
-	.gradient-text {
-		background: linear-gradient(90deg, #667eea, #764ba2);
-		-webkit-background-clip: text;
-		background-clip: text;
-		-webkit-text-fill-color: transparent;
-	}
-	
-	.about-description {
-		font-size: 1.25rem;
-		color: #64748b;
-		max-width: 700px;
-		margin: 0 auto;
-		line-height: 1.6;
-	}
-	
-	:global(.dark-mode) .about-description {
-		color: #94a3b8;
-	}
-	
-	.features-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-		gap: 2rem;
-		margin-bottom: 4rem;
-	}
-	
-	.feature-card {
-		text-align: center;
-		padding: 2rem;
-		border-radius: 16px;
-		background: #f8fafc;
-		transition: all 0.3s ease;
-	}
-	
-	:global(.dark-mode) .feature-card {
-		background: #0f172a;
-	}
-	
-	.feature-card:hover {
-		transform: translateY(-5px);
-		box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
-	}
-	
-	.feature-icon {
-		width: 60px;
-		height: 60px;
-		margin: 0 auto 1.5rem;
-		background: linear-gradient(135deg, #667eea, #764ba2);
-		border-radius: 16px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		color: white;
-	}
-	
-	.feature-title {
-		font-size: 1.25rem;
-		font-weight: 700;
-		margin: 0 0 0.75rem 0;
-		color: #1a202c;
-	}
-	
-	:global(.dark-mode) .feature-title {
-		color: #f8fafc;
-	}
-	
-	.feature-description {
-		font-size: 0.9375rem;
-		color: #64748b;
-		line-height: 1.6;
-		margin: 0;
-	}
-	
-	:global(.dark-mode) .feature-description {
-		color: #94a3b8;
-	}
-	
-	.tech-stack {
-		text-align: center;
-		margin-bottom: 4rem;
-		padding: 2rem;
-		background: #f8fafc;
-		border-radius: 16px;
-	}
-	
-	:global(.dark-mode) .tech-stack {
-		background: #0f172a;
-	}
-	
-	.stack-title {
-		font-size: 1rem;
-		font-weight: 600;
-		text-transform: uppercase;
-		letter-spacing: 0.1em;
-		color: #64748b;
-		margin: 0 0 1.5rem 0;
-	}
-	
-	.stack-items {
-		display: flex;
-		justify-content: center;
-		gap: 2rem;
-		flex-wrap: wrap;
-	}
-	
-	.stack-item {
-		display: flex;
-		align-items: center;
-		gap: 0.75rem;
-		padding: 0.75rem 1.5rem;
-		background: white;
-		border-radius: 12px;
-		font-weight: 600;
-		color: #1a202c;
-		box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-		transition: all 0.3s ease;
-	}
-	
-	:global(.dark-mode) .stack-item {
-		background: #1e293b;
-		color: #f8fafc;
-	}
-	
-	.stack-item:hover {
-		transform: translateY(-2px);
-		box-shadow: 0 5px 20px rgba(102, 126, 234, 0.2);
-	}
-	
-	.stack-icon {
-		font-size: 1.5rem;
-	}
-	
-	.stats-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-		gap: 1.5rem;
-		margin-bottom: 4rem;
-	}
-	
-	.stat-card {
-		text-align: center;
-		padding: 2rem;
-		background: linear-gradient(135deg, #667eea, #764ba2);
-		border-radius: 16px;
-		color: white;
-	}
-	
-	.stat-icon {
-		font-size: 2.5rem;
-		margin-bottom: 1rem;
-	}
-	
-	.stat-value {
-		font-size: 2.5rem;
-		font-weight: 700;
-		margin-bottom: 0.5rem;
-	}
-	
-	.stat-label {
-		font-size: 0.9375rem;
-		opacity: 0.9;
-	}
-	
-	.creator-card {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		padding: 2rem;
-		background: #f8fafc;
-		border-radius: 16px;
-		border: 2px solid #e2e8f0;
-	}
-	
-	:global(.dark-mode) .creator-card {
-		background: #0f172a;
-		border-color: #334155;
-	}
-	
-	.creator-content {
-		display: flex;
-		gap: 1.5rem;
-		align-items: center;
-	}
-	
-	.creator-avatar {
-		width: 80px;
-		height: 80px;
-		background: linear-gradient(135deg, #667eea, #764ba2);
-		border-radius: 50%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		color: white;
-	}
-	
-	.creator-label {
-		font-size: 0.875rem;
-		color: #64748b;
-		margin: 0 0 0.25rem 0;
-	}
-	
-	.creator-name {
-		font-size: 1.5rem;
-		font-weight: 700;
-		color: #1a202c;
-		margin: 0 0 0.25rem 0;
-	}
-	
-	:global(.dark-mode) .creator-name {
-		color: #f8fafc;
-	}
-	
-	.creator-role {
-		font-size: 0.9375rem;
-		color: #667eea;
-		margin: 0;
-	}
-	
-	.creator-links {
-		display: flex;
-		gap: 1rem;
-	}
-	
-	.creator-link {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-		padding: 0.75rem 1.5rem;
-		background: white;
-		color: #1a202c;
-		text-decoration: none;
-		border-radius: 10px;
-		font-weight: 600;
-		transition: all 0.3s ease;
-		border: 2px solid #e2e8f0;
-	}
-	
-	:global(.dark-mode) .creator-link {
-		background: #1e293b;
-		color: #f8fafc;
-		border-color: #334155;
-	}
-	
-	.creator-link:hover {
-		background: #667eea;
-		color: white;
-		border-color: #667eea;
-		transform: translateY(-2px);
-	}
-	
-	.support-section {
-		margin-top: 3rem;
-	}
-	
-	/* Estilos integrados para BuyMeACoffee */
-	:global(.integrated-style .coffee-card) {
-		background: #f8fafc;
-		border: 2px solid #e2e8f0;
-		border-radius: 16px;
-		padding: 2rem;
-		max-width: 100%;
-		box-shadow: none;
-		transition: all 0.3s ease;
-	}
-	
-	:global(.dark-mode .integrated-style .coffee-card) {
-		background: #0f172a;
-		border-color: #334155;
-	}
-	
-	:global(.integrated-style .coffee-card:hover) {
-		transform: translateY(-5px);
-		box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
-		border-color: #667eea;
-	}
-	
-	:global(.integrated-style .coffee-icon) {
-		width: 48px;
-		height: 48px;
-		color: #667eea;
-	}
-	
-	:global(.integrated-style .main-text) {
-		font-size: 1.25rem;
-		font-weight: 700;
-		color: #1a202c;
-	}
-	
-	:global(.dark-mode .integrated-style .main-text) {
-		color: #f8fafc;
-	}
-	
-	:global(.integrated-style .sub-text) {
-		font-size: 0.9375rem;
-		color: #64748b;
-	}
-	
-	:global(.dark-mode .integrated-style .sub-text) {
-		color: #94a3b8;
-	}
-	
-	:global(.integrated-style .donate-button) {
-		background: linear-gradient(135deg, #667eea, #764ba2);
-		color: white;
-		padding: 0.75rem 2rem;
-		border-radius: 12px;
-		font-size: 1rem;
-		font-weight: 600;
-		box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
-	}
-	
-	:global(.integrated-style .donate-button:hover) {
-		background: linear-gradient(135deg, #764ba2, #667eea);
-		transform: translateY(-2px);
-		box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-	}
-	
-	:global(.integrated-style .coffee-content) {
-		gap: 2rem;
-	}
-	
-	@media (max-width: 768px) {
-		.about-section {
-			padding: 4rem 1.5rem;
-		}
-		
-		.features-grid {
-			grid-template-columns: 1fr;
-		}
-		
-		.stats-grid {
-			grid-template-columns: repeat(2, 1fr);
-		}
-		
-		.creator-card {
-			flex-direction: column;
-			gap: 2rem;
-			text-align: center;
-		}
-		
-		.creator-content {
-			flex-direction: column;
-		}
-		
-		.creator-links {
-			flex-direction: column;
-			width: 100%;
-		}
-		
-		.creator-link {
-			justify-content: center;
-		}
-	}
+  .about-section {
+    padding: 6rem 2rem;
+    background: white;
+    position: relative;
+    overflow: hidden;
+  }
+
+  :global(.dark-mode) .about-section {
+    background: #1e293b;
+  }
+
+  .about-section::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -10%;
+    width: 80%;
+    height: 80%;
+    background: radial-gradient(
+      circle,
+      rgba(102, 126, 234, 0.1) 0%,
+      transparent 70%
+    );
+    pointer-events: none;
+  }
+
+  .about-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .about-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .about-badge {
+    display: inline-block;
+    padding: 0.5rem 1.5rem;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+  }
+
+  .about-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    margin: 0 0 1.5rem 0;
+    color: #1a202c;
+    line-height: 1.2;
+  }
+
+  :global(.dark-mode) .about-title {
+    color: #f8fafc;
+  }
+
+  .gradient-text {
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .about-description {
+    font-size: 1.25rem;
+    color: #64748b;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  :global(.dark-mode) .about-description {
+    color: #94a3b8;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
+
+  .feature-card {
+    text-align: center;
+    padding: 2rem;
+    border-radius: 16px;
+    background: #f8fafc;
+    transition: all 0.3s ease;
+  }
+
+  :global(.dark-mode) .feature-card {
+    background: #0f172a;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+  }
+
+  .feature-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 1.5rem;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+
+  .feature-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0 0 0.75rem 0;
+    color: #1a202c;
+  }
+
+  :global(.dark-mode) .feature-title {
+    color: #f8fafc;
+  }
+
+  .feature-description {
+    font-size: 0.9375rem;
+    color: #64748b;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  :global(.dark-mode) .feature-description {
+    color: #94a3b8;
+  }
+
+  .tech-stack {
+    text-align: center;
+    margin-bottom: 4rem;
+    padding: 2rem;
+    background: #f8fafc;
+    border-radius: 16px;
+  }
+
+  :global(.dark-mode) .tech-stack {
+    background: #0f172a;
+  }
+
+  .stack-title {
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #64748b;
+    margin: 0 0 1.5rem 0;
+  }
+
+  .stack-items {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .stack-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.5rem;
+    background: white;
+    border-radius: 12px;
+    font-weight: 600;
+    color: #1a202c;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+  }
+
+  :global(.dark-mode) .stack-item {
+    background: #1e293b;
+    color: #f8fafc;
+  }
+
+  .stack-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(102, 126, 234, 0.2);
+  }
+
+  .stack-icon {
+    font-size: 1.5rem;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+
+  .stat-card {
+    text-align: center;
+    padding: 2rem;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 16px;
+    color: white;
+  }
+
+  .stat-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .stat-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-label {
+    font-size: 0.9375rem;
+    opacity: 0.9;
+  }
+
+  .creator-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+    background: #f8fafc;
+    border-radius: 16px;
+    border: 2px solid #e2e8f0;
+  }
+
+  :global(.dark-mode) .creator-card {
+    background: #0f172a;
+    border-color: #334155;
+  }
+
+  .creator-content {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .creator-avatar {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    overflow: hidden;
+    padding: 3px;
+  }
+
+  .avatar-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    background: white;
+  }
+
+  .creator-label {
+    font-size: 0.875rem;
+    color: #64748b;
+    margin: 0 0 0.25rem 0;
+  }
+
+  .creator-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1a202c;
+    margin: 0 0 0.25rem 0;
+  }
+
+  :global(.dark-mode) .creator-name {
+    color: #f8fafc;
+  }
+
+  .creator-role {
+    font-size: 0.9375rem;
+    color: #667eea;
+    margin: 0;
+  }
+
+  .creator-links {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .creator-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: white;
+    color: #1a202c;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 2px solid #e2e8f0;
+  }
+
+  :global(.dark-mode) .creator-link {
+    background: #1e293b;
+    color: #f8fafc;
+    border-color: #334155;
+  }
+
+  .creator-link:hover {
+    background: #667eea;
+    color: white;
+    border-color: #667eea;
+    transform: translateY(-2px);
+  }
+
+  .support-section {
+    margin-top: 3rem;
+  }
+
+  @media (max-width: 768px) {
+    .about-section {
+      padding: 4rem 1.5rem;
+    }
+
+    .features-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .creator-card {
+      flex-direction: column;
+      gap: 2rem;
+      text-align: center;
+    }
+
+    .creator-content {
+      flex-direction: column;
+    }
+
+    .creator-links {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .creator-link {
+      justify-content: center;
+    }
+  }
 </style>

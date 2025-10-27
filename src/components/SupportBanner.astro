@@ -1,0 +1,218 @@
+---
+interface Props {
+  variant?: "default" | "minimal" | "floating";
+  position?: "top" | "bottom" | "inline";
+  showOnMobile?: boolean;
+}
+
+const {
+  variant = "default",
+  position = "inline",
+  showOnMobile = true,
+} = Astro.props;
+---
+
+<div
+  class={`support-banner variant-${variant} position-${position} ${!showOnMobile ? "hide-mobile" : ""}`}
+>
+  <div class="support-content">
+    <div class="support-icon">
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+          fill="currentColor"></path>
+      </svg>
+    </div>
+    <div class="support-text">
+      <h4 class="support-title">¡Apoya este proyecto!</h4>
+      <p class="support-description">
+        La publicidad que ves me ayuda a mantener estas herramientas gratuitas
+        para todos. Tu apoyo hace posible que continúe desarrollando nuevas
+        funcionalidades.
+      </p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .support-banner {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .support-banner::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.1) 0%,
+      transparent 50%
+    );
+    pointer-events: none;
+  }
+
+  .support-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .support-icon {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+  }
+
+  .support-text {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .support-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+    color: #fff;
+  }
+
+  .support-description {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  /* Variants */
+  .variant-minimal {
+    background: #f8fafc;
+    color: #334155;
+    border: 1px solid #e2e8f0;
+    padding: 1rem;
+  }
+
+  .variant-minimal::before {
+    display: none;
+  }
+
+  .variant-minimal .support-icon {
+    background: #667eea;
+    color: white;
+  }
+
+  .variant-minimal .support-title {
+    color: #1e293b;
+  }
+
+  .variant-minimal .support-description {
+    color: #64748b;
+  }
+
+  .variant-floating {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    max-width: 350px;
+    margin: 0;
+    z-index: 1000;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    animation: slideInUp 0.5s ease-out;
+  }
+
+  @keyframes slideInUp {
+    from {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  /* Position variants */
+  .position-top {
+    margin: 0 0 2rem 0;
+  }
+
+  .position-bottom {
+    margin: 2rem 0 0 0;
+  }
+
+  /* Dark mode support */
+  :global(.dark-mode) .variant-minimal {
+    background: #1e293b;
+    color: #e2e8f0;
+    border-color: #334155;
+  }
+
+  :global(.dark-mode) .variant-minimal .support-title {
+    color: #f8fafc;
+  }
+
+  :global(.dark-mode) .variant-minimal .support-description {
+    color: #94a3b8;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .support-content {
+      flex-direction: column;
+      text-align: center;
+      gap: 1.25rem;
+    }
+
+    .support-text {
+      text-align: center;
+    }
+
+    .variant-floating {
+      position: static;
+      max-width: none;
+      margin: 1.5rem 0;
+      animation: none;
+    }
+
+    .hide-mobile {
+      display: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .support-banner {
+      padding: 1.25rem;
+      margin: 1.5rem 0;
+    }
+
+    .support-description {
+      font-size: 0.8125rem;
+    }
+
+    .support-button {
+      padding: 0.625rem 1rem;
+      font-size: 0.8125rem;
+    }
+  }
+</style>

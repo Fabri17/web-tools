@@ -1,0 +1,97 @@
+---
+import AdSenseBanner from "./AdSenseBanner.astro";
+import SupportBanner from "./SupportBanner.astro";
+import { getAdSlot, ADSENSE_CONFIG } from "../lib/adsense";
+
+interface Props {
+  showAd?: boolean;
+  showSupport?: boolean;
+  adSlot?: string;
+  adFormat?: "auto" | "rectangle" | "horizontal" | "vertical";
+  supportVariant?: "default" | "minimal" | "floating";
+  position?: "top" | "middle" | "bottom";
+  pageType?: "landing" | "tool" | "about";
+}
+
+const {
+  showAd = true,
+  showSupport = true,
+  adSlot,
+  adFormat = "auto",
+  supportVariant = "default",
+  position = "middle",
+  pageType = "tool",
+} = Astro.props;
+
+// Logic to determine when to show ads and support banners
+const shouldShowAd = showAd && pageType !== "landing";
+const shouldShowSupport = showSupport;
+
+// Get the appropriate ad slot
+const currentAdSlot = adSlot || getAdSlot(pageType, position);
+
+// Get format configuration
+const formatConfig =
+  ADSENSE_CONFIG.formats[adFormat] || ADSENSE_CONFIG.formats.auto;
+---
+
+<div class={`ad-support-container position-${position} page-${pageType}`}>
+  {
+    shouldShowAd && (
+      <AdSenseBanner
+        adSlot={currentAdSlot}
+        adFormat={adFormat}
+        style={formatConfig.style}
+        className="contextual-ad"
+      />
+    )
+  }
+
+  {}
+</div>
+
+<style>
+  .ad-support-container {
+    margin: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .position-top {
+    margin: 0 0 2rem 0;
+  }
+
+  .position-bottom {
+    margin: 2rem 0 0 0;
+  }
+
+  .position-middle {
+    margin: 3rem 0;
+  }
+
+  /* Page-specific styling */
+  .page-landing .ad-support-container {
+    margin: 4rem 0;
+  }
+
+  .page-tool .ad-support-container {
+    margin: 2rem 0;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .ad-support-container {
+      margin: 1.5rem 0;
+      gap: 1rem;
+    }
+
+    .position-middle {
+      margin: 2rem 0;
+    }
+
+    .page-landing .ad-support-container {
+      margin: 2rem 0;
+    }
+  }
+</style>
