@@ -12,207 +12,418 @@ const {
 } = Astro.props;
 ---
 
-<div
-  class={`support-banner variant-${variant} position-${position} ${!showOnMobile ? "hide-mobile" : ""}`}
->
-  <div class="support-content">
-    <div class="support-icon">
-      <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
-          fill="currentColor"></path>
-      </svg>
-    </div>
-    <div class="support-text">
-      <h4 class="support-title">¡Apoya este proyecto!</h4>
-      <p class="support-description">
-        La publicidad que ves me ayuda a mantener estas herramientas gratuitas
-        para todos. Tu apoyo hace posible que continúe desarrollando nuevas
-        funcionalidades.
-      </p>
+<div class="support-banner-wrapper">
+  <div
+    class={`support-banner variant-${variant} position-${position} ${!showOnMobile ? "hide-mobile" : ""}`}
+  >
+    <div class="banner-decoration"></div>
+    <div class="support-content">
+      <div class="support-icon">
+        <svg
+          width="28"
+          height="28"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+            fill="currentColor"></path>
+        </svg>
+      </div>
+      <div class="support-text">
+        <h4 class="support-title">
+          ¡Apoya este proyecto!
+          <span class="sparkle">✨</span>
+        </h4>
+        <p class="support-description">
+          La publicidad que ves me ayuda a mantener estas herramientas <strong
+            >100% gratuitas</strong
+          > para todos. Tu apoyo hace posible que continúe desarrollando nuevas funcionalidades.
+        </p>
+        <div class="support-badges">
+          <span class="badge">Gratis para siempre</span>
+          <span class="badge">Sin registro</span>
+          <span class="badge">Open Source</span>
+        </div>
+      </div>
     </div>
   </div>
-</div>
 
-<style>
-  .support-banner {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-radius: 16px;
-    padding: 1.5rem;
-    margin: 2rem 0;
-    color: white;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .support-banner::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(
-      45deg,
-      rgba(255, 255, 255, 0.1) 0%,
-      transparent 50%
-    );
-    pointer-events: none;
-  }
-
-  .support-content {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    position: relative;
-    z-index: 1;
-  }
-
-  .support-icon {
-    flex-shrink: 0;
-    width: 48px;
-    height: 48px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-  }
-
-  .support-text {
-    flex: 1;
-    min-width: 0;
-  }
-
-  .support-title {
-    font-size: 1.125rem;
-    font-weight: 600;
-    margin: 0 0 0.5rem 0;
-    color: #fff;
-  }
-
-  .support-description {
-    font-size: 0.875rem;
-    line-height: 1.5;
-    margin: 0;
-    color: rgba(255, 255, 255, 0.9);
-  }
-
-  /* Variants */
-  .variant-minimal {
-    background: #f8fafc;
-    color: #334155;
-    border: 1px solid #e2e8f0;
-    padding: 1rem;
-  }
-
-  .variant-minimal::before {
-    display: none;
-  }
-
-  .variant-minimal .support-icon {
-    background: #667eea;
-    color: white;
-  }
-
-  .variant-minimal .support-title {
-    color: #1e293b;
-  }
-
-  .variant-minimal .support-description {
-    color: #64748b;
-  }
-
-  .variant-floating {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    max-width: 350px;
-    margin: 0;
-    z-index: 1000;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-    animation: slideInUp 0.5s ease-out;
-  }
-
-  @keyframes slideInUp {
-    from {
-      transform: translateY(100%);
-      opacity: 0;
+  <style>
+    .support-banner-wrapper {
+      padding: 0 1rem;
+      max-width: 1400px;
+      margin: 0 auto;
     }
-    to {
-      transform: translateY(0);
-      opacity: 1;
+
+    .support-banner {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 20px;
+      padding: 2rem;
+      margin: 2.5rem 0;
+      color: white;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+      transition: all 0.3s ease;
     }
-  }
 
-  /* Position variants */
-  .position-top {
-    margin: 0 0 2rem 0;
-  }
+    .support-banner:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 50px rgba(102, 126, 234, 0.4);
+    }
 
-  .position-bottom {
-    margin: 2rem 0 0 0;
-  }
+    .support-banner::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.15) 0%,
+        transparent 50%
+      );
+      pointer-events: none;
+    }
 
-  /* Dark mode support */
-  :global(.dark-mode) .variant-minimal {
-    background: #1e293b;
-    color: #e2e8f0;
-    border-color: #334155;
-  }
+    .banner-decoration {
+      position: absolute;
+      top: -50px;
+      right: -50px;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(
+        circle,
+        rgba(255, 255, 255, 0.15) 0%,
+        transparent 70%
+      );
+      border-radius: 50%;
+      pointer-events: none;
+      animation: pulse 3s ease-in-out infinite;
+    }
 
-  :global(.dark-mode) .variant-minimal .support-title {
-    color: #f8fafc;
-  }
+    @keyframes pulse {
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 0.6;
+      }
+      50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+      }
+    }
 
-  :global(.dark-mode) .variant-minimal .support-description {
-    color: #94a3b8;
-  }
-
-  /* Responsive */
-  @media (max-width: 768px) {
     .support-content {
-      flex-direction: column;
-      text-align: center;
-      gap: 1.25rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .support-icon {
+      flex-shrink: 0;
+      width: 60px;
+      height: 60px;
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%,
+      100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-5px);
+      }
     }
 
     .support-text {
-      text-align: center;
+      flex: 1;
+      min-width: 0;
     }
 
-    .variant-floating {
-      position: static;
-      max-width: none;
-      margin: 1.5rem 0;
-      animation: none;
+    .support-title {
+      font-size: 1.375rem;
+      font-weight: 700;
+      margin: 0 0 0.75rem 0;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      letter-spacing: -0.02em;
     }
 
-    .hide-mobile {
-      display: none;
+    .sparkle {
+      display: inline-block;
+      animation: sparkle 1.5s ease-in-out infinite;
     }
-  }
 
-  @media (max-width: 640px) {
-    .support-banner {
-      padding: 1.25rem;
-      margin: 1.5rem 0;
+    @keyframes sparkle {
+      0%,
+      100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(1.2) rotate(15deg);
+        opacity: 0.8;
+      }
     }
 
     .support-description {
-      font-size: 0.8125rem;
+      font-size: 0.9375rem;
+      line-height: 1.6;
+      margin: 0 0 1rem 0;
+      color: rgba(255, 255, 255, 0.95);
     }
 
-    .support-button {
-      padding: 0.625rem 1rem;
-      font-size: 0.8125rem;
+    .support-description strong {
+      font-weight: 700;
+      color: #fff;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
-  }
-</style>
+
+    .support-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.4rem 0.875rem;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      transition: all 0.2s ease;
+    }
+
+    .badge:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+
+    /* Variants */
+    .variant-minimal {
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      color: #334155;
+      border: 2px solid #cbd5e1;
+      padding: 1.5rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .variant-minimal::before {
+      display: none;
+    }
+
+    .variant-minimal .banner-decoration {
+      background: radial-gradient(
+        circle,
+        rgba(102, 126, 234, 0.1) 0%,
+        transparent 70%
+      );
+    }
+
+    .variant-minimal .support-icon {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    }
+
+    .variant-minimal .support-title {
+      color: #1e293b;
+    }
+
+    .variant-minimal .support-description {
+      color: #475569;
+    }
+
+    .variant-minimal .support-description strong {
+      color: #1e293b;
+    }
+
+    .variant-minimal .badge {
+      background: rgba(102, 126, 234, 0.1);
+      color: #667eea;
+      border-color: rgba(102, 126, 234, 0.2);
+    }
+
+    .variant-minimal .badge:hover {
+      background: rgba(102, 126, 234, 0.15);
+    }
+
+    .variant-floating {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      max-width: 400px;
+      margin: 0;
+      z-index: 1000;
+      box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4);
+      animation: slideInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes slideInUp {
+      from {
+        transform: translateY(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    /* Position variants */
+    .position-top {
+      margin: 0 0 2.5rem 0;
+    }
+
+    .position-bottom {
+      margin: 2.5rem 0 0 0;
+    }
+
+    /* Dark mode support */
+    :global(.dark-mode) .variant-minimal {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      color: #e2e8f0;
+      border-color: #475569;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    :global(.dark-mode) .variant-minimal .banner-decoration {
+      background: radial-gradient(
+        circle,
+        rgba(102, 126, 234, 0.15) 0%,
+        transparent 70%
+      );
+    }
+
+    :global(.dark-mode) .variant-minimal .support-title {
+      color: #f8fafc;
+    }
+
+    :global(.dark-mode) .variant-minimal .support-description {
+      color: #cbd5e1;
+    }
+
+    :global(.dark-mode) .variant-minimal .support-description strong {
+      color: #f8fafc;
+    }
+
+    :global(.dark-mode) .variant-minimal .badge {
+      background: rgba(102, 126, 234, 0.2);
+      color: #a5b4fc;
+      border-color: rgba(102, 126, 234, 0.3);
+    }
+
+    :global(.dark-mode) .variant-minimal .badge:hover {
+      background: rgba(102, 126, 234, 0.25);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .support-banner-wrapper {
+        padding: 0 0.75rem;
+      }
+
+      .support-banner {
+        padding: 1.5rem;
+        border-radius: 16px;
+      }
+
+      .support-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 1.25rem;
+      }
+
+      .support-text {
+        text-align: center;
+      }
+
+      .support-title {
+        font-size: 1.25rem;
+        justify-content: center;
+      }
+
+      .support-badges {
+        justify-content: center;
+      }
+
+      .variant-floating {
+        position: static;
+        max-width: none;
+        margin: 1.5rem 0;
+        animation: none;
+      }
+
+      .hide-mobile {
+        display: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .support-banner-wrapper {
+        padding: 0 0.5rem;
+      }
+
+      .support-banner {
+        padding: 1.25rem;
+        margin: 2rem 0;
+      }
+      .support-icon {
+        width: 50px;
+        height: 50px;
+      }
+
+      .support-title {
+        font-size: 1.125rem;
+      }
+
+      .support-description {
+        font-size: 0.875rem;
+      }
+
+      .badge {
+        font-size: 0.6875rem;
+        padding: 0.35rem 0.75rem;
+      }
+    }
+
+    /* Reduced motion support */
+    @media (prefers-reduced-motion: reduce) {
+      .support-banner,
+      .support-icon,
+      .sparkle,
+      .banner-decoration,
+      .badge {
+        animation: none;
+      }
+
+      .support-banner:hover {
+        transform: none;
+      }
+    }
+  </style>
+</div>

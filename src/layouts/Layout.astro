@@ -70,8 +70,11 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
 		<meta name="referrer" content="strict-origin-when-cross-origin" />
 		
 		<!-- AdSense Configuration -->
-		<meta name="google-adsense-account" content="ca-pub-YOUR_PUBLISHER_ID" />
+		<meta name="google-adsense-account" content="ca-pub-8126867540323247" />
 		<meta name="ads.txt" content="/ads.txt" />
+		
+		<!-- AdSense Script - Load early for better performance -->
+		<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8126867540323247" crossorigin="anonymous"></script>
 		
 		<!-- CSP - Content Security Policy -->
 		<meta http-equiv="Content-Security-Policy" content="

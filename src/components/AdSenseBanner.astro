@@ -41,22 +41,8 @@ import { ADSENSE_CONFIG } from "../lib/adsense";
     }
   }
 
-  // Use the centralized configuration
-  import { loadAdSenseScript, shouldShowAds } from "../lib/adsense";
-
-  // Only load ads if they should be shown
-  if (shouldShowAds()) {
-    loadAdSenseScript()
-      .then(() => {
-        // Push the ad after script loads
-        ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push(
-          {}
-        );
-      })
-      .catch((error) => {
-        console.warn("Failed to load AdSense:", error);
-      });
-  }
+  // Exact implementation as Google provides
+  (window.adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
 <style>

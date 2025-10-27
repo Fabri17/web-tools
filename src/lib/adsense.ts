@@ -5,20 +5,20 @@ export const ADSENSE_CONFIG = {
   // Ad Slots for different positions and pages
   adSlots: {
     // Landing page slots
-    'landing-header': '1111111111',
+    'landing-header': '1229417262', // Horizontal ad
     'landing-middle': '2222222222', 
-    'landing-footer': '3333333333',
+    'landing-footer': '1229417262', // Horizontal ad
     
     // Tool pages slots
-    'tool-header': '4444444444',
+    'tool-header': '1229417262', // Horizontal ad
     'tool-content': '5555555555',
-    'tool-footer': '6666666666',
+    'tool-footer': '1229417262', // Horizontal ad
     
     // About/Contact page slots
     'about-content': '7777777777',
     
     // Default fallback
-    'default': '8888888888'
+    'default': '1229417262' // Using horizontal as default
   },
   
   // Ad formats configuration
