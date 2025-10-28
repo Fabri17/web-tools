@@ -52,46 +52,111 @@ const formatConfig =
 
 <style>
   .ad-support-container {
-    margin: 2rem 0;
+    margin: 2rem auto;
+    max-width: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    padding: 0 1rem;
+    box-sizing: border-box;
   }
 
   .position-top {
-    margin: 0 0 2rem 0;
+    margin: 0 auto 2rem auto;
   }
 
   .position-bottom {
-    margin: 2rem 0 0 0;
+    margin: 2rem auto 0 auto;
   }
 
   .position-middle {
-    margin: 3rem 0;
+    margin: 3rem auto;
   }
 
   /* Page-specific styling */
   .page-landing .ad-support-container {
-    margin: 4rem 0;
+    margin: 4rem auto;
   }
 
   .page-tool .ad-support-container {
-    margin: 2rem 0;
+    margin: 2rem auto;
   }
 
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
+  /* Responsive adjustments for tablets */
+  @media (max-width: 1024px) {
     .ad-support-container {
-      margin: 1.5rem 0;
-      gap: 1rem;
+      padding: 0 0.75rem;
+      gap: 1.25rem;
     }
 
     .position-middle {
-      margin: 2rem 0;
+      margin: 2.5rem auto;
+    }
+  }
+
+  /* Responsive adjustments for mobile */
+  @media (max-width: 768px) {
+    .ad-support-container {
+      margin: 1.5rem auto;
+      padding: 0 0.5rem;
+      gap: 1rem;
+    }
+
+    .position-top {
+      margin: 0 auto 1.5rem auto;
+    }
+
+    .position-bottom {
+      margin: 1.5rem auto 0 auto;
+    }
+
+    .position-middle {
+      margin: 2rem auto;
     }
 
     .page-landing .ad-support-container {
-      margin: 2rem 0;
+      margin: 2rem auto;
+    }
+
+    .page-tool .ad-support-container {
+      margin: 1.5rem auto;
+    }
+  }
+
+  /* Extra small screens */
+  @media (max-width: 480px) {
+    .ad-support-container {
+      margin: 1rem auto;
+      padding: 0 0.25rem;
+      gap: 0.75rem;
+    }
+
+    .position-top {
+      margin: 0 auto 1rem auto;
+    }
+
+    .position-bottom {
+      margin: 1rem auto 0 auto;
+    }
+
+    .position-middle {
+      margin: 1.5rem auto;
+    }
+
+    .page-landing .ad-support-container {
+      margin: 1.5rem auto;
+    }
+
+    .page-tool .ad-support-container {
+      margin: 1rem auto;
+    }
+  }
+
+  /* Ensure proper width on very large screens */
+  @media (min-width: 1400px) {
+    .ad-support-container {
+      max-width: 1200px;
     }
   }
 </style>

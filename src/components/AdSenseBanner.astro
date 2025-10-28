@@ -19,7 +19,7 @@ const {
 import { ADSENSE_CONFIG } from "../lib/adsense";
 ---
 
-<div class={`ad-container ${className}`}>
+<div class={`ad-container ad-format-${adFormat} ${className}`}>
   <div class="ad-label">Publicidad</div>
   <ins
     class="adsbygoogle"
@@ -47,13 +47,32 @@ import { ADSENSE_CONFIG } from "../lib/adsense";
 
 <style>
   .ad-container {
-    margin: 2rem 0;
+    margin: 2rem auto;
+    max-width: 100%;
     text-align: center;
     border-radius: 12px;
     overflow: hidden;
     background: #f8fafc;
     border: 1px solid #e2e8f0;
     transition: all 0.3s ease;
+  }
+
+  /* Ancho específico para anuncios horizontales */
+  .ad-format-horizontal {
+    max-width: 728px;
+    width: 100%;
+  }
+
+  /* Ancho específico para anuncios rectangulares */
+  .ad-format-rectangle {
+    max-width: 336px;
+    width: 100%;
+  }
+
+  /* Ancho específico para anuncios verticales */
+  .ad-format-vertical {
+    max-width: 300px;
+    width: 100%;
   }
 
   :global(.dark-mode) .ad-container {
@@ -80,24 +99,135 @@ import { ADSENSE_CONFIG } from "../lib/adsense";
 
   .adsbygoogle {
     min-height: 100px;
+    max-width: 100%;
     background: transparent;
+    display: block;
+    margin: 0 auto;
   }
 
-  /* Responsive ad sizes */
-  @media (max-width: 768px) {
+  /* Altura específica para formato horizontal */
+  .ad-format-horizontal .adsbygoogle {
+    min-height: 90px;
+    height: 90px;
+  }
+
+  /* Altura específica para formato rectangular */
+  .ad-format-rectangle .adsbygoogle {
+    min-height: 280px;
+    height: 280px;
+  }
+
+  /* Altura específica para formato vertical */
+  .ad-format-vertical .adsbygoogle {
+    min-height: 600px;
+    height: 600px;
+  }
+
+  /* Responsive breakpoints for different screen sizes */
+  @media (max-width: 1200px) {
     .ad-container {
-      margin: 1.5rem 0;
+      margin: 1.75rem auto;
     }
   }
 
-  /* Hover effect for better UX */
-  .ad-container:hover {
-    border-color: #cbd5e1;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  @media (max-width: 992px) {
+    .ad-container {
+      margin: 1.5rem auto;
+      border-radius: 8px;
+    }
+
+    .adsbygoogle {
+      min-height: 90px;
+    }
   }
 
-  :global(.dark-mode) .ad-container:hover {
-    border-color: #475569;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  @media (max-width: 768px) {
+    .ad-container {
+      margin: 1.25rem auto;
+      border-radius: 8px;
+      max-width: 100%;
+      padding: 0 0.5rem;
+    }
+
+    /* Anuncios horizontales en tablet/móvil (468x60 o 320x50) */
+    .ad-format-horizontal {
+      max-width: 468px;
+    }
+
+    .ad-format-horizontal .adsbygoogle {
+      min-height: 60px;
+      height: 60px;
+    }
+
+    .ad-label {
+      font-size: 0.7rem;
+      padding: 0.4rem;
+    }
+
+    .adsbygoogle {
+      min-height: 80px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .ad-container {
+      margin: 1rem auto;
+      border-radius: 6px;
+      padding: 0 0.25rem;
+    }
+
+    /* Anuncios horizontales móvil pequeño (320x50) */
+    .ad-format-horizontal {
+      max-width: 320px;
+    }
+
+    .ad-format-horizontal .adsbygoogle {
+      min-height: 50px;
+      height: 50px;
+    }
+
+    /* Anuncios rectangulares en móvil (300x250) */
+    .ad-format-rectangle {
+      max-width: 300px;
+    }
+
+    .ad-format-rectangle .adsbygoogle {
+      min-height: 250px;
+      height: 250px;
+    }
+
+    .ad-label {
+      font-size: 0.65rem;
+      padding: 0.35rem;
+    }
+
+    .adsbygoogle {
+      min-height: 70px;
+    }
+  }
+
+  /* Hover effect for better UX - only on devices that support hover */
+  @media (hover: hover) {
+    .ad-container:hover {
+      border-color: #cbd5e1;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      transform: translateY(-2px);
+    }
+
+    :global(.dark-mode) .ad-container:hover {
+      border-color: #475569;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  /* Prevent layout shift while loading */
+  .ad-container {
+    min-height: 120px;
+  }
+
+  @media (max-width: 768px) {
+    .ad-container {
+      min-height: 100px;
+    }
   }
 </style>

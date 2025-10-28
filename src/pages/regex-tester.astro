@@ -1,0 +1,1181 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ToolHeader from "../components/ToolHeader.astro";
+
+const icon = `
+	<svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<circle cx="12" cy="12" r="9" stroke="white" stroke-width="1.5"/>
+		<path d="M12 8v4l3 3" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+	</svg>
+`;
+---
+
+<Layout
+  title="Regex Tester - Probador de Expresiones Regulares | WebTools Suite"
+  description="Prueba y valida expresiones regulares en tiempo real. Visualiza coincidencias, grupos de captura y recibe explicaciones detalladas de tu regex."
+  url="https://webtools-suite.netlify.app/regex-tester"
+>
+  <main>
+    <div class="container">
+      <ToolHeader
+        title="Regex Tester"
+        subtitle="Prueba expresiones regulares en tiempo real"
+        icon={icon}
+        showPrimaryButton={false}
+      />
+
+      <!-- Regex Input Section -->
+      <div class="regex-section">
+        <div class="section-header">
+          <h2>
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M7 8h10M7 12h10M7 16h10"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"></path>
+            </svg>
+            Expresión Regular
+          </h2>
+        </div>
+
+        <div class="regex-input-wrapper">
+          <span class="regex-delimiter">/</span>
+          <input
+            type="text"
+            id="regexInput"
+            class="regex-input"
+            placeholder="Escribe tu expresión regular aquí..."
+            spellcheck="false"
+            autocomplete="off"
+          />
+          <span class="regex-delimiter">/</span>
+          <input
+            type="text"
+            id="regexFlags"
+            class="flags-input"
+            placeholder="flags"
+            maxlength="5"
+            spellcheck="false"
+            autocomplete="off"
+          />
+        </div>
+
+        <div class="flags-controls">
+          <label class="flag-checkbox">
+            <input type="checkbox" id="flagG" value="g" />
+            <span class="flag-label">
+              <strong>g</strong> - Global (todas las coincidencias)
+            </span>
+          </label>
+          <label class="flag-checkbox">
+            <input type="checkbox" id="flagI" value="i" />
+            <span class="flag-label">
+              <strong>i</strong> - Case Insensitive (ignorar mayúsculas)
+            </span>
+          </label>
+          <label class="flag-checkbox">
+            <input type="checkbox" id="flagM" value="m" />
+            <span class="flag-label">
+              <strong>m</strong> - Multiline (^ y $ por línea)
+            </span>
+          </label>
+          <label class="flag-checkbox">
+            <input type="checkbox" id="flagS" value="s" />
+            <span class="flag-label">
+              <strong>s</strong> - DotAll (. coincide con saltos de línea)
+            </span>
+          </label>
+          <label class="flag-checkbox">
+            <input type="checkbox" id="flagU" value="u" />
+            <span class="flag-label">
+              <strong>u</strong> - Unicode (soporte completo)
+            </span>
+          </label>
+        </div>
+
+        <div class="regex-error" id="regexError"></div>
+      </div>
+
+      <!-- Test String Section -->
+      <div class="test-section">
+        <div class="section-header">
+          <h2>
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M9 12l2 2 4-4M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"></path>
+            </svg>
+            Texto de Prueba
+          </h2>
+        </div>
+
+        <textarea
+          id="testString"
+          class="test-input"
+          placeholder="Escribe o pega el texto que quieres probar..."
+          rows="8"
+          spellcheck="false"></textarea>
+      </div>
+
+      <!-- Results Section -->
+      <div class="results-section">
+        <div class="section-header">
+          <h2>
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                stroke="currentColor"
+                stroke-width="2"></path>
+            </svg>
+            Resultados
+          </h2>
+          <div class="match-count" id="matchCount">0 coincidencias</div>
+        </div>
+
+        <div id="highlightedText" class="highlighted-text"></div>
+
+        <div id="matchesList" class="matches-list"></div>
+      </div>
+
+      <!-- Quick Reference -->
+      <div class="reference-section">
+        <div class="section-header">
+          <h2>
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                stroke="currentColor"
+                stroke-width="2"></path>
+            </svg>
+            Referencia Rápida
+          </h2>
+          <button id="toggleReference" class="toggle-btn">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M19 9l-7 7-7-7"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"></path>
+            </svg>
+          </button>
+        </div>
+
+        <div id="referenceContent" class="reference-content collapsed">
+          <div class="reference-grid">
+            <div class="reference-card">
+              <h3>Caracteres</h3>
+              <table class="ref-table">
+                <tr><td><code>.</code></td><td>Cualquier carácter</td></tr>
+                <tr><td><code>\d</code></td><td>Dígito [0-9]</td></tr>
+                <tr><td><code>\w</code></td><td>Palabra [a-zA-Z0-9_]</td></tr>
+                <tr><td><code>\s</code></td><td>Espacio en blanco</td></tr>
+                <tr><td><code>\D</code></td><td>No dígito</td></tr>
+                <tr><td><code>\W</code></td><td>No palabra</td></tr>
+                <tr><td><code>\S</code></td><td>No espacio</td></tr>
+              </table>
+            </div>
+
+            <div class="reference-card">
+              <h3>Anclas</h3>
+              <table class="ref-table">
+                <tr><td><code>^</code></td><td>Inicio de línea</td></tr>
+                <tr><td><code>$</code></td><td>Final de línea</td></tr>
+                <tr><td><code>\b</code></td><td>Límite de palabra</td></tr>
+                <tr><td><code>\B</code></td><td>No límite de palabra</td></tr>
+              </table>
+            </div>
+
+            <div class="reference-card">
+              <h3>Cuantificadores</h3>
+              <table class="ref-table">
+                <tr><td><code>*</code></td><td>0 o más</td></tr>
+                <tr><td><code>+</code></td><td>1 o más</td></tr>
+                <tr><td><code>?</code></td><td>0 o 1</td></tr>
+                <tr><td><code>{"{n}"}</code></td><td>Exactamente n</td></tr>
+                <tr><td><code>{"{n,}"}</code></td><td>n o más</td></tr>
+                <tr><td><code>{"{n,m}"}</code></td><td>Entre n y m</td></tr>
+              </table>
+            </div>
+
+            <div class="reference-card">
+              <h3>Grupos</h3>
+              <table class="ref-table">
+                <tr><td><code>(...)</code></td><td>Grupo de captura</td></tr>
+                <tr><td><code>(?:...)</code></td><td>Grupo sin captura</td></tr>
+                <tr><td><code>(?=...)</code></td><td>Lookahead positivo</td></tr
+                >
+                <tr><td><code>(?!...)</code></td><td>Lookahead negativo</td></tr
+                >
+                <tr><td><code>a|b</code></td><td>a o b (alternancia)</td></tr>
+              </table>
+            </div>
+
+            <div class="reference-card">
+              <h3>Conjuntos</h3>
+              <table class="ref-table">
+                <tr><td><code>[abc]</code></td><td>a, b o c</td></tr>
+                <tr><td><code>[^abc]</code></td><td>No a, b o c</td></tr>
+                <tr><td><code>[a-z]</code></td><td>Rango a-z</td></tr>
+                <tr><td><code>[A-Z]</code></td><td>Rango A-Z</td></tr>
+                <tr><td><code>[0-9]</code></td><td>Rango 0-9</td></tr>
+              </table>
+            </div>
+
+            <div class="reference-card">
+              <h3>Ejemplos Comunes</h3>
+              <table class="ref-table">
+                <tr
+                  ><td><code>^[\w-\.]+@([\w-]+\.)+[\w-]{"{2,4}"}$</code></td><td
+                    >Email</td
+                  ></tr
+                >
+                <tr
+                  ><td
+                    ><code
+                      >^https?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?$</code
+                    ></td
+                  ><td>URL</td></tr
+                >
+                <tr
+                  ><td><code>^\d{"{3}"}-?\d{"{2}"}-?\d{"{4}"}$</code></td><td
+                    >SSN</td
+                  ></tr
+                >
+                <tr
+                  ><td
+                    ><code>^#?([a-fA-F0-9]{"{6}"}|[a-fA-F0-9]{"{3}"})$</code
+                    ></td
+                  ><td>Color Hex</td></tr
+                >
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Examples Section -->
+      <div class="examples-section">
+        <div class="section-header">
+          <h2>
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M13 10V3L4 14h7v7l9-11h-7z"
+                stroke="currentColor"
+                stroke-width="2"></path>
+            </svg>
+            Ejemplos Rápidos
+          </h2>
+        </div>
+
+        <div class="examples-grid">
+          <button
+            class="example-btn"
+            data-regex="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+            data-flags="g"
+            data-test="test@example.com
+another.email@domain.co.uk
+not-an-email
+user123@test.org"
+          >
+            <strong>Validar Emails</strong>
+            <span class="example-regex"
+              >/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{"{2,}"}/g</span
+            >
+          </button>
+
+          <button
+            class="example-btn"
+            data-regex="\d{3}-\d{3}-\d{4}"
+            data-flags="g"
+            data-test="555-123-4567
+(800) 555-0100
+123-456-7890
+invalid-phone"
+          >
+            <strong>Números de Teléfono (US)</strong>
+            <span class="example-regex">/\d{"{3}"}-\d{"{3}"}-\d{"{4}"}/g</span>
+          </button>
+
+          <button
+            class="example-btn"
+            data-regex="https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)"
+            data-flags="gi"
+            data-test="https://www.example.com
+http://test.org/page
+www.notvalid.com
+ftp://files.server.net"
+          >
+            <strong>URLs</strong>
+            <span class="example-regex"
+              >/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]...</span
+            >
+          </button>
+
+          <button
+            class="example-btn"
+            data-regex="#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})"
+            data-flags="g"
+            data-test="#FF5733
+#FFF
+#00ff00
+not-a-color
+#ABCDEF"
+          >
+            <strong>Códigos de Color Hex</strong>
+            <span class="example-regex"
+              >/#([a-fA-F0-9]{"{6}"}|[a-fA-F0-9]{"{3}"})/g</span
+            >
+          </button>
+
+          <button
+            class="example-btn"
+            data-regex="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+            data-flags=""
+            data-test="Password123!
+weakpassword
+NOLOWERCASE1!
+NoSpecial123"
+          >
+            <strong>Contraseña Fuerte</strong>
+            <span class="example-regex"
+              >/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])...</span
+            >
+          </button>
+
+          <button
+            class="example-btn"
+            data-regex="\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b"
+            data-flags="g"
+            data-test="192.168.1.1
+10.0.0.255
+999.999.999.999
+8.8.8.8"
+          >
+            <strong>Dirección IP</strong>
+            <span class="example-regex"
+              >/\b\d{"{1,3}"}\.\d{"{1,3}"}\.\d{"{1,3}"}\.\d{"{1,3}"}\b/g</span
+            >
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    main {
+      min-height: 100vh;
+      padding: 2rem 0;
+      background: linear-gradient(180deg, #fafafa 0%, #f4f4f5 100%);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Section Styles */
+    .regex-section,
+    .test-section,
+    .results-section,
+    .reference-section,
+    .examples-section {
+      background: white;
+      border: 1px solid #e4e4e7;
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-header h2 {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #18181b;
+      margin: 0;
+    }
+
+    .section-header svg {
+      color: #8b5cf6;
+    }
+
+    /* Regex Input */
+    .regex-input-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #f4f4f5;
+      border: 2px solid #e4e4e7;
+      border-radius: 12px;
+      padding: 0.75rem 1rem;
+      font-family: "Courier New", monospace;
+      transition: border-color 0.3s;
+    }
+
+    .regex-input-wrapper:focus-within {
+      border-color: #8b5cf6;
+      background: white;
+    }
+
+    .regex-delimiter {
+      color: #8b5cf6;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .regex-input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      font-size: 1.125rem;
+      font-family: "Courier New", monospace;
+      color: #18181b;
+      outline: none;
+    }
+
+    .flags-input {
+      width: 80px;
+      border: none;
+      background: transparent;
+      font-size: 1rem;
+      font-family: "Courier New", monospace;
+      color: #8b5cf6;
+      outline: none;
+    }
+
+    /* Flags Controls */
+    .flags-controls {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .flag-checkbox {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .flag-checkbox input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      accent-color: #8b5cf6;
+    }
+
+    .flag-label {
+      font-size: 0.9375rem;
+      color: #52525b;
+    }
+
+    .flag-label strong {
+      font-family: "Courier New", monospace;
+      color: #8b5cf6;
+    }
+
+    /* Error Display */
+    .regex-error {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      border-radius: 8px;
+      color: #dc2626;
+      font-size: 0.9375rem;
+      display: none;
+    }
+
+    .regex-error.show {
+      display: block;
+    }
+
+    /* Test Input */
+    .test-input {
+      width: 100%;
+      padding: 1rem;
+      border: 2px solid #e4e4e7;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-family: "Courier New", monospace;
+      color: #18181b;
+      background: #f4f4f5;
+      resize: vertical;
+      transition: all 0.3s;
+    }
+
+    .test-input:focus {
+      outline: none;
+      border-color: #8b5cf6;
+      background: white;
+    }
+
+    /* Results */
+    .match-count {
+      padding: 0.5rem 1rem;
+      background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+      color: white;
+      border-radius: 20px;
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+
+    .highlighted-text {
+      padding: 1.5rem;
+      background: #fafafa;
+      border: 1px solid #e4e4e7;
+      border-radius: 12px;
+      font-family: "Courier New", monospace;
+      font-size: 1rem;
+      line-height: 1.8;
+      white-space: pre-wrap;
+      word-break: break-word;
+      min-height: 100px;
+      margin-bottom: 1.5rem;
+    }
+
+    .highlighted-text:empty::before {
+      content: "Las coincidencias se resaltarán aquí...";
+      color: #a1a1aa;
+    }
+
+    .match {
+      background: #fef3c7;
+      border-bottom: 2px solid #fbbf24;
+      padding: 0.125rem 0.25rem;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .matches-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .match-item {
+      padding: 1rem;
+      background: #f4f4f5;
+      border-left: 4px solid #8b5cf6;
+      border-radius: 8px;
+    }
+
+    .match-item-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.75rem;
+    }
+
+    .match-number {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #8b5cf6;
+    }
+
+    .match-position {
+      font-size: 0.8125rem;
+      color: #71717a;
+      font-family: "Courier New", monospace;
+    }
+
+    .match-text {
+      font-family: "Courier New", monospace;
+      font-size: 1rem;
+      color: #18181b;
+      background: white;
+      padding: 0.75rem;
+      border-radius: 6px;
+      border: 1px solid #e4e4e7;
+      margin-bottom: 0.75rem;
+    }
+
+    .match-groups {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .match-group {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.875rem;
+    }
+
+    .group-label {
+      color: #71717a;
+      min-width: 80px;
+    }
+
+    .group-value {
+      font-family: "Courier New", monospace;
+      color: #18181b;
+      background: white;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      border: 1px solid #e4e4e7;
+    }
+
+    /* Reference Section */
+    .toggle-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background: #f4f4f5;
+      border: 1px solid #e4e4e7;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .toggle-btn:hover {
+      background: #8b5cf6;
+      border-color: #8b5cf6;
+      color: white;
+    }
+
+    .toggle-btn svg {
+      transition: transform 0.3s;
+    }
+
+    .toggle-btn.expanded svg {
+      transform: rotate(180deg);
+    }
+
+    .reference-content {
+      max-height: 1000px;
+      overflow: hidden;
+      transition:
+        max-height 0.5s ease,
+        opacity 0.3s ease;
+      opacity: 1;
+    }
+
+    .reference-content.collapsed {
+      max-height: 0;
+      opacity: 0;
+    }
+
+    .reference-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .reference-card {
+      background: #fafafa;
+      border: 1px solid #e4e4e7;
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+
+    .reference-card h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #18181b;
+      margin-bottom: 1rem;
+    }
+
+    .ref-table {
+      width: 100%;
+      font-size: 0.875rem;
+    }
+
+    .ref-table tr {
+      border-bottom: 1px solid #e4e4e7;
+    }
+
+    .ref-table tr:last-child {
+      border-bottom: none;
+    }
+
+    .ref-table td {
+      padding: 0.75rem 0.5rem;
+    }
+
+    .ref-table td:first-child {
+      width: 30%;
+    }
+
+    .ref-table code {
+      font-family: "Courier New", monospace;
+      background: white;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      color: #8b5cf6;
+      font-weight: 600;
+      border: 1px solid #e4e4e7;
+    }
+
+    .ref-table td:last-child {
+      color: #52525b;
+    }
+
+    /* Examples Section */
+    .examples-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1rem;
+    }
+
+    .example-btn {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding: 1rem;
+      background: #f4f4f5;
+      border: 2px solid #e4e4e7;
+      border-radius: 12px;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .example-btn:hover {
+      border-color: #8b5cf6;
+      background: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.2);
+    }
+
+    .example-btn strong {
+      color: #18181b;
+      font-size: 1rem;
+    }
+
+    .example-regex {
+      font-family: "Courier New", monospace;
+      font-size: 0.8125rem;
+      color: #8b5cf6;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 1rem;
+      }
+
+      .regex-section,
+      .test-section,
+      .results-section,
+      .reference-section,
+      .examples-section {
+        padding: 1.5rem;
+      }
+
+      .section-header h2 {
+        font-size: 1.25rem;
+      }
+
+      .flags-controls {
+        grid-template-columns: 1fr;
+      }
+
+      .reference-grid,
+      .examples-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .regex-input-wrapper {
+        flex-wrap: wrap;
+      }
+
+      .flags-input {
+        width: 100%;
+      }
+    }
+
+    /* Dark Mode */
+    :global(.dark-mode) main {
+      background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+    }
+
+    :global(.dark-mode) .regex-section,
+    :global(.dark-mode) .test-section,
+    :global(.dark-mode) .results-section,
+    :global(.dark-mode) .reference-section,
+    :global(.dark-mode) .examples-section {
+      background: #1e293b;
+      border-color: #334155;
+    }
+
+    :global(.dark-mode) .section-header h2 {
+      color: #f8fafc;
+    }
+
+    :global(.dark-mode) .regex-input-wrapper {
+      background: #0f172a;
+      border-color: #334155;
+    }
+
+    :global(.dark-mode) .regex-input-wrapper:focus-within {
+      background: #1e293b;
+      border-color: #8b5cf6;
+    }
+
+    :global(.dark-mode) .regex-input,
+    :global(.dark-mode) .flags-input {
+      color: #f8fafc;
+    }
+
+    :global(.dark-mode) .flag-label {
+      color: #cbd5e1;
+    }
+
+    :global(.dark-mode) .test-input {
+      background: #0f172a;
+      border-color: #334155;
+      color: #f8fafc;
+    }
+
+    :global(.dark-mode) .test-input:focus {
+      background: #1e293b;
+    }
+
+    :global(.dark-mode) .highlighted-text {
+      background: #0f172a;
+      border-color: #334155;
+      color: #f8fafc;
+    }
+
+    :global(.dark-mode) .match-item {
+      background: #0f172a;
+      border-left-color: #c084fc;
+    }
+
+    :global(.dark-mode) .match-text {
+      background: #1e293b;
+      border-color: #334155;
+      color: #f8fafc;
+    }
+
+    :global(.dark-mode) .group-value {
+      background: #1e293b;
+      border-color: #334155;
+      color: #f8fafc;
+    }
+
+    :global(.dark-mode) .group-label {
+      color: #94a3b8;
+    }
+
+    :global(.dark-mode) .toggle-btn {
+      background: #0f172a;
+      border-color: #334155;
+      color: #f8fafc;
+    }
+
+    :global(.dark-mode) .toggle-btn:hover {
+      background: #8b5cf6;
+      border-color: #8b5cf6;
+    }
+
+    :global(.dark-mode) .reference-card {
+      background: #0f172a;
+      border-color: #334155;
+    }
+
+    :global(.dark-mode) .reference-card h3 {
+      color: #f8fafc;
+    }
+
+    :global(.dark-mode) .ref-table code {
+      background: #1e293b;
+      border-color: #334155;
+    }
+
+    :global(.dark-mode) .ref-table td:last-child {
+      color: #cbd5e1;
+    }
+
+    :global(.dark-mode) .example-btn {
+      background: #0f172a;
+      border-color: #334155;
+    }
+
+    :global(.dark-mode) .example-btn:hover {
+      background: #1e293b;
+      border-color: #8b5cf6;
+    }
+
+    :global(.dark-mode) .example-btn strong {
+      color: #f8fafc;
+    }
+  </style>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const regexInput = document.getElementById(
+        "regexInput"
+      ) as HTMLInputElement;
+      const flagsInput = document.getElementById(
+        "regexFlags"
+      ) as HTMLInputElement;
+      const testString = document.getElementById(
+        "testString"
+      ) as HTMLTextAreaElement;
+      const regexError = document.getElementById(
+        "regexError"
+      ) as HTMLDivElement;
+      const highlightedText = document.getElementById(
+        "highlightedText"
+      ) as HTMLDivElement;
+      const matchesList = document.getElementById(
+        "matchesList"
+      ) as HTMLDivElement;
+      const matchCount = document.getElementById(
+        "matchCount"
+      ) as HTMLDivElement;
+      const toggleReference = document.getElementById(
+        "toggleReference"
+      ) as HTMLButtonElement;
+      const referenceContent = document.getElementById(
+        "referenceContent"
+      ) as HTMLDivElement;
+
+      // Flag checkboxes
+      const flagCheckboxes = {
+        g: document.getElementById("flagG") as HTMLInputElement,
+        i: document.getElementById("flagI") as HTMLInputElement,
+        m: document.getElementById("flagM") as HTMLInputElement,
+        s: document.getElementById("flagS") as HTMLInputElement,
+        u: document.getElementById("flagU") as HTMLInputElement,
+      };
+
+      // Toggle reference section
+      toggleReference.addEventListener("click", () => {
+        referenceContent.classList.toggle("collapsed");
+        toggleReference.classList.toggle("expanded");
+      });
+
+      // Sync flags input with checkboxes
+      function updateFlags() {
+        let flags = "";
+        Object.entries(flagCheckboxes).forEach(([flag, checkbox]) => {
+          if (checkbox.checked) {
+            flags += flag;
+          }
+        });
+        flagsInput.value = flags;
+        testRegex();
+      }
+
+      // Sync checkboxes with flags input
+      flagsInput.addEventListener("input", () => {
+        const flags = flagsInput.value;
+        Object.entries(flagCheckboxes).forEach(([flag, checkbox]) => {
+          checkbox.checked = flags.includes(flag);
+        });
+        testRegex();
+      });
+
+      // Update on checkbox change
+      Object.values(flagCheckboxes).forEach((checkbox) => {
+        checkbox.addEventListener("change", updateFlags);
+      });
+
+      // Test regex function
+      function testRegex() {
+        const regexPattern = regexInput.value;
+        const flags = flagsInput.value;
+        const text = testString.value;
+
+        // Clear previous results
+        regexError.textContent = "";
+        regexError.classList.remove("show");
+        highlightedText.textContent = "";
+        matchesList.innerHTML = "";
+        matchCount.textContent = "0 coincidencias";
+
+        if (!regexPattern) {
+          return;
+        }
+
+        try {
+          // Create regex
+          const regex = new RegExp(regexPattern, flags);
+
+          if (!text) {
+            return;
+          }
+
+          // Find all matches
+          const matches = [
+            ...text.matchAll(
+              new RegExp(
+                regexPattern,
+                flags.includes("g") ? flags : flags + "g"
+              )
+            ),
+          ];
+
+          if (matches.length === 0) {
+            highlightedText.textContent = text;
+            matchCount.textContent = "0 coincidencias";
+            return;
+          }
+
+          // Update match count
+          matchCount.textContent = `${matches.length} coincidencia${matches.length !== 1 ? "s" : ""}`;
+
+          // Highlight matches in text
+          let highlightedHTML = "";
+          let lastIndex = 0;
+
+          matches.forEach((match) => {
+            const matchStart = match.index!;
+            const matchEnd = matchStart + match[0].length;
+
+            // Add text before match
+            highlightedHTML += escapeHtml(
+              text.substring(lastIndex, matchStart)
+            );
+
+            // Add highlighted match
+            highlightedHTML += `<span class="match">${escapeHtml(match[0])}</span>`;
+
+            lastIndex = matchEnd;
+          });
+
+          // Add remaining text
+          highlightedHTML += escapeHtml(text.substring(lastIndex));
+          highlightedText.innerHTML = highlightedHTML;
+
+          // Display match details
+          matches.forEach((match, index) => {
+            const matchItem = document.createElement("div");
+            matchItem.className = "match-item";
+
+            let matchHTML = `
+							<div class="match-item-header">
+								<span class="match-number">Coincidencia #${index + 1}</span>
+								<span class="match-position">Posición: ${match.index} - ${match.index! + match[0].length - 1}</span>
+							</div>
+							<div class="match-text">${escapeHtml(match[0])}</div>
+						`;
+
+            // Display capture groups
+            if (match.length > 1) {
+              matchHTML += '<div class="match-groups">';
+              for (let i = 1; i < match.length; i++) {
+                if (match[i] !== undefined) {
+                  matchHTML += `
+										<div class="match-group">
+											<span class="group-label">Grupo ${i}:</span>
+											<span class="group-value">${escapeHtml(match[i])}</span>
+										</div>
+									`;
+                }
+              }
+              matchHTML += "</div>";
+            }
+
+            matchItem.innerHTML = matchHTML;
+            matchesList.appendChild(matchItem);
+          });
+        } catch (error) {
+          regexError.textContent = `Error: ${(error as Error).message}`;
+          regexError.classList.add("show");
+        }
+      }
+
+      // Helper function to escape HTML
+      function escapeHtml(text: string): string {
+        const div = document.createElement("div");
+        div.textContent = text;
+        return div.innerHTML;
+      }
+
+      // Event listeners
+      regexInput.addEventListener("input", testRegex);
+      flagsInput.addEventListener("input", testRegex);
+      testString.addEventListener("input", testRegex);
+
+      // Example buttons
+      const exampleButtons = document.querySelectorAll(".example-btn");
+      exampleButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const regex = (button as HTMLElement).dataset.regex || "";
+          const flags = (button as HTMLElement).dataset.flags || "";
+          const test = (button as HTMLElement).dataset.test || "";
+
+          regexInput.value = regex;
+          flagsInput.value = flags;
+          testString.value = test;
+
+          // Update checkboxes
+          Object.entries(flagCheckboxes).forEach(([flag, checkbox]) => {
+            checkbox.checked = flags.includes(flag);
+          });
+
+          testRegex();
+
+          // Scroll to regex input
+          regexInput.scrollIntoView({ behavior: "smooth", block: "center" });
+        });
+      });
+    });
+  </script>
+</Layout>

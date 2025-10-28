@@ -64,6 +64,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://brix.center.com/regex-tester</loc>
+    <lastmod>2025-10-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://brix.center.com/service-status</loc>
     <lastmod>2025-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -78,6 +84,18 @@
   <url>
     <loc>https://brix.center.com/uuid-generator</loc>
     <lastmod>2025-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://brix.center.com/timestamp-converter</loc>
+    <lastmod>2025-10-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://brix.center.com/mermaid-editor</loc>
+    <lastmod>2025-10-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

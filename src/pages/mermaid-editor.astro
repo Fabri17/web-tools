@@ -1,0 +1,1404 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ToolHeader from "../components/ToolHeader.astro";
+import AdManager from "../components/AdManager.astro";
+
+const icon = `
+	<svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<defs>
+			<linearGradient id="gradientMermaid" x1="3" y1="3" x2="21" y2="21" gradientUnits="userSpaceOnUse">
+				<stop stop-color="#8b5cf6"/>
+				<stop offset="1" stop-color="#c084fc"/>
+			</linearGradient>
+		</defs>
+		<rect x="3" y="3" width="7" height="7" rx="1" stroke="url(#gradientMermaid)" stroke-width="1.5"/>
+		<rect x="14" y="3" width="7" height="7" rx="1" stroke="url(#gradientMermaid)" stroke-width="1.5"/>
+		<rect x="3" y="14" width="7" height="7" rx="1" stroke="url(#gradientMermaid)" stroke-width="1.5"/>
+		<rect x="14" y="14" width="7" height="7" rx="1" stroke="url(#gradientMermaid)" stroke-width="1.5"/>
+		<path d="M10 6.5h4M6.5 10v4M17.5 10v4M10 17.5h4" stroke="url(#gradientMermaid)" stroke-width="1.5"/>
+	</svg>
+`;
+---
+
+<Layout
+  title="Mermaid Diagram Editor - Crea Diagramas Online Gratis | WebTools Suite"
+  description="Editor de diagramas Mermaid online. Crea flowcharts, secuencias, Gantt y más con sintaxis simple. Preview en tiempo real y exporta como SVG o PNG. 100% gratis."
+  url="https://webtools-suite.com/mermaid-editor"
+  image="/og-image-mermaid.jpg"
+>
+  <main>
+    <div class="container">
+      <ToolHeader
+        title="Mermaid Diagram Editor"
+        subtitle="Crea diagramas profesionales con sintaxis simple"
+        icon={icon}
+        primaryButtonText="Exportar SVG"
+        primaryButtonId="exportSvgBtn"
+        showPrimaryButton={true}
+      />
+
+      <!-- Ad after header -->
+      <AdManager
+        pageType="tool"
+        position="top"
+        adFormat="horizontal"
+        showSupport={false}
+      />
+
+      <div class="editor-layout">
+        <!-- Editor Section -->
+        <div class="editor-section">
+          <div class="section-header">
+            <h3>
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  x="4"
+                  y="4"
+                  width="16"
+                  height="16"
+                  rx="2"
+                  stroke="currentColor"
+                  stroke-width="2"></rect>
+                <path
+                  d="M9 9h6M9 12h6M9 15h4"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"></path>
+              </svg>
+              Código Mermaid
+            </h3>
+            <div class="editor-tools">
+              <button id="clearBtn" class="tool-btn" title="Limpiar editor">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M3 6H5H21M8 6V4C8 3.45 8.45 3 9 3H15C15.55 3 16 3.45 16 4V6M19 6V20C19 20.55 18.55 21 18 21H6C5.45 21 5 20.55 5 20V6H19Z"
+                    stroke="currentColor"
+                    stroke-width="2"></path>
+                </svg>
+              </button>
+              <button id="copyCodeBtn" class="tool-btn" title="Copiar código">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <rect
+                    x="9"
+                    y="9"
+                    width="13"
+                    height="13"
+                    rx="2"
+                    stroke="currentColor"
+                    stroke-width="2"></rect>
+                  <path
+                    d="M5 15H4C2.9 15 2 14.1 2 13V4C2 2.9 2.9 2 4 2H13C14.1 2 15 2.9 15 4V5"
+                    stroke="currentColor"
+                    stroke-width="2"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <textarea
+            id="mermaidInput"
+            placeholder="Escribe tu código Mermaid aquí..."
+            spellcheck="false"></textarea>
+
+          <!-- Templates Section -->
+          <div class="templates-section">
+            <h4>
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M4 6h16M4 12h16M4 18h16"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"></path>
+              </svg>
+              Plantillas
+            </h4>
+            <div class="templates-grid">
+              <button class="template-btn" data-template="flowchart">
+                📊 Flowchart
+              </button>
+              <button class="template-btn" data-template="sequence">
+                🔄 Sequence
+              </button>
+              <button class="template-btn" data-template="class">
+                📦 Class
+              </button>
+              <button class="template-btn" data-template="state">
+                🔀 State
+              </button>
+              <button class="template-btn" data-template="er">
+                🗃️ ER Diagram
+              </button>
+              <button class="template-btn" data-template="gantt">
+                📅 Gantt
+              </button>
+              <button class="template-btn" data-template="pie">
+                🥧 Pie Chart
+              </button>
+              <button class="template-btn" data-template="journey">
+                🚶 User Journey
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Preview Section -->
+        <div class="preview-section">
+          <div class="section-header">
+            <h3>
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z"
+                  stroke="currentColor"
+                  stroke-width="2"></path>
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="3"
+                  stroke="currentColor"
+                  stroke-width="2"></circle>
+              </svg>
+              Vista Previa
+            </h3>
+            <div class="editor-tools">
+              <button id="exportPngBtn" class="tool-btn" title="Exportar PNG">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <rect
+                    x="3"
+                    y="3"
+                    width="18"
+                    height="18"
+                    rx="2"
+                    stroke="currentColor"
+                    stroke-width="2"></rect>
+                  <circle cx="8.5" cy="8.5" r="1.5" fill="currentColor"
+                  ></circle>
+                  <path
+                    d="M21 15L16 10L5 21"
+                    stroke="currentColor"
+                    stroke-width="2"></path>
+                </svg>
+              </button>
+              <button id="zoomInBtn" class="tool-btn" title="Zoom in">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle
+                    cx="11"
+                    cy="11"
+                    r="8"
+                    stroke="currentColor"
+                    stroke-width="2"></circle>
+                  <path
+                    d="M21 21L16.65 16.65M11 8v6M8 11h6"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"></path>
+                </svg>
+              </button>
+              <button id="zoomOutBtn" class="tool-btn" title="Zoom out">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle
+                    cx="11"
+                    cy="11"
+                    r="8"
+                    stroke="currentColor"
+                    stroke-width="2"></circle>
+                  <path
+                    d="M21 21L16.65 16.65M8 11h6"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="preview-container" id="previewContainer">
+            <div id="mermaidPreview" class="mermaid-diagram"></div>
+          </div>
+          <div id="errorMessage" class="error-message" style="display: none;">
+          </div>
+        </div>
+      </div>
+
+      <!-- Ad in the middle -->
+      <AdManager
+        pageType="tool"
+        position="middle"
+        adFormat="rectangle"
+        showSupport={false}
+      />
+
+      <!-- Syntax Guide Section -->
+      <div class="syntax-guide">
+        <h2 class="guide-title">
+          <svg
+            width="28"
+            height="28"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"
+              stroke="currentColor"
+              stroke-width="2"></path>
+            <path
+              d="M12 8v4M12 16h.01"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"></path>
+          </svg>
+          Guía de Sintaxis Mermaid
+        </h2>
+
+        <div class="guide-grid">
+          <!-- Flowchart Guide -->
+          <div class="guide-card">
+            <h3>📊 Flowchart (Diagrama de Flujo)</h3>
+            <div class="code-example">
+              <pre><code>graph TD
+    A[Cuadrado] --> B(Redondeado)
+    B --> C{"{Diamante}"}
+    C -->|Sí| D[Resultado 1]
+    C -->|No| E[Resultado 2]</code></pre>
+            </div>
+            <ul class="syntax-list">
+              <li><code>graph TD</code> - Flujo de arriba a abajo</li>
+              <li><code>graph LR</code> - Flujo de izquierda a derecha</li>
+              <li><code>[ ]</code> - Nodo rectangular</li>
+              <li><code>( )</code> - Nodo redondeado</li>
+              <li><code>{" { }"}</code> - Nodo de decisión (diamante)</li>
+              <li><code>--></code> - Flecha simple</li>
+              <li><code>-->|texto|</code> - Flecha con etiqueta</li>
+            </ul>
+          </div>
+
+          <!-- Sequence Diagram Guide -->
+          <div class="guide-card">
+            <h3>🔄 Sequence (Diagrama de Secuencia)</h3>
+            <div class="code-example">
+              <pre><code>sequenceDiagram
+    Usuario->>Sistema: Solicitud
+    Sistema->>BD: Consulta
+    BD-->>Sistema: Datos
+    Sistema-->>Usuario: Respuesta</code></pre>
+            </div>
+            <ul class="syntax-list">
+              <li><code>participant</code> - Definir participante</li>
+              <li><code>->></code> - Mensaje síncrono</li>
+              <li><code>-->></code> - Mensaje de respuesta</li>
+              <li><code>-x</code> - Mensaje asíncrono</li>
+              <li><code>Note</code> - Agregar nota</li>
+              <li><code>activate/deactivate</code> - Control de activación</li>
+            </ul>
+          </div>
+
+          <!-- Class Diagram Guide -->
+          <div class="guide-card">
+            <h3>📦 Class (Diagrama de Clases)</h3>
+            <div class="code-example">
+              <pre><code>classDiagram
+    class Animal {"{"}
+        +String nombre
+        +int edad
+        +comer()
+    {"}"}
+    Animal &lt;|-- Perro</code></pre>
+            </div>
+            <ul class="syntax-list">
+              <li><code>+</code> - Público</li>
+              <li><code>-</code> - Privado</li>
+              <li><code>#</code> - Protegido</li>
+              <li><code>&lt;|--</code> - Herencia</li>
+              <li><code>*--</code> - Composición</li>
+              <li><code>o--</code> - Agregación</li>
+            </ul>
+          </div>
+
+          <!-- State Diagram Guide -->
+          <div class="guide-card">
+            <h3>🔀 State (Diagrama de Estado)</h3>
+            <div class="code-example">
+              <pre><code>stateDiagram-v2
+    [*] --> Estado1
+    Estado1 --> Estado2: transición
+    Estado2 --> [*]</code></pre>
+            </div>
+            <ul class="syntax-list">
+              <li><code>[*]</code> - Estado inicial/final</li>
+              <li><code>--></code> - Transición</li>
+              <li><code>: texto</code> - Etiqueta de transición</li>
+              <li><code>state</code> - Definir estado compuesto</li>
+              <li><code>note</code> - Agregar nota</li>
+            </ul>
+          </div>
+
+          <!-- ER Diagram Guide -->
+          <div class="guide-card">
+            <h3>🗃️ ER Diagram (Entidad-Relación)</h3>
+            <div class="code-example">
+              <pre><code>erDiagram
+    CLIENTE ||--o{"{"}PEDIDO{"}"} : realiza
+    PEDIDO {"{"}
+        int id
+        string fecha
+    {"}"}</code></pre>
+            </div>
+            <ul class="syntax-list">
+              <li><code>||--||</code> - Uno a uno</li>
+              <li><code>||--o{"{}"}</code> - Uno a muchos</li>
+              <li><code>{"}"}o--o{"{}"}</code> - Muchos a muchos</li>
+              <li><code>{" { }"}</code> - Definir atributos</li>
+            </ul>
+          </div>
+
+          <!-- Gantt Chart Guide -->
+          <div class="guide-card">
+            <h3>📅 Gantt (Diagrama de Gantt)</h3>
+            <div class="code-example">
+              <pre><code>gantt
+    title Proyecto
+    dateFormat YYYY-MM-DD
+    section Fase 1
+    Tarea 1 :a1, 2024-01-01, 30d
+    Tarea 2 :after a1, 20d</code></pre>
+            </div>
+            <ul class="syntax-list">
+              <li><code>title</code> - Título del diagrama</li>
+              <li><code>dateFormat</code> - Formato de fecha</li>
+              <li><code>section</code> - Agrupar tareas</li>
+              <li><code>:id, fecha, duración</code> - Definir tarea</li>
+              <li><code>after id</code> - Tarea dependiente</li>
+            </ul>
+          </div>
+
+          <!-- Pie Chart Guide -->
+          <div class="guide-card">
+            <h3>🥧 Pie Chart (Gráfico Circular)</h3>
+            <div class="code-example">
+              <pre><code>pie title Ventas
+    "Producto A" : 45
+    "Producto B" : 25
+    "Producto C" : 30</code></pre>
+            </div>
+            <ul class="syntax-list">
+              <li><code>title</code> - Título del gráfico</li>
+              <li><code>"nombre" : valor</code> - Sección del gráfico</li>
+              <li>Los valores se convierten en porcentajes automáticamente</li>
+            </ul>
+          </div>
+
+          <!-- Journey Map Guide -->
+          <div class="guide-card">
+            <h3>🚶 User Journey (Mapa de Usuario)</h3>
+            <div class="code-example">
+              <pre><code>journey
+    title Mi día
+    section Mañana
+      Desayuno: 5: Usuario
+      Trabajo: 3: Usuario
+    section Tarde
+      Almuerzo: 4: Usuario</code></pre>
+            </div>
+            <ul class="syntax-list">
+              <li><code>title</code> - Título del journey</li>
+              <li><code>section</code> - Fase del journey</li>
+              <li><code>tarea: score: actor</code> - Definir acción</li>
+              <li>Score de 1-5 (satisfacción)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Info Section -->
+      <div class="info-section">
+        <div class="info-card">
+          <h3>
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="2"></circle>
+              <path
+                d="M12 16V12M12 8h.01"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"></path>
+            </svg>
+            Sobre Mermaid Diagrams
+          </h3>
+          <p>
+            Mermaid es una herramienta de diagramación basada en texto que
+            permite crear diagramas y visualizaciones complejas usando una
+            sintaxis simple. Perfecto para documentación técnica, presentaciones
+            y diagramas de arquitectura.
+          </p>
+        </div>
+
+        <div class="info-card">
+          <h3>
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"
+                stroke="currentColor"
+                stroke-width="2"></path>
+              <path
+                d="M9 12l2 2 4-4"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"></path>
+            </svg>
+            Privacidad y Seguridad
+          </h3>
+          <p>
+            Todo el procesamiento se realiza localmente en tu navegador. Tus
+            diagramas nunca se envían a ningún servidor. Puedes trabajar offline
+            sin problemas.
+          </p>
+        </div>
+
+        <div class="info-card">
+          <h3>
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"></path>
+            </svg>
+            Tipos de Diagramas
+          </h3>
+          <ul class="feature-list">
+            <li>Flowcharts (Diagramas de flujo)</li>
+            <li>Sequence Diagrams (Diagramas de secuencia)</li>
+            <li>Class Diagrams (Diagramas de clases)</li>
+            <li>State Diagrams (Diagramas de estado)</li>
+            <li>ER Diagrams (Entidad-Relación)</li>
+            <li>Gantt Charts (Diagramas de Gantt)</li>
+            <li>Pie Charts (Gráficos circulares)</li>
+            <li>User Journey Maps</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Ad before footer -->
+      <AdManager
+        pageType="tool"
+        position="bottom"
+        adFormat="horizontal"
+        showSupport={true}
+        supportVariant="default"
+      />
+    </div>
+  </main>
+
+  <style>
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+
+    .editor-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .editor-section,
+    .preview-section {
+      background: white;
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #e4e4e7;
+    }
+
+    .section-header h3 {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #18181b;
+      margin: 0;
+    }
+
+    .editor-tools {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .tool-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      padding: 0;
+      background: white;
+      border: 1px solid #e4e4e7;
+      border-radius: 8px;
+      color: #71717a;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .tool-btn:hover {
+      background: #f4f4f5;
+      border-color: #8b5cf6;
+      color: #8b5cf6;
+    }
+
+    #mermaidInput {
+      width: 100%;
+      min-height: 400px;
+      padding: 1rem;
+      font-family: "Monaco", "Menlo", "Consolas", monospace;
+      font-size: 0.875rem;
+      line-height: 1.6;
+      border: 1px solid #e4e4e7;
+      border-radius: 12px;
+      resize: vertical;
+      background: #fafafa;
+      color: #18181b;
+      transition: all 0.2s;
+    }
+
+    #mermaidInput:focus {
+      outline: none;
+      border-color: #8b5cf6;
+      background: white;
+      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+    }
+
+    .templates-section {
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #e4e4e7;
+    }
+
+    .templates-section h4 {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #18181b;
+      margin: 0 0 1rem 0;
+    }
+
+    .templates-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .template-btn {
+      padding: 0.75rem 1rem;
+      background: white;
+      border: 1px solid #e4e4e7;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #18181b;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: left;
+    }
+
+    .template-btn:hover {
+      background: #f9fafb;
+      border-color: #8b5cf6;
+      color: #8b5cf6;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.15);
+    }
+
+    .preview-container {
+      height: 600px;
+      padding: 2rem;
+      background: #fafafa;
+      border: 1px solid #e4e4e7;
+      border-radius: 12px;
+      overflow: auto;
+      cursor: grab;
+      position: relative;
+      user-select: none;
+    }
+
+    .preview-container:active {
+      cursor: grabbing;
+    }
+
+    .preview-container.dragging {
+      cursor: grabbing;
+    }
+
+    .mermaid-diagram {
+      width: fit-content;
+      min-width: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s;
+    }
+
+    .error-message {
+      padding: 1rem;
+      margin-top: 1rem;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      border-radius: 8px;
+      color: #dc2626;
+      font-size: 0.875rem;
+      line-height: 1.5;
+    }
+
+    .syntax-guide {
+      margin-bottom: 3rem;
+    }
+
+    .guide-title {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 1.875rem;
+      font-weight: 700;
+      color: #18181b;
+      margin: 0 0 2rem 0;
+    }
+
+    .guide-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .guide-card {
+      background: white;
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      border: 1px solid #e4e4e7;
+      transition: all 0.3s ease;
+    }
+
+    .guide-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      border-color: #8b5cf6;
+    }
+
+    .guide-card h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #18181b;
+      margin: 0 0 1rem 0;
+    }
+
+    .code-example {
+      background: #fafafa;
+      border: 1px solid #e4e4e7;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      overflow-x: auto;
+    }
+
+    .code-example pre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .code-example code {
+      font-family: "Monaco", "Menlo", "Consolas", monospace;
+      font-size: 0.8125rem;
+      line-height: 1.6;
+      color: #18181b;
+    }
+
+    .syntax-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .syntax-list li {
+      padding: 0.5rem 0;
+      color: #71717a;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      border-bottom: 1px solid #f4f4f5;
+    }
+
+    .syntax-list li:last-child {
+      border-bottom: none;
+    }
+
+    .syntax-list li code {
+      background: #f4f4f5;
+      padding: 0.125rem 0.375rem;
+      border-radius: 4px;
+      font-family: "Monaco", "Menlo", "Consolas", monospace;
+      font-size: 0.8125rem;
+      color: #8b5cf6;
+      font-weight: 500;
+    }
+
+    .info-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .info-card {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .info-card h3 {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #18181b;
+      margin: 0 0 1rem 0;
+    }
+
+    .info-card p {
+      color: #71717a;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .feature-list li {
+      padding: 0.5rem 0;
+      padding-left: 1.5rem;
+      color: #71717a;
+      position: relative;
+    }
+
+    .feature-list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #8b5cf6;
+      font-weight: bold;
+    }
+
+    @media (max-width: 1024px) {
+      .editor-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding: 1rem 0.5rem;
+      }
+
+      .templates-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* Dark Mode */
+    :global(.dark-mode) .editor-section,
+    :global(.dark-mode) .preview-section,
+    :global(.dark-mode) .info-card,
+    :global(.dark-mode) .guide-card {
+      background: #1e293b;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    :global(.dark-mode) .guide-card {
+      border-color: #334155;
+    }
+
+    :global(.dark-mode) .guide-card:hover {
+      border-color: #8b5cf6;
+    }
+
+    :global(.dark-mode) .section-header {
+      border-bottom-color: #334155;
+    }
+
+    :global(.dark-mode) .section-header h3,
+    :global(.dark-mode) .templates-section h4,
+    :global(.dark-mode) .info-card h3,
+    :global(.dark-mode) .guide-title,
+    :global(.dark-mode) .guide-card h3 {
+      color: #f8fafc;
+    }
+
+    :global(.dark-mode) .tool-btn,
+    :global(.dark-mode) .template-btn {
+      background: #0f172a;
+      border-color: #334155;
+      color: #cbd5e1;
+    }
+
+    :global(.dark-mode) .tool-btn:hover,
+    :global(.dark-mode) .template-btn:hover {
+      background: #1e293b;
+      border-color: #8b5cf6;
+      color: #c084fc;
+    }
+
+    :global(.dark-mode) #mermaidInput {
+      background: #0f172a;
+      border-color: #334155;
+      color: #f8fafc;
+    }
+
+    :global(.dark-mode) #mermaidInput:focus {
+      background: #1e293b;
+      border-color: #8b5cf6;
+    }
+
+    :global(.dark-mode) .templates-section {
+      border-top-color: #334155;
+    }
+
+    :global(.dark-mode) .preview-container {
+      background: #0f172a;
+      border-color: #334155;
+    }
+
+    :global(.dark-mode) .error-message {
+      background: #7f1d1d;
+      border-color: #991b1b;
+      color: #fca5a5;
+    }
+
+    :global(.dark-mode) .info-card p,
+    :global(.dark-mode) .feature-list li,
+    :global(.dark-mode) .syntax-list li {
+      color: #cbd5e1;
+    }
+
+    :global(.dark-mode) .code-example {
+      background: #0f172a;
+      border-color: #334155;
+    }
+
+    :global(.dark-mode) .code-example code {
+      color: #f8fafc;
+    }
+
+    :global(.dark-mode) .syntax-list li {
+      border-bottom-color: #334155;
+    }
+
+    :global(.dark-mode) .syntax-list li code {
+      background: #0f172a;
+      color: #c084fc;
+    }
+  </style>
+
+  <script>
+    import mermaid from "mermaid";
+
+    // Initialize Mermaid with configuration
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: document.documentElement.classList.contains("dark-mode")
+        ? "dark"
+        : "default",
+      securityLevel: "loose",
+      fontFamily: "Inter, sans-serif",
+      flowchart: {
+        curve: "basis",
+        padding: 20,
+      },
+    });
+
+    // Templates
+    const templates = {
+      flowchart: `graph TD
+    A[Inicio] --> B{Decision}
+    B -->|Si| C[Proceso 1]
+    B -->|No| D[Proceso 2]
+    C --> E[Fin]
+    D --> E`,
+      sequence: `sequenceDiagram
+    participant Usuario
+    participant Sistema
+    participant Base de Datos
+    Usuario->>Sistema: Login
+    Sistema->>Base de Datos: Verificar credenciales
+    Base de Datos-->>Sistema: Resultado
+    Sistema-->>Usuario: Acceso concedido`,
+      class: `classDiagram
+    class Animal {
+        +String nombre
+        +int edad
+        +comer()
+        +dormir()
+    }
+    class Perro {
+        +String raza
+        +ladrar()
+    }
+    Animal <|-- Perro`,
+      state: `stateDiagram-v2
+    [*] --> Inactivo
+    Inactivo --> Activo: activar
+    Activo --> Procesando: procesar
+    Procesando --> Activo: completar
+    Activo --> Inactivo: desactivar
+    Procesando --> [*]: error`,
+      er: `erDiagram
+    USUARIO ||--o{ PEDIDO : realiza
+    USUARIO {
+        int id
+        string nombre
+        string email
+    }
+    PEDIDO ||--|{ PRODUCTO : contiene
+    PEDIDO {
+        int id
+        date fecha
+        float total
+    }
+    PRODUCTO {
+        int id
+        string nombre
+        float precio
+    }`,
+      gantt: `gantt
+    title Plan de Proyecto
+    dateFormat  YYYY-MM-DD
+    section Fase 1
+    Diseno           :a1, 2024-01-01, 30d
+    Desarrollo       :a2, after a1, 45d
+    section Fase 2
+    Testing          :a3, after a2, 20d
+    Deployment       :a4, after a3, 10d`,
+      pie: `pie title Distribucion de Ventas
+    "Producto A" : 45
+    "Producto B" : 25
+    "Producto C" : 20
+    "Producto D" : 10`,
+      journey: `journey
+    title Mi dia de trabajo
+    section Manana
+      Hacer cafe: 5: Usuario
+      Revisar emails: 3: Usuario
+      Reunion equipo: 4: Usuario, Equipo
+    section Tarde
+      Desarrollo: 5: Usuario
+      Code Review: 4: Usuario, Equipo
+      Documentacion: 3: Usuario`,
+    };
+
+    let currentZoom = 1;
+    let renderTimeout: number;
+
+    // Drag functionality variables
+    let isDragging = false;
+    let startX = 0;
+    let startY = 0;
+    let scrollLeft = 0;
+    let scrollTop = 0;
+
+    // Get DOM elements
+    const mermaidInput = document.getElementById(
+      "mermaidInput"
+    ) as HTMLTextAreaElement;
+    const mermaidPreview = document.getElementById(
+      "mermaidPreview"
+    ) as HTMLElement;
+    const previewContainer = document.getElementById(
+      "previewContainer"
+    ) as HTMLElement;
+    const errorMessage = document.getElementById("errorMessage") as HTMLElement;
+    const clearBtn = document.getElementById("clearBtn") as HTMLButtonElement;
+    const copyCodeBtn = document.getElementById(
+      "copyCodeBtn"
+    ) as HTMLButtonElement;
+    const exportSvgBtn = document.getElementById(
+      "exportSvgBtn"
+    ) as HTMLButtonElement;
+    const exportPngBtn = document.getElementById(
+      "exportPngBtn"
+    ) as HTMLButtonElement;
+    const zoomInBtn = document.getElementById("zoomInBtn") as HTMLButtonElement;
+    const zoomOutBtn = document.getElementById(
+      "zoomOutBtn"
+    ) as HTMLButtonElement;
+    const templateBtns = document.querySelectorAll(".template-btn");
+
+    // Render diagram
+    async function renderDiagram() {
+      const code = mermaidInput.value.trim();
+
+      if (!code) {
+        mermaidPreview.innerHTML =
+          '<p style="color: #71717a; text-align: center;">Escribe código Mermaid para ver el diagrama</p>';
+        errorMessage.style.display = "none";
+        return;
+      }
+
+      try {
+        // Clear previous diagram
+        mermaidPreview.innerHTML = "";
+        errorMessage.style.display = "none";
+
+        // Generate unique ID
+        const id = `mermaid-${Date.now()}`;
+
+        // Render diagram
+        const { svg } = await mermaid.render(id, code);
+        mermaidPreview.innerHTML = svg;
+
+        // Apply zoom
+        const svgElement = mermaidPreview.querySelector("svg");
+        if (svgElement) {
+          svgElement.style.transform = `scale(${currentZoom})`;
+          svgElement.style.transformOrigin = "center";
+          svgElement.style.transition = "transform 0.2s ease";
+        }
+      } catch (error: any) {
+        console.error("Error rendering diagram:", error);
+        errorMessage.textContent = `Error: ${error.message || "Sintaxis invalida"}`;
+        errorMessage.style.display = "block";
+        mermaidPreview.innerHTML = "";
+      }
+    }
+
+    // Debounced render
+    function debouncedRender() {
+      clearTimeout(renderTimeout);
+      renderTimeout = window.setTimeout(renderDiagram, 500);
+    }
+
+    // Event listeners
+    mermaidInput.addEventListener("input", debouncedRender);
+
+    clearBtn.addEventListener("click", () => {
+      mermaidInput.value = "";
+      mermaidPreview.innerHTML =
+        '<p style="color: #71717a; text-align: center;">Escribe código Mermaid para ver el diagrama</p>';
+      errorMessage.style.display = "none";
+    });
+
+    copyCodeBtn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(mermaidInput.value);
+        showToast("Código copiado al portapapeles", "success");
+      } catch (error: any) {
+        showToast("Error al copiar código", "error");
+      }
+    });
+
+    exportSvgBtn.addEventListener("click", () => {
+      const svgElement = mermaidPreview.querySelector("svg");
+      if (!svgElement) {
+        showToast("No hay diagrama para exportar", "error");
+        return;
+      }
+
+      const svgData = new XMLSerializer().serializeToString(svgElement);
+      const blob = new Blob([svgData], { type: "image/svg+xml" });
+      const url = URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `diagram-${Date.now()}.svg`;
+      link.click();
+
+      URL.revokeObjectURL(url);
+      showToast("Diagrama exportado como SVG", "success");
+    });
+
+    exportPngBtn.addEventListener("click", async () => {
+      const svgElement = mermaidPreview.querySelector("svg");
+      if (!svgElement) {
+        showToast("No hay diagrama para exportar", "error");
+        return;
+      }
+
+      try {
+        // Create canvas
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        const svgData = new XMLSerializer().serializeToString(svgElement);
+
+        // Get SVG dimensions
+        const svgRect = svgElement.getBoundingClientRect();
+        canvas.width = svgRect.width * 2; // 2x for better quality
+        canvas.height = svgRect.height * 2;
+
+        // Create image from SVG
+        const img = new Image();
+        const blob = new Blob([svgData], { type: "image/svg+xml" });
+        const url = URL.createObjectURL(blob);
+
+        img.onload = () => {
+          ctx!.fillStyle = "white";
+          ctx!.fillRect(0, 0, canvas.width, canvas.height);
+          ctx!.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+          canvas.toBlob((blob) => {
+            if (blob) {
+              const url = URL.createObjectURL(blob);
+              const link = document.createElement("a");
+              link.href = url;
+              link.download = `diagram-${Date.now()}.png`;
+              link.click();
+              URL.revokeObjectURL(url);
+              showToast("Diagrama exportado como PNG", "success");
+            }
+          }, "image/png");
+
+          URL.revokeObjectURL(url);
+        };
+
+        img.src = url;
+      } catch (error: any) {
+        console.error("Error exporting PNG:", error);
+        showToast("Error al exportar PNG", "error");
+      }
+    });
+
+    zoomInBtn.addEventListener("click", () => {
+      currentZoom = Math.min(currentZoom + 0.2, 3);
+      const svgElement = mermaidPreview.querySelector("svg") as SVGElement;
+      if (svgElement) {
+        svgElement.style.transform = `scale(${currentZoom})`;
+      }
+    });
+
+    zoomOutBtn.addEventListener("click", () => {
+      currentZoom = Math.max(currentZoom - 0.2, 0.4);
+      const svgElement = mermaidPreview.querySelector("svg") as SVGElement;
+      if (svgElement) {
+        svgElement.style.transform = `scale(${currentZoom})`;
+      }
+    });
+
+    // Template buttons
+    templateBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const template = btn.getAttribute(
+          "data-template"
+        ) as keyof typeof templates;
+        if (template && templates[template]) {
+          mermaidInput.value = templates[template];
+          renderDiagram();
+        }
+      });
+    });
+
+    // Drag functionality for preview container
+    previewContainer.addEventListener("mousedown", (e: MouseEvent) => {
+      isDragging = true;
+      previewContainer.classList.add("dragging");
+      startX = e.pageX - previewContainer.offsetLeft;
+      startY = e.pageY - previewContainer.offsetTop;
+      scrollLeft = previewContainer.scrollLeft;
+      scrollTop = previewContainer.scrollTop;
+      e.preventDefault();
+    });
+
+    previewContainer.addEventListener("mouseleave", () => {
+      if (isDragging) {
+        isDragging = false;
+        previewContainer.classList.remove("dragging");
+      }
+    });
+
+    previewContainer.addEventListener("mouseup", () => {
+      isDragging = false;
+      previewContainer.classList.remove("dragging");
+    });
+
+    previewContainer.addEventListener("mousemove", (e: MouseEvent) => {
+      if (!isDragging) return;
+      e.preventDefault();
+
+      const x = e.pageX - previewContainer.offsetLeft;
+      const y = e.pageY - previewContainer.offsetTop;
+      const walkX = (x - startX) * 1.5; // Scroll speed multiplier
+      const walkY = (y - startY) * 1.5;
+
+      previewContainer.scrollLeft = scrollLeft - walkX;
+      previewContainer.scrollTop = scrollTop - walkY;
+    });
+
+    // Prevent text selection during drag
+    previewContainer.addEventListener("dragstart", (e) => {
+      e.preventDefault();
+    });
+
+    // Toast notification
+    function showToast(message: string, type: "success" | "error" = "success") {
+      const toast = document.createElement("div");
+      toast.className = `toast toast-${type}`;
+      toast.textContent = message;
+      toast.style.cssText = `
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        padding: 1rem 1.5rem;
+        background: ${type === "success" ? "#10b981" : "#ef4444"};
+        color: white;
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        font-weight: 500;
+        z-index: 9999;
+        animation: slideIn 0.3s ease;
+      `;
+
+      document.body.appendChild(toast);
+
+      setTimeout(() => {
+        toast.style.animation = "slideOut 0.3s ease";
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
+
+    // Set initial content
+    mermaidInput.value = `graph TD
+    A[Inicio] --> B{Decision}
+    B -->|Si| C[Proceso 1]
+    B -->|No| D[Proceso 2]
+    C --> E[Fin]
+    D --> E`;
+
+    // Initial render
+    renderDiagram();
+
+    // Update theme when dark mode changes
+    const observer = new MutationObserver(() => {
+      const isDark = document.documentElement.classList.contains("dark-mode");
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: isDark ? "dark" : "default",
+        securityLevel: "loose",
+        fontFamily: "Inter, sans-serif",
+      });
+      renderDiagram();
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+  </script>
+
+  <style is:global>
+    @keyframes slideIn {
+      from {
+        transform: translateX(400px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideOut {
+      from {
+        transform: translateX(0);
+        opacity: 1;
+      }
+      to {
+        transform: translateX(400px);
+        opacity: 0;
+      }
+    }
+  </style>
+</Layout>
