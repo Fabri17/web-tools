@@ -7,8 +7,8 @@ interface Props {
 }
 
 const { 
-	title = "WebTools Suite - Herramientas de desarrollo en un solo lugar", 
-	description = "Todas tus herramientas favoritas de desarrollo en un solo lugar. Convierte Markdown a PDF, optimiza imágenes, genera QR y más. 100% gratis, sin rastreadores.",
+	title = "WebTools Suite - Tu caja de herramientas de desarrollo, sin rastreadores y sin complicaciones", 
+	description = "Hecho por devs, para devs. Convierte Markdown a PDF, optimiza imágenes, genera datos falsos y más. Todo local, 100% privado, sin registro ni complicaciones.",
 	image = "/og-image.png",
 	url = Astro.url.href
 } = Astro.props;
@@ -122,22 +122,22 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
 	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
 	<link rel="manifest" href="/site.webmanifest" />
 	
-	<!-- Preload Critical Font (solo weight 400 para LCP) -->
+	<!-- Preload Critical Fonts (Inter + JetBrains Mono) -->
 	<link 
 		rel="preload" 
 		as="style"
-		href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap"
+		href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
 	/>
 	
-	<!-- Load font async para evitar bloqueo de render -->
+	<!-- Load fonts async para evitar bloqueo de render -->
 	<link 
 		rel="stylesheet" 
-		href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+		href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
 		media="print" 
 		onload="this.media='all'"
 	/>
 	<noscript>
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" />
 	</noscript>		<meta name="generator" content={Astro.generator} />
 		
 		<!-- Structured Data (JSON-LD) -->
@@ -257,6 +257,137 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
 </html>
 
 <style is:global>
+	/* ==========================================
+	   WEBTOOLS SUITE - DESIGN SYSTEM
+	   Hecho por devs, para devs
+	   ========================================== */
+	
+	:root {
+		/* === BRAND COLORS === */
+		/* Primary: Indigo/Purple */
+		--color-primary: #6366f1;
+		--color-primary-hover: #4f46e5;
+		--color-primary-light: #818cf8;
+		--color-primary-dark: #4338ca;
+		
+		/* Secondary: Purple/Violet */
+		--color-secondary: #a855f7; /* Violet */
+		--color-secondary-hover: #9333ea;
+		--color-accent: #8b5cf6; /* Purple accent */
+		--color-accent-hover: #7c3aed;
+		
+		/* Neutrals: Technical Black & Whites */
+		--color-black: #0a0a0a;
+		--color-gray-900: #121212;
+		--color-gray-800: #1e1e1e;
+		--color-gray-700: #2a2a2a;
+		--color-gray-600: #3d3d3d;
+		--color-gray-500: #6b6b6b;
+		--color-gray-400: #9b9b9b;
+		--color-gray-300: #c4c4c4;
+		--color-gray-200: #e0e0e0;
+		--color-gray-100: #f5f5f5;
+		--color-white: #ffffff;
+		
+		/* === SEMANTIC COLORS === */
+		--color-success: #10b981;
+		--color-warning: #f59e0b;
+		--color-error: #ef4444;
+		--color-info: #3b82f6;
+		
+		/* === TYPOGRAPHY === */
+		--font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+		--font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+		
+		/* Font Sizes (Fluid Typography) */
+		--text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+		--text-sm: clamp(0.875rem, 0.825rem + 0.25vw, 1rem);
+		--text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+		--text-lg: clamp(1.125rem, 1.05rem + 0.375vw, 1.25rem);
+		--text-xl: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
+		--text-2xl: clamp(1.5rem, 1.35rem + 0.75vw, 1.875rem);
+		--text-3xl: clamp(1.875rem, 1.65rem + 1.125vw, 2.25rem);
+		--text-4xl: clamp(2.25rem, 1.95rem + 1.5vw, 3rem);
+		--text-5xl: clamp(3rem, 2.5rem + 2.5vw, 4rem);
+		
+		/* Line Heights */
+		--leading-none: 1;
+		--leading-tight: 1.25;
+		--leading-snug: 1.375;
+		--leading-normal: 1.5;
+		--leading-relaxed: 1.625;
+		--leading-loose: 2;
+		
+		/* === SPACING === */
+		--space-xs: 0.25rem;
+		--space-sm: 0.5rem;
+		--space-md: 1rem;
+		--space-lg: 1.5rem;
+		--space-xl: 2rem;
+		--space-2xl: 3rem;
+		--space-3xl: 4rem;
+		--space-4xl: 6rem;
+		
+		/* === BORDERS & RADIUS === */
+		--radius-sm: 0.375rem;
+		--radius-md: 0.5rem;
+		--radius-lg: 0.75rem;
+		--radius-xl: 1rem;
+		--radius-2xl: 1.5rem;
+		--radius-full: 9999px;
+		
+		/* === SHADOWS === */
+		--shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+		--shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+		--shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+		--shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+		--shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+		
+		/* === TRANSITIONS === */
+		--transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+		--transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+		--transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+		
+		/* === LIGHT MODE THEME === */
+		--bg-primary: var(--color-white);
+		--bg-secondary: var(--color-gray-100);
+		--bg-tertiary: var(--color-gray-200);
+		--bg-gradient: linear-gradient(180deg, #fafafa 0%, #f0f0f0 100%);
+		
+		--text-primary: var(--color-gray-900);
+		--text-secondary: var(--color-gray-600);
+		--text-tertiary: var(--color-gray-500);
+		
+		--border-color: var(--color-gray-200);
+		--border-hover: var(--color-gray-300);
+	}
+	
+	/* === DARK MODE === */
+	.dark-mode {
+		color-scheme: dark;
+		
+		/* Dark Mode Colors */
+		--bg-primary: var(--color-gray-900);
+		--bg-secondary: var(--color-gray-800);
+		--bg-tertiary: var(--color-gray-700);
+		--bg-gradient: linear-gradient(180deg, #0a0a0a 0%, #121212 100%);
+		
+		--text-primary: var(--color-gray-100);
+		--text-secondary: var(--color-gray-400);
+		--text-tertiary: var(--color-gray-500);
+		
+		--border-color: var(--color-gray-700);
+		--border-hover: var(--color-gray-600);
+		
+		/* Adjust shadows for dark mode */
+		--shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+		--shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4);
+		--shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.5);
+		--shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.6);
+		--shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.7);
+	}
+	
+	/* === BASE RESETS === */
 	* {
 		margin: 0;
 		padding: 0;
@@ -264,27 +395,62 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
 	}
 	
 	html {
-		font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+		font-family: var(--font-sans);
+		font-size: 16px;
 		scroll-behavior: smooth;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
+		text-rendering: optimizeLegibility;
 	}
 	
-	/* Default Light Mode */
 	body {
 		min-height: 100vh;
-		background: linear-gradient(180deg, #fafafa 0%, #f4f4f5 100%);
-		color: #18181b;
+		background: var(--bg-gradient);
+		color: var(--text-primary);
 		overflow-x: hidden;
+		line-height: var(--leading-normal);
 	}
 	
-	/* Dark mode styles */
-	.dark-mode {
-		color-scheme: dark;
+	/* === TYPOGRAPHY UTILITIES === */
+	code, pre, kbd, samp {
+		font-family: var(--font-mono);
 	}
 	
-	.dark-mode body {
-		background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
-		color: #f8fafc;
+	h1, h2, h3, h4, h5, h6 {
+		font-weight: 700;
+		line-height: var(--leading-tight);
+		color: var(--text-primary);
+	}
+	
+	p {
+		color: var(--text-secondary);
+	}
+	
+	/* === UTILITY CLASSES === */
+	.font-mono { font-family: var(--font-mono); }
+	.font-sans { font-family: var(--font-sans); }
+	
+	.text-primary { color: var(--text-primary); }
+	.text-secondary { color: var(--text-secondary); }
+	.text-tertiary { color: var(--text-tertiary); }
+	
+	.bg-primary { background: var(--bg-primary); }
+	.bg-secondary { background: var(--bg-secondary); }
+	
+	/* === FOCUS STATES === */
+	:focus-visible {
+		outline: 2px solid var(--color-primary);
+		outline-offset: 2px;
+	}
+	
+	/* === SELECTION === */
+	::selection {
+		background-color: var(--color-primary);
+		color: var(--color-white);
+	}
+	
+	::-moz-selection {
+		background-color: var(--color-primary);
+		color: var(--color-white);
 	}
 </style>
