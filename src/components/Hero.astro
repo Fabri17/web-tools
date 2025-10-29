@@ -219,9 +219,9 @@
   }
 
   .hero-title {
-    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-size: clamp(2rem, 4vw, 3rem);
     font-weight: 800;
-    line-height: 1.1;
+    line-height: 1.2;
     margin: 0 0 1.5rem 0;
     letter-spacing: -0.02em;
     color: #0f172a;
@@ -247,7 +247,7 @@
   }
 
   .hero-subtitle {
-    font-size: clamp(1.125rem, 2vw, 1.375rem);
+    font-size: clamp(1rem, 1.5vw, 1.125rem);
     line-height: 1.6;
     margin: 0 0 2.5rem 0;
     max-width: 600px;
@@ -269,8 +269,8 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 1rem 2rem;
-    font-size: 1.125rem;
+    padding: 0.875rem 1.75rem;
+    font-size: 1rem;
     font-weight: 600;
     text-decoration: none;
     border-radius: 12px;
@@ -366,6 +366,8 @@
   /* Demo Window */
   .hero-visual {
     position: relative;
+    max-width: 100%;
+    overflow: visible;
   }
 
   .demo-window {
@@ -500,10 +502,15 @@
     position: absolute;
     background: white;
     border-radius: 12px;
-    padding: 1rem;
+    padding: 0.75rem;
     border: 1px solid #e2e8f0;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     animation: float-rotate 8s ease-in-out infinite;
+  }
+
+  .floating-icon svg {
+    width: 24px;
+    height: 24px;
   }
 
   .floating-icon svg {
@@ -523,19 +530,19 @@
 
   .icon-1 {
     top: 10%;
-    right: -10%;
+    right: 2%;
     animation-delay: 0s;
   }
 
   .icon-2 {
     bottom: 20%;
-    right: -5%;
+    right: 5%;
     animation-delay: 1s;
   }
 
   .icon-3 {
     top: 50%;
-    right: -15%;
+    right: -2%;
     animation-delay: 2s;
   }
 

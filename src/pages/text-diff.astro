@@ -1,0 +1,1253 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ToolHeader from "../components/ToolHeader.astro";
+
+const icon = `
+  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="2" y="3" width="9" height="18" rx="2" stroke="white" stroke-width="1.5"/>
+    <rect x="13" y="3" width="9" height="18" rx="2" stroke="white" stroke-width="1.5"/>
+    <path d="M6 8h2M6 12h2M6 16h2" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M17 8h2M17 12h2M17 16h2" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M11 7l2 2-2 2M11 13l2 2-2 2" stroke="#a855f7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+`;
+---
+
+<Layout
+  title="Text Diff - Comparador de Textos | WebTools Suite"
+  description="Compara dos textos línea por línea y resalta sus diferencias. Perfecto para comparar archivos .env, configuraciones, logs y más. 100% local y privado."
+  url="https://tu-dominio.com/text-diff"
+>
+  <main>
+    <div class="container">
+      <ToolHeader
+        title="Text Diff"
+        subtitle="Compara dos textos y visualiza sus diferencias línea por línea"
+        icon={icon}
+        showPrimaryButton={false}
+      />
+
+      <!-- Settings Section -->
+      <div class="settings-section">
+        <div class="settings-grid">
+          <div class="setting-item">
+            <label>
+              <input type="checkbox" id="ignoreWhitespace" />
+              <span>Ignorar espacios en blanco</span>
+            </label>
+          </div>
+          <div class="setting-item">
+            <label>
+              <input type="checkbox" id="ignoreCase" />
+              <span>Ignorar mayúsculas/minúsculas</span>
+            </label>
+          </div>
+          <div class="setting-item">
+            <label>
+              <input type="checkbox" id="showLineNumbers" checked />
+              <span>Mostrar números de línea</span>
+            </label>
+          </div>
+          <div class="setting-item">
+            <label>
+              <input type="checkbox" id="sideBySide" checked />
+              <span>Vista lado a lado</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Input Section -->
+      <div class="input-section">
+        <div class="text-inputs" id="textInputsContainer">
+          <div class="text-panel">
+            <div class="panel-header">
+              <h3>Texto Original</h3>
+              <div class="panel-actions">
+                <button class="btn-icon" id="clearText1" title="Limpiar">
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                  >
+                    <path
+                      d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"
+                      stroke-width="2"
+                      stroke-linecap="round"></path>
+                  </svg>
+                </button>
+                <button class="btn-icon" id="loadFile1" title="Cargar archivo">
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                  >
+                    <path
+                      d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"></path>
+                  </svg>
+                </button>
+                <input
+                  type="file"
+                  id="fileInput1"
+                  accept=".txt,.env,.json,.xml,.log,.md,.js,.ts,.css,.html,.yaml,.yml,.ini,.conf"
+                  style="display: none;"
+                />
+              </div>
+            </div>
+            <textarea
+              id="text1"
+              class="text-input"
+              placeholder="Pega o escribe el texto original aquí...
+
+Ejemplos de uso:
+- Archivos .env
+- Configuraciones
+- Logs
+- JSON
+- Código fuente"
+              spellcheck="false"></textarea>
+            <div class="input-info">
+              <span id="lines1">0 líneas</span>
+              <span id="chars1">0 caracteres</span>
+            </div>
+          </div>
+
+          <div class="text-panel">
+            <div class="panel-header">
+              <h3>Texto Modificado</h3>
+              <div class="panel-actions">
+                <button class="btn-icon" id="clearText2" title="Limpiar">
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                  >
+                    <path
+                      d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"
+                      stroke-width="2"
+                      stroke-linecap="round"></path>
+                  </svg>
+                </button>
+                <button class="btn-icon" id="loadFile2" title="Cargar archivo">
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                  >
+                    <path
+                      d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"></path>
+                  </svg>
+                </button>
+                <input
+                  type="file"
+                  id="fileInput2"
+                  accept=".txt,.env,.json,.xml,.log,.md,.js,.ts,.css,.html,.yaml,.yml,.ini,.conf"
+                  style="display: none;"
+                />
+              </div>
+            </div>
+            <textarea
+              id="text2"
+              class="text-input"
+              placeholder="Pega o escribe el texto modificado aquí..."
+              spellcheck="false"></textarea>
+            <div class="input-info">
+              <span id="lines2">0 líneas</span>
+              <span id="chars2">0 caracteres</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="action-buttons">
+          <button class="btn-primary" id="compareBtn">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+            >
+              <path
+                d="M9 5l7 7-7 7"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"></path>
+            </svg>
+            Comparar Textos
+          </button>
+          <button
+            class="btn-secondary"
+            id="swapBtn"
+            title="Intercambiar textos"
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+            >
+              <path
+                d="M7 16V4M7 4L3 8M7 4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"></path>
+            </svg>
+            Intercambiar
+          </button>
+          <button class="btn-secondary" id="clearAllBtn">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+            >
+              <path
+                d="M6 18L18 6M6 6l12 12"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"></path>
+            </svg>
+            Limpiar Todo
+          </button>
+        </div>
+      </div>
+
+      <!-- Output Section -->
+      <div class="output-section" id="outputSection" style="display: none;">
+        <div class="output-header">
+          <h3>Resultado de la Comparación</h3>
+          <div class="output-actions">
+            <button class="btn-secondary btn-sm" id="exportDiffBtn">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+              >
+                <path
+                  d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+              </svg>
+              Exportar Diff
+            </button>
+            <button class="btn-secondary btn-sm" id="copyDiffBtn">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+              >
+                <rect
+                  x="9"
+                  y="9"
+                  width="13"
+                  height="13"
+                  rx="2"
+                  ry="2"
+                  stroke-width="2"></rect>
+                <path
+                  d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"
+                  stroke-width="2"></path>
+              </svg>
+              Copiar
+            </button>
+          </div>
+        </div>
+
+        <!-- Summary Stats -->
+        <div class="diff-summary">
+          <div class="summary-item summary-added">
+            <span class="summary-label">Líneas añadidas</span>
+            <span class="summary-value" id="addedCount">0</span>
+          </div>
+          <div class="summary-item summary-removed">
+            <span class="summary-label">Líneas eliminadas</span>
+            <span class="summary-value" id="removedCount">0</span>
+          </div>
+          <div class="summary-item summary-changed">
+            <span class="summary-label">Líneas modificadas</span>
+            <span class="summary-value" id="changedCount">0</span>
+          </div>
+          <div class="summary-item summary-unchanged">
+            <span class="summary-label">Líneas sin cambios</span>
+            <span class="summary-value" id="unchangedCount">0</span>
+          </div>
+        </div>
+
+        <!-- Diff Output -->
+        <div class="diff-container" id="diffContainer">
+          <!-- El diff se renderizará aquí -->
+        </div>
+      </div>
+
+      <!-- Help Section -->
+      <div class="help-section">
+        <h3>💡 Casos de Uso</h3>
+        <div class="help-grid">
+          <div class="help-item">
+            <h4>📋 Archivos .env</h4>
+            <p>
+              Compara variables de entorno entre diferentes ambientes (dev,
+              staging, production) y detecta variables faltantes.
+            </p>
+          </div>
+          <div class="help-item">
+            <h4>⚙️ Configuraciones</h4>
+            <p>
+              Compara archivos de configuración (config.json, .yaml) para ver
+              qué cambió entre versiones.
+            </p>
+          </div>
+          <div class="help-item">
+            <h4>📝 Logs y Outputs</h4>
+            <p>
+              Compara logs de diferentes ejecuciones para identificar cambios en
+              el comportamiento.
+            </p>
+          </div>
+          <div class="help-item">
+            <h4>💻 Código Fuente</h4>
+            <p>
+              Revisa cambios en archivos de código antes de hacer commit (como
+              git diff).
+            </p>
+          </div>
+        </div>
+
+        <div class="help-tips">
+          <h4>🎯 Tips</h4>
+          <ul>
+            <li>
+              <strong>Vista lado a lado:</strong> Actívala para comparar visualmente
+              los dos textos en paralelo
+            </li>
+            <li>
+              <strong>Ignorar espacios:</strong> Útil cuando solo te interesan los
+              cambios de contenido, no de formato
+            </li>
+            <li>
+              <strong>Cargar archivos:</strong> Puedes cargar archivos directamente
+              desde tu computadora
+            </li>
+            <li>
+              <strong>Exportar:</strong> Guarda el resultado de la comparación como
+              archivo .diff
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  /* Settings Section */
+  .settings-section {
+    background: white;
+    border: 1px solid #e4e4e7;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .settings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .setting-item label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+
+  .setting-item input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+  }
+
+  /* Input Section */
+  .input-section {
+    margin-bottom: 2rem;
+  }
+
+  .text-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .text-panel {
+    background: white;
+    border: 1px solid #e4e4e7;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    color: white;
+  }
+
+  .panel-header h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+  }
+
+  .panel-actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .btn-icon {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 6px;
+    padding: 0.5rem;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn-icon:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+  }
+
+  .text-input {
+    width: 100%;
+    min-height: 300px;
+    padding: 1rem;
+    border: none;
+    font-family: "JetBrains Mono", "Courier New", monospace;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    resize: vertical;
+    background: #fafafa;
+  }
+
+  .text-input:focus {
+    outline: none;
+    background: white;
+  }
+
+  .input-info {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    background: #f9fafb;
+    border-top: 1px solid #e4e4e7;
+    font-size: 0.85rem;
+    color: #71717a;
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.5rem;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    color: white;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+  }
+
+  .btn-secondary {
+    background: white;
+    color: #6366f1;
+    border: 2px solid #6366f1;
+  }
+
+  .btn-secondary:hover {
+    background: #f5f3ff;
+    transform: translateY(-2px);
+  }
+
+  .btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  /* Output Section */
+  .output-section {
+    background: white;
+    border: 1px solid #e4e4e7;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .output-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .output-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  .output-actions {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .diff-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: #f9fafb;
+    border-radius: 8px;
+  }
+
+  .summary-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.75rem;
+    background: white;
+    border-radius: 6px;
+    border-left: 3px solid;
+  }
+
+  .summary-added {
+    border-color: #10b981;
+  }
+  .summary-removed {
+    border-color: #ef4444;
+  }
+  .summary-changed {
+    border-color: #f59e0b;
+  }
+  .summary-unchanged {
+    border-color: #6366f1;
+  }
+
+  .summary-label {
+    font-size: 0.85rem;
+    color: #71717a;
+  }
+
+  .summary-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  .diff-container {
+    background: #1e1e1e;
+    border-radius: 8px;
+    overflow: auto;
+    max-height: 600px;
+    font-family: "JetBrains Mono", "Courier New", monospace;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    border: 1px solid #2d2d2d;
+  }
+
+  /* Estilos globales para elementos generados dinámicamente */
+  :global(.diff-line) {
+    display: flex;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid #2d2d2d;
+    min-height: 28px;
+  }
+
+  :global(.line-number) {
+    min-width: 50px;
+    padding: 0 0.75rem;
+    text-align: right;
+    color: #858585;
+    user-select: none;
+    flex-shrink: 0;
+    font-weight: 500;
+  }
+
+  :global(.line-content) {
+    flex: 1;
+    padding: 0 1rem;
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: #ffffff;
+  }
+
+  :global(.line-unchanged) {
+    background: #1e1e1e;
+  }
+
+  :global(.line-unchanged .line-content) {
+    color: #d4d4d4;
+  }
+
+  :global(.line-added) {
+    background: #0d4d2d;
+  }
+
+  :global(.line-added .line-content) {
+    color: #a5f3a5;
+  }
+
+  :global(.line-removed) {
+    background: #5d1f1f;
+  }
+
+  :global(.line-removed .line-content) {
+    color: #ffb3c1;
+  }
+
+  :global(.line-changed) {
+    background: #4d4d1f;
+  }
+
+  :global(.line-changed .line-content) {
+    color: #ffeb9c;
+  }
+
+  /* Side by side view */
+  :global(.diff-side-by-side) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    background: #2d2d2d;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  :global(.diff-panel) {
+    background: #1e1e1e;
+    overflow: auto;
+    max-height: 600px;
+  }
+
+  :global(.diff-panel:first-child) {
+    border-right: 2px solid #2d2d2d;
+  }
+
+  :global(.diff-panel .diff-line:first-child) {
+    border-top: none;
+  }
+
+  :global(.diff-panel-header) {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    color: #ffffff;
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border-bottom: 2px solid #2d2d2d;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    text-align: center;
+  }
+
+  /* Help Section */
+  .help-section {
+    background: #f9fafb;
+    border-radius: 12px;
+    padding: 2rem;
+  }
+
+  .help-section h3 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-size: 1.25rem;
+  }
+
+  .help-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .help-item {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #e4e4e7;
+  }
+
+  .help-item h4 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    color: #6366f1;
+  }
+
+  .help-item p {
+    margin: 0;
+    color: #71717a;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .help-tips {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #e4e4e7;
+  }
+
+  .help-tips h4 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: #6366f1;
+  }
+
+  .help-tips ul {
+    margin: 0;
+    padding-left: 1.5rem;
+  }
+
+  .help-tips li {
+    margin-bottom: 0.75rem;
+    color: #71717a;
+    line-height: 1.6;
+  }
+
+  /* Dark Mode */
+  .dark-mode .settings-section,
+  .dark-mode .text-panel,
+  .dark-mode .output-section,
+  .dark-mode .help-item,
+  .dark-mode .help-tips,
+  .dark-mode .summary-item {
+    background: #1e293b;
+    border-color: #334155;
+  }
+
+  .dark-mode .text-input {
+    background: #0f172a;
+    color: #f8fafc;
+  }
+
+  .dark-mode .text-input:focus {
+    background: #1e293b;
+  }
+
+  .dark-mode .input-info,
+  .dark-mode .diff-summary {
+    background: #0f172a;
+  }
+
+  .dark-mode .btn-secondary {
+    background: #1e293b;
+    color: #c084fc;
+    border-color: #c084fc;
+  }
+
+  .dark-mode .btn-secondary:hover {
+    background: #2d3748;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .text-inputs {
+      grid-template-columns: 1fr;
+    }
+
+    .diff-side-by-side {
+      grid-template-columns: 1fr;
+    }
+
+    .action-buttons {
+      flex-direction: column;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .settings-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .help-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  // Elementos del DOM
+  const text1Input = document.getElementById("text1") as HTMLTextAreaElement;
+  const text2Input = document.getElementById("text2") as HTMLTextAreaElement;
+  const compareBtn = document.getElementById("compareBtn");
+  const swapBtn = document.getElementById("swapBtn");
+  const clearAllBtn = document.getElementById("clearAllBtn");
+  const clearText1Btn = document.getElementById("clearText1");
+  const clearText2Btn = document.getElementById("clearText2");
+  const loadFile1Btn = document.getElementById("loadFile1");
+  const loadFile2Btn = document.getElementById("loadFile2");
+  const fileInput1 = document.getElementById("fileInput1") as HTMLInputElement;
+  const fileInput2 = document.getElementById("fileInput2") as HTMLInputElement;
+  const outputSection = document.getElementById("outputSection");
+  const diffContainer = document.getElementById("diffContainer");
+  const exportDiffBtn = document.getElementById("exportDiffBtn");
+  const copyDiffBtn = document.getElementById("copyDiffBtn");
+
+  // Checkboxes de configuración
+  const ignoreWhitespaceCheck = document.getElementById(
+    "ignoreWhitespace"
+  ) as HTMLInputElement;
+  const ignoreCaseCheck = document.getElementById(
+    "ignoreCase"
+  ) as HTMLInputElement;
+  const showLineNumbersCheck = document.getElementById(
+    "showLineNumbers"
+  ) as HTMLInputElement;
+  const sideBySideCheck = document.getElementById(
+    "sideBySide"
+  ) as HTMLInputElement;
+
+  // Stats
+  const addedCountEl = document.getElementById("addedCount");
+  const removedCountEl = document.getElementById("removedCount");
+  const changedCountEl = document.getElementById("changedCount");
+  const unchangedCountEl = document.getElementById("unchangedCount");
+
+  let currentDiff: DiffResult | null = null;
+
+  interface DiffLine {
+    type: "unchanged" | "added" | "removed" | "changed";
+    lineNumber1: number | null;
+    lineNumber2: number | null;
+    content1: string;
+    content2: string;
+  }
+
+  interface DiffResult {
+    lines: DiffLine[];
+    stats: {
+      added: number;
+      removed: number;
+      changed: number;
+      unchanged: number;
+    };
+  }
+
+  // Actualizar contadores de líneas y caracteres
+  function updateStats(
+    textArea: HTMLTextAreaElement,
+    linesId: string,
+    charsId: string
+  ) {
+    const text = textArea.value;
+    const lines = text.split("\n").length;
+    const chars = text.length;
+
+    const linesEl = document.getElementById(linesId);
+    const charsEl = document.getElementById(charsId);
+
+    if (linesEl)
+      linesEl.textContent = `${lines} línea${lines !== 1 ? "s" : ""}`;
+    if (charsEl)
+      charsEl.textContent = `${chars} caracter${chars !== 1 ? "es" : ""}`;
+  }
+
+  // Event listeners para actualizar stats
+  text1Input?.addEventListener("input", () =>
+    updateStats(text1Input, "lines1", "chars1")
+  );
+  text2Input?.addEventListener("input", () =>
+    updateStats(text2Input, "lines2", "chars2")
+  );
+
+  // Cargar archivos
+  loadFile1Btn?.addEventListener("click", () => fileInput1?.click());
+  loadFile2Btn?.addEventListener("click", () => fileInput2?.click());
+
+  fileInput1?.addEventListener("change", (e) => {
+    const file = (e.target as HTMLInputElement).files?.[0];
+    if (file) loadFile(file, text1Input);
+  });
+
+  fileInput2?.addEventListener("change", (e) => {
+    const file = (e.target as HTMLInputElement).files?.[0];
+    if (file) loadFile(file, text2Input);
+  });
+
+  async function loadFile(file: File, target: HTMLTextAreaElement) {
+    try {
+      const text = await file.text();
+      target.value = text;
+      updateStats(
+        target,
+        target === text1Input ? "lines1" : "lines2",
+        target === text1Input ? "chars1" : "chars2"
+      );
+      showToast(`Archivo "${file.name}" cargado correctamente`, "success");
+    } catch (error) {
+      showToast("Error al cargar el archivo", "error");
+      console.error(error);
+    }
+  }
+
+  // Limpiar textos
+  clearText1Btn?.addEventListener("click", () => {
+    text1Input.value = "";
+    updateStats(text1Input, "lines1", "chars1");
+  });
+
+  clearText2Btn?.addEventListener("click", () => {
+    text2Input.value = "";
+    updateStats(text2Input, "lines2", "chars2");
+  });
+
+  clearAllBtn?.addEventListener("click", () => {
+    text1Input.value = "";
+    text2Input.value = "";
+    updateStats(text1Input, "lines1", "chars1");
+    updateStats(text2Input, "lines2", "chars2");
+    outputSection!.style.display = "none";
+    currentDiff = null;
+  });
+
+  // Intercambiar textos
+  swapBtn?.addEventListener("click", () => {
+    const temp = text1Input.value;
+    text1Input.value = text2Input.value;
+    text2Input.value = temp;
+    updateStats(text1Input, "lines1", "chars1");
+    updateStats(text2Input, "lines2", "chars2");
+  });
+
+  // Comparar textos
+  compareBtn?.addEventListener("click", () => {
+    const text1 = text1Input.value;
+    const text2 = text2Input.value;
+
+    if (!text1.trim() && !text2.trim()) {
+      showToast(
+        "Por favor, ingresa al menos un texto para comparar",
+        "warning"
+      );
+      return;
+    }
+
+    currentDiff = computeDiff(text1, text2);
+    renderDiff(currentDiff);
+    outputSection!.style.display = "block";
+    outputSection!.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  });
+
+  // Algoritmo de diff (simple línea por línea)
+  function computeDiff(text1: string, text2: string): DiffResult {
+    let lines1 = text1.split("\n");
+    let lines2 = text2.split("\n");
+
+    // Aplicar configuraciones
+    if (ignoreWhitespaceCheck?.checked) {
+      lines1 = lines1.map((l) => l.trim());
+      lines2 = lines2.map((l) => l.trim());
+    }
+
+    if (ignoreCaseCheck?.checked) {
+      lines1 = lines1.map((l) => l.toLowerCase());
+      lines2 = lines2.map((l) => l.toLowerCase());
+    }
+
+    const result: DiffLine[] = [];
+    const stats = { added: 0, removed: 0, changed: 0, unchanged: 0 };
+
+    const maxLines = Math.max(lines1.length, lines2.length);
+
+    for (let i = 0; i < maxLines; i++) {
+      const line1 = lines1[i] || "";
+      const line2 = lines2[i] || "";
+
+      if (i >= lines1.length) {
+        // Línea añadida
+        result.push({
+          type: "added",
+          lineNumber1: null,
+          lineNumber2: i + 1,
+          content1: "",
+          content2: line2,
+        });
+        stats.added++;
+      } else if (i >= lines2.length) {
+        // Línea eliminada
+        result.push({
+          type: "removed",
+          lineNumber1: i + 1,
+          lineNumber2: null,
+          content1: line1,
+          content2: "",
+        });
+        stats.removed++;
+      } else if (line1 === line2) {
+        // Línea sin cambios
+        result.push({
+          type: "unchanged",
+          lineNumber1: i + 1,
+          lineNumber2: i + 1,
+          content1: line1,
+          content2: line2,
+        });
+        stats.unchanged++;
+      } else {
+        // Línea modificada
+        result.push({
+          type: "changed",
+          lineNumber1: i + 1,
+          lineNumber2: i + 1,
+          content1: line1,
+          content2: line2,
+        });
+        stats.changed++;
+      }
+    }
+
+    return { lines: result, stats };
+  }
+
+  // Renderizar diff
+  function renderDiff(diff: DiffResult) {
+    // Actualizar stats
+    if (addedCountEl) addedCountEl.textContent = diff.stats.added.toString();
+    if (removedCountEl)
+      removedCountEl.textContent = diff.stats.removed.toString();
+    if (changedCountEl)
+      changedCountEl.textContent = diff.stats.changed.toString();
+    if (unchangedCountEl)
+      unchangedCountEl.textContent = diff.stats.unchanged.toString();
+
+    // Renderizar diff
+    if (!diffContainer) return;
+
+    const showLineNumbers = showLineNumbersCheck?.checked ?? true;
+    const sideBySide = sideBySideCheck?.checked ?? true;
+
+    if (sideBySide) {
+      renderSideBySide(diff, showLineNumbers);
+    } else {
+      renderUnified(diff, showLineNumbers);
+    }
+  }
+
+  function renderSideBySide(diff: DiffResult, showLineNumbers: boolean) {
+    if (!diffContainer) return;
+
+    let html = '<div class="diff-side-by-side">';
+
+    // Panel izquierdo (original)
+    html += '<div class="diff-panel">';
+    html += '<div class="diff-panel-header">Texto Original</div>';
+    diff.lines.forEach((line) => {
+      const lineClass =
+        line.type === "removed"
+          ? "line-removed"
+          : line.type === "changed"
+            ? "line-changed"
+            : "line-unchanged";
+      const content = line.content1 || (line.type === "added" ? "" : " ");
+
+      html += `<div class="diff-line ${lineClass}">`;
+      if (showLineNumbers) {
+        html += `<span class="line-number">${line.lineNumber1 || ""}</span>`;
+      }
+      html += `<span class="line-content">${escapeHtml(content)}</span>`;
+      html += "</div>";
+    });
+    html += "</div>";
+
+    // Panel derecho (modificado)
+    html += '<div class="diff-panel">';
+    html += '<div class="diff-panel-header">Texto Modificado</div>';
+    diff.lines.forEach((line) => {
+      const lineClass =
+        line.type === "added"
+          ? "line-added"
+          : line.type === "changed"
+            ? "line-changed"
+            : "line-unchanged";
+      const content = line.content2 || (line.type === "removed" ? "" : " ");
+
+      html += `<div class="diff-line ${lineClass}">`;
+      if (showLineNumbers) {
+        html += `<span class="line-number">${line.lineNumber2 || ""}</span>`;
+      }
+      html += `<span class="line-content">${escapeHtml(content)}</span>`;
+      html += "</div>";
+    });
+    html += "</div>";
+
+    html += "</div>";
+    diffContainer.innerHTML = html;
+  }
+
+  function renderUnified(diff: DiffResult, showLineNumbers: boolean) {
+    if (!diffContainer) return;
+
+    let html = "";
+    diff.lines.forEach((line) => {
+      const lineClass = `line-${line.type}`;
+      const content = line.type === "removed" ? line.content1 : line.content2;
+      const prefix =
+        line.type === "added" ? "+ " : line.type === "removed" ? "- " : "  ";
+
+      html += `<div class="diff-line ${lineClass}">`;
+      if (showLineNumbers) {
+        html += `<span class="line-number">${line.lineNumber1 || line.lineNumber2 || ""}</span>`;
+      }
+      html += `<span class="line-content">${prefix}${escapeHtml(content)}</span>`;
+      html += "</div>";
+    });
+
+    diffContainer.innerHTML = html;
+  }
+
+  // Exportar diff
+  exportDiffBtn?.addEventListener("click", () => {
+    if (!currentDiff) return;
+
+    const diffText = generateDiffText(currentDiff);
+    const blob = new Blob([diffText], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `text-diff-${Date.now()}.diff`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast("Diff exportado correctamente", "success");
+  });
+
+  // Copiar diff
+  copyDiffBtn?.addEventListener("click", async () => {
+    if (!currentDiff) return;
+
+    const diffText = generateDiffText(currentDiff);
+    try {
+      await navigator.clipboard.writeText(diffText);
+      showToast("Diff copiado al portapapeles", "success");
+    } catch (error) {
+      showToast("Error al copiar al portapapeles", "error");
+    }
+  });
+
+  function generateDiffText(diff: DiffResult): string {
+    let text = "--- Original\n+++ Modificado\n\n";
+
+    diff.lines.forEach((line) => {
+      if (line.type === "added") {
+        text += `+ ${line.content2}\n`;
+      } else if (line.type === "removed") {
+        text += `- ${line.content1}\n`;
+      } else if (line.type === "changed") {
+        text += `- ${line.content1}\n`;
+        text += `+ ${line.content2}\n`;
+      } else {
+        text += `  ${line.content1}\n`;
+      }
+    });
+
+    text += `\n--- Stats ---\n`;
+    text += `Added: ${diff.stats.added}\n`;
+    text += `Removed: ${diff.stats.removed}\n`;
+    text += `Changed: ${diff.stats.changed}\n`;
+    text += `Unchanged: ${diff.stats.unchanged}\n`;
+
+    return text;
+  }
+
+  // Utilities
+  function escapeHtml(text: string): string {
+    const div = document.createElement("div");
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  function showToast(
+    message: string,
+    type: "success" | "error" | "warning" = "success"
+  ) {
+    const toast = document.createElement("div");
+    toast.className = `toast toast-${type}`;
+    toast.textContent = message;
+    toast.style.cssText = `
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      padding: 1rem 1.5rem;
+      background: ${type === "success" ? "#10b981" : type === "error" ? "#ef4444" : "#f59e0b"};
+      color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      z-index: 1000;
+      animation: slideIn 0.3s ease;
+    `;
+
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 3000);
+  }
+
+  // Inicializar
+  updateStats(text1Input, "lines1", "chars1");
+  updateStats(text2Input, "lines2", "chars2");
+</script>
