@@ -1,4 +1,6 @@
 ---
+import FavoritesBar from '../components/FavoritesBar.astro';
+
 interface Props {
 	title?: string;
 	description?: string;
@@ -182,6 +184,9 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
 		</script>
 	</head>
 	<body>
+		<!-- Favorites Bar - Acceso rápido a herramientas favoritas -->
+		<FavoritesBar />
+		
 		<slot />
 		
 		<!-- Firebase Initialization and Analytics -->
@@ -453,5 +458,107 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
 	::-moz-selection {
 		background-color: var(--color-primary);
 		color: var(--color-white);
+	}
+	
+	/* === TOAST NOTIFICATIONS === */
+	.favorites-toast {
+		position: fixed;
+		bottom: 2rem;
+		left: 50%;
+		transform: translateX(-50%) translateY(100px);
+		background: white;
+		color: #18181b;
+		padding: 1rem 1.5rem;
+		border-radius: 12px;
+		box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+		font-size: 0.875rem;
+		font-weight: 600;
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		z-index: 9999;
+		opacity: 0;
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		pointer-events: none;
+		border: 1px solid #e4e4e7;
+	}
+	
+	.favorites-toast.show {
+		opacity: 1;
+		transform: translateX(-50%) translateY(0);
+	}
+	
+	.favorites-toast .toast-icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 20px;
+		height: 20px;
+		border-radius: 50%;
+		font-size: 0.75rem;
+	}
+	
+	.favorites-toast-success {
+		border-left: 4px solid #10b981;
+	}
+	
+	.favorites-toast-success .toast-icon {
+		background: #d1fae5;
+		color: #059669;
+	}
+	
+	.favorites-toast-warning {
+		border-left: 4px solid #f59e0b;
+	}
+	
+	.favorites-toast-warning .toast-icon {
+		background: #fef3c7;
+		color: #d97706;
+	}
+	
+	.favorites-toast-error {
+		border-left: 4px solid #ef4444;
+	}
+	
+	.favorites-toast-error .toast-icon {
+		background: #fee2e2;
+		color: #dc2626;
+	}
+	
+	/* Dark Mode Toast */
+	.dark-mode .favorites-toast {
+		background: #1e293b;
+		color: #f8fafc;
+		border-color: #334155;
+		box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+	}
+	
+	.dark-mode .favorites-toast-success .toast-icon {
+		background: rgba(16, 185, 129, 0.2);
+		color: #34d399;
+	}
+	
+	.dark-mode .favorites-toast-warning .toast-icon {
+		background: rgba(245, 158, 11, 0.2);
+		color: #fbbf24;
+	}
+	
+	.dark-mode .favorites-toast-error .toast-icon {
+		background: rgba(239, 68, 68, 0.2);
+		color: #f87171;
+	}
+	
+	/* Responsive Toast */
+	@media (max-width: 640px) {
+		.favorites-toast {
+			bottom: 1rem;
+			left: 1rem;
+			right: 1rem;
+			transform: translateX(0) translateY(100px);
+		}
+		
+		.favorites-toast.show {
+			transform: translateX(0) translateY(0);
+		}
 	}
 </style>

@@ -102,6 +102,12 @@ User Request → Static HTML (Astro) → Client Hydration → User Interaction �
 - **qrcode ^1.5.4** - QR code generation
 - **dompurify ^3.3.0** - HTML sanitization
 
+### Sistema de Favoritos
+
+- **localStorage** - Persistencia local de favoritos (máximo 8 herramientas)
+- **Custom Events** - Comunicación entre componentes para actualizar UI
+- **Toast Notifications** - Feedback visual de acciones
+
 ### Servicios
 
 - **Firebase 12.4.0**
@@ -133,6 +139,7 @@ red-remnant/
 │   │   ├── AboutSection.astro
 │   │   ├── AdSenseBanner.astro
 │   │   ├── AdManager.astro
+│   │   ├── FavoritesBar.astro # Barra de favoritos flotante
 │   │   ├── FeaturesSection.astro
 │   │   ├── FloatingSupportBanner.astro
 │   │   ├── Footer.astro       # Footer global
@@ -140,7 +147,7 @@ red-remnant/
 │   │   ├── MaintenanceMode.astro
 │   │   ├── SupportBanner.astro
 │   │   ├── ThemeToggle.astro  # Dark mode toggle
-│   │   ├── ToolCard.astro     # Card de herramienta
+│   │   ├── ToolCard.astro     # Card de herramienta con botón favorito
 │   │   ├── ToolHeader.astro   # Header de cada tool
 │   │   └── Welcome.astro
 │   │
@@ -148,6 +155,7 @@ red-remnant/
 │   │   └── Layout.astro       # Layout base (meta tags, scripts)
 │   │
 │   ├── lib/
+│   │   ├── favorites.ts       # Sistema de favoritos (localStorage)
 │   │   └── firebase.ts        # Firebase config & helpers
 │   │
 │   ├── pages/                 # Rutas del sitio (file-based routing)
@@ -646,7 +654,70 @@ button:focus-visible {
 }
 ```
 
-### 8. Dark Mode
+### 8. Sistema de Favoritos
+
+#### ✅ DO: Usar el módulo favorites.ts
+
+```javascript
+import {
+  addFavorite,
+  removeFavorite,
+  isFavorite,
+  toggleFavorite,
+} from "../lib/favorites";
+
+// Agregar una herramienta a favoritos
+const tool = {
+  title: "MD to PDF",
+  href: "/md-to-pdf",
+  icon: `<svg>...</svg>`,
+};
+
+addFavorite(tool); // Agrega y muestra toast
+
+// Verificar si está en favoritos
+if (isFavorite("/md-to-pdf")) {
+  // Actualizar UI
+}
+
+// Alternar estado
+toggleFavorite(tool);
+```
+
+#### ✅ DO: Limitar a 8 favoritos máximo
+
+El sistema automáticamente limita a 8 favoritos y muestra un toast de advertencia si se intenta agregar más.
+
+#### ✅ DO: Escuchar el evento personalizado
+
+```javascript
+window.addEventListener("favoritesChanged", (e) => {
+  const { favorites } = e.detail;
+  // Actualizar UI según sea necesario
+});
+```
+
+#### ✅ DO: Estructura de datos en ToolCard
+
+```astro
+---
+const toolData = JSON.stringify({ title, href, icon });
+---
+
+<button
+  data-favorite-btn
+  data-tool={toolData}
+  aria-label={`Agregar ${title} a favoritos`}
+>
+  <!-- SVG icons -->
+</button>
+```
+
+#### ❌ DON'T: Modificar directamente localStorage
+
+Siempre usar las funciones del módulo `favorites.ts` para mantener consistencia y disparar eventos.
+
+### 9. Dark Mode
 
 #### ✅ DO: Usar clase global `.dark-mode`
 
@@ -674,6 +745,35 @@ function initTheme() {
   }
 }
 ```
+
+### 10. Toast Notifications
+
+#### ✅ DO: Usar el sistema de toasts integrado
+
+Los toasts se generan automáticamente desde el módulo `favorites.ts`:
+
+```javascript
+// Los toasts se muestran automáticamente al usar las funciones
+addFavorite(tool); // Muestra: "Agregado a favoritos" (success)
+removeFavorite(href); // Muestra: "Eliminado de favoritos" (success)
+
+// Límite alcanzado
+addFavorite(tool); // Muestra: "Máximo 8 favoritos permitidos" (warning)
+```
+
+#### Tipos de Toast
+
+- **success** - Fondo verde, icono ✓
+- **warning** - Fondo amarillo, icono ⚠
+- **error** - Fondo rojo, icono ✕
+
+#### Características
+
+- Auto-dismiss en 3 segundos
+- Animación suave de entrada/salida
+- Solo uno visible a la vez
+- Responsive (cambia posición en móvil)
+- Dark mode support
 
 ---
 
@@ -1214,6 +1314,7 @@ PUBLIC_FIREBASE_PROJECT_ID=your_project
 - [ ] Definir meta tags (title, description, OG tags)
 - [ ] Crear icono SVG único para la herramienta
 - [ ] Agregar a sitemap.xml
+- [ ] Agregar ToolCard en landing page (incluye botón de favorito automático)
 
 #### 3. Estructura HTML
 

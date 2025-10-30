@@ -1,0 +1,533 @@
+---
+/**
+ * FavoritesBar Component
+ * Barra flotante lateral con las herramientas favoritas del usuario
+ * - Colapsable/expandible
+ * - Persiste estado en localStorage
+ * - Scroll interno si hay muchos favoritos
+ * - Accesibilidad completa (ARIA, keyboard navigation)
+ * - Seguridad (XSS prevention)
+ */
+---
+
+<aside
+  class="favorites-bar"
+  id="favoritesBar"
+  role="complementary"
+  aria-label="Panel de herramientas favoritas"
+>
+  <button
+    class="favorites-header"
+    id="favoritesToggle"
+    aria-label="Abrir/cerrar panel de favoritos"
+    aria-expanded="true"
+    aria-controls="favoritesList"
+  >
+    <div class="favorites-title">
+      <svg
+        class="star-icon"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+        <path
+          d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
+        ></path>
+      </svg>
+      <span>Favoritos</span>
+    </div>
+    <svg
+      class="chevron"
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <path
+        d="M15 18L9 12L15 6"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"></path>
+    </svg>
+  </button>
+
+  <div
+    class="favorites-list"
+    id="favoritesList"
+    role="list"
+    aria-label="Lista de herramientas favoritas"
+  >
+    <!-- Los items se llenan dinámicamente -->
+  </div>
+</aside>
+
+<style>
+  .favorites-bar {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%) translateX(0);
+    width: 280px;
+    max-height: 380px; /* Altura reducida: header + ~2.5 items */
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    border-radius: 16px 0 0 16px;
+    box-shadow: -4px 0 24px rgba(139, 92, 246, 0.3);
+    z-index: 1000;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .favorites-bar.collapsed {
+    transform: translateY(-50%) translateX(calc(100% - 50px));
+  }
+
+  .favorites-header {
+    background: transparent;
+    border: none;
+    color: white;
+    padding: 1.25rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-shrink: 0;
+    transition: background 0.2s;
+    width: 100%;
+  }
+
+  .favorites-header:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .favorites-header:focus-visible {
+    outline: 2px solid white;
+    outline-offset: -2px;
+  }
+
+  .favorites-title {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  .star-icon {
+    color: #fbbf24;
+  }
+
+  .chevron {
+    transition: transform 0.3s;
+    flex-shrink: 0;
+  }
+
+  .favorites-bar.collapsed .chevron {
+    transform: rotate(180deg);
+  }
+
+  .favorites-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0 0.75rem 0.75rem 0.75rem;
+    max-height: 240px; /* Máximo ~2.5 items - más compacto */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+  }
+
+  .favorites-list::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .favorites-list::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .favorites-list::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+  }
+
+  .favorites-list::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+  }
+
+  /* Estilos globales para elementos dinámicos */
+  :global(.favorite-item) {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    border-radius: 12px;
+    text-decoration: none;
+    color: white !important;
+    background: rgba(255, 255, 255, 0.1);
+    transition: all 0.2s ease;
+    position: relative;
+    margin-bottom: 0.5rem;
+  }
+
+  :global(.favorite-item:hover) {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateX(-4px);
+  }
+
+  :global(.favorite-item:focus-visible) {
+    outline: 2px solid white;
+    outline-offset: 2px;
+  }
+
+  :global(.favorite-item:last-child) {
+    margin-bottom: 0;
+  }
+
+  :global(.favorite-icon) {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+  }
+
+  :global(.favorite-icon svg) {
+    width: 24px;
+    height: 24px;
+    fill: white !important;
+    stroke: white !important;
+  }
+
+  :global(.favorite-title) {
+    flex: 1;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: white !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  :global(.favorite-remove) {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 6px;
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  :global(.favorite-item:hover .favorite-remove) {
+    opacity: 1;
+  }
+
+  :global(.favorite-remove:hover) {
+    background: rgba(239, 68, 68, 0.9);
+    transform: scale(1.1);
+  }
+
+  :global(.favorite-remove:focus-visible) {
+    opacity: 1;
+    outline: 2px solid white;
+    outline-offset: 2px;
+  }
+
+  :global(.favorite-remove svg) {
+    width: 14px;
+    height: 14px;
+    fill: white !important;
+    stroke: white !important;
+  }
+
+  :global(.empty-state) {
+    padding: 2rem 1rem;
+    text-align: center;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  :global(.empty-state svg) {
+    opacity: 0.5;
+    stroke: white !important;
+    fill: none !important;
+  }
+
+  :global(.empty-state p) {
+    font-weight: 600;
+    font-size: 1rem;
+    margin: 0;
+    color: white;
+  }
+
+  :global(.empty-hint) {
+    font-size: 0.85rem;
+    opacity: 0.8;
+    line-height: 1.5;
+    color: white;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .favorites-bar {
+      width: 260px;
+      max-height: 360px; /* Altura reducida en tablets */
+    }
+
+    .favorites-list {
+      max-height: 230px; /* Ajustar para tablets */
+    }
+
+    .favorites-bar.collapsed {
+      transform: translateY(-50%) translateX(calc(100% - 45px));
+    }
+
+    .favorites-header {
+      padding: 1rem;
+    }
+
+    :global(.favorite-item) {
+      padding: 0.625rem;
+    }
+
+    :global(.favorite-icon) {
+      width: 32px;
+      height: 32px;
+      min-width: 32px;
+    }
+
+    :global(.favorite-icon svg) {
+      width: 20px;
+      height: 20px;
+    }
+
+    :global(.favorite-title) {
+      font-size: 0.85rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .favorites-bar {
+      width: 240px;
+      max-height: 340px; /* Altura reducida en móviles */
+      border-radius: 12px 0 0 12px;
+    }
+
+    .favorites-list {
+      max-height: 220px; /* Ajustar para móviles */
+    }
+
+    .favorites-bar.collapsed {
+      transform: translateY(-50%) translateX(calc(100% - 40px));
+    }
+
+    .favorites-header {
+      padding: 0.875rem;
+    }
+
+    .favorites-title {
+      font-size: 0.9rem;
+    }
+
+    .star-icon,
+    .chevron {
+      width: 18px;
+      height: 18px;
+    }
+
+    :global(.favorite-item) {
+      padding: 0.5rem;
+      border-radius: 10px;
+    }
+
+    :global(.favorite-icon) {
+      width: 28px;
+      height: 28px;
+      min-width: 28px;
+    }
+
+    :global(.favorite-icon svg) {
+      width: 18px;
+      height: 18px;
+    }
+
+    :global(.favorite-title) {
+      font-size: 0.8rem;
+    }
+
+    :global(.favorite-remove) {
+      width: 24px;
+      height: 24px;
+      min-width: 24px;
+    }
+
+    :global(.favorite-remove svg) {
+      width: 12px;
+      height: 12px;
+    }
+  }
+
+  /* Extra small screens */
+  @media (max-width: 375px) {
+    .favorites-bar {
+      width: 220px;
+      max-height: 320px;
+    }
+
+    .favorites-list {
+      max-height: 200px;
+    }
+
+    .favorites-bar.collapsed {
+      transform: translateY(-50%) translateX(calc(100% - 38px));
+    }
+  }
+
+  /* Dark mode */
+  :global(.dark-mode) .favorites-bar {
+    box-shadow: -4px 0 24px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Print - ocultar */
+  @media print {
+    .favorites-bar {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  import { getFavorites, initFavoritesListeners } from "../lib/favorites";
+
+  // Inicializar listeners globales (solo una vez)
+  initFavoritesListeners();
+
+  // Referencias DOM
+  const favoritesBar = document.getElementById("favoritesBar");
+  const favoritesToggle = document.getElementById("favoritesToggle");
+  const favoritesList = document.getElementById("favoritesList");
+
+  // Estado colapsado
+  let isCollapsed =
+    localStorage.getItem("favorites_collapsed") === "true" || false;
+
+  /**
+   * Escapa HTML para prevenir XSS
+   */
+  function escapeHtml(text: string): string {
+    const div = document.createElement("div");
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  /**
+   * Renderiza la lista de favoritos con seguridad y accesibilidad
+   */
+  function renderFavorites(): void {
+    if (!favoritesList) return;
+
+    const favorites = getFavorites();
+
+    if (favorites.length === 0) {
+      favoritesList.innerHTML = `
+        <div class="empty-state" role="status" aria-live="polite">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          </svg>
+          <p>No hay favoritos aún</p>
+          <span class="empty-hint">Marca tus herramientas favoritas para acceder rápidamente</span>
+        </div>
+      `;
+      return;
+    }
+
+    // Renderizar con sanitización
+    favoritesList.innerHTML = favorites
+      .map(
+        (fav) => `
+        <a href="${escapeHtml(fav.href)}" class="favorite-item" role="listitem">
+          <div class="favorite-icon" aria-hidden="true">${fav.icon}</div>
+          <span class="favorite-title">${escapeHtml(fav.title)}</span>
+          <button 
+            class="favorite-remove" 
+            data-remove-favorite
+            data-href="${escapeHtml(fav.href)}"
+            aria-label="Remover ${escapeHtml(fav.title)} de favoritos"
+            title="Remover de favoritos"
+            type="button"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </a>
+      `
+      )
+      .join("");
+  }
+
+  /**
+   * Alterna estado colapsado/expandido con ARIA
+   */
+  function toggleCollapsed(): void {
+    isCollapsed = !isCollapsed;
+    localStorage.setItem("favorites_collapsed", String(isCollapsed));
+    favoritesBar?.classList.toggle("collapsed", isCollapsed);
+    favoritesToggle?.setAttribute("aria-expanded", String(!isCollapsed));
+  }
+
+  /**
+   * Inicializa la barra de favoritos
+   */
+  function initFavoritesBar(): void {
+    // Estado inicial
+    if (isCollapsed) {
+      favoritesBar?.classList.add("collapsed");
+      favoritesToggle?.setAttribute("aria-expanded", "false");
+    }
+
+    // Renderizar favoritos iniciales
+    renderFavorites();
+
+    // Listener para toggle
+    favoritesToggle?.addEventListener("click", toggleCollapsed);
+
+    // Keyboard navigation
+    favoritesToggle?.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        toggleCollapsed();
+      }
+    });
+
+    // Escuchar cambios en favoritos (desde otros componentes)
+    window.addEventListener("favoritesChanged", () => {
+      renderFavorites();
+    });
+  }
+
+  // Inicializar cuando el DOM esté listo
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initFavoritesBar);
+  } else {
+    initFavoritesBar();
+  }
+</script>

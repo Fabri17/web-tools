@@ -1,237 +1,439 @@
 ---
 interface Props {
-	title: string;
-	description: string;
-	icon: string;
-	href: string;
-	tags?: string[];
-	comingSoon?: boolean;
+  title: string;
+  description: string;
+  icon: string;
+  href: string;
+  tags?: string[];
+  comingSoon?: boolean;
 }
 
-const { title, description, icon, href, tags = [], comingSoon = false } = Astro.props;
+const {
+  title,
+  description,
+  icon,
+  href,
+  tags = [],
+  comingSoon = false,
+} = Astro.props;
+
+// Preparar datos de la herramienta para favoritos
+const toolData = JSON.stringify({ title, href, icon });
 ---
 
-<a href={comingSoon ? '#' : href} class={`tool-card ${comingSoon ? 'coming-soon' : ''}`}>
-	{comingSoon && <div class="coming-soon-badge">Próximamente</div>}
-	
-	<div class="tool-icon" set:html={icon}></div>
-	
-	<div class="tool-content">
-		<h3>{title}</h3>
-		<p>{description}</p>
-		
-		{tags.length > 0 && (
-			<div class="tool-tags">
-				{tags.map(tag => (
-					<span class="tag">{tag}</span>
-				))}
-			</div>
-		)}
-	</div>
-	
-	<div class="tool-arrow">
-		<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-			<path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-		</svg>
-	</div>
-</a>
+<div class="tool-card-wrapper">
+  {comingSoon && <div class="coming-soon-badge">Próximamente</div>}
+
+  {
+    !comingSoon && (
+      <button
+        class="favorite-btn"
+        data-favorite-btn
+        data-tool={toolData}
+        aria-label={`Agregar ${title} a favoritos`}
+        title="Agregar a favoritos"
+      >
+        <svg
+          class="star-outline"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <svg
+          class="star-filled"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
+        </svg>
+      </button>
+    )
+  }
+
+  <a
+    href={comingSoon ? "#" : href}
+    class={`tool-card ${comingSoon ? "coming-soon" : ""}`}
+    data-tool-href={href}
+  >
+    <div class="tool-icon" set:html={icon} />
+
+    <div class="tool-content">
+      <h3>{title}</h3>
+      <p>{description}</p>
+
+      {
+        tags.length > 0 && (
+          <div class="tool-tags">
+            {tags.map((tag) => (
+              <span class="tag">{tag}</span>
+            ))}
+          </div>
+        )
+      }
+    </div>
+
+    <div class="tool-arrow">
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M5 12H19M19 12L12 5M19 12L12 19"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+      </svg>
+    </div>
+  </a>
+</div>
 
 <style>
-	.tool-card {
-		position: relative;
-		display: flex;
-		flex-direction: column;
-		gap: 1.25rem;
-		padding: 2rem;
-		background: white;
-		border: 1px solid #e4e4e7;
-		border-radius: 16px;
-		text-decoration: none;
-		color: #18181b;
-		transition: all 0.3s ease;
-		overflow: hidden;
-		cursor: pointer;
-	}
-	
-	.tool-card::before {
-		content: '';
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background: linear-gradient(135deg, rgba(139, 92, 246, 0.05) 0%, rgba(192, 132, 252, 0.05) 100%);
-		opacity: 0;
-		transition: opacity 0.3s ease;
-	}
-	
-	.tool-card:hover::before {
-		opacity: 1;
-	}
-	
-	.tool-card:hover {
-		transform: translateY(-4px);
-		box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-		border-color: #c084fc;
-	}
-	
-	.tool-card.coming-soon {
-		opacity: 0.6;
-		cursor: not-allowed;
-	}
-	
-	.tool-card.coming-soon:hover {
-		transform: none;
-		box-shadow: none;
-		border-color: #e4e4e7;
-	}
-	
-	.coming-soon-badge {
-		position: absolute;
-		top: 1rem;
-		right: 1rem;
-		background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-		color: white;
-		padding: 0.375rem 0.875rem;
-		border-radius: 20px;
-		font-size: 0.75rem;
-		font-weight: 600;
-		z-index: 1;
-		box-shadow: 0 2px 8px rgba(251, 191, 36, 0.3);
-	}
-	
-	.tool-icon {
-		position: relative;
-		width: 64px;
-		height: 64px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		background: linear-gradient(135deg, #8b5cf6 0%, #c084fc 100%);
-		border-radius: 16px;
-		box-shadow: 0 8px 24px rgba(139, 92, 246, 0.2);
-		z-index: 1;
-	}
-	
-	.tool-icon :global(svg) {
-		width: 32px;
-		height: 32px;
-		color: white;
-	}
-	
-	.tool-content {
-		position: relative;
-		flex: 1;
-		z-index: 1;
-	}
-	
-	.tool-content h3 {
-		font-size: 1.5rem;
-		font-weight: 700;
-		margin-bottom: 0.5rem;
-		color: #18181b;
-	}
-	
-	.tool-content p {
-		font-size: 1rem;
-		color: #52525b;
-		line-height: 1.6;
-		margin-bottom: 1rem;
-	}
-	
-	.tool-tags {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.5rem;
-		margin-top: 1rem;
-	}
-	
-	.tag {
-		display: inline-block;
-		padding: 0.25rem 0.75rem;
-		background: #f4f4f5;
-		color: #52525b;
-		border-radius: 20px;
-		font-size: 0.875rem;
-		font-weight: 500;
-	}
-	
-	.tool-arrow {
-		position: relative;
-		display: flex;
-		align-items: center;
-		justify-content: flex-end;
-		color: #8b5cf6;
-		opacity: 0;
-		transform: translateX(-10px);
-		transition: all 0.3s ease;
-		z-index: 1;
-	}
-	
-	.tool-card:hover .tool-arrow {
-		opacity: 1;
-		transform: translateX(0);
-	}
-	
-	.tool-card.coming-soon .tool-arrow {
-		display: none;
-	}
-	
-	@media (max-width: 768px) {
-		.tool-card {
-			padding: 1.5rem;
-		}
-		
-		.tool-icon {
-			width: 56px;
-			height: 56px;
-		}
-		
-		.tool-icon :global(svg) {
-			width: 28px;
-			height: 28px;
-		}
-		
-		.tool-content h3 {
-			font-size: 1.25rem;
-		}
-		
-		.tool-content p {
-			font-size: 0.9375rem;
-		}
-	}
+  .tool-card-wrapper {
+    position: relative;
+  }
 
-	/* Dark Mode */
-	:global(.dark-mode) .tool-card {
-		background: #1e293b;
-		border-color: #334155;
-		color: #f8fafc;
-	}
+  .tool-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 2rem;
+    background: white;
+    border: 1px solid #e4e4e7;
+    border-radius: 16px;
+    text-decoration: none;
+    color: #18181b;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    cursor: pointer;
+  }
 
-	:global(.dark-mode) .tool-card:hover {
-		border-color: #8b5cf6;
-		box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-	}
+  .tool-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(139, 92, 246, 0.05) 0%,
+      rgba(192, 132, 252, 0.05) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
 
-	:global(.dark-mode) .tool-card.coming-soon:hover {
-		border-color: #334155;
-		box-shadow: none;
-	}
+  .tool-card:hover::before {
+    opacity: 1;
+  }
 
-	:global(.dark-mode) .tool-content h3 {
-		color: #f8fafc;
-	}
+  .tool-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+    border-color: #c084fc;
+  }
 
-	:global(.dark-mode) .tool-content p {
-		color: #cbd5e1;
-	}
+  .tool-card.coming-soon {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
 
-	:global(.dark-mode) .tag {
-		background: #334155;
-		color: #cbd5e1;
-	}
+  .tool-card.coming-soon:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: #e4e4e7;
+  }
 
-	:global(.dark-mode) .tool-arrow {
-		color: #c084fc;
-	}
+  .coming-soon-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    color: white;
+    padding: 0.375rem 0.875rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    z-index: 1;
+    box-shadow: 0 2px 8px rgba(251, 191, 36, 0.3);
+  }
+
+  .tool-icon {
+    position: relative;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #8b5cf6 0%, #c084fc 100%);
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(139, 92, 246, 0.2);
+    z-index: 1;
+  }
+
+  .tool-icon :global(svg) {
+    width: 32px;
+    height: 32px;
+    color: white;
+  }
+
+  .tool-content {
+    position: relative;
+    flex: 1;
+    z-index: 1;
+  }
+
+  .tool-content h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #18181b;
+  }
+
+  .tool-content p {
+    font-size: 1rem;
+    color: #52525b;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .tool-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: #f4f4f5;
+    color: #52525b;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .tool-arrow {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    color: #8b5cf6;
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: all 0.3s ease;
+    z-index: 1;
+  }
+
+  .tool-card:hover .tool-arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .tool-card.coming-soon .tool-arrow {
+    display: none;
+  }
+
+  /* Favorite Button */
+  .favorite-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: white;
+    border: 1px solid #e4e4e7;
+    border-radius: 8px;
+    padding: 0.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+
+  .favorite-btn:focus {
+    outline: 2px solid #8b5cf6;
+    outline-offset: 2px;
+  }
+
+  .favorite-btn:hover {
+    transform: scale(1.1);
+    border-color: #fbbf24;
+    box-shadow: 0 4px 12px rgba(251, 191, 36, 0.2);
+  }
+
+  .favorite-btn:active {
+    transform: scale(0.95);
+  }
+
+  .favorite-btn .star-outline {
+    color: #d1d5db;
+    display: block;
+  }
+
+  .favorite-btn .star-filled {
+    color: #fbbf24;
+    display: none;
+  }
+
+  .favorite-btn.is-favorite .star-outline {
+    display: none;
+  }
+
+  .favorite-btn.is-favorite .star-filled {
+    display: block;
+    animation: starPop 0.3s ease;
+  }
+
+  @keyframes starPop {
+    0% {
+      transform: scale(0.8);
+      opacity: 0;
+    }
+    50% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .tool-card {
+      padding: 1.5rem;
+    }
+
+    .tool-icon {
+      width: 56px;
+      height: 56px;
+    }
+
+    .tool-icon :global(svg) {
+      width: 28px;
+      height: 28px;
+    }
+
+    .tool-content h3 {
+      font-size: 1.25rem;
+    }
+
+    .tool-content p {
+      font-size: 0.9375rem;
+    }
+
+    /* Favorite button más pequeño y mejor posicionado en mobile */
+    .favorite-btn {
+      top: 0.875rem;
+      right: 0.875rem;
+      padding: 0.5rem;
+      border-radius: 10px;
+    }
+
+    .favorite-btn svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  /* Dark Mode */
+  :global(.dark-mode) .tool-card {
+    background: #1e293b;
+    border-color: #334155;
+    color: #f8fafc;
+  }
+
+  :global(.dark-mode) .tool-card:hover {
+    border-color: #8b5cf6;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  }
+
+  :global(.dark-mode) .tool-card.coming-soon:hover {
+    border-color: #334155;
+    box-shadow: none;
+  }
+
+  :global(.dark-mode) .tool-content h3 {
+    color: #f8fafc;
+  }
+
+  :global(.dark-mode) .tool-content p {
+    color: #cbd5e1;
+  }
+
+  :global(.dark-mode) .tag {
+    background: #334155;
+    color: #cbd5e1;
+  }
+
+  :global(.dark-mode) .tool-arrow {
+    color: #c084fc;
+  }
+
+  :global(.dark-mode) .favorite-btn {
+    background: #1e293b;
+    border-color: #334155;
+  }
+
+  :global(.dark-mode) .favorite-btn:hover {
+    border-color: #fbbf24;
+    background: #334155;
+  }
+
+  :global(.dark-mode) .favorite-btn .star-outline {
+    color: #475569;
+  }
 </style>
+
+<script>
+  import { isFavorite } from "../lib/favorites";
+
+  /**
+   * Actualiza el estado visual de los botones de favorito en esta card
+   */
+  function updateFavoriteButtons() {
+    const favoriteButtons = document.querySelectorAll("[data-favorite-btn]");
+
+    favoriteButtons.forEach((button) => {
+      const toolData = button.getAttribute("data-tool");
+      if (toolData) {
+        try {
+          const tool = JSON.parse(toolData);
+          const isFav = isFavorite(tool.href);
+          button.classList.toggle("is-favorite", isFav);
+        } catch (error) {
+          console.error("Error updating favorite button:", error);
+        }
+      }
+    });
+  }
+
+  // Actualizar cuando el DOM esté listo
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", updateFavoriteButtons);
+  } else {
+    updateFavoriteButtons();
+  }
+
+  // Actualizar cuando cambien los favoritos
+  window.addEventListener("favoritesChanged", updateFavoriteButtons);
+</script>
