@@ -71,14 +71,14 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
 		<meta http-equiv="X-XSS-Protection" content="1; mode=block" />
 		<meta name="referrer" content="strict-origin-when-cross-origin" />
 		
-		<!-- AdSense Configuration -->
+		<!-- AdSense Configuration - ACTIVO PARA VERIFICACIÓN DURANTE REVISIÓN -->
 		<meta name="google-adsense-account" content="ca-pub-8126867540323247" />
 		<meta name="ads.txt" content="/ads.txt" />
 		
-		<!-- AdSense Script - Load early for better performance -->
-		<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8126867540323247" crossorigin="anonymous"></script>
+		<!-- AdSense Script - DESHABILITADO DURANTE REVISIÓN (no mostrar anuncios aún) -->
+		<!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8126867540323247" crossorigin="anonymous"></script> -->
 		
-		<!-- CSP - Content Security Policy -->
+		<!-- CSP - Content Security Policy - CONFIGURADO PARA REVISIÓN DE ADSENSE -->
 		<meta http-equiv="Content-Security-Policy" content="
 			default-src 'self';
 			script-src 'self' 'unsafe-inline' 'unsafe-eval' 

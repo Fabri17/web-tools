@@ -47,10 +47,11 @@ export const ADSENSE_CONFIG = {
   
   // Feature flags
   features: {
-    enableAds: true,
-    enableSupportBanners: true,
-    showAdsOnMobile: true,
-    respectDoNotTrack: true
+    enableAds: false, // Deshabilitado durante revisión de AdSense
+    enableSupportBanners: true, // Mantener banners de soporte activos
+    showAdsOnMobile: true, // Preparado para cuando se apruebe
+    respectDoNotTrack: true, // Respetar preferencias de privacidad
+    reviewMode: true // MODO REVISIÓN: Infraestructura lista pero sin mostrar anuncios
   }
 };
 

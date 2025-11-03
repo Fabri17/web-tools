@@ -17,8 +17,12 @@ const {
 
 // Import the config to get publisher ID
 import { ADSENSE_CONFIG } from "../lib/adsense";
+
+// Check if ads are enabled at build time
+const adsEnabled = ADSENSE_CONFIG.features.enableAds;
 ---
 
+{adsEnabled ? (
 <div class={`ad-container ad-format-${adFormat} ${className}`}>
   <div class="ad-label">Publicidad</div>
   <ins
@@ -41,9 +45,15 @@ import { ADSENSE_CONFIG } from "../lib/adsense";
     }
   }
 
-  // Exact implementation as Google provides
+  // Only push to AdSense array if ads are enabled (checked at build time)
   (window.adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+) : (
+<!-- MODO REVISIÓN ADSENSE: Infraestructura preparada pero anuncios deshabilitados -->
+<div class={`ad-container ad-disabled ad-format-${adFormat} ${className}`} style="display: none;">
+  <!-- Los anuncios se activarán automáticamente después de la aprobación -->
+</div>
+)}
 
 <style>
   .ad-container {

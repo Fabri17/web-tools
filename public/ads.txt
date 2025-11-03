@@ -1,8 +1,10 @@
-# ads.txt file for WebTools Suite
-# Google AdSense
+# ads.txt file for WebTools Suite - CONFIGURADO PARA REVISIÓN DE ADSENSE
+# Este archivo es necesario para la verificación de propiedad durante el proceso de revisión
+
+# Google AdSense - ACTIVO PARA VERIFICACIÓN
 google.com, pub-8126867540323247, DIRECT, f08c47fec0942fa0
 
 # Instructions:
-# 1. Replace "YOUR_PUBLISHER_ID" with your actual AdSense publisher ID
-# 2. This file must be accessible at https://yourdomain.com/ads.txt
-# 3. Additional ad networks can be added here following the same format
+# 1. Este archivo debe estar accesible en https://yourdomain.com/ads.txt para la revisión
+# 2. Google necesita verificar la propiedad del sitio durante el proceso de aprobación
+# 3. Los anuncios están deshabilitados en el código hasta completar la revisión

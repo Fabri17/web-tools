@@ -17,17 +17,18 @@
   aria-label="Panel de herramientas favoritas"
 >
   <button
-    class="favorites-header"
+    class="favorites-toggle"
     id="favoritesToggle"
     aria-label="Abrir/cerrar panel de favoritos"
-    aria-expanded="true"
-    aria-controls="favoritesList"
+    aria-expanded="false"
+    aria-controls="favoritesPanel"
+    title="Favoritos"
   >
-    <div class="favorites-title">
+    <div class="toggle-content">
       <svg
         class="star-icon"
-        width="20"
-        height="20"
+        width="24"
+        height="24"
         viewBox="0 0 24 24"
         fill="currentColor"
         xmlns="http://www.w3.org/2000/svg"
@@ -37,108 +38,241 @@
           d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
         ></path>
       </svg>
-      <span>Favoritos</span>
+      <span class="favorites-count" id="favoritesCount">0</span>
     </div>
-    <svg
-      class="chevron"
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-    >
-      <path
-        d="M15 18L9 12L15 6"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"></path>
-    </svg>
+    <div class="ripple-effect"></div>
   </button>
 
   <div
-    class="favorites-list"
-    id="favoritesList"
-    role="list"
-    aria-label="Lista de herramientas favoritas"
+    class="favorites-panel"
+    id="favoritesPanel"
+    role="dialog"
+    aria-label="Panel de herramientas favoritas"
   >
-    <!-- Los items se llenan dinámicamente -->
+    <div class="panel-header">
+      <div class="panel-title">
+        <svg
+          class="star-icon"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <path
+            d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
+          ></path>
+        </svg>
+        <span>Favoritos</span>
+      </div>
+      <button
+        class="close-btn"
+        id="closeBtn"
+        aria-label="Cerrar panel de favoritos"
+        title="Cerrar"
+      >
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <path
+            d="M18 6L6 18M6 6L18 18"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path>
+        </svg>
+      </button>
+    </div>
+
+    <div
+      class="favorites-list"
+      id="favoritesList"
+      role="list"
+      aria-label="Lista de herramientas favoritas"
+    >
+      <!-- Los items se llenan dinámicamente -->
+    </div>
   </div>
 </aside>
 
 <style>
   .favorites-bar {
     position: fixed;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%) translateX(0);
-    width: 280px;
-    max-height: 380px; /* Altura reducida: header + ~2.5 items */
-    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
-    border-radius: 16px 0 0 16px;
-    box-shadow: -4px 0 24px rgba(139, 92, 246, 0.3);
-    z-index: 1000;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
+    right: 20px;
+    bottom: 20px;
+    z-index: 1001;
   }
 
-  .favorites-bar.collapsed {
-    transform: translateY(-50%) translateX(calc(100% - 50px));
-  }
-
-  .favorites-header {
-    background: transparent;
+  /* Botón circular flotante */
+  .favorites-toggle {
+    position: relative;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.95) 0%, rgba(124, 58, 237, 0.95) 100%);
     border: none;
-    color: white;
-    padding: 1.25rem;
     cursor: pointer;
     display: flex;
     align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+  }
+
+  .favorites-toggle:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 12px 32px rgba(139, 92, 246, 0.5);
+  }
+
+  .favorites-toggle:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  .favorites-toggle:focus-visible {
+    outline: 3px solid rgba(255, 255, 255, 0.8);
+    outline-offset: 2px;
+  }
+
+  .toggle-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+
+  .favorites-toggle .star-icon {
+    color: #fbbf24;
+  }
+
+  .favorites-count {
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    background: #ef4444;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 600;
+    border: 2px solid white;
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .favorites-count.visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* Efecto ripple */
+  .ripple-effect {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(0);
+    pointer-events: none;
+  }
+
+  /* Panel expandido */
+  .favorites-panel {
+    position: absolute;
+    bottom: 80px;
+    right: 0;
+    width: 320px;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.95) 0%, rgba(124, 58, 237, 0.95) 100%);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(139, 92, 246, 0.25);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transform: translateY(20px) scale(0.9);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    max-height: 400px;
+  }
+
+  .favorites-bar.expanded .favorites-panel {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .favorites-bar.expanded .favorites-toggle {
+    transform: scale(0.9);
+  }
+
+  /* Header del panel */
+  .panel-header {
+    display: flex;
+    align-items: center;
     justify-content: space-between;
-    gap: 1rem;
+    padding: 1.25rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     flex-shrink: 0;
-    transition: background 0.2s;
-    width: 100%;
   }
 
-  .favorites-header:hover {
-    background: rgba(255, 255, 255, 0.1);
-  }
-
-  .favorites-header:focus-visible {
-    outline: 2px solid white;
-    outline-offset: -2px;
-  }
-
-  .favorites-title {
+  .panel-title {
     display: flex;
     align-items: center;
     gap: 0.75rem;
     font-weight: 600;
     font-size: 1rem;
+    color: white;
   }
 
-  .star-icon {
+  .panel-title .star-icon {
     color: #fbbf24;
   }
 
-  .chevron {
-    transition: transform 0.3s;
-    flex-shrink: 0;
+  .close-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 8px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: white;
+    transition: all 0.2s ease;
   }
 
-  .favorites-bar.collapsed .chevron {
-    transform: rotate(180deg);
+  .close-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
   }
 
+  .close-btn:focus-visible {
+    outline: 2px solid white;
+    outline-offset: 2px;
+  }
+
+  /* Lista de favoritos */
   .favorites-list {
     flex: 1;
     overflow-y: auto;
-    padding: 0 0.75rem 0.75rem 0.75rem;
-    max-height: 240px; /* Máximo ~2.5 items - más compacto */
+    padding: 0.75rem;
+    min-height: 120px;
+    max-height: 300px;
     scrollbar-width: thin;
     scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
   }
@@ -201,8 +335,8 @@
   }
 
   :global(.favorite-icon svg) {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     fill: white !important;
     stroke: white !important;
   }
@@ -288,20 +422,44 @@
   /* Responsive */
   @media (max-width: 768px) {
     .favorites-bar {
-      width: 260px;
-      max-height: 360px; /* Altura reducida en tablets */
+      right: 15px;
+      bottom: 15px;
     }
 
-    .favorites-list {
-      max-height: 230px; /* Ajustar para tablets */
+    .favorites-toggle {
+      width: 56px;
+      height: 56px;
     }
 
-    .favorites-bar.collapsed {
-      transform: translateY(-50%) translateX(calc(100% - 45px));
+    .favorites-toggle .star-icon {
+      width: 20px;
+      height: 20px;
     }
 
-    .favorites-header {
+    .favorites-count {
+      width: 18px;
+      height: 18px;
+      font-size: 10px;
+      top: -10px;
+      right: -10px;
+    }
+
+    .favorites-panel {
+      width: 280px;
+      bottom: 70px;
+    }
+
+    .panel-header {
       padding: 1rem;
+    }
+
+    .panel-title {
+      font-size: 0.9rem;
+    }
+
+    .close-btn {
+      width: 28px;
+      height: 28px;
     }
 
     :global(.favorite-item) {
@@ -315,8 +473,8 @@
     }
 
     :global(.favorite-icon svg) {
-      width: 20px;
-      height: 20px;
+      width: 18px;
+      height: 18px;
     }
 
     :global(.favorite-title) {
@@ -326,29 +484,35 @@
 
   @media (max-width: 480px) {
     .favorites-bar {
-      width: 240px;
-      max-height: 340px; /* Altura reducida en móviles */
-      border-radius: 12px 0 0 12px;
+      right: 10px;
+      bottom: 10px;
     }
 
-    .favorites-list {
-      max-height: 220px; /* Ajustar para móviles */
+    .favorites-toggle {
+      width: 52px;
+      height: 52px;
     }
 
-    .favorites-bar.collapsed {
-      transform: translateY(-50%) translateX(calc(100% - 40px));
+    .favorites-toggle .star-icon {
+      width: 18px;
+      height: 18px;
     }
 
-    .favorites-header {
+    .favorites-panel {
+      width: 260px;
+      bottom: 65px;
+    }
+
+    .panel-header {
       padding: 0.875rem;
     }
 
-    .favorites-title {
-      font-size: 0.9rem;
+    .panel-title {
+      font-size: 0.85rem;
+      gap: 0.5rem;
     }
 
-    .star-icon,
-    .chevron {
+    .panel-title .star-icon {
       width: 18px;
       height: 18px;
     }
@@ -365,8 +529,8 @@
     }
 
     :global(.favorite-icon svg) {
-      width: 18px;
-      height: 18px;
+      width: 16px;
+      height: 16px;
     }
 
     :global(.favorite-title) {
@@ -385,25 +549,38 @@
     }
   }
 
-  /* Extra small screens */
   @media (max-width: 375px) {
     .favorites-bar {
-      width: 220px;
-      max-height: 320px;
+      right: 8px;
+      bottom: 8px;
     }
 
-    .favorites-list {
-      max-height: 200px;
+    .favorites-toggle {
+      width: 48px;
+      height: 48px;
     }
 
-    .favorites-bar.collapsed {
-      transform: translateY(-50%) translateX(calc(100% - 38px));
+    .favorites-panel {
+      width: 240px;
+      bottom: 60px;
     }
   }
 
   /* Dark mode */
-  :global(.dark-mode) .favorites-bar {
-    box-shadow: -4px 0 24px rgba(0, 0, 0, 0.5);
+  :global(.dark-mode) .favorites-toggle {
+    background: linear-gradient(135deg, rgba(88, 28, 135, 0.95) 0%, rgba(59, 7, 100, 0.95) 100%);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    border: 2px solid rgba(255, 255, 255, 0.15);
+  }
+
+  :global(.dark-mode) .favorites-toggle:hover {
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+  }
+
+  :global(.dark-mode) .favorites-panel {
+    background: linear-gradient(135deg, rgba(88, 28, 135, 0.95) 0%, rgba(59, 7, 100, 0.95) 100%);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.15);
   }
 
   /* Print - ocultar */
@@ -423,11 +600,13 @@
   // Referencias DOM
   const favoritesBar = document.getElementById("favoritesBar");
   const favoritesToggle = document.getElementById("favoritesToggle");
+  const favoritesPanel = document.getElementById("favoritesPanel");
   const favoritesList = document.getElementById("favoritesList");
+  const favoritesCount = document.getElementById("favoritesCount");
+  const closeBtn = document.getElementById("closeBtn");
 
-  // Estado colapsado
-  let isCollapsed =
-    localStorage.getItem("favorites_collapsed") === "true" || false;
+  // Estado expandido
+  let isExpanded = false;
 
   /**
    * Escapa HTML para prevenir XSS
@@ -436,6 +615,46 @@
     const div = document.createElement("div");
     div.textContent = text;
     return div.innerHTML;
+  }
+
+  /**
+   * Actualiza el contador de favoritos
+   */
+  function updateFavoritesCount(): void {
+    const favorites = getFavorites();
+    const count = favorites.length;
+    
+    if (favoritesCount) {
+      favoritesCount.textContent = count.toString();
+      favoritesCount.classList.toggle("visible", count > 0);
+    }
+  }
+
+  /**
+   * Crea efecto ripple en el botón
+   */
+  function createRipple(event: MouseEvent): void {
+    const button = event.currentTarget as HTMLElement;
+    const ripple = button.querySelector(".ripple-effect") as HTMLElement;
+    
+    if (ripple) {
+      const rect = button.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+      const x = event.clientX - rect.left - size / 2;
+      const y = event.clientY - rect.top - size / 2;
+      
+      ripple.style.width = ripple.style.height = size + "px";
+      ripple.style.left = x + "px";
+      ripple.style.top = y + "px";
+      ripple.style.transform = "scale(0)";
+      ripple.style.opacity = "1";
+      
+      // Trigger animation
+      requestAnimationFrame(() => {
+        ripple.style.transform = "scale(4)";
+        ripple.style.opacity = "0";
+      });
+    }
   }
 
   /**
@@ -456,67 +675,118 @@
           <span class="empty-hint">Marca tus herramientas favoritas para acceder rápidamente</span>
         </div>
       `;
-      return;
+    } else {
+      // Renderizar con sanitización
+      favoritesList.innerHTML = favorites
+        .map(
+          (fav) => `
+          <a href="${escapeHtml(fav.href)}" class="favorite-item" role="listitem">
+            <div class="favorite-icon" aria-hidden="true">${fav.icon}</div>
+            <span class="favorite-title">${escapeHtml(fav.title)}</span>
+            <button 
+              class="favorite-remove" 
+              data-remove-favorite
+              data-href="${escapeHtml(fav.href)}"
+              aria-label="Remover ${escapeHtml(fav.title)} de favoritos"
+              title="Remover de favoritos"
+              type="button"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </a>
+        `
+        )
+        .join("");
     }
-
-    // Renderizar con sanitización
-    favoritesList.innerHTML = favorites
-      .map(
-        (fav) => `
-        <a href="${escapeHtml(fav.href)}" class="favorite-item" role="listitem">
-          <div class="favorite-icon" aria-hidden="true">${fav.icon}</div>
-          <span class="favorite-title">${escapeHtml(fav.title)}</span>
-          <button 
-            class="favorite-remove" 
-            data-remove-favorite
-            data-href="${escapeHtml(fav.href)}"
-            aria-label="Remover ${escapeHtml(fav.title)} de favoritos"
-            title="Remover de favoritos"
-            type="button"
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </button>
-        </a>
-      `
-      )
-      .join("");
+    
+    updateFavoritesCount();
   }
 
   /**
-   * Alterna estado colapsado/expandido con ARIA
+   * Expande el panel de favoritos
    */
-  function toggleCollapsed(): void {
-    isCollapsed = !isCollapsed;
-    localStorage.setItem("favorites_collapsed", String(isCollapsed));
-    favoritesBar?.classList.toggle("collapsed", isCollapsed);
-    favoritesToggle?.setAttribute("aria-expanded", String(!isCollapsed));
+  function expandPanel(): void {
+    isExpanded = true;
+    favoritesBar?.classList.add("expanded");
+    favoritesToggle?.setAttribute("aria-expanded", "true");
+    
+    // Enfocar en el botón de cerrar para mejor accesibilidad
+    setTimeout(() => {
+      closeBtn?.focus();
+    }, 200);
+  }
+
+  /**
+   * Colapsa el panel de favoritos
+   */
+  function collapsePanel(): void {
+    isExpanded = false;
+    favoritesBar?.classList.remove("expanded");
+    favoritesToggle?.setAttribute("aria-expanded", "false");
+    
+    // Devolver foco al botón principal
+    setTimeout(() => {
+      favoritesToggle?.focus();
+    }, 200);
+  }
+
+  /**
+   * Maneja clics fuera del panel para cerrarlo
+   */
+  function handleOutsideClick(event: MouseEvent): void {
+    if (!isExpanded) return;
+    
+    const target = event.target as HTMLElement;
+    if (!favoritesBar?.contains(target)) {
+      collapsePanel();
+    }
+  }
+
+  /**
+   * Maneja la tecla Escape para cerrar el panel
+   */
+  function handleEscapeKey(event: KeyboardEvent): void {
+    if (event.key === "Escape" && isExpanded) {
+      collapsePanel();
+    }
   }
 
   /**
    * Inicializa la barra de favoritos
    */
   function initFavoritesBar(): void {
-    // Estado inicial
-    if (isCollapsed) {
-      favoritesBar?.classList.add("collapsed");
-      favoritesToggle?.setAttribute("aria-expanded", "false");
-    }
-
     // Renderizar favoritos iniciales
     renderFavorites();
 
-    // Listener para toggle
-    favoritesToggle?.addEventListener("click", toggleCollapsed);
+    // Listener para expandir panel
+    favoritesToggle?.addEventListener("click", (e) => {
+      createRipple(e as MouseEvent);
+      expandPanel();
+    });
+
+    // Listener para cerrar panel
+    closeBtn?.addEventListener("click", collapsePanel);
 
     // Keyboard navigation
     favoritesToggle?.addEventListener("keydown", (e) => {
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
-        toggleCollapsed();
+        expandPanel();
       }
     });
+
+    closeBtn?.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        collapsePanel();
+      }
+    });
+
+    // Cerrar con clic fuera o Escape
+    document.addEventListener("click", handleOutsideClick);
+    document.addEventListener("keydown", handleEscapeKey);
 
     // Escuchar cambios en favoritos (desde otros componentes)
     window.addEventListener("favoritesChanged", () => {

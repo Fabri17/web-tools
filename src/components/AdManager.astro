@@ -1,7 +1,7 @@
 ---
 import AdSenseBanner from "./AdSenseBanner.astro";
 import SupportBanner from "./SupportBanner.astro";
-import { getAdSlot, ADSENSE_CONFIG } from "../lib/adsense";
+import { getAdSlot, ADSENSE_CONFIG, shouldShowAds } from "../lib/adsense";
 
 interface Props {
   showAd?: boolean;
@@ -24,7 +24,7 @@ const {
 } = Astro.props;
 
 // Logic to determine when to show ads and support banners
-const shouldShowAd = showAd && pageType !== "landing";
+const shouldShowAd = showAd && pageType !== "landing" && ADSENSE_CONFIG.features.enableAds;
 const shouldShowSupport = showSupport;
 
 // Get the appropriate ad slot
