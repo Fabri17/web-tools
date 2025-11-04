@@ -203,7 +203,7 @@ const tools = [
     comingSoon: false,
   },
 
-  // Próximamente - Herramientas Innovadoras
+  // Próximamente - Herramientas Innovadoras y Educativas
   {
     title: "Git Conflict Resolver",
     description:
@@ -219,6 +219,141 @@ const tools = [
     tags: ["Git", "Merge", "Conflictos", "Version Control"],
     comingSoon: true,
   },
+  {
+    title: "Big O Complexity Visualizer",
+    description:
+      "Visualiza y compara complejidades algorítmicas. Gráficas interactivas de O(1), O(log n), O(n), O(n²)... ¡Entiende por qué tu código es lento!",
+    icon: `
+			<svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M3 20L9 14L13 18L21 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+				<path d="M3 20h18v-16" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+				<circle cx="9" cy="14" r="2" fill="#a855f7"/>
+				<circle cx="13" cy="18" r="2" fill="#ec4899"/>
+				<circle cx="21" cy="4" r="2" fill="#f59e0b"/>
+			</svg>
+		`,
+    href: "/big-o-visualizer",
+    tags: ["Algoritmos", "Big O", "Performance", "Educación"],
+    comingSoon: false,
+  },
+
+  {
+    title: "Git Flow Simulator",
+    description:
+      "Practica Git sin miedo. Simula branches, merges, rebases en un entorno seguro. Visualiza el árbol y deshaz errores infinitamente.",
+    icon: `
+			<svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<circle cx="6" cy="6" r="3" stroke="white" stroke-width="1.5"/>
+				<circle cx="6" cy="18" r="3" stroke="white" stroke-width="1.5"/>
+				<circle cx="18" cy="18" r="3" stroke="white" stroke-width="1.5"/>
+				<path d="M6 9v6M6 15l12 0" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+				<path d="M9 6h6c2 0 3 1 3 3v6" stroke="#a855f7" stroke-width="1.5" stroke-linecap="round"/>
+			</svg>
+		`,
+    href: "/git-simulator",
+    tags: ["Git", "Tutorial", "Practice", "Version Control"],
+    comingSoon: true,
+  },
+
+  {
+    title: "SQL Query Explainer",
+    description:
+      "Pega tu query SQL y obtén explicación detallada. Visualiza JOINs, entiende subqueries. Ideal para aprender SQL o debugging.",
+    icon: `
+			<svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<rect x="3" y="5" width="18" height="14" rx="2" stroke="white" stroke-width="1.5"/>
+				<path d="M3 10h18M8 5v14M16 5v14" stroke="white" stroke-width="1.5"/>
+				<circle cx="12" cy="15" r="1.5" fill="#10b981"/>
+				<path d="M10 13l2 2 2-2" stroke="#10b981" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+			</svg>
+		`,
+    href: "/sql-explainer",
+    tags: ["SQL", "Education", "Database", "Learning"],
+    comingSoon: true,
+  },
+  {
+    title: "JSON Formatter & TypeScript Generator",
+    description:
+      "Formatea y valida JSON. Genera automáticamente interfaces TypeScript desde cualquier JSON. Colapsa secciones y detecta errores.",
+    icon: `
+			<svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<rect x="3" y="3" width="18" height="18" rx="2" stroke="white" stroke-width="1.5"/>
+				<path d="M7 8h10M7 12h10M7 16h6" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+				<circle cx="17" cy="16" r="2" fill="#3b82f6"/>
+			</svg>
+		`,
+    href: "/json-formatter",
+    tags: ["JSON", "TypeScript", "Formatter", "API"],
+    comingSoon: true,
+  },
+  {
+    title: "Commit Message Generator (Conventional)",
+    description:
+      "Genera mensajes de commit perfectos siguiendo Conventional Commits. feat, fix, docs, style... Sin excusas para commits de 'asdf' o 'test'.",
+    icon: `
+			<svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<rect x="3" y="5" width="18" height="14" rx="2" stroke="white" stroke-width="1.5"/>
+				<path d="M3 9h18" stroke="white" stroke-width="1.5"/>
+				<path d="M7 13h10M7 16h7" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+				<circle cx="6" cy="7" r="1" fill="#10b981"/>
+			</svg>
+		`,
+    href: "/commit-generator",
+    tags: ["Git", "Commit", "Conventional", "Best Practices"],
+    comingSoon: true,
+  },
+
+  {
+    title: "Dependency Analyzer",
+    description:
+      "Analiza tu package.json. Detecta dependencias circulares, versiones conflictivas, vulnerabilidades y paquetes obsoletos.",
+    icon: `
+			<svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<circle cx="12" cy="4" r="2" stroke="white" stroke-width="1.5"/>
+				<circle cx="7" cy="12" r="2" stroke="white" stroke-width="1.5"/>
+				<circle cx="17" cy="12" r="2" stroke="white" stroke-width="1.5"/>
+				<circle cx="7" cy="20" r="2" stroke="white" stroke-width="1.5"/>
+				<circle cx="12" cy="20" r="2" stroke="white" stroke-width="1.5"/>
+				<circle cx="17" cy="20" r="2" stroke="white" stroke-width="1.5"/>
+				<path d="M12 6v4m0 0l-5 2m5-2l5 2M7 14v4M17 14v4" stroke="white" stroke-width="1" stroke-linecap="round"/>
+			</svg>
+		`,
+    href: "/dependency-analyzer",
+    tags: ["NPM", "Dependencies", "Security", "DevOps"],
+    comingSoon: true,
+  },
+  {
+    title: "Code Review Checklist Generator",
+    description:
+      "Genera checklists personalizados para code reviews según tu stack. TypeScript, React, Node... Nunca más olvides revisar seguridad o performance.",
+    icon: `
+			<svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<rect x="4" y="2" width="16" height="20" rx="2" stroke="white" stroke-width="1.5"/>
+				<path d="M8 7h8M8 11h8M8 15h5" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+				<circle cx="7" cy="7" r="1" fill="#10b981"/>
+				<circle cx="7" cy="11" r="1" fill="#10b981"/>
+				<circle cx="7" cy="15" r="1" stroke="white" stroke-width="1"/>
+			</svg>
+		`,
+    href: "/code-review-checklist",
+    tags: ["Code Review", "Best Practices", "Quality", "Team"],
+    comingSoon: true,
+  },
+  {
+    title: "README.md Template Generator",
+    description:
+      "Genera READMEs profesionales con badges, secciones, TOC automático. Incluye templates para OSS, proyectos personales y empresariales.",
+    icon: `
+			<svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" stroke="white" stroke-width="1.5"/>
+				<path d="M14 2v6h6M12 18v-6M9 15l3-3 3 3" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+			</svg>
+		`,
+    href: "/readme-generator",
+    tags: ["README", "Markdown", "Documentation", "OSS"],
+    comingSoon: true,
+  },
+
   {
     title: "Webhook Tester",
     description:

@@ -55,9 +55,9 @@ export const translations = {
     // Hero
     'hero.title': 'Tu caja de herramientas de desarrollo,',
     'hero.titleHighlight': 'sin rastreadores y sin complicaciones',
-    'hero.subtitle': 'Hecho por devs, para devs. Convierte Markdown a PDF, optimiza imágenes, genera datos de prueba y más. Todo procesado localmente en tu navegador. Cero configuración, cero complicaciones.',
-    'hero.cta.primary': 'Abrir app ahora',
-    'hero.cta.secondary': 'Ver herramientas disponibles',
+    'hero.subtitle': 'Hecho por devs, para devs. Genera UUIDs, optimiza imágenes, analiza complejidad Big O, formatea JSON, crea contraseñas seguras y más. Todo procesado localmente en tu navegador. Cero configuración, cero complicaciones.',
+    'hero.cta.primary': 'Explorar herramientas',
+    'hero.cta.secondary': 'Ver todas las herramientas',
     'hero.badge': 'Gratis para siempre',
     'hero.stats.tools': 'Herramientas activas',
     'hero.stats.free': 'Gratis',
@@ -109,6 +109,31 @@ export const translations = {
     'tools.fakeData.title': 'Fake Data Generator',
     'tools.fakeData.description': 'Genera datos de prueba realistas: nombres, emails, direcciones, tarjetas de crédito, JSON, etc.',
     
+    // New Tools - High Value
+    'tools.bigO.title': 'Big O Visualizer',
+    'tools.bigO.description': 'Visualiza y compara complejidades algorítmicas. Gráficas interactivas de O(1), O(log n), O(n), O(n²)... ¡Entiende por qué tu código es lento!',
+    
+    'tools.gitSimulator.title': 'Git Flow Simulator',
+    'tools.gitSimulator.description': 'Practica Git sin miedo. Simula branches, merges, rebases en un entorno seguro. Visualiza el árbol y deshaz errores infinitamente.',
+    
+    'tools.sqlExplainer.title': 'SQL Query Explainer',
+    'tools.sqlExplainer.description': 'Pega tu query SQL y obtén explicación detallada. Visualiza JOINs, entiende subqueries. Ideal para aprender SQL o debugging.',
+    
+    'tools.jsonFormatter.title': 'JSON Formatter & TypeScript Generator',
+    'tools.jsonFormatter.description': 'Formatea y valida JSON. Genera automáticamente interfaces TypeScript desde cualquier JSON. Colapsa secciones y detecta errores.',
+    
+    'tools.commitGenerator.title': 'Commit Message Generator',
+    'tools.commitGenerator.description': 'Genera mensajes de commit perfectos siguiendo Conventional Commits. feat, fix, docs, style... Sin excusas para commits de \'asdf\' o \'test\'.',
+    
+    'tools.dependencyAnalyzer.title': 'Dependency Analyzer',
+    'tools.dependencyAnalyzer.description': 'Analiza tu package.json. Detecta dependencias circulares, versiones conflictivas, vulnerabilidades y paquetes obsoletos.',
+    
+    'tools.codeReviewChecklist.title': 'Code Review Checklist Generator',
+    'tools.codeReviewChecklist.description': 'Genera checklists personalizados para code reviews según tu stack. TypeScript, React, Node... Nunca más olvides revisar seguridad o performance.',
+    
+    'tools.readmeGenerator.title': 'README.md Template Generator',
+    'tools.readmeGenerator.description': 'Genera READMEs profesionales con badges, secciones, TOC automático. Incluye templates para OSS, proyectos personales y empresariales.',
+    
     // Common
     'common.loading': 'Cargando...',
     'common.error': 'Error',
@@ -134,9 +159,9 @@ export const translations = {
     // Hero
     'hero.title': 'Your developer toolbox,',
     'hero.titleHighlight': 'no trackers and no hassle',
-    'hero.subtitle': 'Built by devs, for devs. Convert Markdown to PDF, optimize images, generate test data and more. Everything processed locally in your browser. Zero config, zero hassle.',
-    'hero.cta.primary': 'Open app now',
-    'hero.cta.secondary': 'View available tools',
+    'hero.subtitle': 'Built by devs, for devs. Generate UUIDs, optimize images, analyze Big O complexity, format JSON, create secure passwords and more. Everything processed locally in your browser. Zero config, zero hassle.',
+    'hero.cta.primary': 'Explore tools',
+    'hero.cta.secondary': 'View all tools',
     'hero.badge': 'Free forever',
     'hero.stats.tools': 'Active tools',
     'hero.stats.free': 'Free',
@@ -187,6 +212,31 @@ export const translations = {
     
     'tools.fakeData.title': 'Fake Data Generator',
     'tools.fakeData.description': 'Generate realistic test data: names, emails, addresses, credit cards, JSON, etc.',
+    
+    // New Tools - High Value
+    'tools.bigO.title': 'Big O Visualizer',
+    'tools.bigO.description': 'Visualize and compare algorithmic complexities. Interactive graphs of O(1), O(log n), O(n), O(n²)... Understand why your code is slow!',
+    
+    'tools.gitSimulator.title': 'Git Flow Simulator',
+    'tools.gitSimulator.description': 'Practice Git fearlessly. Simulate branches, merges, rebases in a safe environment. Visualize the tree and undo mistakes infinitely.',
+    
+    'tools.sqlExplainer.title': 'SQL Query Explainer',
+    'tools.sqlExplainer.description': 'Paste your SQL query and get detailed explanation. Visualize JOINs, understand subqueries. Great for learning SQL or debugging.',
+    
+    'tools.jsonFormatter.title': 'JSON Formatter & TypeScript Generator',
+    'tools.jsonFormatter.description': 'Format and validate JSON. Automatically generate TypeScript interfaces from any JSON. Collapse sections and detect errors.',
+    
+    'tools.commitGenerator.title': 'Commit Message Generator',
+    'tools.commitGenerator.description': 'Generate perfect commit messages following Conventional Commits. feat, fix, docs, style... No more excuses for \'asdf\' or \'test\' commits.',
+    
+    'tools.dependencyAnalyzer.title': 'Dependency Analyzer',
+    'tools.dependencyAnalyzer.description': 'Analyze your package.json. Detect circular dependencies, conflicting versions, vulnerabilities and outdated packages.',
+    
+    'tools.codeReviewChecklist.title': 'Code Review Checklist Generator',
+    'tools.codeReviewChecklist.description': 'Generate custom checklists for code reviews based on your stack. TypeScript, React, Node... Never forget to check security or performance again.',
+    
+    'tools.readmeGenerator.title': 'README.md Template Generator',
+    'tools.readmeGenerator.description': 'Generate professional READMEs with badges, sections, automatic TOC. Includes templates for OSS, personal and enterprise projects.',
     
     // Common
     'common.loading': 'Loading...',

@@ -1,0 +1,1335 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ToolHeader from "../components/ToolHeader.astro";
+
+const icon = `
+	<svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<path d="M3 20L9 14L13 18L21 4" stroke="url(#gradient-bigo)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+		<path d="M3 20h18v-16" stroke="url(#gradient-bigo)" stroke-width="1.5" stroke-linecap="round"/>
+		<circle cx="9" cy="14" r="2" fill="#a855f7"/>
+		<circle cx="13" cy="18" r="2" fill="#ec4899"/>
+		<circle cx="21" cy="4" r="2" fill="#f59e0b"/>
+		<defs>
+			<linearGradient id="gradient-bigo" x1="3" y1="4" x2="21" y2="20" gradientUnits="userSpaceOnUse">
+				<stop stop-color="#8b5cf6"/>
+				<stop offset="0.5" stop-color="#ec4899"/>
+				<stop offset="1" stop-color="#f59e0b"/>
+			</linearGradient>
+		</defs>
+	</svg>
+`;
+---
+
+<Layout
+  title="Big O Complexity Visualizer - Aprende Complejidad Algorítmica | Gratis"
+  description="Visualiza y compara complejidades algorítmicas con gráficas interactivas. Entiende O(1), O(log n), O(n), O(n log n), O(n²), O(2ⁿ) y más. Aprende performance de algoritmos."
+  url="https://brix.center.com/big-o-visualizer"
+  image="/og-image.jpg"
+>
+  <main>
+    <div class="container">
+      <ToolHeader
+        title="Big O Complexity Visualizer"
+        subtitle="Visualiza y compara complejidades algorítmicas en tiempo real"
+        icon={icon}
+        showPrimaryButton={false}
+      />
+
+      <!-- Info Banner -->
+      <div class="info-banner">
+        <div class="banner-icon">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              stroke-width="2"></circle>
+            <path
+              d="M12 16v-4M12 8h.01"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"></path>
+          </svg>
+        </div>
+        <p>
+          Compara cómo crece el tiempo de ejecución según el tamaño de entrada
+          (n). Desliza para ver el impacto a escala.
+        </p>
+      </div>
+
+      <!-- Controls -->
+      <div class="controls-section">
+        <div class="control-group">
+          <label for="nValue">
+            <span>Tamaño de entrada (n):</span>
+            <span id="nValueDisplay" class="value-display">100</span>
+          </label>
+          <input
+            type="range"
+            id="nValue"
+            min="1"
+            max="200"
+            value="100"
+            class="slider"
+          />
+          <div class="slider-labels">
+            <span>1</span>
+            <span>50</span>
+            <span>100</span>
+            <span>150</span>
+            <span>200</span>
+          </div>
+        </div>
+
+        <div class="complexity-toggles">
+          <button class="complexity-btn active" data-complexity="O(1)">
+            <span class="complexity-label">O(1)</span>
+            <span class="complexity-name">Constante</span>
+          </button>
+          <button class="complexity-btn active" data-complexity="O(log n)">
+            <span class="complexity-label">O(log n)</span>
+            <span class="complexity-name">Logarítmica</span>
+          </button>
+          <button class="complexity-btn active" data-complexity="O(n)">
+            <span class="complexity-label">O(n)</span>
+            <span class="complexity-name">Lineal</span>
+          </button>
+          <button class="complexity-btn active" data-complexity="O(n log n)">
+            <span class="complexity-label">O(n log n)</span>
+            <span class="complexity-name">Lineal-Log</span>
+          </button>
+          <button class="complexity-btn active" data-complexity="O(n²)">
+            <span class="complexity-label">O(n²)</span>
+            <span class="complexity-name">Cuadrática</span>
+          </button>
+          <button class="complexity-btn active" data-complexity="O(2ⁿ)">
+            <span class="complexity-label">O(2ⁿ)</span>
+            <span class="complexity-name">Exponencial</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Chart Container -->
+      <div class="chart-section">
+        <div class="chart-header">
+          <h3>Gráfica Comparativa</h3>
+          <div class="chart-legend" id="chartLegend"></div>
+        </div>
+        <canvas id="complexityChart"></canvas>
+      </div>
+
+      <!-- Performance Table -->
+      <div class="performance-table">
+        <div class="section-header">
+          <h3>
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                x="3"
+                y="3"
+                width="18"
+                height="18"
+                rx="2"
+                stroke="currentColor"
+                stroke-width="2"></rect>
+              <path
+                d="M3 9h18M3 15h18M9 3v18"
+                stroke="currentColor"
+                stroke-width="2"></path>
+            </svg>
+            Operaciones para n = <span id="currentN">100</span>
+          </h3>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Complejidad</th>
+                <th>Operaciones</th>
+                <th>Tiempo Estimado*</th>
+                <th>Ejemplos</th>
+              </tr>
+            </thead>
+            <tbody id="performanceTableBody">
+              <!-- Populated by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+        <p class="table-note">*Asumiendo 1 operación = 1 nanosegundo</p>
+      </div>
+
+      <!-- Examples Section -->
+      <div class="examples-section">
+        <div class="section-header">
+          <h3>
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10 2v6.5l6 6.5"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"></path>
+              <circle
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="2"></circle>
+            </svg>
+            Ejemplos de Algoritmos
+          </h3>
+        </div>
+
+        <div class="examples-grid">
+          <div class="example-card">
+            <div
+              class="example-header"
+              style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);"
+            >
+              <span class="example-complexity">O(1)</span>
+              <span class="example-badge">Excelente</span>
+            </div>
+            <h4>Constante</h4>
+            <ul>
+              <li>Acceso a array por índice: <code>arr[5]</code></li>
+              <li>Inserción en hash table</li>
+              <li>Push/Pop en stack</li>
+              <li>Operaciones aritméticas básicas</li>
+            </ul>
+            <p class="example-desc">
+              El tiempo es siempre el mismo, sin importar el tamaño de entrada.
+            </p>
+          </div>
+
+          <div class="example-card">
+            <div
+              class="example-header"
+              style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);"
+            >
+              <span class="example-complexity">O(log n)</span>
+              <span class="example-badge">Muy Bueno</span>
+            </div>
+            <h4>Logarítmica</h4>
+            <ul>
+              <li>Búsqueda binaria</li>
+              <li>Operaciones en árboles balanceados (AVL, Red-Black)</li>
+              <li>Skip lists</li>
+              <li>Búsqueda en heap</li>
+            </ul>
+            <p class="example-desc">
+              Divide el problema a la mitad en cada paso. Muy eficiente.
+            </p>
+          </div>
+
+          <div class="example-card">
+            <div
+              class="example-header"
+              style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);"
+            >
+              <span class="example-complexity">O(n)</span>
+              <span class="example-badge">Bueno</span>
+            </div>
+            <h4>Lineal</h4>
+            <ul>
+              <li>
+                Recorrer un array: <code>for (let i = 0; i &lt; n; i++)</code>
+              </li>
+              <li>Búsqueda lineal</li>
+              <li>Encontrar el mínimo/máximo</li>
+              <li>Copiar un array</li>
+            </ul>
+            <p class="example-desc">
+              El tiempo crece proporcionalmente al tamaño de entrada.
+            </p>
+          </div>
+
+          <div class="example-card">
+            <div
+              class="example-header"
+              style="background: linear-gradient(135deg, #a855f7 0%, #9333ea 100%);"
+            >
+              <span class="example-complexity">O(n log n)</span>
+              <span class="example-badge">Aceptable</span>
+            </div>
+            <h4>Lineal-Logarítmica</h4>
+            <ul>
+              <li>Merge Sort</li>
+              <li>Quick Sort (promedio)</li>
+              <li>Heap Sort</li>
+              <li>Divide y conquistarás eficiente</li>
+            </ul>
+            <p class="example-desc">
+              Algoritmos de ordenamiento eficientes. El mejor caso general.
+            </p>
+          </div>
+
+          <div class="example-card">
+            <div
+              class="example-header"
+              style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);"
+            >
+              <span class="example-complexity">O(n²)</span>
+              <span class="example-badge">Cuidado</span>
+            </div>
+            <h4>Cuadrática</h4>
+            <ul>
+              <li>Bubble Sort</li>
+              <li>Selection Sort</li>
+              <li>Insertion Sort</li>
+              <li>Dos loops anidados sobre n</li>
+            </ul>
+            <p class="example-desc">
+              Evitar con grandes datasets. OK para n pequeño (~100).
+            </p>
+          </div>
+
+          <div class="example-card">
+            <div
+              class="example-header"
+              style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);"
+            >
+              <span class="example-complexity">O(2ⁿ)</span>
+              <span class="example-badge">Peligroso</span>
+            </div>
+            <h4>Exponencial</h4>
+            <ul>
+              <li>Fibonacci recursivo sin memoization</li>
+              <li>Subconjuntos de un conjunto (power set)</li>
+              <li>Torres de Hanoi</li>
+              <li>Backtracking sin poda</li>
+            </ul>
+            <p class="example-desc">
+              Prácticamente imposible para n > 30. Requiere optimización.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tips Section -->
+      <div class="tips-section">
+        <div class="section-header">
+          <h3>
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"></path>
+            </svg>
+            Tips para Optimizar tu Código
+          </h3>
+        </div>
+
+        <div class="tips-grid">
+          <div class="tip-card">
+            <div class="tip-icon">💡</div>
+            <h4>Usa estructuras de datos apropiadas</h4>
+            <p>
+              Un HashMap puede convertir O(n) en O(1) para búsquedas. Los sets
+              son perfectos para verificar existencia.
+            </p>
+          </div>
+
+          <div class="tip-card">
+            <div class="tip-icon">🔍</div>
+            <h4>Evita loops anidados innecesarios</h4>
+            <p>
+              Dos loops de O(n) son mejor que uno de O(n²). Considera usar hash
+              maps para eliminar el segundo loop.
+            </p>
+          </div>
+
+          <div class="tip-card">
+            <div class="tip-icon">⚡</div>
+            <h4>Aprende divide y conquistarás</h4>
+            <p>
+              Dividir el problema a la mitad (O(log n)) es muchísimo mejor que
+              revisar todo (O(n)).
+            </p>
+          </div>
+
+          <div class="tip-card">
+            <div class="tip-icon">📊</div>
+            <h4>Memoization para recursión</h4>
+            <p>
+              Guarda resultados calculados previamente. Puede convertir O(2ⁿ) en
+              O(n).
+            </p>
+          </div>
+
+          <div class="tip-card">
+            <div class="tip-icon">🎯</div>
+            <h4>El mejor algoritmo depende del contexto</h4>
+            <p>
+              Para n pequeño (~10), O(n²) puede ser más rápido que O(n log n)
+              por el overhead.
+            </p>
+          </div>
+
+          <div class="tip-card">
+            <div class="tip-icon">⏱️</div>
+            <h4>Mide en tu caso real</h4>
+            <p>
+              Big O es teórico. Siempre haz benchmarks con tus datos reales para
+              confirmar.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <style>
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* Info Banner */
+    .info-banner {
+      display: flex;
+      align-items: start;
+      gap: 0.75rem;
+      padding: 1rem 1.25rem;
+      background: rgba(139, 92, 246, 0.05);
+      border: 1px solid rgba(139, 92, 246, 0.1);
+      border-radius: 12px;
+      margin-bottom: 2rem;
+    }
+
+    .banner-icon {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+
+    .banner-icon svg {
+      width: 20px;
+      height: 20px;
+      color: #8b5cf6;
+    }
+
+    .info-banner p {
+      margin: 0;
+      line-height: 1.6;
+      color: #52525b;
+      font-size: 0.9rem;
+    }
+
+    /* Controls Section */
+    .controls-section {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      border: 1px solid #e4e4e7;
+    }
+
+    .control-group {
+      margin-bottom: 2rem;
+    }
+
+    .control-group label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      font-weight: 600;
+      color: #18181b;
+    }
+
+    .value-display {
+      font-size: 1.25rem;
+      color: #8b5cf6;
+      font-weight: 700;
+    }
+
+    .slider {
+      width: 100%;
+      height: 8px;
+      border-radius: 5px;
+      background: #e4e4e7;
+      outline: none;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
+    }
+
+    .slider::-moz-range-thumb {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
+    }
+
+    .slider-labels {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 0.5rem;
+      font-size: 0.75rem;
+      color: #71717a;
+    }
+
+    /* Complexity Toggles */
+    .complexity-toggles {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1rem;
+    }
+
+    .complexity-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 1rem 0.75rem;
+      background: white;
+      border: 1px solid #e4e4e7;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .complexity-btn:hover {
+      border-color: #d4d4d8;
+      background: #fafafa;
+    }
+
+    .complexity-btn.active {
+      border-color: #8b5cf6;
+      background: rgba(139, 92, 246, 0.05);
+    }
+
+    .complexity-label {
+      font-size: 1rem;
+      font-weight: 700;
+      font-family: "Courier New", monospace;
+      color: #18181b;
+    }
+
+    .complexity-name {
+      font-size: 0.75rem;
+      color: #71717a;
+    }
+
+    /* Chart Section */
+    .chart-section {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      border: 1px solid #e4e4e7;
+    }
+
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .chart-header h3 {
+      font-size: 1.25rem;
+      color: #18181b;
+      margin: 0;
+    }
+
+    .chart-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    :global(.legend-item) {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+    }
+
+    :global(.legend-color) {
+      width: 20px;
+      height: 3px;
+      border-radius: 2px;
+    }
+
+    #complexityChart {
+      width: 100% !important;
+      height: 400px !important;
+      max-height: 400px;
+    }
+
+    /* Performance Table */
+    .performance-table {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      border: 1px solid #e4e4e7;
+    }
+
+    .section-header {
+      margin-bottom: 1.5rem;
+    }
+
+    .section-header h3 {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 0;
+      color: #18181b;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .section-header h3 svg {
+      color: #8b5cf6;
+      flex-shrink: 0;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead tr {
+      background: #f4f4f5;
+      border-bottom: 2px solid #e4e4e7;
+    }
+
+    th {
+      padding: 1rem;
+      text-align: left;
+      font-weight: 600;
+      color: #18181b;
+    }
+
+    td {
+      padding: 1rem;
+      border-bottom: 1px solid #e4e4e7;
+    }
+
+    tbody tr:hover {
+      background: #fafafa;
+    }
+
+    :global(.complexity-cell) {
+      font-weight: 700;
+      font-family: "Courier New", monospace;
+    }
+
+    :global(.operations-cell) {
+      font-weight: 600;
+      color: #8b5cf6;
+    }
+
+    :global(.time-cell) {
+      color: #71717a;
+    }
+
+    :global(.examples-cell) {
+      font-size: 0.875rem;
+      color: #52525b;
+    }
+
+    .table-note {
+      margin-top: 1rem;
+      font-size: 0.875rem;
+      color: #71717a;
+      font-style: italic;
+    }
+
+    /* Examples Section */
+    .examples-section {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      border: 1px solid #e4e4e7;
+    }
+
+    .examples-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .example-card {
+      border: 1px solid #e4e4e7;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.2s;
+      background: white;
+    }
+
+    .example-card:hover {
+      border-color: #d4d4d8;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .example-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.25rem;
+      color: white;
+    }
+
+    .example-complexity {
+      font-size: 1.25rem;
+      font-weight: 700;
+      font-family: "Courier New", monospace;
+    }
+
+    .example-badge {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.75rem;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 999px;
+      font-weight: 600;
+    }
+
+    .example-card h4 {
+      padding: 1rem 1.25rem 0.5rem;
+      margin: 0;
+      color: #18181b;
+    }
+
+    .example-card ul {
+      padding: 0 1.25rem;
+      margin: 0.5rem 0;
+      list-style: none;
+    }
+
+    .example-card li {
+      padding: 0.5rem 0;
+      color: #52525b;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: start;
+      gap: 0.5rem;
+    }
+
+    .example-card li::before {
+      content: "→";
+      color: #8b5cf6;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .example-card code {
+      background: #f4f4f5;
+      padding: 0.125rem 0.375rem;
+      border-radius: 4px;
+      font-family: "Courier New", monospace;
+      font-size: 0.85rem;
+      color: #8b5cf6;
+    }
+
+    .example-desc {
+      padding: 0.5rem 1.25rem 1.25rem;
+      margin: 0;
+      color: #71717a;
+      font-size: 0.875rem;
+      font-style: italic;
+      border-top: 1px solid #e4e4e7;
+      background: #fafafa;
+    }
+
+    /* Tips Section */
+    .tips-section {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      border: 1px solid #e4e4e7;
+    }
+
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .tip-card {
+      padding: 1.5rem;
+      background: rgba(139, 92, 246, 0.03);
+      border: 1px solid rgba(139, 92, 246, 0.1);
+      border-radius: 12px;
+      transition: all 0.2s;
+    }
+
+    .tip-card:hover {
+      background: rgba(139, 92, 246, 0.05);
+      border-color: rgba(139, 92, 246, 0.2);
+    }
+
+    .tip-icon {
+      font-size: 1.75rem;
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+
+    .tip-card h4 {
+      margin: 0 0 0.5rem 0;
+      color: #18181b;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .tip-card p {
+      margin: 0;
+      color: #52525b;
+      font-size: 0.875rem;
+      line-height: 1.6;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container {
+        padding: 1rem;
+      }
+
+      .controls-section,
+      .chart-section,
+      .performance-table,
+      .examples-section,
+      .tips-section {
+        padding: 1.25rem;
+      }
+
+      .complexity-toggles {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      #complexityChart {
+        height: 300px !important;
+      }
+
+      .examples-grid,
+      .tips-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Dark Mode */
+    :global(.dark-mode) .info-banner {
+      background: rgba(139, 92, 246, 0.1);
+      border-color: rgba(139, 92, 246, 0.2);
+    }
+
+    :global(.dark-mode) .banner-icon svg {
+      color: #a78bfa;
+    }
+
+    :global(.dark-mode) .info-banner p {
+      color: #e2e8f0;
+    }
+
+    :global(.dark-mode) .controls-section,
+    :global(.dark-mode) .chart-section,
+    :global(.dark-mode) .performance-table,
+    :global(.dark-mode) .examples-section,
+    :global(.dark-mode) .tips-section {
+      background: #1e293b;
+      border-color: #334155;
+    }
+
+    :global(.dark-mode) .control-group label,
+    :global(.dark-mode) .chart-header h3,
+    :global(.dark-mode) .section-header h3,
+    :global(.dark-mode) .example-card h4,
+    :global(.dark-mode) .tip-card h4 {
+      color: #f8fafc;
+    }
+
+    :global(.dark-mode) .section-header h3 svg {
+      color: #a78bfa;
+    }
+
+    :global(.dark-mode) .slider {
+      background: #334155;
+    }
+
+    :global(.dark-mode) .complexity-btn {
+      background: #0f172a;
+      border-color: #334155;
+    }
+
+    :global(.dark-mode) .complexity-btn:hover {
+      background: #1e293b;
+      border-color: #475569;
+    }
+
+    :global(.dark-mode) .complexity-btn.active {
+      background: rgba(139, 92, 246, 0.1);
+      border-color: #8b5cf6;
+    }
+
+    :global(.dark-mode) .complexity-label {
+      color: #f8fafc;
+    }
+
+    :global(.dark-mode) thead tr {
+      background: #0f172a;
+      border-bottom-color: #334155;
+    }
+
+    :global(.dark-mode) th {
+      color: #f8fafc;
+    }
+
+    :global(.dark-mode) td {
+      border-bottom-color: #334155;
+      color: #e2e8f0;
+    }
+
+    :global(.dark-mode) tbody tr:hover {
+      background: #0f172a;
+    }
+
+    :global(.dark-mode) .complexity-cell {
+      color: #f8fafc;
+    }
+
+    :global(.dark-mode) .operations-cell {
+      color: #a78bfa;
+    }
+
+    :global(.dark-mode) .time-cell {
+      color: #94a3b8;
+    }
+
+    :global(.dark-mode) .examples-cell {
+      color: #cbd5e1;
+    }
+
+    :global(.dark-mode) .example-card {
+      border-color: #334155;
+      background: #0f172a;
+    }
+
+    :global(.dark-mode) .example-card:hover {
+      border-color: #475569;
+    }
+
+    :global(.dark-mode) .example-card li {
+      color: #cbd5e1;
+    }
+
+    :global(.dark-mode) .example-card code {
+      background: #1e293b;
+      color: #a78bfa;
+    }
+
+    :global(.dark-mode) .example-desc {
+      background: #1e293b;
+      border-top-color: #334155;
+      color: #94a3b8;
+    }
+
+    :global(.dark-mode) .tip-card {
+      background: rgba(139, 92, 246, 0.05);
+      border-color: rgba(139, 92, 246, 0.2);
+    }
+
+    :global(.dark-mode) .tip-card:hover {
+      background: rgba(139, 92, 246, 0.1);
+      border-color: rgba(139, 92, 246, 0.3);
+    }
+
+    :global(.dark-mode) .tip-card p {
+      color: #cbd5e1;
+    }
+  </style>
+
+  <script>
+    interface ComplexityData {
+      label: string;
+      color: string;
+      calculate: (n: number) => number;
+      examples: string;
+      visible: boolean;
+    }
+
+    // Complexity functions and data
+    const complexities: Record<string, ComplexityData> = {
+      "O(1)": {
+        label: "O(1)",
+        color: "#10b981",
+        calculate: () => 1,
+        examples: "Array access, Hash table lookup",
+        visible: true,
+      },
+      "O(log n)": {
+        label: "O(log n)",
+        color: "#3b82f6",
+        calculate: (n) => Math.log2(n),
+        examples: "Binary search, Balanced tree operations",
+        visible: true,
+      },
+      "O(n)": {
+        label: "O(n)",
+        color: "#8b5cf6",
+        calculate: (n) => n,
+        examples: "Linear search, Array traversal",
+        visible: true,
+      },
+      "O(n log n)": {
+        label: "O(n log n)",
+        color: "#a855f7",
+        calculate: (n) => n * Math.log2(n),
+        examples: "Merge sort, Quick sort (avg)",
+        visible: true,
+      },
+      "O(n²)": {
+        label: "O(n²)",
+        color: "#f59e0b",
+        calculate: (n) => n * n,
+        examples: "Bubble sort, Nested loops",
+        visible: true,
+      },
+      "O(2ⁿ)": {
+        label: "O(2ⁿ)",
+        color: "#ef4444",
+        calculate: (n) => Math.pow(2, Math.min(n, 20)), // Cap at 20 to prevent overflow
+        examples: "Recursive Fibonacci, Power set",
+        visible: true,
+      },
+    };
+
+    let chart: any = null;
+    let currentN = 100;
+
+    // Initialize
+    document.addEventListener("DOMContentLoaded", () => {
+      initChart();
+      updateChart();
+      updateTable();
+      setupEventListeners();
+    });
+
+    function setupEventListeners() {
+      // N value slider
+      const nSlider = document.getElementById("nValue") as HTMLInputElement;
+      const nDisplay = document.getElementById("nValueDisplay");
+
+      nSlider?.addEventListener("input", (e) => {
+        currentN = parseInt((e.target as HTMLInputElement).value);
+        if (nDisplay) nDisplay.textContent = currentN.toString();
+        updateChart();
+        updateTable();
+      });
+
+      // Complexity toggle buttons
+      const toggleButtons = document.querySelectorAll(".complexity-btn");
+      toggleButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          btn.classList.toggle("active");
+          const complexity = btn.getAttribute("data-complexity");
+          if (complexity && complexities[complexity]) {
+            complexities[complexity].visible = btn.classList.contains("active");
+            updateChart();
+            updateTable();
+          }
+        });
+      });
+    }
+
+    function initChart() {
+      const canvas = document.getElementById(
+        "complexityChart"
+      ) as HTMLCanvasElement;
+      if (!canvas) return;
+
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
+
+      // Set canvas size with device pixel ratio for sharp rendering
+      const rect = canvas.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = rect.width * dpr;
+      canvas.height = 400 * dpr;
+      ctx.scale(dpr, dpr);
+
+      // Set display size
+      canvas.style.width = rect.width + "px";
+      canvas.style.height = "400px";
+
+      chart = { canvas, ctx };
+    }
+
+    function updateChart() {
+      if (!chart) return;
+
+      const { canvas, ctx } = chart;
+      const rect = canvas.getBoundingClientRect();
+      const width = rect.width;
+      const height = 400;
+      const padding = 60;
+
+      // Clear canvas
+      ctx.clearRect(0, 0, width, height);
+
+      // Calculate visible complexities
+      const visible = Object.entries(complexities).filter(
+        ([_, data]) => data.visible
+      );
+      if (visible.length === 0) return;
+
+      // Generate data points
+      const points = 100;
+      const maxN = currentN;
+      const dataPoints: number[][] = [];
+
+      // Calculate max value for scaling
+      let maxValue = 0;
+      visible.forEach(([_, complexity]) => {
+        const values: number[] = [];
+        for (let i = 1; i <= points; i++) {
+          const n = Math.max(1, (i / points) * maxN); // Ensure n >= 1 to avoid log(0)
+          const value = complexity.calculate(n);
+          // Guard against Infinity and NaN
+          if (isFinite(value) && !isNaN(value)) {
+            values.push(value);
+            maxValue = Math.max(maxValue, value);
+          } else {
+            values.push(0);
+          }
+        }
+        dataPoints.push(values);
+      });
+
+      // Ensure maxValue is valid
+      if (maxValue === 0 || !isFinite(maxValue)) {
+        maxValue = 1;
+      }
+
+      // Draw axes
+      ctx.strokeStyle =
+        getComputedStyle(document.body).getPropertyValue("color") || "#000";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(padding, padding);
+      ctx.lineTo(padding, height - padding);
+      ctx.lineTo(width - padding, height - padding);
+      ctx.stroke();
+
+      // Draw grid
+      ctx.strokeStyle = isDarkMode() ? "#334155" : "#e4e4e7";
+      ctx.lineWidth = 1;
+      for (let i = 0; i <= 5; i++) {
+        const y = padding + (height - 2 * padding) * (i / 5);
+        ctx.beginPath();
+        ctx.moveTo(padding, y);
+        ctx.lineTo(width - padding, y);
+        ctx.stroke();
+      }
+
+      // Draw lines
+      visible.forEach(([_, complexity], index) => {
+        const values = dataPoints[index];
+        ctx.strokeStyle = complexity.color;
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+
+        let hasMovedTo = false;
+        values.forEach((value, i) => {
+          const x = padding + (width - 2 * padding) * (i / points);
+          const normalizedValue = Math.min(value / maxValue, 1); // Clamp to [0,1]
+          const y = height - padding - (height - 2 * padding) * normalizedValue;
+
+          // Skip invalid points
+          if (!isFinite(x) || !isFinite(y)) return;
+
+          if (!hasMovedTo) {
+            ctx.moveTo(x, y);
+            hasMovedTo = true;
+          } else {
+            ctx.lineTo(x, y);
+          }
+        });
+
+        ctx.stroke();
+      });
+
+      // Update legend
+      updateLegend();
+
+      // Draw labels
+      drawLabels(ctx, width, height, padding, maxN, maxValue);
+    }
+
+    function drawLabels(
+      ctx: CanvasRenderingContext2D,
+      width: number,
+      height: number,
+      padding: number,
+      maxN: number,
+      maxValue: number
+    ) {
+      ctx.fillStyle = isDarkMode() ? "#cbd5e1" : "#71717a";
+      ctx.font = "12px Arial";
+      ctx.textAlign = "center";
+
+      // X-axis labels
+      for (let i = 0; i <= 5; i++) {
+        const x = padding + (width - 2 * padding) * (i / 5);
+        const n = Math.round(maxN * (i / 5));
+        ctx.fillText(n.toString(), x, height - padding + 20);
+      }
+
+      // Y-axis label
+      ctx.save();
+      ctx.translate(padding - 40, height / 2);
+      ctx.rotate(-Math.PI / 2);
+      ctx.textAlign = "center";
+      ctx.fillText("Operaciones", 0, 0);
+      ctx.restore();
+
+      // X-axis label
+      ctx.textAlign = "center";
+      ctx.fillText("Tamaño de entrada (n)", width / 2, height - 10);
+    }
+
+    function updateLegend() {
+      const legend = document.getElementById("chartLegend");
+      if (!legend) return;
+
+      legend.innerHTML = "";
+      Object.entries(complexities)
+        .filter(([_, data]) => data.visible)
+        .forEach(([_, complexity]) => {
+          const item = document.createElement("div");
+          item.className = "legend-item";
+          item.innerHTML = `
+						<div class="legend-color" style="background: ${complexity.color}"></div>
+						<span>${complexity.label}</span>
+					`;
+          legend.appendChild(item);
+        });
+    }
+
+    function updateTable() {
+      const tbody = document.getElementById("performanceTableBody");
+      const currentNSpan = document.getElementById("currentN");
+
+      if (!tbody) return;
+      if (currentNSpan) currentNSpan.textContent = currentN.toString();
+
+      tbody.innerHTML = "";
+
+      Object.entries(complexities).forEach(([key, complexity]) => {
+        const rawOperations = complexity.calculate(currentN);
+        const operations = isFinite(rawOperations)
+          ? Math.round(rawOperations)
+          : 0;
+        const time = formatTime(operations);
+
+        const row = document.createElement("tr");
+        row.style.opacity = complexity.visible ? "1" : "0.3";
+        row.innerHTML = `
+					<td class="complexity-cell">${complexity.label}</td>
+					<td class="operations-cell">${operations.toLocaleString()}</td>
+					<td class="time-cell">${time}</td>
+					<td class="examples-cell">${complexity.examples}</td>
+				`;
+        tbody.appendChild(row);
+      });
+    }
+
+    function formatTime(operations: number): string {
+      // Assuming 1 operation = 1 nanosecond
+      const ns = operations;
+
+      if (ns < 1000) return `${ns} ns`;
+      if (ns < 1000000) return `${(ns / 1000).toFixed(2)} μs`;
+      if (ns < 1000000000) return `${(ns / 1000000).toFixed(2)} ms`;
+      if (ns < 60000000000) return `${(ns / 1000000000).toFixed(2)} s`;
+      if (ns < 3600000000000) return `${(ns / 60000000000).toFixed(2)} min`;
+      if (ns < 86400000000000) return `${(ns / 3600000000000).toFixed(2)} hrs`;
+      return `${(ns / 86400000000000).toFixed(2)} days`;
+    }
+
+    function isDarkMode(): boolean {
+      return document.documentElement.classList.contains("dark-mode");
+    }
+
+    // Redraw chart on window resize
+    let resizeTimeout: number;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = window.setTimeout(() => {
+        if (chart) {
+          initChart(); // Reinitialize to fix canvas size
+          updateChart();
+        }
+      }, 150);
+    });
+
+    // Redraw chart on theme change
+    // Watch for dark-mode class changes on document element
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (
+          mutation.type === "attributes" &&
+          mutation.attributeName === "class"
+        ) {
+          updateChart();
+        }
+      });
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+  </script>
+</Layout>
