@@ -1,0 +1,3982 @@
+---
+// Portfolio page - No Layout to avoid FavoritesBar and Footer
+const skills = [
+  { name: "Flutter", level: 95, icon: "�", color: "#FF6B35" },
+  { name: "C# / .NET", level: 88, icon: "⚡", color: "#FF8C42" },
+  { name: "Android", level: 90, icon: "�", color: "#FF6B35" },
+  { name: "iOS", level: 85, icon: "�", color: "#004E89" },
+  { name: "Dart", level: 92, icon: "�️", color: "#FF8C42" },
+  { name: "Ruby on Rails", level: 80, icon: "�", color: "#FF4500" },
+  { name: "Firebase", level: 90, icon: "🔥", color: "#FF6B35" },
+  { name: "AWS", level: 75, icon: "☁️", color: "#FF8C42" },
+  { name: "Git", level: 90, icon: "�", color: "#6B8E23" },
+  { name: "REST APIs", level: 88, icon: "🌊", color: "#004E89" },
+];
+
+const achievements = [
+  {
+    title: "Hokage Developer",
+    description: "6+ years mastering mobile jutsu",
+    icon: "🍥",
+    unlocked: true,
+  },
+  {
+    title: "Academy Star",
+    description: "UCA Best student & awarded ninja",
+    icon: "📜",
+    unlocked: true,
+  },
+  {
+    title: "Team Captain",
+    description: "Led Squad 7 of developers",
+    icon: "�",
+    unlocked: true,
+  },
+  {
+    title: "Shadow Clone Master",
+    description: "Multi-platform ninja technique",
+    icon: "🥷",
+    unlocked: true,
+  },
+  {
+    title: "Cloud Village Sage",
+    description: "Firebase & AWS summoning jutsu",
+    icon: "☁️",
+    unlocked: true,
+  },
+  {
+    title: "Crypto Ninja",
+    description: "Bitcoin payment seal master",
+    icon: "💰",
+    unlocked: true,
+  },
+];
+
+const experience = [
+  {
+    role: "C# Developer",
+    company: "First American",
+    period: "Oct 2025 - Present",
+    description:
+      "Currently developing enterprise solutions with C# and .NET framework. Working on robust backend systems and business logic implementation for financial services applications.",
+    tech: ["C#", ".NET", "SQL Server", "Enterprise Apps"],
+  },
+  {
+    role: "Mobile Developer",
+    company: "First American",
+    period: "Mar 2025 - Oct 2025",
+    description:
+      "Maintained native Android applications, fixing critical bugs and implementing product requirements to ensure stability and continuous improvement of enterprise-level mobile apps.",
+    tech: ["Android", "Kotlin", "Java", "Mobile Enterprise"],
+  },
+  {
+    role: "Lead Flutter Developer",
+    company: "Cabal App (StartUp)",
+    period: "Jun 2022 - Feb 2025",
+    description:
+      "Led complete mobile frontend development, making strategic technical decisions on navigation, state management, performance and UX. Designed and implemented Flutter app with clean architecture. Collaborated actively on backend development with Ruby on Rails, delivering integrated solutions aligned with business goals.",
+    tech: [
+      "Flutter",
+      "Dart",
+      "Ruby on Rails",
+      "Clean Architecture",
+      "Firebase",
+    ],
+  },
+  {
+    role: "Flutter Developer",
+    company: "Tres Astronautas",
+    period: "Dec 2020 - May 2022",
+    description:
+      "Developed robust and scalable mobile applications using Flutter across music, health, and e-commerce sectors. Integrated and managed Firebase cloud services including authentication, real-time database, storage and push notifications. Contributed to defining best practices for architecture, maintainability and code scalability.",
+    tech: ["Flutter", "Firebase", "Cloud Services", "Agile"],
+  },
+  {
+    role: "Full-stack .NET Developer",
+    company: "Grupo Lexa",
+    period: "Jun 2019 - Dec 2020",
+    description:
+      "Specialized in comprehensive development of mobile, web and desktop solutions using .NET technologies. Built full-stack applications handling both frontend and backend development.",
+    tech: [".NET", "C#", "SQL Server", "Web Development"],
+  },
+];
+
+const projects = [
+  {
+    name: "Bitcoin Payment Gateway",
+    description:
+      "Custom Bitcoin payment gateway using BTCPay Server integrated with WordPress. Configured server from scratch, implemented reCAPTCHA for security, and optimized checkout flow. Enables merchants to accept Bitcoin payments securely without intermediaries.",
+    tech: ["BTCPay Server", "WordPress", "Bitcoin", "PHP"],
+    link: "#",
+    stars: 3500,
+  },
+  {
+    name: "Romero Para Todos",
+    description:
+      "Mobile app for El Salvador's Catholic community. Led complete project lifecycle from concept to App Store deployment. Managed all phases including UX design, Flutter development, Firebase integration, analytics, and publishing strategies.",
+    tech: ["Flutter", "Firebase", "UX Design", "Analytics"],
+    link: "#",
+    stars: 2800,
+  },
+  {
+    name: "Cabal App",
+    description:
+      "Led mobile frontend development for logistics startup. Built with clean architecture Flutter, integrating with Ruby on Rails backend for real-time tracking and delivery management.",
+    tech: ["Flutter", "Clean Architecture", "Ruby on Rails"],
+    link: "#",
+    stars: 2500,
+  },
+  {
+    name: "UCA Maps & FitGain",
+    description:
+      "Two award-winning university apps that earned recognition as best student projects. UCA Maps for campus navigation with real-time location, and FitGain for fitness tracking and health monitoring.",
+    tech: ["Android", "Kotlin", "Firebase", "Google Maps"],
+    link: "#",
+    stars: 1800,
+  },
+  {
+    name: "Employment System for People with Disabilities",
+    description:
+      "Inclusive job search platform designed to help people with disabilities find employment opportunities. Built with Kotlin and Firebase, featuring intuitive interface, real-time database, and secure authentication.",
+    tech: ["Kotlin", "Firebase", "Android", "Accessibility"],
+    link: "#",
+    stars: 1600,
+  },
+  {
+    name: "WordPress Security Enhancement",
+    description:
+      "Comprehensive security improvement project for WordPress sites. Implemented advanced security measures, hardening techniques, and monitoring systems to protect against common vulnerabilities.",
+    tech: ["WordPress", "Security", "PHP", "Network Security"],
+    link: "#",
+    stars: 1400,
+  },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fabricio Hernández - Software Engineer Portfolio</title>
+    <meta
+      name="description"
+      content="Software Engineer with 6+ years of experience building Flutter, Android & iOS apps. Led projects in music, logistics, and e-commerce."
+    />
+    <meta
+      name="keywords"
+      content="Flutter Developer, Android Developer, iOS Developer, Mobile Developer, Fabricio Hernández, El Salvador"
+    />
+    <meta name="author" content="Fabricio Hernández" />
+    <meta name="theme-color" content="#1a1a2e" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Fabricio Hernández - Mobile Developer" />
+    <meta
+      property="og:description"
+      content="Mobile Developer with 6+ years building Flutter, Android & iOS apps"
+    />
+    <meta property="og:image" content="/og-portfolio.png" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Fabricio Hernández - Mobile Developer"
+    />
+    <meta
+      name="twitter:description"
+      content="Mobile Developer with 6+ years building Flutter, Android & iOS apps"
+    />
+  </head>
+  <body>
+    <div class="portfolio-container">
+      <!-- Pixel Art Header -->
+      <div class="pixel-header">
+        <div class="stars-bg"></div>
+
+        <!-- Battle Arena -->
+        <div class="battle-arena">
+          <!-- Desert Rock Formations -->
+          <div class="rock-formation rock-left"></div>
+          <div class="rock-formation rock-right"></div>
+
+          <div class="arena-floor"></div>
+
+          <!-- Player Character -->
+          <div class="player-fighter">
+            <div class="fighter-sprite">
+              <div class="head"></div>
+              <div class="body"></div>
+              <div class="arm left punch"></div>
+              <div class="arm right punch"></div>
+              <div class="leg left"></div>
+              <div class="leg right"></div>
+            </div>
+            <div class="fighter-shadow"></div>
+            <div class="health-bar player-health">
+              <div class="health-label">FABRICIO</div>
+              <div class="health-fill"></div>
+            </div>
+          </div>
+
+          <!-- Code Enemy -->
+          <div class="code-enemy">
+            <div class="enemy-body">
+              <div class="enemy-screen">
+                <div class="code-line"></div>
+                <div class="code-line"></div>
+                <div class="code-line"></div>
+                <div class="code-line error"></div>
+              </div>
+              <div class="enemy-eyes">
+                <div class="eye left"></div>
+                <div class="eye right"></div>
+              </div>
+            </div>
+            <div class="enemy-shadow"></div>
+            <div class="health-bar enemy-health">
+              <div class="health-label">BUG BOSS</div>
+              <div class="health-fill"></div>
+            </div>
+          </div>
+
+          <!-- Battle Effects -->
+          <div class="battle-effects">
+            <!-- Kunai attacks from player -->
+            <div class="kunai kunai-1">🗡️</div>
+            <div class="kunai kunai-2">🗡️</div>
+            <div class="kunai kunai-3">🗡️</div>
+
+            <!-- Amaterasu flames from enemy -->
+            <div class="amaterasu">🔥</div>
+            <div class="amaterasu-flame flame-1">🔥</div>
+            <div class="amaterasu-flame flame-2">🔥</div>
+            <div class="amaterasu-flame flame-3">🔥</div>
+
+            <!-- Rasenshuriken from player -->
+            <div class="rasenshuriken">🌀⭐</div>
+
+            <div class="hit-effect"></div>
+            <div class="code-particle">{}</div>
+            <div class="code-particle">[ ]</div>
+            <div class="code-particle">&lt;/&gt;</div>
+            <div class="code-particle">( )</div>
+          </div>
+
+          <!-- VS Badge -->
+          <div class="vs-badge">VS</div>
+        </div>
+
+        <div class="container">
+          <div class="character-section">
+            <div class="hero-content">
+              <div class="game-text">
+                <h1 class="pixel-title">
+                  <span class="blink">🍥</span> FABRICIO HERNÁNDEZ
+                </h1>
+                <p class="pixel-subtitle">
+                  Code Ninja • Shadow Clone Developer
+                </p>
+                <div class="stats-bar">
+                  <div class="stat">
+                    <span class="stat-label">Ninja Rank:</span>
+                    <span class="stat-value">Jōnin</span>
+                  </div>
+                  <div class="stat">
+                    <span class="stat-label">Experience:</span>
+                    <span class="stat-value">6+ years</span>
+                  </div>
+                  <div class="stat">
+                    <span class="stat-label">Village:</span>
+                    <span class="stat-value">🍃 El Salvador</span>
+                  </div>
+                </div>
+                <div class="action-buttons">
+                  <a href="#contact" class="pixel-button primary">
+                    <span>🍥 Start Mission</span>
+                  </a>
+                  <a href="#projects" class="pixel-button secondary">
+                    <span>🗡️ View Jutsu</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Health/Chakra bars -->
+          <div class="status-bars">
+            <div class="status-bar">
+              <span class="bar-label">⚡ CHAKRA (Energy Level)</span>
+              <div class="bar health">
+                <div class="bar-fill" style="width: 100%"></div>
+              </div>
+            </div>
+            <div class="status-bar">
+              <span class="bar-label">🌀 NINE-TAILS MODE (Power)</span>
+              <div class="bar mana">
+                <div class="bar-fill" style="width: 95%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skills Section -->
+      <section class="game-section skills-section" id="skills">
+        <div class="container">
+          <h2 class="section-title">
+            <span class="title-icon">🗡️</span>
+            NINJA TECHNIQUES
+            <span class="title-icon">🔥</span>
+          </h2>
+
+          <div class="skills-grid">
+            {
+              skills.map((skill) => (
+                <div class="skill-card">
+                  <div class="skill-header">
+                    <span class="skill-icon">{skill.icon}</span>
+                    <span class="skill-name">{skill.name}</span>
+                  </div>
+                  <div class="skill-bar">
+                    <div
+                      class="skill-progress"
+                      style={`width: ${skill.level}%; background: ${skill.color}`}
+                    >
+                      <span class="skill-level">{skill.level}</span>
+                    </div>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+
+      <!-- Achievements Section -->
+      <section class="game-section achievements-section">
+        <div class="container">
+          <h2 class="section-title">
+            <span class="title-icon">📜</span>
+            NINJA RANK ACHIEVEMENTS
+            <span class="title-icon">�</span>
+          </h2>
+
+          <div class="achievements-grid">
+            {
+              achievements.map((achievement) => (
+                <div
+                  class={`achievement-card ${achievement.unlocked ? "unlocked" : "locked"}`}
+                >
+                  <div class="achievement-icon">{achievement.icon}</div>
+                  <h3 class="achievement-title">{achievement.title}</h3>
+                  <p class="achievement-desc">{achievement.description}</p>
+                  {achievement.unlocked && (
+                    <div class="unlock-badge">UNLOCKED</div>
+                  )}
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+
+      <!-- Experience Section -->
+      <section class="game-section experience-section" id="experience">
+        <div class="container">
+          <h2 class="section-title">
+            <span class="title-icon">�</span>
+            MISSION HISTORY
+            <span class="title-icon">🍃</span>
+          </h2>
+
+          <div class="timeline">
+            {
+              experience.map((exp, index) => (
+                <div class="timeline-item">
+                  <div class="timeline-marker">
+                    <span class="marker-dot" />
+                  </div>
+                  <div class="timeline-content">
+                    <div class="quest-card">
+                      <div class="quest-header">
+                        <h3 class="quest-title">{exp.role}</h3>
+                        <span
+                          class={`quest-status ${index === 0 ? "in-progress" : ""}`}
+                        >
+                          {index === 0 ? "IN PROGRESS" : "COMPLETED"}
+                        </span>
+                      </div>
+                      <div class="quest-details">
+                        <span class="company">{exp.company}</span>
+                        <span class="period">{exp.period}</span>
+                      </div>
+                      <p class="quest-description">{exp.description}</p>
+                      <div class="tech-tags">
+                        {exp.tech.map((tech) => (
+                          <span class="tech-tag">{tech}</span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+
+      <!-- Projects Section -->
+      <section class="game-section projects-section" id="projects">
+        <div class="container">
+          <h2 class="section-title">
+            <span class="title-icon">�</span>
+            LEGENDARY JUTSU
+            <span class="title-icon">⚡</span>
+          </h2>
+
+          <div class="projects-grid">
+            {
+              projects.map((project) => (
+                <div class="project-card">
+                  <div class="project-header">
+                    <h3 class="project-name">{project.name}</h3>
+                    <div class="project-stars">
+                      <span class="star-icon">⭐</span>
+                      <span class="star-count">{project.stars}</span>
+                    </div>
+                  </div>
+                  <p class="project-description">{project.description}</p>
+                  <div class="project-tech">
+                    {project.tech.map((tech) => (
+                      <span class="tech-badge">{tech}</span>
+                    ))}
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section class="game-section contact-section" id="contact">
+        <div class="container">
+          <h2 class="section-title">
+            <span class="title-icon">🦊</span>
+            SUMMON THE NINJA
+            <span class="title-icon">🍥</span>
+          </h2>
+
+          <div class="contact-box">
+            <div class="dialog-box">
+              <p class="dialog-text">
+                <span class="blink">🍥</span> Believe it! Let's build something amazing
+                together!
+                <br /><br />
+                Code ninja with 6+ years mastering mobile jutsu and full-stack techniques.
+                Specialized in Flutter and .NET shadow clones, I've completed S-rank
+                missions in music, logistics, and e-commerce villages. Known for
+                adapting like a true shinobi to new technologies and delivering powerful,
+                scalable solutions with the determination of becoming the Hokage
+                of developers!
+              </p>
+
+              <div class="contact-buttons">
+                <a
+                  href="mailto:fabricioenrique123@gmail.com"
+                  class="contact-btn"
+                >
+                  <span>📧 Send Scroll</span>
+                </a>
+                <a
+                  href="https://github.com/Fabri17"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="contact-btn"
+                >
+                  <span>🐙 GitHub Dojo</span>
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/fabricio-hernandez17/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="contact-btn"
+                >
+                  <span>💼 LinkedIn Village</span>
+                </a>
+                <a href="tel:+50372610041" class="contact-btn">
+                  <span>📞 Summoning Jutsu</span>
+                </a>
+              </div>
+            </div>
+
+            <div class="game-stats">
+              <div class="stat-item">
+                <span class="stat-icon">🍃</span>
+                <span class="stat-text">Hidden Leaf Village • San Salvador</span
+                >
+              </div>
+              <div class="stat-item">
+                <span class="stat-icon">🦊</span>
+                <span class="stat-text">Flutter & Mobile Ninja Master</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-icon">⚡</span>
+                <span class="stat-text"
+                  >Never gives up! That's my ninja way</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>
+
+<style>
+  /* ========================================
+     8-BIT PORTFOLIO STYLES
+     Pixel Perfect Design System
+     ======================================== */
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    background: #1a1a1a;
+    color: #f0f0f0;
+    font-family:
+      system-ui,
+      -apple-system,
+      sans-serif;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* Falling leaves effect */
+  body::before {
+    content: "🍃 🍂 🍃 🍂 🍃 🍂 🍃 🍂 🍃 🍂 🍃 🍂 🍃 🍂 🍃 🍂";
+    position: fixed;
+    top: -50px;
+    left: 0;
+    width: 100%;
+    font-size: 2rem;
+    opacity: 0.15;
+    animation: falling-leaves 25s linear infinite;
+    pointer-events: none;
+    z-index: 1;
+    letter-spacing: 3rem;
+  }
+
+  @keyframes falling-leaves {
+    0% {
+      transform: translateY(-50px) translateX(0);
+      opacity: 0.15;
+    }
+    50% {
+      opacity: 0.25;
+    }
+    100% {
+      transform: translateY(110vh) translateX(-100px);
+      opacity: 0;
+    }
+  }
+
+  .portfolio-container {
+    min-height: 100vh;
+    background: #1a1a1a;
+    color: #f0f0f0;
+    position: relative;
+  }
+
+  /* ===== PIXEL HEADER ===== */
+  .pixel-header {
+    position: relative;
+    min-height: 100vh;
+    background: linear-gradient(180deg, #1a1a1a 0%, #2d1810 50%, #1a1a1a 100%);
+    overflow: hidden;
+    padding: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* Naruto spiral pattern */
+  .pixel-header::after {
+    content: "🍥";
+    position: absolute;
+    top: 10%;
+    right: 10%;
+    font-size: 15rem;
+    opacity: 0.03;
+    animation: rotate-slow 60s linear infinite;
+    pointer-events: none;
+  }
+
+  @keyframes rotate-slow {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .stars-bg {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(2px 2px at 20% 30%, white, transparent),
+      radial-gradient(2px 2px at 60% 70%, white, transparent),
+      radial-gradient(1px 1px at 50% 50%, white, transparent),
+      radial-gradient(1px 1px at 80% 10%, white, transparent),
+      radial-gradient(2px 2px at 90% 60%, white, transparent),
+      radial-gradient(1px 1px at 33% 80%, white, transparent);
+    background-size: 200% 200%;
+    animation: stars-twinkle 20s linear infinite;
+  }
+
+  @keyframes stars-twinkle {
+    0%,
+    100% {
+      opacity: 0.8;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  .character-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    margin-top: 420px;
+    width: 100%;
+    padding: 2rem 0;
+  }
+
+  /* ===== BATTLE ARENA ===== */
+  .battle-arena {
+    position: absolute;
+    top: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 1000px;
+    height: 380px;
+    z-index: 2;
+    perspective: 1000px;
+    background: 
+      /* Sky gradient */
+      linear-gradient(180deg, #87ceeb 0%, #e0c9a6 40%, #d4a574 100%),
+      /* Rock texture pattern */
+        repeating-linear-gradient(
+          45deg,
+          #8b4513 0px,
+          #8b4513 10px,
+          #a0522d 10px,
+          #a0522d 20px
+        ),
+      repeating-linear-gradient(
+        -45deg,
+        #8b4513 0px,
+        #8b4513 15px,
+        #a0522d 15px,
+        #a0522d 30px
+      );
+    background-position:
+      center top,
+      center bottom,
+      center bottom;
+    background-size:
+      100% 40%,
+      100% 60%,
+      100% 60%;
+    background-repeat: no-repeat, repeat, repeat;
+    border-radius: 8px;
+    border: 4px solid #8b4513;
+    box-shadow:
+      inset 0 -100px 80px rgba(139, 69, 19, 0.3),
+      0 10px 30px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+  }
+
+  /* Desert rocks overlay */
+  .battle-arena::before {
+    content: "";
+    position: absolute;
+    bottom: 60%;
+    left: 0;
+    right: 0;
+    height: 40%;
+    background: radial-gradient(
+        ellipse at 20% 100%,
+        #a0522d 0%,
+        transparent 50%
+      ),
+      radial-gradient(ellipse at 50% 100%, #8b4513 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 100%, #a0522d 0%, transparent 50%),
+      radial-gradient(ellipse at 35% 90%, #704214 0%, transparent 40%),
+      radial-gradient(ellipse at 65% 90%, #704214 0%, transparent 40%);
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  .arena-floor {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background: linear-gradient(
+      90deg,
+      #8b4513 0%,
+      #cd853f 20%,
+      #deb887 50%,
+      #cd853f 80%,
+      #8b4513 100%
+    );
+    box-shadow:
+      0 -2px 10px rgba(139, 69, 19, 0.5),
+      inset 0 2px 4px rgba(0, 0, 0, 0.3);
+    border-top: 2px solid #704214;
+  }
+
+  /* Rock formations in background */
+  .rock-formation {
+    position: absolute;
+    bottom: 40%;
+    width: 80px;
+    height: 120px;
+    opacity: 0.4;
+    pointer-events: none;
+    background: linear-gradient(135deg, #a0522d 0%, #8b4513 50%, #704214 100%);
+    clip-path: polygon(
+      50% 0%,
+      70% 25%,
+      90% 40%,
+      85% 70%,
+      100% 100%,
+      0% 100%,
+      15% 70%,
+      10% 40%,
+      30% 25%
+    );
+    filter: blur(1px);
+  }
+
+  .rock-left {
+    left: 5%;
+    transform: scaleX(-1) rotate(-5deg);
+  }
+
+  .rock-right {
+    right: 5%;
+    transform: rotate(5deg);
+    height: 140px;
+  }
+
+  /* Additional rock texture */
+  .rock-formation::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 5px,
+      rgba(0, 0, 0, 0.1) 5px,
+      rgba(0, 0, 0, 0.1) 10px
+    );
+  }
+
+  /* Player Fighter */
+  .player-fighter {
+    position: absolute;
+    left: 15%;
+    bottom: 50px;
+    animation: fighter-battle-sequence 5s ease-in-out infinite;
+    z-index: 10;
+  }
+
+  @keyframes fighter-battle-sequence {
+    /* Stance and throw kunais */
+    0%,
+    15% {
+      transform: translateY(0) translateX(0);
+    }
+    /* Dodge Amaterasu - jump back */
+    30% {
+      transform: translateY(-40px) translateX(-30px) rotate(-5deg);
+    }
+    35% {
+      transform: translateY(-20px) translateX(-20px) rotate(0deg);
+    }
+    40%,
+    55% {
+      transform: translateY(0) translateX(0);
+    }
+    /* Throw Rasenshuriken */
+    60% {
+      transform: translateY(-10px) translateX(15px) rotate(5deg);
+    }
+    65% {
+      transform: translateY(0) translateX(10px) rotate(0deg);
+    }
+    70%,
+    100% {
+      transform: translateY(0) translateX(0);
+    }
+  }
+
+  .fighter-sprite {
+    width: 120px;
+    height: 150px;
+    position: relative;
+    image-rendering: pixelated;
+  }
+
+  .fighter-sprite .head {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: #ffcc99;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow:
+      inset -2px -2px 0 rgba(0, 0, 0, 0.2),
+      3px 3px 0 #000;
+  }
+
+  /* Headband with Leaf Village symbol */
+  .fighter-sprite .head::before {
+    content: "🍃";
+    position: absolute;
+    width: 40px;
+    height: 25px;
+    background: #004e89;
+    top: -15px;
+    left: 5px;
+    box-shadow:
+      3px 0 0 #000,
+      -3px 0 0 #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+  }
+
+  .fighter-sprite .head::after {
+    content: "";
+    position: absolute;
+    width: 8px;
+    height: 3px;
+    background: #000;
+    top: 20px;
+    left: 12px;
+    border-radius: 1px;
+    box-shadow:
+      0 0 0 1px #000,
+      22px 0 0 #000,
+      22px 0 0 1px #000;
+  }
+
+  .fighter-sprite .body {
+    position: absolute;
+    width: 60px;
+    height: 50px;
+    background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
+    top: 55px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 3px 3px 0 #000;
+  }
+
+  /* Uzumaki spiral on body */
+  .fighter-sprite .body::after {
+    content: "🍥";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+    opacity: 0.6;
+  }
+
+  .fighter-sprite .arm {
+    position: absolute;
+    width: 20px;
+    height: 45px;
+    background: #ffcc99;
+    top: 60px;
+    box-shadow: 3px 3px 0 #000;
+    transform-origin: top center;
+  }
+
+  .fighter-sprite .arm.left.punch {
+    left: 20px;
+    animation: punch-left 1.5s ease-in-out infinite;
+  }
+
+  .fighter-sprite .arm.right.punch {
+    right: 20px;
+    animation: punch-right 1.5s ease-in-out infinite;
+  }
+
+  @keyframes punch-left {
+    0%,
+    100% {
+      transform: rotate(0deg);
+    }
+    20% {
+      transform: rotate(-45deg) translateX(-20px);
+    }
+    25% {
+      transform: rotate(-60deg) translateX(-30px);
+    }
+    30% {
+      transform: rotate(-45deg) translateX(-20px);
+    }
+    50% {
+      transform: rotate(0deg);
+    }
+  }
+
+  @keyframes punch-right {
+    0%,
+    100% {
+      transform: rotate(0deg);
+    }
+    60% {
+      transform: rotate(45deg) translateX(20px);
+    }
+    65% {
+      transform: rotate(60deg) translateX(30px);
+    }
+    70% {
+      transform: rotate(45deg) translateX(20px);
+    }
+    90% {
+      transform: rotate(0deg);
+    }
+  }
+
+  .fighter-sprite .leg {
+    position: absolute;
+    width: 22px;
+    height: 45px;
+    background: #004e89;
+    top: 105px;
+    box-shadow: 3px 3px 0 #000;
+  }
+
+  .fighter-sprite .leg.left {
+    left: 35px;
+  }
+
+  .fighter-sprite .leg.right {
+    right: 35px;
+  }
+
+  .fighter-shadow {
+    width: 100px;
+    height: 15px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 50%;
+    margin-top: 10px;
+    animation: shadow-pulse 2s ease-in-out infinite;
+  }
+
+  /* Code Enemy */
+  .code-enemy {
+    position: absolute;
+    right: 15%;
+    bottom: 50px;
+    animation: enemy-battle-sequence 5s ease-in-out infinite;
+    z-index: 10;
+  }
+
+  @keyframes enemy-battle-sequence {
+    /* Initial position */
+    0%,
+    5% {
+      transform: translateX(0) rotate(0deg);
+    }
+    /* Dodge kunais - move side to side quickly */
+    8% {
+      transform: translateX(-20px) rotate(-5deg);
+    }
+    12% {
+      transform: translateX(20px) rotate(5deg);
+    }
+    16% {
+      transform: translateX(-15px) rotate(-3deg);
+    }
+    20%,
+    22% {
+      transform: translateX(0) rotate(0deg);
+    }
+    /* Cast Amaterasu - charge up */
+    25% {
+      transform: translateX(0) rotate(0deg) scale(1.1);
+    }
+    30% {
+      transform: translateX(-10px) rotate(-5deg) scale(1);
+    }
+    35%,
+    45% {
+      transform: translateX(0) rotate(0deg);
+    }
+    /* Get hit by Rasenshuriken */
+    52% {
+      transform: translateX(30px) rotate(15deg);
+    }
+    56% {
+      transform: translateX(-20px) rotate(-10deg);
+    }
+    60% {
+      transform: translateX(10px) rotate(5deg);
+    }
+    65%,
+    100% {
+      transform: translateX(0) rotate(0deg);
+    }
+  }
+
+  .enemy-body {
+    width: 120px;
+    height: 140px;
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    border: 4px solid #ef4444;
+    box-shadow:
+      0 0 20px rgba(239, 68, 68, 0.5),
+      inset 0 0 20px rgba(239, 68, 68, 0.2);
+    position: relative;
+    border-radius: 8px;
+  }
+
+  .enemy-screen {
+    width: 100px;
+    height: 80px;
+    background: #0a0a0a;
+    margin: 10px auto;
+    padding: 8px;
+    border: 2px solid #ef4444;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .code-line {
+    width: 100%;
+    height: 6px;
+    background: #10b981;
+    margin: 4px 0;
+    animation: code-scroll 2s linear infinite;
+    box-shadow: 0 0 5px rgba(16, 185, 129, 0.5);
+  }
+
+  .code-line:nth-child(2) {
+    width: 70%;
+    animation-delay: 0.2s;
+  }
+
+  .code-line:nth-child(3) {
+    width: 85%;
+    animation-delay: 0.4s;
+  }
+
+  .code-line.error {
+    background: #ef4444;
+    animation: error-blink 1s ease-in-out infinite;
+    box-shadow: 0 0 10px rgba(239, 68, 68, 0.8);
+  }
+
+  @keyframes code-scroll {
+    0% {
+      opacity: 0;
+      transform: translateX(-100%);
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(100%);
+    }
+  }
+
+  @keyframes error-blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.3;
+    }
+  }
+
+  .enemy-eyes {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 20px;
+  }
+
+  .eye {
+    width: 20px;
+    height: 20px;
+    background: #ef4444;
+    border-radius: 50%;
+    box-shadow:
+      0 0 10px rgba(239, 68, 68, 0.8),
+      inset -2px -2px 5px rgba(0, 0, 0, 0.5);
+    animation: eye-glow 2s ease-in-out infinite;
+  }
+
+  .eye::after {
+    content: "";
+    display: block;
+    width: 8px;
+    height: 8px;
+    background: #fff;
+    border-radius: 50%;
+    margin: 6px;
+    animation: eye-pupil 3s ease-in-out infinite;
+  }
+
+  @keyframes eye-glow {
+    0%,
+    100% {
+      box-shadow: 0 0 10px rgba(239, 68, 68, 0.8);
+    }
+    50% {
+      box-shadow: 0 0 25px rgba(239, 68, 68, 1);
+    }
+  }
+
+  @keyframes eye-pupil {
+    0%,
+    100% {
+      transform: translate(0, 0);
+    }
+    25% {
+      transform: translate(-2px, 0);
+    }
+    75% {
+      transform: translate(2px, 0);
+    }
+  }
+
+  .enemy-shadow {
+    width: 100px;
+    height: 15px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 50%;
+    margin-top: 10px;
+    animation: shadow-pulse 1.5s ease-in-out infinite;
+  }
+
+  /* Health Bars */
+  .health-bar {
+    position: absolute;
+    top: -40px;
+    width: 150px;
+    height: 25px;
+    background: #1a1a2e;
+    border: 3px solid #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 11;
+  }
+
+  .player-health {
+    left: -15px;
+  }
+
+  .enemy-health {
+    right: -15px;
+  }
+
+  .health-label {
+    position: absolute;
+    top: -20px;
+    font-family: "Press Start 2P", monospace;
+    font-size: 0.6rem;
+    color: #fff;
+    text-shadow: 2px 2px 0 #000;
+  }
+
+  .health-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #10b981 0%, #34d399 100%);
+    animation: health-decrease 8s ease-in-out infinite;
+    box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .enemy-health .health-fill {
+    background: linear-gradient(90deg, #ef4444 0%, #dc2626 100%);
+    animation: enemy-health-decrease 8s ease-in-out infinite;
+  }
+
+  @keyframes health-decrease {
+    0%,
+    100% {
+      width: 100%;
+    }
+    50% {
+      width: 60%;
+    }
+  }
+
+  @keyframes enemy-health-decrease {
+    0%,
+    100% {
+      width: 100%;
+    }
+    50% {
+      width: 30%;
+    }
+  }
+
+  /* Battle Effects */
+  .battle-effects {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  .hit-effect {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    right: 15%;
+    bottom: 60px;
+    background: radial-gradient(
+      circle,
+      #4a90e2 0%,
+      #ff6b35 50%,
+      transparent 70%
+    );
+    border-radius: 50%;
+    opacity: 0;
+    animation: hit-flash 5s ease-in-out infinite;
+  }
+
+  @keyframes hit-flash {
+    0%,
+    62%,
+    100% {
+      opacity: 0;
+      transform: scale(0);
+    }
+    64% {
+      opacity: 1;
+      transform: scale(1.5);
+    }
+    66% {
+      opacity: 0.5;
+      transform: scale(2);
+    }
+    68% {
+      opacity: 0;
+      transform: scale(2.5);
+    }
+  }
+
+  .code-particle {
+    position: absolute;
+    font-family: "Press Start 2P", monospace;
+    font-size: 1.5rem;
+    color: #a855f7;
+    text-shadow: 0 0 10px rgba(168, 85, 247, 0.8);
+    animation: particle-float 3s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  .code-particle:nth-child(2) {
+    top: 20%;
+    right: 40%;
+    animation-delay: 0.5s;
+    color: #10b981;
+    text-shadow: 0 0 10px rgba(16, 185, 129, 0.8);
+  }
+
+  .code-particle:nth-child(3) {
+    top: 60%;
+    left: 35%;
+    animation-delay: 1s;
+    color: #fbbf24;
+    text-shadow: 0 0 10px rgba(251, 191, 36, 0.8);
+  }
+
+  .code-particle:nth-child(4) {
+    top: 40%;
+    right: 25%;
+    animation-delay: 1.5s;
+    color: #3b82f6;
+    text-shadow: 0 0 10px rgba(59, 130, 246, 0.8);
+  }
+
+  .code-particle:nth-child(5) {
+    top: 70%;
+    left: 45%;
+    animation-delay: 2s;
+    color: #ec4899;
+    text-shadow: 0 0 10px rgba(236, 72, 153, 0.8);
+  }
+
+  @keyframes particle-float {
+    0%,
+    100% {
+      opacity: 0;
+      transform: translateY(0) rotate(0deg);
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-100px) rotate(360deg);
+    }
+  }
+
+  /* Kunai attacks */
+  .kunai {
+    position: absolute;
+    font-size: 2rem;
+    left: 15%;
+    bottom: 50px;
+    opacity: 0;
+    pointer-events: none;
+    filter: drop-shadow(0 0 5px rgba(255, 107, 53, 0.8));
+  }
+
+  .kunai-1 {
+    animation: kunai-throw 5s ease-out 0s infinite;
+  }
+
+  .kunai-2 {
+    animation: kunai-throw 5s ease-out 0.15s infinite;
+  }
+
+  .kunai-3 {
+    animation: kunai-throw 5s ease-out 0.3s infinite;
+  }
+
+  @keyframes kunai-throw {
+    0%,
+    2% {
+      opacity: 0;
+      left: 15%;
+      bottom: 50px;
+      transform: rotate(0deg) scale(1);
+    }
+    3% {
+      opacity: 1;
+    }
+    12% {
+      opacity: 1;
+      left: 70%;
+      bottom: 80px;
+      transform: rotate(360deg) scale(1);
+    }
+    14% {
+      opacity: 0;
+      left: 75%;
+      bottom: 85px;
+      transform: rotate(400deg) scale(0.8);
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  /* Amaterasu black flames */
+  .amaterasu {
+    position: absolute;
+    font-size: 3rem;
+    right: 15%;
+    bottom: 60px;
+    opacity: 0;
+    pointer-events: none;
+    filter: drop-shadow(0 0 15px rgba(220, 20, 60, 0.9));
+    color: #8b0000;
+  }
+
+  .amaterasu {
+    animation: amaterasu-cast 5s ease-out 0s infinite;
+  }
+
+  @keyframes amaterasu-cast {
+    0%,
+    22% {
+      opacity: 0;
+      right: 15%;
+      bottom: 60px;
+      transform: scale(0.5);
+    }
+    24% {
+      opacity: 1;
+      transform: scale(1.5);
+    }
+    30% {
+      opacity: 1;
+      right: 35%;
+      bottom: 70px;
+      transform: scale(2);
+    }
+    34% {
+      opacity: 1;
+      right: 45%;
+      bottom: 75px;
+      transform: scale(2.2);
+    }
+    38% {
+      opacity: 0;
+      right: 50%;
+      bottom: 50px;
+      transform: scale(1.5);
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  .amaterasu-flame {
+    position: absolute;
+    font-size: 2rem;
+    opacity: 0;
+    pointer-events: none;
+    color: #dc143c;
+    filter: drop-shadow(0 0 10px rgba(220, 20, 60, 0.8));
+  }
+
+  .flame-1 {
+    right: 20%;
+    bottom: 55px;
+    animation: flame-spread 5s ease-out 0.05s infinite;
+  }
+
+  .flame-2 {
+    right: 25%;
+    bottom: 70px;
+    animation: flame-spread 5s ease-out 0.1s infinite;
+  }
+
+  .flame-3 {
+    right: 30%;
+    bottom: 50px;
+    animation: flame-spread 5s ease-out 0.15s infinite;
+  }
+
+  @keyframes flame-spread {
+    0%,
+    23% {
+      opacity: 0;
+      transform: scale(0.3) rotate(0deg);
+    }
+    25% {
+      opacity: 1;
+      transform: scale(1) rotate(20deg);
+    }
+    32% {
+      opacity: 1;
+      transform: scale(1.3) rotate(-20deg);
+    }
+    36% {
+      opacity: 0;
+      transform: scale(0.8) rotate(30deg);
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  /* Rasenshuriken counter */
+  .rasenshuriken {
+    position: absolute;
+    font-size: 4rem;
+    left: 15%;
+    bottom: 50px;
+    opacity: 0;
+    pointer-events: none;
+    filter: drop-shadow(0 0 20px rgba(100, 149, 237, 0.9));
+  }
+
+  .rasenshuriken {
+    animation: rasenshuriken-throw 5s ease-out 0s infinite;
+  }
+
+  @keyframes rasenshuriken-throw {
+    0%,
+    48% {
+      opacity: 0;
+      left: 15%;
+      bottom: 50px;
+      transform: rotate(0deg) scale(0.5);
+    }
+    50% {
+      opacity: 1;
+      transform: rotate(0deg) scale(1);
+    }
+    62% {
+      opacity: 1;
+      left: 85%;
+      bottom: 70px;
+      transform: rotate(1080deg) scale(1.5);
+    }
+    65% {
+      opacity: 1;
+      transform: rotate(1200deg) scale(2);
+    }
+    68% {
+      opacity: 0;
+      left: 90%;
+      bottom: 65px;
+      transform: rotate(1440deg) scale(0.5);
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  /* VS Badge */
+  .vs-badge {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: "Press Start 2P", monospace;
+    font-size: 3rem;
+    color: #ff6b35;
+    text-shadow:
+      4px 4px 0 #000,
+      0 0 20px rgba(255, 107, 53, 0.8),
+      0 0 40px rgba(255, 107, 53, 0.6);
+    animation: vs-pulse 2s ease-in-out infinite;
+    z-index: 10;
+  }
+
+  .vs-badge::before {
+    content: "🍥";
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2rem;
+    animation: spin-badge 3s linear infinite;
+  }
+
+  @keyframes spin-badge {
+    from {
+      transform: translateX(-50%) rotate(0deg);
+    }
+    to {
+      transform: translateX(-50%) rotate(360deg);
+    }
+  }
+
+  @keyframes vs-pulse {
+    0%,
+    100% {
+      transform: translate(-50%, -50%) scale(1);
+      filter: brightness(1);
+    }
+    50% {
+      transform: translate(-50%, -50%) scale(1.2);
+      filter: brightness(1.5);
+    }
+  }
+
+  /* Pixel Character (Original - kept for reference) */
+  .pixel-character {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  .character-sprite {
+    width: 200px;
+    height: 250px;
+    position: relative;
+    image-rendering: pixelated;
+  }
+
+  .head {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    background: #ffcc99;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow:
+      inset -4px -4px 0 rgba(0, 0, 0, 0.2),
+      4px 4px 0 #000;
+  }
+
+  .head::before {
+    content: "";
+    position: absolute;
+    width: 60px;
+    height: 40px;
+    background: #3d2817;
+    top: -20px;
+    left: 10px;
+    box-shadow:
+      4px 0 0 #000,
+      -4px 0 0 #000;
+  }
+
+  .head::after {
+    content: "";
+    position: absolute;
+    width: 12px;
+    height: 4px;
+    background: #000;
+    top: 30px;
+    left: 20px;
+    border-radius: 2px;
+    box-shadow:
+      0 0 0 2px #000,
+      36px 0 0 #000,
+      36px 0 0 2px #000;
+  }
+
+  .body {
+    position: absolute;
+    width: 100px;
+    height: 80px;
+    background: #6366f1;
+    top: 85px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 4px 4px 0 #000;
+  }
+
+  .arm {
+    position: absolute;
+    width: 30px;
+    height: 70px;
+    background: #ffcc99;
+    top: 90px;
+    box-shadow: 4px 4px 0 #000;
+  }
+
+  .arm.left {
+    left: 35px;
+    animation: wave 1s ease-in-out infinite;
+  }
+
+  .arm.right {
+    right: 35px;
+  }
+
+  @keyframes wave {
+    0%,
+    100% {
+      transform: rotate(0deg);
+    }
+    50% {
+      transform: rotate(-15deg);
+    }
+  }
+
+  .leg {
+    position: absolute;
+    width: 35px;
+    height: 70px;
+    background: #4338ca;
+    top: 165px;
+    box-shadow: 4px 4px 0 #000;
+  }
+
+  .leg.left {
+    left: 60px;
+  }
+
+  .leg.right {
+    right: 60px;
+  }
+
+  .character-shadow {
+    width: 150px;
+    height: 20px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    margin-top: 20px;
+    animation: shadow-pulse 3s ease-in-out infinite;
+  }
+
+  @keyframes shadow-pulse {
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 0.3;
+    }
+    50% {
+      transform: scale(1.1);
+      opacity: 0.5;
+    }
+  }
+
+  /* Hero Content */
+  .hero-content {
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .game-text {
+    font-family: "Press Start 2P", "Courier New", monospace;
+  }
+
+  .pixel-title {
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+    color: #fff;
+    text-shadow:
+      4px 4px 0 #6366f1,
+      8px 8px 0 rgba(0, 0, 0, 0.3);
+    margin-bottom: 1rem;
+    line-height: 1.4;
+  }
+
+  .blink {
+    animation: blink 1s infinite;
+  }
+
+  @keyframes blink {
+    0%,
+    49% {
+      opacity: 1;
+    }
+    50%,
+    100% {
+      opacity: 0;
+    }
+  }
+
+  .pixel-subtitle {
+    font-size: 1rem;
+    color: #a855f7;
+    margin-bottom: 2rem;
+    letter-spacing: 2px;
+  }
+
+  .stats-bar {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .stat-label {
+    font-size: 0.7rem;
+    color: #888;
+  }
+
+  .stat-value {
+    font-size: 0.9rem;
+    color: #f0f0f0;
+    padding: 0.5rem 1rem;
+    background: rgba(99, 102, 241, 0.2);
+    border: 2px solid #6366f1;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3);
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .pixel-button {
+    padding: 1rem 2rem;
+    font-family: inherit;
+    font-size: 0.8rem;
+    text-decoration: none;
+    border: 4px solid;
+    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.4);
+    transition: all 0.1s;
+    cursor: pointer;
+    position: relative;
+    image-rendering: pixelated;
+  }
+
+  .pixel-button:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.4);
+  }
+
+  .pixel-button:active {
+    transform: translate(4px, 4px);
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.4);
+  }
+
+  .pixel-button.primary {
+    background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
+    color: #fff;
+    border-color: #d4521c;
+  }
+
+  .pixel-button.secondary {
+    background: linear-gradient(135deg, #004e89 0%, #1976d2 100%);
+    color: #fff;
+    border-color: #003559;
+  }
+
+  /* Status Bars */
+  .status-bars {
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .status-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .bar-label {
+    font-family: "Press Start 2P", monospace;
+    font-size: 0.7rem;
+    color: #888;
+  }
+
+  .bar {
+    height: 30px;
+    background: #1a1a2e;
+    border: 3px solid #333;
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  .bar-fill {
+    height: 100%;
+    transition: width 1s ease-out;
+    position: relative;
+  }
+
+  .bar.health .bar-fill {
+    background: linear-gradient(90deg, #ff6b35 0%, #ff8c42 100%);
+    box-shadow: 0 0 10px rgba(255, 107, 53, 0.8);
+  }
+
+  .bar.mana .bar-fill {
+    background: linear-gradient(90deg, #ff4500 0%, #ff6b35 50%, #ffa500 100%);
+    box-shadow: 0 0 10px rgba(255, 69, 0, 0.8);
+    animation: nine-tails-glow 2s ease-in-out infinite;
+  }
+
+  @keyframes nine-tails-glow {
+    0%,
+    100% {
+      box-shadow: 0 0 10px rgba(255, 69, 0, 0.8);
+    }
+    50% {
+      box-shadow:
+        0 0 20px rgba(255, 69, 0, 1),
+        0 0 30px rgba(255, 107, 53, 0.6);
+    }
+  }
+
+  /* ===== SECTIONS ===== */
+  .game-section {
+    padding: 6rem 0;
+    position: relative;
+    border-top: 4px dashed #ff6b35;
+  }
+
+  .game-section::before {
+    content: "🍃 🍂 🍃 🍂 🍃";
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.5rem;
+    opacity: 0.3;
+    letter-spacing: 1rem;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .section-title {
+    font-family: "Press Start 2P", monospace;
+    font-size: clamp(1.2rem, 4vw, 2rem);
+    text-align: center;
+    color: #fff;
+    margin-bottom: 4rem;
+    text-shadow: 4px 4px 0 rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .title-icon {
+    font-size: 2rem;
+    animation: bounce 2s ease-in-out infinite;
+  }
+
+  @keyframes bounce {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  /* ===== SKILLS ===== */
+  .skills-section {
+    background: linear-gradient(180deg, #2d1810 0%, #1a1a1a 100%);
+    position: relative;
+  }
+
+  .skills-section::after {
+    content: "🗡️ ⚡ 🔥 💨 🌊";
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2rem;
+    opacity: 0.1;
+    letter-spacing: 2rem;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+  }
+
+  .skill-card {
+    background: rgba(255, 107, 53, 0.1);
+    border: 3px solid #ff6b35;
+    padding: 1.5rem;
+    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skill-card::before {
+    content: "🍃";
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 1rem;
+    opacity: 0.2;
+  }
+
+  .skill-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 8px 8px 0 rgba(255, 107, 53, 0.4);
+    border-color: #ff8c42;
+  }
+
+  .skill-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    font-family: "Press Start 2P", monospace;
+  }
+
+  .skill-icon {
+    font-size: 1.5rem;
+  }
+
+  .skill-name {
+    font-size: 0.9rem;
+    color: #f0f0f0;
+  }
+
+  .skill-bar {
+    height: 25px;
+    background: #1a1a2e;
+    border: 2px solid #333;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skill-progress {
+    height: 100%;
+    transition: width 1.5s ease-out;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 0.5rem;
+    box-shadow: inset 0 -2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .skill-level {
+    font-family: "Press Start 2P", monospace;
+    font-size: 0.7rem;
+    color: #fff;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
+  }
+
+  /* ===== ACHIEVEMENTS ===== */
+  .achievements-section {
+    background: #1a1a1a;
+    position: relative;
+  }
+
+  .achievements-section::before {
+    content: "🍥 🦊 🍥 🦊 🍥";
+    position: absolute;
+    top: 5rem;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 3rem;
+    opacity: 0.05;
+    letter-spacing: 3rem;
+  }
+
+  .achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+  }
+
+  .achievement-card {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 107, 53, 0.1) 0%,
+      rgba(0, 78, 137, 0.1) 100%
+    );
+    border: 3px solid #ff6b35;
+    padding: 2rem;
+    text-align: center;
+    position: relative;
+    transition: all 0.3s;
+    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.3);
+  }
+
+  .achievement-card::after {
+    content: "🍃";
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    font-size: 1.5rem;
+    opacity: 0.2;
+  }
+
+  .achievement-card.unlocked:hover {
+    transform: scale(1.05) rotate(-2deg);
+    box-shadow: 8px 8px 0 rgba(255, 107, 53, 0.4);
+    border-color: #ff8c42;
+  }
+
+  .achievement-card.locked {
+    opacity: 0.3;
+    filter: grayscale(1);
+  }
+
+  .achievement-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
+  }
+
+  .achievement-title {
+    font-family: "Press Start 2P", monospace;
+    font-size: 0.8rem;
+    color: #f0f0f0;
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+  }
+
+  .achievement-desc {
+    font-size: 0.8rem;
+    color: #888;
+    line-height: 1.4;
+  }
+
+  .unlock-badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
+    color: #fff;
+    padding: 0.3rem 0.8rem;
+    font-family: "Press Start 2P", monospace;
+    font-size: 0.6rem;
+    border: 2px solid #d4521c;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3);
+    transform: rotate(15deg);
+  }
+
+  .unlock-badge::before {
+    content: "🍥";
+    margin-right: 0.3rem;
+  }
+
+  /* ===== EXPERIENCE TIMELINE ===== */
+  .experience-section {
+    background: linear-gradient(180deg, #1a1a1a 0%, #2d1810 100%);
+  }
+
+  .experience-section::before {
+    content: "📖";
+    position: absolute;
+    top: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 5rem;
+    opacity: 0.05;
+  }
+
+  .timeline {
+    position: relative;
+    padding-left: 3rem;
+  }
+
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, #ff6b35 0%, #ff8c42 50%, #004e89 100%);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 3rem;
+  }
+
+  .timeline-marker {
+    position: absolute;
+    left: -3.75rem;
+    top: 0;
+    width: 20px;
+    height: 20px;
+  }
+
+  .marker-dot {
+    display: block;
+    width: 20px;
+    height: 20px;
+    background: #ff6b35;
+    border: 4px solid #1a1a1a;
+    box-shadow: 0 0 0 2px #ff6b35;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  .marker-dot::after {
+    content: "🍃";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 10px;
+  }
+
+  @keyframes pulse {
+    0%,
+    100% {
+      box-shadow: 0 0 0 2px #ff6b35;
+    }
+    50% {
+      box-shadow: 0 0 0 8px rgba(255, 107, 53, 0.3);
+    }
+  }
+
+  .quest-card {
+    background: rgba(255, 107, 53, 0.05);
+    border: 3px solid #ff6b35;
+    padding: 2rem;
+    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s;
+    position: relative;
+  }
+
+  .quest-card::before {
+    content: "🍂";
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5rem;
+    opacity: 0.15;
+  }
+
+  .quest-card:hover {
+    transform: translateX(8px);
+    box-shadow: 8px 8px 0 rgba(255, 107, 53, 0.4);
+    border-color: #ff8c42;
+  }
+
+  .quest-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 1rem;
+    gap: 1rem;
+  }
+
+  .quest-title {
+    font-family: "Press Start 2P", monospace;
+    font-size: 0.9rem;
+    color: #f0f0f0;
+    line-height: 1.5;
+    flex: 1;
+  }
+
+  .quest-status {
+    font-family: "Press Start 2P", monospace;
+    font-size: 0.6rem;
+    color: #ff8c42;
+    padding: 0.3rem 0.8rem;
+    background: rgba(255, 107, 53, 0.2);
+    border: 2px solid #ff6b35;
+    white-space: nowrap;
+  }
+
+  .quest-status::before {
+    content: "✓ ";
+  }
+
+  .quest-status.in-progress {
+    color: #10b981;
+    background: rgba(16, 185, 129, 0.2);
+    border: 2px solid #10b981;
+    animation: pulse-progress 2s ease-in-out infinite;
+  }
+
+  .quest-status.in-progress::before {
+    content: "▶ ";
+  }
+
+  @keyframes pulse-progress {
+    0%,
+    100% {
+      box-shadow: 0 0 5px rgba(16, 185, 129, 0.5);
+    }
+    50% {
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.8);
+    }
+  }
+
+  .quest-details {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .company {
+    color: #a855f7;
+    font-weight: 600;
+  }
+
+  .period {
+    color: #888;
+  }
+
+  .quest-description {
+    color: #ccc;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tech-tag {
+    font-family: "Press Start 2P", monospace;
+    font-size: 0.6rem;
+    padding: 0.4rem 0.8rem;
+    background: rgba(0, 78, 137, 0.2);
+    color: #1976d2;
+    border: 2px solid #004e89;
+  }
+
+  /* ===== PROJECTS ===== */
+  .projects-section {
+    background: #1a1a1a;
+    position: relative;
+  }
+
+  .projects-section::after {
+    content: "🌀 ⚡ 🔥";
+    position: absolute;
+    top: 50%;
+    right: 5%;
+    font-size: 4rem;
+    opacity: 0.05;
+    transform: translateY(-50%);
+    letter-spacing: 2rem;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+  }
+
+  .project-card {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 107, 53, 0.1) 0%,
+      rgba(0, 78, 137, 0.1) 100%
+    );
+    border: 3px solid #ff6b35;
+    padding: 2rem;
+    box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.3);
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-card::before {
+    content: "🍥";
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    font-size: 6rem;
+    opacity: 0.05;
+    transform: rotate(15deg);
+  }
+
+  .project-card:hover {
+    transform: translateY(-8px) rotate(-1deg);
+    box-shadow: 12px 12px 0 rgba(255, 107, 53, 0.4);
+    border-color: #ff8c42;
+  }
+
+  .project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 1rem;
+    gap: 1rem;
+  }
+
+  .project-name {
+    font-family: "Press Start 2P", monospace;
+    font-size: 0.9rem;
+    color: #f0f0f0;
+    line-height: 1.5;
+    flex: 1;
+  }
+
+  .project-stars {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-family: "Press Start 2P", monospace;
+    font-size: 0.7rem;
+    color: #ff8c42;
+  }
+
+  .project-stars::before {
+    content: "🍥";
+    margin-right: 0.2rem;
+  }
+
+  .star-icon {
+    font-size: 1rem;
+  }
+
+  .project-description {
+    color: #ccc;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    flex-grow: 1;
+  }
+
+  .project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .tech-badge {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.8rem;
+    background: rgba(0, 78, 137, 0.2);
+    color: #1976d2;
+    border: 2px solid #004e89;
+    font-family: monospace;
+  }
+
+  .project-link {
+    font-family: "Press Start 2P", monospace;
+    font-size: 0.7rem;
+    padding: 0.8rem 1.5rem;
+    background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
+    color: #fff;
+    text-decoration: none;
+    border: 3px solid #d4521c;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3);
+    transition: all 0.2s;
+    display: inline-block;
+    text-align: center;
+  }
+
+  .project-link::before {
+    content: "🗡️ ";
+  }
+
+  .project-link:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, #ff8c42 0%, #ffa500 100%);
+  }
+
+  /* ===== CONTACT ===== */
+  .contact-section {
+    background: linear-gradient(180deg, #2d1810 0%, #1a1a1a 100%);
+    position: relative;
+  }
+
+  .contact-section::before {
+    content: "🦊";
+    position: absolute;
+    top: 5rem;
+    right: 10%;
+    font-size: 10rem;
+    opacity: 0.03;
+  }
+
+  .contact-box {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .dialog-box {
+    background: rgba(0, 0, 0, 0.7);
+    border: 4px solid #ff6b35;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 8px 8px 0 rgba(255, 107, 53, 0.5);
+    position: relative;
+  }
+
+  .dialog-box::after {
+    content: "🍥";
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    font-size: 4rem;
+    opacity: 0.2;
+  }
+
+  .dialog-text {
+    font-family: "Press Start 2P", monospace;
+    font-size: 0.9rem;
+    line-height: 2;
+    color: #f0f0f0;
+    margin-bottom: 2rem;
+  }
+
+  .contact-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .contact-btn {
+    font-family: "Press Start 2P", monospace;
+    font-size: 0.7rem;
+    padding: 1rem;
+    background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
+    color: #fff;
+    text-decoration: none;
+    border: 3px solid #d4521c;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.4);
+    transition: all 0.2s;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .contact-btn:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.4);
+    background: linear-gradient(135deg, #ff8c42 0%, #ffa500 100%);
+  }
+
+  .game-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .stat-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(255, 107, 53, 0.1);
+    border: 2px solid #ff6b35;
+    font-family: monospace;
+  }
+
+  .stat-icon {
+    font-size: 1.5rem;
+  }
+
+  .stat-text {
+    color: #f0f0f0;
+  }
+
+  /* ===== CONSOLE HINT ===== */
+  .console-hint {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    font-family: "Press Start 2P", monospace;
+    font-size: 0.7rem;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.9);
+    color: #ff8c42;
+    border: 2px solid #ff6b35;
+    box-shadow: 4px 4px 0 rgba(255, 107, 53, 0.5);
+    z-index: 100;
+    animation: float-hint 2s ease-in-out infinite;
+  }
+
+  .console-hint::before {
+    content: "🦊";
+    margin-right: 0.5rem;
+  }
+
+  @keyframes float-hint {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .battle-arena {
+      width: 95%;
+      height: 280px;
+      top: 3%;
+    }
+
+    .player-fighter {
+      left: 10%;
+      bottom: 30px;
+    }
+
+    .code-enemy {
+      right: 10%;
+      bottom: 30px;
+    }
+
+    .fighter-sprite,
+    .enemy-body {
+      transform: scale(0.7);
+    }
+
+    .vs-badge {
+      font-size: 2rem;
+    }
+
+    .health-bar {
+      width: 100px;
+      height: 20px;
+      top: -35px;
+    }
+
+    .health-label {
+      font-size: 0.5rem;
+      top: -18px;
+    }
+
+    .code-particle {
+      font-size: 1rem;
+    }
+
+    .character-section {
+      margin-top: 300px;
+      padding: 1rem 0;
+    }
+
+    .hero-content {
+      text-align: center;
+      padding: 0 1rem;
+    }
+
+    .stats-bar,
+    .action-buttons {
+      justify-content: center;
+    }
+
+    .stats-bar {
+      gap: 1rem;
+    }
+
+    .timeline {
+      padding-left: 2rem;
+    }
+
+    .timeline-marker {
+      left: -2.75rem;
+    }
+
+    .console-hint {
+      bottom: 1rem;
+      right: 1rem;
+      left: 1rem;
+      text-align: center;
+      font-size: 0.6rem;
+      padding: 0.8rem;
+    }
+
+    .pixel-title {
+      font-size: clamp(1rem, 5vw, 1.8rem);
+    }
+
+    .section-title {
+      font-size: clamp(0.9rem, 4vw, 1.5rem);
+      gap: 0.5rem;
+    }
+
+    .title-icon {
+      font-size: 1.5rem;
+    }
+
+    .game-section {
+      padding: 4rem 0;
+    }
+
+    .character-sprite {
+      transform: scale(0.8);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .battle-arena {
+      height: 220px;
+      top: 2%;
+    }
+
+    .player-fighter {
+      left: 5%;
+      bottom: 20px;
+    }
+
+    .code-enemy {
+      right: 5%;
+      bottom: 20px;
+    }
+
+    .fighter-sprite,
+    .enemy-body {
+      transform: scale(0.5);
+    }
+
+    .vs-badge {
+      font-size: 1.5rem;
+    }
+
+    .health-bar {
+      width: 80px;
+      height: 18px;
+      top: -30px;
+    }
+
+    .health-label {
+      font-size: 0.4rem;
+      top: -16px;
+    }
+
+    .character-section {
+      margin-top: 240px;
+    }
+
+    .container {
+      padding: 0 1rem;
+    }
+
+    .quest-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .project-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .quest-details {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
+</style>
+
+<script>
+  // UNIFIED EASTER EGG & ANIMATION SCRIPT
+  (function () {
+    // Buffers for codes
+    let keyBuffer = "";
+    const maxBuffer = 24;
+    const konamiSeq = [
+      "arrowup",
+      "arrowup",
+      "arrowdown",
+      "arrowdown",
+      "arrowleft",
+      "arrowright",
+      "arrowleft",
+      "arrowright",
+      "b",
+      "a",
+    ];
+    let konamiBuffer: any[] = [];
+
+    // Helper: Fireworks effect
+    function createFirework(color: string) {
+      const firework = document.createElement("div");
+      const randomX = Math.random() * 100;
+      const randomY = Math.random() * 100;
+      firework.style.cssText = `
+        position: fixed; width: 5px; height: 5px; background: ${color}; border-radius: 50%;
+        left: ${randomX}%; top: ${randomY}%; box-shadow: 0 0 10px ${color}; pointer-events: none;
+        z-index: 9998; animation: firework-explode 1s ease-out forwards;`;
+      if (!document.getElementById("firework-animation-style")) {
+        const style = document.createElement("style");
+        style.id = "firework-animation-style";
+        style.textContent = `@keyframes firework-explode {0%{transform:scale(0);opacity:1;}50%{transform:scale(20);opacity:0.8;}100%{transform:scale(40);opacity:0;}}`;
+        document.head.appendChild(style);
+      }
+      document.body.appendChild(firework);
+      setTimeout(() => firework.remove(), 1000);
+    }
+
+    // Animate cards on scroll
+    function initAnimations() {
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      };
+      const animationObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const target = entry.target as HTMLElement;
+            target.style.animation = "fadeInUp 0.6s ease-out forwards";
+            animationObserver.unobserve(target);
+          }
+        });
+      }, observerOptions);
+      const cards = document.querySelectorAll(
+        ".skill-card, .achievement-card, .quest-card, .project-card"
+      );
+      cards.forEach((card) => {
+        (card as HTMLElement).style.opacity = "0";
+        animationObserver.observe(card);
+      });
+      if (!document.getElementById("fade-in-animation-style")) {
+        const style = document.createElement("style");
+        style.id = "fade-in-animation-style";
+        style.textContent = `@keyframes fadeInUp {from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}`;
+        document.head.appendChild(style);
+      }
+    }
+
+    // Smooth scroll for anchor links
+    function initSmoothScroll() {
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener(
+          "click",
+          function (this: HTMLAnchorElement, e: Event) {
+            e.preventDefault();
+            const href = this.getAttribute("href");
+            if (href && href !== "#") {
+              const target = document.querySelector(href);
+              if (target) {
+                target.scrollIntoView({ behavior: "smooth", block: "start" });
+              }
+            }
+          }
+        );
+      });
+    }
+
+    // EASTER EGG TRIGGERS
+    function triggerKonamiText() {
+      // Fireworks + achievement popup
+      const colors = ["#6366f1", "#a855f7", "#10b981", "#fbbf24"];
+      for (let i = 0; i < 30; i++) {
+        setTimeout(
+          () =>
+            createFirework(colors[Math.floor(Math.random() * colors.length)]),
+          i * 100
+        );
+      }
+      const achievementContainer = document.createElement("div");
+      achievementContainer.innerHTML = `<div class="achievement-unlock" style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0);background:rgba(0,0,0,0.95);padding:2rem;border:4px solid #fbbf24;box-shadow:0 0 50px rgba(251,191,36,0.5);z-index:9999;text-align:center;font-family:'Press Start 2P',monospace;animation:achievement-pop 0.5s forwards;max-width:90%;"><div style="font-size:3rem;margin-bottom:1rem;">🎉</div><h2 style="color:#fbbf24;font-size:clamp(0.8rem,3vw,1.2rem);margin-bottom:1rem;line-height:1.5;">ACHIEVEMENT UNLOCKED!</h2><p style="color:#fff;font-size:clamp(0.6rem,2vw,0.8rem);line-height:1.8;">Secret Code Master<br>You found the hidden easter egg!</p></div><style>@keyframes achievement-pop{0%{transform:translate(-50%,-50%) scale(0) rotate(-180deg);}60%{transform:translate(-50%,-50%) scale(1.1) rotate(10deg);}100%{transform:translate(-50%,-50%) scale(1) rotate(0deg);}}</style>`;
+      document.body.appendChild(achievementContainer);
+      setTimeout(() => {
+        const achievementEl = achievementContainer.querySelector(
+          ".achievement-unlock"
+        ) as HTMLElement;
+        if (achievementEl) {
+          achievementEl.style.transition = "opacity 0.5s, transform 0.5s";
+          achievementEl.style.opacity = "0";
+          achievementEl.style.transform = "translate(-50%, -50%) scale(0.8)";
+        }
+        setTimeout(() => achievementContainer.remove(), 500);
+      }, 3000);
+    }
+
+    function triggerKonamiArrows() {
+      // Insert achievement card in grid
+      const grid = document.querySelector(".achievements-grid");
+      if (!grid) return;
+      if (document.getElementById("achv-konami")) return;
+      const card = document.createElement("div");
+      card.id = "achv-konami";
+      card.className = "achievement-card unlocked";
+      card.innerHTML = `<div class="achievement-icon">🕹️</div><h3 class="achievement-title">Konami Legend</h3><p class="achievement-desc">You found the classic code!</p><div class="unlock-badge">UNLOCKED</div>`;
+      grid.insertBefore(card, grid.firstChild);
+      card.style.transform = "scale(0.8) rotate(-6deg)";
+      card.style.transition = "transform 0.2s ease";
+      requestAnimationFrame(
+        () => (card.style.transform = "scale(1) rotate(0deg)")
+      );
+    }
+
+    function activateGodMode() {
+      if (!document.body.classList.contains("god-mode")) {
+        document.body.classList.add("god-mode");
+      }
+      const banner = document.createElement("div");
+      banner.className = "god-banner";
+      banner.textContent = "GOD MODE ACTIVATED";
+      document.body.appendChild(banner);
+      setTimeout(() => banner.remove(), 2500);
+      setTimeout(() => document.body.classList.remove("god-mode"), 10000);
+    }
+
+    function activateCRTEffect() {
+      let overlay = document.getElementById("crt-overlay");
+      if (!overlay) {
+        overlay = document.createElement("div");
+        overlay.id = "crt-overlay";
+        document.body.appendChild(overlay);
+      }
+      overlay.classList.add("active");
+      setTimeout(() => overlay && overlay.classList.remove("active"), 8000);
+    }
+
+    function togglePause() {
+      const wasPaused = document.body.classList.toggle("paused");
+      let overlay = document.querySelector(".pause-overlay");
+      if (wasPaused) {
+        if (!overlay) {
+          overlay = document.createElement("div");
+          overlay.className = "pause-overlay";
+          overlay.innerHTML = `<div class="pause-box">PAUSED<br/><br/><span style="font-size:0.7rem;color:#9ca3af;">Press P to resume</span></div>`;
+          document.body.appendChild(overlay);
+        }
+      } else if (overlay) {
+        overlay.remove();
+      }
+    }
+
+    function activateBossMode() {
+      if (document.body.classList.contains("boss-mode")) return;
+      document.body.classList.add("boss-mode");
+      spawnBossParticles();
+      setTimeout(() => document.body.classList.remove("boss-mode"), 12000);
+    }
+    function spawnBossParticles() {
+      const chars = ["<>", "{}", "()", "[]", ";", "!", "#"];
+      for (let i = 0; i < 30; i++) {
+        const el = document.createElement("div");
+        el.className = "code-particle";
+        el.textContent = chars[Math.floor(Math.random() * chars.length)];
+        el.style.left = Math.random() * window.innerWidth + "px";
+        el.style.top = (Math.random() * window.innerHeight) / 2 + 50 + "px";
+        el.style.animationDelay = (Math.random() * 1.2).toFixed(2) + "s";
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 3000);
+      }
+    }
+
+    function spawnSmiles() {
+      const count = 20;
+      for (let i = 0; i < count; i++) {
+        const s = document.createElement("div");
+        s.className = "smiley";
+        s.textContent = ":)";
+        const left = Math.random() * window.innerWidth;
+        const top = window.innerHeight - 40 + Math.random() * 20;
+        s.style.left = `${left}px`;
+        s.style.top = `${top}px`;
+        s.style.fontSize = `${Math.random() * 12 + 10}px`;
+        s.style.animationDelay = `${Math.random() * 0.2}s`;
+        document.body.appendChild(s);
+        setTimeout(() => s.remove(), 1600);
+      }
+    }
+
+    // Coin shower
+    function setupVSBadgeCoinShower() {
+      const badge = document.querySelector(".vs-badge");
+      if (!badge) return;
+      let clicks = 0;
+      let timer: string | number | NodeJS.Timeout | null | undefined = null;
+      badge.addEventListener("click", function () {
+        clicks++;
+        if (timer) clearTimeout(timer);
+        timer = setTimeout(() => {
+          clicks = 0;
+        }, 1200);
+        if (clicks >= 5) {
+          spawnCoins(badge);
+          clicks = 0;
+        }
+      });
+    }
+    function spawnCoins(sourceEl: Element) {
+      const rect = sourceEl.getBoundingClientRect();
+      const count = 28;
+      for (let i = 0; i < count; i++) {
+        const coin = document.createElement("div");
+        coin.className = "coin";
+        const x = rect.left + rect.width / 2 + (Math.random() - 0.5) * 120;
+        const y = rect.top + rect.height / 2 + (Math.random() - 0.5) * 40;
+        coin.style.left = `${Math.max(0, Math.min(window.innerWidth - 12, x))}px`;
+        coin.style.top = `${Math.max(0, Math.min(window.innerHeight - 12, y))}px`;
+        coin.style.animationDelay = `${Math.random() * 0.3}s`;
+        document.body.appendChild(coin);
+        setTimeout(() => coin.remove(), 1500);
+      }
+    }
+
+    // Chiptune
+    function setupNameDblClickChiptune() {
+      const title = document.querySelector(".pixel-title");
+      if (!title) return;
+      title.addEventListener("dblclick", playChiptune);
+    }
+    function playChiptune() {
+      try {
+        const AudioCtor = (window.AudioContext ||
+          (window as any).webkitAudioContext) as typeof AudioContext;
+        const ctx = new AudioCtor();
+        const now = ctx.currentTime;
+        const notes = [523.25, 659.25, 783.99, 1046.5];
+        notes.forEach((freq, i) => {
+          const o = ctx.createOscillator();
+          const g = ctx.createGain();
+          o.type = "square";
+          o.frequency.value = freq;
+          o.connect(g);
+          g.connect(ctx.destination);
+          const t0 = now + i * 0.1;
+          const t1 = t0 + 0.08;
+          g.gain.setValueAtTime(0.0001, t0);
+          g.gain.exponentialRampToValueAtTime(0.3, t0 + 0.01);
+          g.gain.exponentialRampToValueAtTime(0.0001, t1);
+          o.start(t0);
+          o.stop(t1 + 0.02);
+        });
+        setTimeout(() => ctx.close && ctx.close(), 800);
+      } catch (_) {}
+    }
+
+    // Skill MAXED
+    function setupSkillMaxedPopups() {
+      const cards = document.querySelectorAll(".skill-card");
+      cards.forEach((card) => {
+        card.addEventListener("click", () => {
+          // Try both inline style and computed style
+          const progress = card.querySelector(".skill-progress") as HTMLElement;
+          if (!progress) return;
+          let pct = 0;
+          if (progress.style.width) {
+            pct = parseFloat(progress.style.width);
+          } else {
+            const computed = window.getComputedStyle(progress);
+            const parent = progress.parentElement;
+            if (parent && parent.offsetWidth > 0) {
+              pct = (parseFloat(computed.width) / parent.offsetWidth) * 100;
+            }
+          }
+          if (!isNaN(pct) && pct >= 95) {
+            showMaxedPopup(card);
+          }
+        });
+      });
+    }
+    function showMaxedPopup(host: Element) {
+      if (host.querySelector(".maxed-popup")) return;
+      const pop = document.createElement("div");
+      pop.className = "maxed-popup";
+      pop.textContent = "MAXED OUT!";
+      host.appendChild(pop);
+      setTimeout(() => pop.remove(), 1800);
+    }
+
+    // Naruto easter eggs
+    function spawnNarutoRun() {
+      const narutoRunner = document.createElement("div");
+      narutoRunner.className = "naruto-runner";
+      narutoRunner.textContent = "🏃💨";
+      narutoRunner.style.cssText = `
+        position: fixed;
+        bottom: 20%;
+        left: -60px;
+        font-size: 3rem;
+        z-index: 9999;
+        animation: naruto-run 3s linear forwards;
+        transform: scaleX(-1);
+      `;
+      if (!document.getElementById("naruto-run-style")) {
+        const style = document.createElement("style");
+        style.id = "naruto-run-style";
+        style.textContent = `
+          @keyframes naruto-run {
+            0% { left: -60px; transform: scaleX(-1) rotate(0deg); }
+            50% { transform: scaleX(-1) rotate(-5deg); }
+            100% { left: calc(100% + 60px); transform: scaleX(-1) rotate(0deg); }
+          }
+        `;
+        document.head.appendChild(style);
+      }
+      document.body.appendChild(narutoRunner);
+      setTimeout(() => narutoRunner.remove(), 3000);
+    }
+
+    function spawnRasengan() {
+      const rasengan = document.createElement("div");
+      rasengan.className = "rasengan";
+      rasengan.innerHTML = "🌀💫⚡";
+      rasengan.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        font-size: 8rem;
+        z-index: 10000;
+        animation: rasengan-blast 1.5s ease-out forwards;
+        pointer-events: none;
+        filter: drop-shadow(0 0 20px #4A90E2);
+      `;
+      if (!document.getElementById("rasengan-style")) {
+        const style = document.createElement("style");
+        style.id = "rasengan-style";
+        style.textContent = `
+          @keyframes rasengan-blast {
+            0% { transform: translate(-50%, -50%) scale(0) rotate(0deg); opacity: 1; }
+            50% { transform: translate(-50%, -50%) scale(1.5) rotate(720deg); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(3) rotate(1440deg); opacity: 0; }
+          }
+        `;
+        document.head.appendChild(style);
+      }
+      document.body.appendChild(rasengan);
+      setTimeout(() => rasengan.remove(), 1500);
+    }
+
+    function spawnShadowClones() {
+      const cloneEmojis = ["🥷", "�", "�"];
+      for (let i = 0; i < 8; i++) {
+        setTimeout(() => {
+          const clone = document.createElement("div");
+          clone.className = "shadow-clone";
+          clone.textContent =
+            cloneEmojis[Math.floor(Math.random() * cloneEmojis.length)];
+          const angle = (i * 360) / 8;
+          const radius = 150;
+          clone.style.cssText = `
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            font-size: 2.5rem;
+            z-index: 9999;
+            animation: clone-spawn 1s ease-out forwards;
+            pointer-events: none;
+            --angle: ${angle}deg;
+            --radius: ${radius}px;
+          `;
+          if (!document.getElementById("clone-spawn-style")) {
+            const style = document.createElement("style");
+            style.id = "clone-spawn-style";
+            style.textContent = `
+              @keyframes clone-spawn {
+                0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+                50% { opacity: 1; }
+                100% { 
+                  transform: translate(
+                    calc(-50% + cos(var(--angle)) * var(--radius)),
+                    calc(-50% + sin(var(--angle)) * var(--radius))
+                  ) scale(1);
+                  opacity: 0;
+                }
+              }
+            `;
+            document.head.appendChild(style);
+          }
+          document.body.appendChild(clone);
+          setTimeout(() => clone.remove(), 1000);
+        }, i * 50);
+      }
+    }
+
+    function spawnKyuubi() {
+      const kyuubi = document.createElement("div");
+      kyuubi.innerHTML = "🦊🔥🔥🔥";
+      kyuubi.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        font-size: 6rem;
+        z-index: 10000;
+        animation: kyuubi-appear 2s ease-out forwards;
+        pointer-events: none;
+        filter: drop-shadow(0 0 30px #FF4500);
+      `;
+      if (!document.getElementById("kyuubi-style")) {
+        const style = document.createElement("style");
+        style.id = "kyuubi-style";
+        style.textContent = `
+          @keyframes kyuubi-appear {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+            30% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+            70% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+          }
+        `;
+        document.head.appendChild(style);
+      }
+      document.body.appendChild(kyuubi);
+      setTimeout(() => kyuubi.remove(), 2000);
+    }
+
+    function spawnHokage() {
+      const banner = document.createElement("div");
+      banner.innerHTML = "🍥 HOKAGE MODE ACTIVATED! 🍥";
+      banner.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-family: 'Press Start 2P', monospace;
+        font-size: 1.5rem;
+        color: #FF6B35;
+        background: rgba(0, 0, 0, 0.9);
+        padding: 2rem;
+        border: 4px solid #FF6B35;
+        box-shadow: 0 0 30px rgba(255, 107, 53, 0.8);
+        z-index: 10000;
+        animation: hokage-flash 3s ease-out forwards;
+        text-align: center;
+        line-height: 1.8;
+      `;
+      if (!document.getElementById("hokage-style")) {
+        const style = document.createElement("style");
+        style.id = "hokage-style";
+        style.textContent = `
+          @keyframes hokage-flash {
+            0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+            20% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            80% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            100% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+          }
+        `;
+        document.head.appendChild(style);
+      }
+      document.body.appendChild(banner);
+      setTimeout(() => banner.remove(), 3000);
+    }
+
+    function spawnSharingan() {
+      const sharingan = document.createElement("div");
+      sharingan.innerHTML = "👁️🔴";
+      sharingan.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 10rem;
+        z-index: 10000;
+        animation: sharingan-spin 3s ease-out forwards;
+        pointer-events: none;
+        filter: drop-shadow(0 0 40px #DC143C);
+      `;
+      if (!document.getElementById("sharingan-style")) {
+        const style = document.createElement("style");
+        style.id = "sharingan-style";
+        style.textContent = `
+          @keyframes sharingan-spin {
+            0% { opacity: 0; transform: translate(-50%, -50%) rotate(0deg) scale(0); }
+            30% { opacity: 1; transform: translate(-50%, -50%) rotate(360deg) scale(1); }
+            70% { opacity: 1; transform: translate(-50%, -50%) rotate(720deg) scale(1); }
+            100% { opacity: 0; transform: translate(-50%, -50%) rotate(1080deg) scale(0); }
+          }
+        `;
+        document.head.appendChild(style);
+      }
+      document.body.appendChild(sharingan);
+      setTimeout(() => sharingan.remove(), 3000);
+    }
+
+    function spawnChidori() {
+      const chidori = document.createElement("div");
+      chidori.innerHTML = "⚡⚡⚡";
+      chidori.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 8rem;
+        z-index: 10000;
+        animation: chidori-strike 1s ease-out forwards;
+        pointer-events: none;
+        filter: drop-shadow(0 0 30px #00BFFF);
+      `;
+      if (!document.getElementById("chidori-style")) {
+        const style = document.createElement("style");
+        style.id = "chidori-style";
+        style.textContent = `
+          @keyframes chidori-strike {
+            0% { opacity: 0; transform: translate(-200%, -50%) scale(0.5); }
+            50% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+            100% { opacity: 0; transform: translate(100%, -50%) scale(0.5); }
+          }
+        `;
+        document.head.appendChild(style);
+      }
+      document.body.appendChild(chidori);
+      setTimeout(() => chidori.remove(), 1000);
+    }
+
+    function spawnBelieve() {
+      const message = document.createElement("div");
+      message.innerHTML = "BELIEVE IT! DATTEBAYO!";
+      message.style.cssText = `
+        position: fixed;
+        top: 30%;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: 'Press Start 2P', monospace;
+        font-size: 2rem;
+        color: #FF6B35;
+        text-shadow: 4px 4px 0 #000, 0 0 20px rgba(255, 107, 53, 0.8);
+        z-index: 10000;
+        animation: believe-bounce 2s ease-out forwards;
+        pointer-events: none;
+      `;
+      if (!document.getElementById("believe-style")) {
+        const style = document.createElement("style");
+        style.id = "believe-style";
+        style.textContent = `
+          @keyframes believe-bounce {
+            0% { opacity: 0; transform: translateX(-50%) translateY(-50px); }
+            20% { opacity: 1; transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-20px); }
+            60% { transform: translateX(-50%) translateY(0); }
+            80% { opacity: 1; transform: translateX(-50%) translateY(0); }
+            100% { opacity: 0; transform: translateX(-50%) translateY(50px); }
+          }
+        `;
+        document.head.appendChild(style);
+      }
+      document.body.appendChild(message);
+      setTimeout(() => message.remove(), 2000);
+    }
+
+    // KEYBOARD HANDLER
+    document.addEventListener("keydown", function (e) {
+      const target = e.target as HTMLElement;
+      const tag = target && target.tagName ? target.tagName.toLowerCase() : "";
+      const isTyping =
+        tag === "input" ||
+        tag === "textarea" ||
+        (target && target.isContentEditable);
+      if (isTyping) return;
+      // Pause
+      if (e.key.toLowerCase() === "p") {
+        e.preventDefault();
+        togglePause();
+        return;
+      }
+      // Feed buffer
+      if (e.key.length === 1) keyBuffer += e.key.toLowerCase();
+      if (keyBuffer.length > maxBuffer) keyBuffer = keyBuffer.slice(-maxBuffer);
+      // Konami text
+      if (keyBuffer.endsWith("konami")) {
+        triggerKonamiText();
+        keyBuffer = "";
+      }
+      if (keyBuffer.endsWith("iddqd")) {
+        activateGodMode();
+        keyBuffer = "";
+      }
+      if (keyBuffer.endsWith("showtime")) {
+        activateCRTEffect();
+        keyBuffer = "";
+      }
+      if (keyBuffer.endsWith(":)")) {
+        spawnSmiles();
+        keyBuffer = "";
+      }
+      if (keyBuffer.endsWith("boss")) {
+        activateBossMode();
+        keyBuffer = "";
+      }
+      // Naruto triggers
+      if (keyBuffer.endsWith("naruto")) {
+        spawnNarutoRun();
+        keyBuffer = "";
+      }
+      if (keyBuffer.endsWith("rasengan")) {
+        spawnRasengan();
+        keyBuffer = "";
+      }
+      if (keyBuffer.endsWith("kagebunshin")) {
+        spawnShadowClones();
+        keyBuffer = "";
+      }
+      if (keyBuffer.endsWith("kyuubi")) {
+        spawnKyuubi();
+        keyBuffer = "";
+      }
+      if (keyBuffer.endsWith("hokage")) {
+        spawnHokage();
+        keyBuffer = "";
+      }
+      if (keyBuffer.endsWith("sharingan")) {
+        spawnSharingan();
+        keyBuffer = "";
+      }
+      if (keyBuffer.endsWith("chidori")) {
+        spawnChidori();
+        keyBuffer = "";
+      }
+      if (keyBuffer.endsWith("believe") || keyBuffer.endsWith("dattebayo")) {
+        spawnBelieve();
+        keyBuffer = "";
+      }
+      // Konami arrows
+      const key = e.key.toLowerCase();
+      if (
+        ["arrowup", "arrowdown", "arrowleft", "arrowright", "a", "b"].includes(
+          key
+        )
+      ) {
+        konamiBuffer.push(key);
+        if (konamiBuffer.length > konamiSeq.length)
+          konamiBuffer = konamiBuffer.slice(-konamiSeq.length);
+        if (konamiBuffer.join("") === konamiSeq.join("")) {
+          triggerKonamiArrows();
+          konamiBuffer = [];
+        }
+      }
+    });
+
+    // DOM READY
+    function domReady(fn: { (): void; (this: Document, ev: Event): any }) {
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", fn);
+      } else {
+        fn();
+      }
+    }
+    domReady(() => {
+      initAnimations();
+      initSmoothScroll();
+      setupVSBadgeCoinShower();
+      setupNameDblClickChiptune();
+      setupSkillMaxedPopups();
+    });
+  })();
+</script>
+
+<script is:inline>
+  // Load Press Start 2P font asynchronously for better performance
+  (function () {
+    const link = document.createElement("link");
+    link.href =
+      "https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap";
+    link.rel = "stylesheet";
+    link.media = "print";
+    link.onload = function () {
+      this.media = "all";
+    };
+    document.head.appendChild(link);
+
+    // Fallback for older browsers
+    const noscript = document.createElement("noscript");
+    const fallbackLink = document.createElement("link");
+    fallbackLink.href =
+      "https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap";
+    fallbackLink.rel = "stylesheet";
+    noscript.appendChild(fallbackLink);
+    document.head.appendChild(noscript);
+  })();
+</script>
+
+<style>
+  /* ===== EXTRA EASTER EGG EFFECTS ===== */
+  body.god-mode .player-fighter .fighter-sprite,
+  body.god-mode .code-enemy .enemy-body {
+    filter: drop-shadow(0 0 14px #fbbf24) saturate(1.2);
+  }
+
+  body.god-mode .vs-badge {
+    text-shadow:
+      4px 4px 0 #000,
+      0 0 24px rgba(251, 191, 36, 0.95),
+      0 0 60px rgba(251, 191, 36, 0.8);
+  }
+
+  .god-banner {
+    position: fixed;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.9);
+    color: #fbbf24;
+    border: 3px solid #f59e0b;
+    font-family: "Press Start 2P", monospace;
+    font-size: 0.7rem;
+    padding: 0.8rem 1rem;
+    z-index: 10000;
+    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.6);
+    animation: pop-in 0.2s ease-out forwards;
+  }
+
+  @keyframes pop-in {
+    from {
+      transform: translateX(-50%) scale(0.8);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(-50%) scale(1);
+      opacity: 1;
+    }
+  }
+
+  #crt-overlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.04) 0px,
+      rgba(255, 255, 255, 0.04) 1px,
+      transparent 2px
+    );
+    mix-blend-mode: overlay;
+    transition: opacity 0.2s ease;
+  }
+
+  #crt-overlay.active {
+    opacity: 0.22;
+    animation: crt-flicker 0.12s infinite;
+  }
+
+  @keyframes crt-flicker {
+    0% {
+      opacity: 0.18;
+    }
+    50% {
+      opacity: 0.26;
+    }
+    100% {
+      opacity: 0.18;
+    }
+  }
+
+  .coin {
+    position: fixed;
+    width: 12px;
+    height: 12px;
+    background: radial-gradient(circle at 30% 30%, #fff59d, #f59e0b);
+    border: 2px solid #b45309;
+    border-radius: 50%;
+    box-shadow: 0 0 6px rgba(245, 158, 11, 0.6);
+    animation: coin-fall 1.2s linear forwards;
+    z-index: 9997;
+  }
+
+  @keyframes coin-fall {
+    0% {
+      transform: translateY(-20px) rotate(0deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(120vh) rotate(720deg);
+      opacity: 0;
+    }
+  }
+
+  .smiley {
+    position: fixed;
+    font-family: "Press Start 2P", monospace;
+    color: #fbbf24;
+    text-shadow: 0 0 8px rgba(251, 191, 36, 0.7);
+    z-index: 9997;
+    animation: smiley-rise 1.4s ease-out forwards;
+  }
+
+  @keyframes smiley-rise {
+    0% {
+      transform: translateY(20px) scale(0.8);
+      opacity: 0;
+    }
+    20% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-120px) scale(1.2);
+      opacity: 0;
+    }
+  }
+
+  /* Pause overlay and global pause state */
+  body.paused * {
+    animation-play-state: paused !important;
+  }
+
+  .pause-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 10001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fbbf24;
+    font-family: "Press Start 2P", monospace;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .pause-overlay .pause-box {
+    border: 4px solid #f59e0b;
+    padding: 1.5rem 2rem;
+    background: #111827;
+    box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.6);
+  }
+
+  /* Boss mode styling */
+  body.boss-mode .enemy-body {
+    border-color: #06b6d4;
+    box-shadow:
+      0 0 24px rgba(6, 182, 212, 0.8),
+      inset 0 0 24px rgba(6, 182, 212, 0.3);
+  }
+
+  body.boss-mode .enemy-screen {
+    border-color: #06b6d4;
+  }
+
+  @keyframes enemy-rage {
+    0% {
+      transform: translateX(0) rotate(0deg);
+    }
+    20% {
+      transform: translateX(-8px) rotate(-3deg);
+    }
+    40% {
+      transform: translateX(8px) rotate(3deg);
+    }
+    60% {
+      transform: translateX(-8px) rotate(-3deg);
+    }
+    80% {
+      transform: translateX(8px) rotate(3deg);
+    }
+    100% {
+      transform: translateX(0) rotate(0deg);
+    }
+  }
+
+  body.boss-mode .code-enemy {
+    animation: enemy-rage 0.8s ease-in-out infinite;
+  }
+
+  /* Skill MAXED popup */
+  .skill-card {
+    position: relative;
+  }
+  .maxed-popup {
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    background: #10b981;
+    color: #fff;
+    border: 3px solid #059669;
+    font-family: "Press Start 2P", monospace;
+    font-size: 0.6rem;
+    padding: 0.3rem 0.6rem;
+    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.4);
+    transform: rotate(-6deg);
+    animation: pop-in 0.15s ease-out forwards;
+  }
+</style>
+
+<script>
+  // ===== EXTRA EASTER EGGS =====
+  (function () {
+    // Shared key buffer for multiple codes
+    let keyBuffer = "";
+    const maxBuffer = 24;
+    // Arrow-based Konami sequence
+    const konamiSeq = [
+      "arrowup",
+      "arrowup",
+      "arrowdown",
+      "arrowdown",
+      "arrowleft",
+      "arrowright",
+      "arrowleft",
+      "arrowright",
+      "b",
+      "a",
+    ];
+    let konamiBuffer: string[] = [];
+
+    function pushKey(k: string): void {
+      if (!k || k.length > 1) return; // ignore non-character keys
+      keyBuffer += k.toLowerCase();
+      if (keyBuffer.length > maxBuffer) keyBuffer = keyBuffer.slice(-maxBuffer);
+      checkSequences();
+    }
+
+    function checkSequences() {
+      if (keyBuffer.endsWith("iddqd")) {
+        activateGodMode();
+        keyBuffer = "";
+      } else if (keyBuffer.endsWith("showtime")) {
+        activateCRTEffect();
+        keyBuffer = "";
+      } else if (keyBuffer.endsWith(":)")) {
+        spawnSmiles();
+        keyBuffer = "";
+      } else if (keyBuffer.endsWith("boss")) {
+        activateBossMode();
+        keyBuffer = "";
+      }
+    }
+
+    document.addEventListener("keydown", function (e: KeyboardEvent) {
+      const tag = (e.target as HTMLElement)?.tagName?.toLowerCase();
+      const isTyping =
+        tag === "input" ||
+        tag === "textarea" ||
+        (e.target as HTMLElement)?.isContentEditable;
+      // Pause toggle with 'p'
+      if (e.key.toLowerCase() === "p" && !isTyping) {
+        e.preventDefault();
+        togglePause();
+        return;
+      }
+
+      // Feed general buffer (only characters)
+      if (e.key.length === 1) pushKey(e.key);
+
+      // Feed konami buffer (accept arrows & letters)
+      const key = e.key.toLowerCase();
+      if (
+        key === "arrowup" ||
+        key === "arrowdown" ||
+        key === "arrowleft" ||
+        key === "arrowright" ||
+        key === "a" ||
+        key === "b"
+      ) {
+        konamiBuffer.push(key);
+        if (konamiBuffer.length > konamiSeq.length)
+          konamiBuffer = konamiBuffer.slice(-konamiSeq.length);
+        if (konamiBuffer.join("") === konamiSeq.join("")) {
+          unlockKonamiAchievement();
+          konamiBuffer = [];
+        }
+      }
+    });
+
+    // God Mode: glow + banner for a short duration
+    function activateGodMode() {
+      if (!document.body.classList.contains("god-mode")) {
+        document.body.classList.add("god-mode");
+      }
+      const banner = document.createElement("div");
+      banner.className = "god-banner";
+      banner.textContent = "GOD MODE ACTIVATED";
+      document.body.appendChild(banner);
+      setTimeout(() => banner.remove(), 2500);
+      setTimeout(() => document.body.classList.remove("god-mode"), 10000);
+    }
+
+    // CRT effect overlay for a few seconds
+    function activateCRTEffect() {
+      let overlay = document.getElementById("crt-overlay");
+      if (!overlay) {
+        overlay = document.createElement("div");
+        overlay.id = "crt-overlay";
+        document.body.appendChild(overlay);
+      }
+      overlay.classList.add("active");
+      setTimeout(() => overlay && overlay.classList.remove("active"), 8000);
+    }
+
+    function togglePause(): void {
+      const wasPaused = document.body.classList.toggle("paused");
+      let overlay = document.querySelector(
+        ".pause-overlay"
+      ) as HTMLElement | null;
+      if (wasPaused) {
+        if (!overlay) {
+          overlay = document.createElement("div");
+          overlay.className = "pause-overlay";
+          overlay.innerHTML = `<div class="pause-box">PAUSED<br/><br/><span style="font-size:0.7rem;color:#9ca3af;">Press P to resume</span></div>`;
+          document.body.appendChild(overlay);
+        }
+      } else if (overlay) {
+        overlay.remove();
+      }
+    }
+
+    // VS badge multi-click -> coin shower
+    function setupVSBadgeCoinShower(): void {
+      const badge = document.querySelector(".vs-badge");
+      if (!badge) return;
+      let clicks = 0;
+      let timer: number | null = null;
+      badge.addEventListener("click", function () {
+        clicks++;
+        if (timer) clearTimeout(timer);
+        timer = window.setTimeout(() => {
+          clicks = 0;
+        }, 1200);
+        if (clicks >= 5) {
+          spawnCoins(badge as HTMLElement);
+          clicks = 0;
+        }
+      });
+    }
+
+    function spawnCoins(sourceEl: HTMLElement): void {
+      const rect = sourceEl.getBoundingClientRect();
+      const count = 28;
+      for (let i = 0; i < count; i++) {
+        const coin = document.createElement("div");
+        coin.className = "coin";
+        const x = rect.left + rect.width / 2 + (Math.random() - 0.5) * 120;
+        const y = rect.top + rect.height / 2 + (Math.random() - 0.5) * 40;
+        coin.style.left = `${Math.max(0, Math.min(window.innerWidth - 12, x))}px`;
+        coin.style.top = `${Math.max(0, Math.min(window.innerHeight - 12, y))}px`;
+        coin.style.animationDelay = `${Math.random() * 0.3}s`;
+        document.body.appendChild(coin);
+        setTimeout(() => coin.remove(), 1500);
+      }
+    }
+
+    // Double-click name -> tiny chiptune
+    function setupNameDblClickChiptune(): void {
+      const title = document.querySelector(".pixel-title");
+      if (!title) return;
+      title.addEventListener("dblclick", playChiptune);
+    }
+
+    function playChiptune(): void {
+      try {
+        const AudioCtor = (window.AudioContext ||
+          (window as any).webkitAudioContext) as typeof AudioContext;
+        const ctx: AudioContext = new AudioCtor();
+        const now = ctx.currentTime;
+        const notes = [523.25, 659.25, 783.99, 1046.5]; // C5 E5 G5 C6
+        notes.forEach((freq, i) => {
+          const o = ctx.createOscillator();
+          const g = ctx.createGain();
+          o.type = "square";
+          o.frequency.value = freq;
+          o.connect(g);
+          g.connect(ctx.destination);
+          const t0 = now + i * 0.1;
+          const t1 = t0 + 0.08;
+          g.gain.setValueAtTime(0.0001, t0);
+          g.gain.exponentialRampToValueAtTime(0.3, t0 + 0.01);
+          g.gain.exponentialRampToValueAtTime(0.0001, t1);
+          o.start(t0);
+          o.stop(t1 + 0.02);
+        });
+        setTimeout(() => ctx.close && ctx.close(), 800);
+      } catch (_) {
+        // ignore audio errors
+      }
+    }
+
+    // Typing ":)" -> smiley confetti
+    function spawnSmiles() {
+      const count = 20;
+      for (let i = 0; i < count; i++) {
+        const s = document.createElement("div");
+        s.className = "smiley";
+        s.textContent = ":)";
+        const left = Math.random() * window.innerWidth;
+        const top = window.innerHeight - 40 + Math.random() * 20;
+        s.style.left = `${left}px`;
+        s.style.top = `${top}px`;
+        s.style.fontSize = `${Math.random() * 12 + 10}px`;
+        s.style.animationDelay = `${Math.random() * 0.2}s`;
+        document.body.appendChild(s);
+        setTimeout(() => s.remove(), 1600);
+      }
+    }
+
+    // Boss mode activation
+    function activateBossMode(): void {
+      if (document.body.classList.contains("boss-mode")) return;
+      document.body.classList.add("boss-mode");
+      spawnBossParticles();
+      setTimeout(() => document.body.classList.remove("boss-mode"), 12000);
+    }
+
+    function spawnBossParticles(): void {
+      const chars = ["<>", "{}", "()", "[]", ";", "!", "#"];
+      for (let i = 0; i < 30; i++) {
+        const el = document.createElement("div");
+        el.className = "code-particle";
+        el.textContent = chars[Math.floor(Math.random() * chars.length)];
+        el.style.left = Math.random() * window.innerWidth + "px";
+        el.style.top = (Math.random() * window.innerHeight) / 2 + 50 + "px";
+        el.style.animationDelay = (Math.random() * 1.2).toFixed(2) + "s";
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 3000);
+      }
+    }
+
+    // Insert Konami achievement card into Achievements grid
+    function unlockKonamiAchievement(): void {
+      const grid = document.querySelector(".achievements-grid");
+      if (!grid) return;
+      if (document.getElementById("achv-konami")) return; // avoid duplicates
+      const card = document.createElement("div");
+      card.id = "achv-konami";
+      card.className = "achievement-card unlocked";
+      card.innerHTML = `
+        <div class="achievement-icon">🕹️</div>
+        <h3 class="achievement-title">Konami Legend</h3>
+        <p class="achievement-desc">You found the classic code!</p>
+        <div class="unlock-badge">UNLOCKED</div>
+      `;
+      grid.insertBefore(card, grid.firstChild);
+      // quick pop feedback
+      card.style.transform = "scale(0.8) rotate(-6deg)";
+      card.style.transition = "transform 0.2s ease";
+      requestAnimationFrame(
+        () => (card.style.transform = "scale(1) rotate(0deg)")
+      );
+    }
+
+    // Skill MAXED popup for >=95%
+    function setupSkillMaxedPopups(): void {
+      const cards = document.querySelectorAll(".skill-card");
+      cards.forEach((card) => {
+        card.addEventListener("click", () => {
+          const progress = (card as HTMLElement).querySelector(
+            ".skill-progress"
+          ) as HTMLElement | null;
+          if (!progress) return;
+          const width = progress.style.width || "0%";
+          const pct = parseFloat(width);
+          if (!isNaN(pct) && pct >= 95) {
+            showMaxedPopup(card as HTMLElement);
+          }
+        });
+      });
+    }
+
+    function showMaxedPopup(host: HTMLElement): void {
+      if (host.querySelector(".maxed-popup")) return;
+      const pop = document.createElement("div");
+      pop.className = "maxed-popup";
+      pop.textContent = "MAXED OUT!";
+      host.appendChild(pop);
+      setTimeout(() => pop.remove(), 1800);
+    }
+
+    // Init click listeners on DOM ready
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", () => {
+        setupVSBadgeCoinShower();
+        setupNameDblClickChiptune();
+        setupSkillMaxedPopups();
+      });
+    } else {
+      setupVSBadgeCoinShower();
+      setupNameDblClickChiptune();
+      setupSkillMaxedPopups();
+    }
+  })();
+</script>
