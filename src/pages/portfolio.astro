@@ -171,6 +171,11 @@ const projects = [
     <meta name="theme-color" content="#1a1a2e" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
+    <!-- Lottie Player for .lottie files -->
+    <script
+      src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs"
+      type="module"></script>
+
     <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Fabricio Hernández - Mobile Developer" />
@@ -197,77 +202,17 @@ const projects = [
       <div class="pixel-header">
         <div class="stars-bg"></div>
 
-        <!-- Battle Arena -->
-        <div class="battle-arena">
-          <!-- Desert Rock Formations -->
-          <div class="rock-formation rock-left"></div>
-          <div class="rock-formation rock-right"></div>
-
-          <div class="arena-floor"></div>
-
-          <!-- Player Character -->
-          <div class="player-fighter">
-            <div class="fighter-sprite">
-              <div class="head"></div>
-              <div class="body"></div>
-              <div class="arm left punch"></div>
-              <div class="arm right punch"></div>
-              <div class="leg left"></div>
-              <div class="leg right"></div>
-            </div>
-            <div class="fighter-shadow"></div>
-            <div class="health-bar player-health">
-              <div class="health-label">FABRICIO</div>
-              <div class="health-fill"></div>
-            </div>
-          </div>
-
-          <!-- Code Enemy -->
-          <div class="code-enemy">
-            <div class="enemy-body">
-              <div class="enemy-screen">
-                <div class="code-line"></div>
-                <div class="code-line"></div>
-                <div class="code-line"></div>
-                <div class="code-line error"></div>
-              </div>
-              <div class="enemy-eyes">
-                <div class="eye left"></div>
-                <div class="eye right"></div>
-              </div>
-            </div>
-            <div class="enemy-shadow"></div>
-            <div class="health-bar enemy-health">
-              <div class="health-label">BUG BOSS</div>
-              <div class="health-fill"></div>
-            </div>
-          </div>
-
-          <!-- Battle Effects -->
-          <div class="battle-effects">
-            <!-- Kunai attacks from player -->
-            <div class="kunai kunai-1">🗡️</div>
-            <div class="kunai kunai-2">🗡️</div>
-            <div class="kunai kunai-3">🗡️</div>
-
-            <!-- Amaterasu flames from enemy -->
-            <div class="amaterasu">🔥</div>
-            <div class="amaterasu-flame flame-1">🔥</div>
-            <div class="amaterasu-flame flame-2">🔥</div>
-            <div class="amaterasu-flame flame-3">🔥</div>
-
-            <!-- Rasenshuriken from player -->
-            <div class="rasenshuriken">🌀⭐</div>
-
-            <div class="hit-effect"></div>
-            <div class="code-particle">{}</div>
-            <div class="code-particle">[ ]</div>
-            <div class="code-particle">&lt;/&gt;</div>
-            <div class="code-particle">( )</div>
-          </div>
-
-          <!-- VS Badge -->
-          <div class="vs-badge">VS</div>
+        <!-- Lottie Ramen Animation -->
+        <div class="ramen-animation">
+          <dotlottie-player
+            src="/src/assets/Ramen.lottie"
+            background="transparent"
+            speed="1"
+            style="width: 200px; height: 200px;"
+            loop
+            autoplay
+          >
+          </dotlottie-player>
         </div>
 
         <div class="container">
@@ -302,22 +247,6 @@ const projects = [
                     <span>🗡️ View Jutsu</span>
                   </a>
                 </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Health/Chakra bars -->
-          <div class="status-bars">
-            <div class="status-bar">
-              <span class="bar-label">⚡ CHAKRA (Energy Level)</span>
-              <div class="bar health">
-                <div class="bar-fill" style="width: 100%"></div>
-              </div>
-            </div>
-            <div class="status-bar">
-              <span class="bar-label">🌀 NINE-TAILS MODE (Power)</span>
-              <div class="bar mana">
-                <div class="bar-fill" style="width: 95%"></div>
               </div>
             </div>
           </div>
@@ -655,6 +584,30 @@ const projects = [
     100% {
       opacity: 0.8;
     }
+  }
+
+  .ramen-animation {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    z-index: 10;
+    filter: drop-shadow(0 0 20px rgba(255, 107, 53, 0.3));
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .ramen-animation:hover {
+    filter: drop-shadow(0 0 30px rgba(255, 165, 0, 0.5));
+    transform: scale(1.1);
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
     50% {
       opacity: 1;
     }
@@ -667,7 +620,7 @@ const projects = [
     justify-content: center;
     position: relative;
     z-index: 1;
-    margin-top: 420px;
+    margin-top: 200px;
     width: 100%;
     padding: 2rem 0;
   }
